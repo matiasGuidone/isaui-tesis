@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
+    <PackageReference Include="MySqlConnector" Version="0.69.5" />
   </ItemGroup>
 
   <ItemGroup>
