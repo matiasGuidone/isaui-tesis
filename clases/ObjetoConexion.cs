@@ -6,11 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Data;
+using System.Reflection;
+using MySql.Data.MySqlClient;
 
 public class ObjetoConexion<T> {
    
         internal Conexion Conexion { get;set; }
-         
+         oObjeto tipo;
+         public ObjetoConexion(oObjeto t){
+            this.tipo = t;
+            this.Conexion= new Conexion();
+         }
  
         // private ControlAlumnos({ get;set; })
         // {
@@ -27,9 +33,9 @@ public class ObjetoConexion<T> {
         //             instance = new this();
         //         return instance;
         //     }
-        // }
+        // } 
 
-        public List<T> SearchAll(oObjeto tipo)
+        public List<T> SearchAll()
         {
             // Type myType = objeto.GetType();
             // IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
@@ -50,17 +56,41 @@ public class ObjetoConexion<T> {
 
         public void Insert(oObjeto objeto)
         {	
-            // Type myType = objeto.GetType();
-            // IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-            // String consulta = $"INSERT INTO {objeto.GetType()} ( ";
-            //     foreach (PropertyInfo prop in props)
-            //     {
-            //         object propValue = prop.GetValue(objeto, null);
-            //         consulta += $" {objeto.GetType()} ";
-            //         // Do something with propValue
-            //     }
+            //Type myType = objeto.GetType();
+
+            // Lista de propiedades del objeto que recobe por parametro
+            IList<PropertyInfo> props = new List<PropertyInfo>(objeto.GetType().GetProperties());
+            // inicilizar la lista de parametros para la consutla de insercion
+            List<MySqlParameter> param = new List<MySqlParameter>();
+            //cadenas de consulta 
+            String consulta = $"INSERT INTO {objeto.GetType()} ( ";
+            String valores = " VALUES (";
+            // recorre las propiedades del objeto
+                foreach (PropertyInfo prop in props)
+                {
+                    if (prop.Name != "ID"){
+                    object propValue = prop.GetValue(objeto, null);
+                    param.Add(new MySqlParameter (prop.Name ,propValue ));
+
+                    consulta += $" {prop.Name} ,";
+                    valores += $" ?{prop.Name} ,";
+                    // Do something with propValue
+                    }
+                   
+                }
+                // cada vez que finalize hacemos un substring de la ultima coma para cerrar la consulta
+                consulta = consulta.Substring(0,consulta.Length-1) +" )";
+                 valores = valores.Substring(0,valores.Length-1) +" )";
+
+                // Unimos consulta y valores
+
+                consulta = consulta + valores;
+
+                Conexion.ConsultaParametros(consulta, param);
+
+                
             //                   $"(nombre, apellido, nroDocumento, email, celular) VALUES (@NOMBRE, @APELLIDO, @NRODOCUMENTO, @EMAIL, @CELULAR)";
-        	// List<NpgsqlParameter> param =new List<NpgsqlParameter>();
+        	// List<pgsqlParameter> param =new List<NpgsqlParameter>();
         	// param.Add(new NpgsqlParameter ("NOMBRE",parametro .Nombre ));
         	// param.Add(new NpgsqlParameter ("APELLIDO",parametro .Apellido  ));
         	// param.Add(new NpgsqlParameter ("NRODOCUMENTO",parametro .NroDocumento  ));

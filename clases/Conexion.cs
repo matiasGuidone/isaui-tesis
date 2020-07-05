@@ -36,7 +36,7 @@ using MySql.Data.MySqlClient;
 
             }
             return ""; */
-			return "datasource=127.0.0.1;port=3306;username=root;password=;database=test;";
+			return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;";
         }
 
 		public Conexion()
