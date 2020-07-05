@@ -25,7 +25,7 @@ using MySql.Data.MySqlClient;
 
         private static string cadena()
         {
-            XmlTextReader reader = new XmlTextReader("./config_.xml");
+           /*  XmlTextReader reader = new XmlTextReader("./config_.xml");
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "postgresql")
@@ -35,7 +35,8 @@ using MySql.Data.MySqlClient;
                 }
 
             }
-            return "";
+            return ""; */
+			return "datasource=127.0.0.1;port=3306;username=root;password=;database=test;";
         }
 
 		public Conexion()

@@ -26,6 +26,8 @@ namespace isaui_tesis.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            ObjetoConexion<docente> cone = new ObjetoConexion<docente>();
+            List<docente> docentes = cone.SearchAll(new docente());
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

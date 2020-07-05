@@ -4,11 +4,15 @@
 //Consultas con filtros
 using System;
 using System.Collections.Generic;
-public interface ObjetoConexion {
+using System.Collections;
+using System.Data;
+
+public class ObjetoConexion<T> {
    
         internal Conexion Conexion { get;set; }
-        
-        // private ControlAlumnos()
+         
+ 
+        // private ControlAlumnos({ get;set; })
         // {
         //     Con = new ConexionPg();
         //     Alumnos = new List<Alumno>();
@@ -25,7 +29,7 @@ public interface ObjetoConexion {
         //     }
         // }
 
-        public List<oObjeto> SearchAll(oObjeto objeto)
+        public List<T> SearchAll(oObjeto tipo)
         {
             // Type myType = objeto.GetType();
             // IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
@@ -36,9 +40,9 @@ public interface ObjetoConexion {
 
             //     // Do something with propValue
             // }
-        	string consulta = $"SELECT * FROM {objeto.GetType()} ORDER BY codalumno ASC";
-            var temp = new List<oObjeto>();
-            return (List<oObjeto>)Conexion.consultaList<oObjeto>(consulta);
+        	string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
+             
+            return (List<T>)Conexion.consultaList<T>(consulta);
             // this.Alumnos  = temAlumno;
             // return Instance.Con.consultaDataTable(consulta);
         }
@@ -82,6 +86,8 @@ public interface ObjetoConexion {
         }
          public void Delete(int parametro)
         {
+
+           
             // String consulta = "DELETE FROM \"ISAUI\".alumno WHERE codalumno = @CODALUMNO";
             // List<NpgsqlParameter> param = new List<NpgsqlParameter>();
             // param.Add(new NpgsqlParameter("CODALUMNO", parametro));
