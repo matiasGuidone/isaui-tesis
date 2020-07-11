@@ -1,0 +1,127 @@
+<div *ngIf="tipo == 1">
+    <p class="p2">
+       {{title}}<br/><br/>
+       {{message}}<br/><br/>
+<button type="button" class="btn btn-info" (click)="save()">Aceptar</button>
+ <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button></p>
+ </div>
+<div *ngIf="tipo == 2">
+    <p class="p2">
+       {{title}}<br/><br/>
+       {{message}}<br/><br/>
+
+       <button type="button" class="btn btn-primary" (click)="save()">Aceptar</button></p>
+</div> 
+<div *ngIf="tipo == 3" >
+<form class="form-horizontal"  [formGroup]="formGroup">
+    <p class="p3">
+    {{title}}<br/><br/>
+    <a *ngFor="let par of parametros" >
+        <div *ngIf="par.tipo != 'id'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
+              </div>  
+         <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="text" value="{{par.valor}}" />  
+        </div>
+    </div>
+       </a>
+       <button type="button" class="btn btn-info" (click)="guardar()">Guardar</button>
+       <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button>
+    </p>
+</form> 
+</div>
+<style>
+button{ margin: 7px; width: 100px;}
+p.p2 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 5%;
+  margin-right: 5%;
+  top: -50px;
+  text-align:center;
+  z-index: 3000;
+  opacity: 1;
+  margin-top: 250px;
+  min-inline-size: -webkit-fill-available; 
+}
+p.p3 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align:center;
+  z-index: 3000;
+  top:-0px;
+  opacity: 1;
+  min-inline-size: -webkit-fill-available;
+   
+}
+@media (min-width: 768px) {
+p.p2 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 30%;
+  margin-right: 30%;
+  top: -50px;
+  z-index: 3000;
+  opacity: 1;
+  margin-top: 250px;
+  min-inline-size: -webkit-fill-available;
+}
+p.p3 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 30%;
+  margin-right: 30%;
+  z-index: 3000;
+  opacity: 1;
+  min-inline-size: -webkit-fill-available;
+}
+}
+@media (min-width: 1000px) {
+p.p2 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 36%;
+  margin-right: 36%;
+  top: -50px;
+  z-index: 3000;
+  opacity: 1;
+  margin-top: 250px;
+  min-inline-size: -webkit-fill-available;
+}
+p.p3 {
+  background-color: white;
+  border: 1px solid #707174;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  margin-left: 36%;
+  margin-right: 36%;
+  z-index: 3000;
+  opacity: 1;
+  min-inline-size: -webkit-fill-available;
+}
+}
+
+
+ 
+ 
+</style>
+  
