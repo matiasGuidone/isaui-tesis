@@ -27,7 +27,15 @@ export class MyModalComponent extends Modal {
     this.parametros = new Array();
     for (var i in inputs.parametros) {
       //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-      let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString());
+      let tp : string= "text";
+      if(Number.isInteger(inputs.parametros[i])){
+        tp = "number";
+      }
+      else if(inputs.parametros[i] instanceof Date){
+        tp = "date"
+      }
+      console.log(tp);
+      let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
       this.parametros.push(obj);
       this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
     }
@@ -57,8 +65,10 @@ export class MyModalComponent extends Modal {
 class ObjetoValor{
   tipo :string;
   valor : string;
-  constructor(tipo : string, valor : string){
+  tipoCampo : string;
+  constructor(tipo : string, valor : string, tipoCampo: string){
     this.tipo =tipo;
     this.valor = valor;
+    this.tipoCampo = tipoCampo;
   }
 }

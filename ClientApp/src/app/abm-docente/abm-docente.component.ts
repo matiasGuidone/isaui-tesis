@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 //ventanas modales
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
-import { Observable, ObservedValueOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { docente } from '../clases/docente';
  
 //ventanas modales
@@ -24,9 +24,15 @@ export class AbmDocenteComponent implements OnInit {
   ngOnInit() {
     this.cargarGrilla().subscribe( res => this.docentes = res);
   }
+
   editar(id: number){
-    this.abrirModal('Editar docente', '' , 3,   this.docentes.find( docente => docente.id === id )).subscribe(
-      obj => this.guardarDocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));
+    if (id !=0){
+    this.abrirModal('Editar docente', '' , 3, this.docentes.find( docente => docente.id === id )).subscribe(
+      obj => this.guardarDocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
+      else{
+        let doc : docente = new docente("0","","","");
+        this.abrirModal('Nueve docente', '' , 3, doc ).subscribe(
+          obj => this.guardarDocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
 }
 
   eliminar(id: number){
@@ -36,20 +42,27 @@ export class AbmDocenteComponent implements OnInit {
     return this.http.delete(this.baseUrl + 'api/Docente', { headers: headers })
       .subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res))});
   }
+  
 
-  actualizar(){
-    return this.router.navigate(["/abm-docente"]);
-  }
 
-  //ventanas modales
+
+
+ //ventanas modales
   abrirModal(titulo: string, mensaje: string, tipo: number, docente:any): Observable<any> {
     const modalRef = this.modalService.open(MyModalComponent, { title: titulo, message: mensaje, tipo: tipo , parametros : docente });
     return modalRef.onResult();
   }
+
   guardarDocente(obj) : Observable<docente>{
+        if(+obj.id != 0){
         let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-        return this.http.put<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );
+        return this.http.put<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );}
+        else{
+          let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni);
+          let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+          return this.http.post<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );
+        }
   }
 
   cargarGrilla() : Observable<docente[]>{

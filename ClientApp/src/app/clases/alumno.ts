@@ -1,4 +1,4 @@
-export class docente{
+export class alumno{
     id : number;
     nombre : string;
     apellido : string;

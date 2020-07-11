@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AbmDocenteComponent } from './abm-docente/abm-docente.component';
 import { MyModalComponent } from './modal/MyModalComponent';
 import { ModalServiceModule } from './modal/modal-service.module';
+import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ModalServiceModule } from './modal/modal-service.module';
     CounterComponent,
     FetchDataComponent,
     AbmDocenteComponent,
+    AbmAlumnoComponent,
     MyModalComponent
   ],
   entryComponents: [MyModalComponent],
@@ -35,6 +37,7 @@ import { ModalServiceModule } from './modal/modal-service.module';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'abm-docente', component: AbmDocenteComponent },
+      { path: 'abm-alumno', component: AbmAlumnoComponent },
     ])
   ],
   providers: [],
