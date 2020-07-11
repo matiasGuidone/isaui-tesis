@@ -124,7 +124,7 @@ public class ObjetoConexion<T> {
                    
                 }
                 // cada vez que finalize hacemos un substring de la ultima coma para cerrar la consulta
-                consulta = consulta.Substring(0,consulta.Length-1) +" WHERE ID = "+ objeto.ID;
+                consulta = consulta.Substring(0,consulta.Length-1) +" WHERE ID = "+ objeto.Id;
                 // valores = valores.Substring(0,valores.Length-1) +" )";
 
                 // Unimos consulta y valores
@@ -140,7 +140,7 @@ public class ObjetoConexion<T> {
             if (param != null){
                 String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE ID = ?ID";
                 List<MySqlParameter> parametro = new List<MySqlParameter>();
-                parametro.Add(new MySqlParameter("ID", param.ID));
+                parametro.Add(new MySqlParameter("ID", param.Id));
                 Conexion.ConsultaParametros(consulta, parametro);
             }
             else {

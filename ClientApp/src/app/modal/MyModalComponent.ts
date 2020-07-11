@@ -1,6 +1,7 @@
  import { Component } from '@angular/core';
 import { Modal } from './models/modal.model';
 import {  FormGroup, FormControl, Validators} from '@angular/forms';
+import { ModalService } from './modal-service.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class MyModalComponent extends Modal {
   parametros : any[];
   formGroup: FormGroup ;
   objetoIn: any;
-  constructor(){
+  constructor(private modalService: ModalService){
     super();
     this.formGroup = new FormGroup({});
 
@@ -47,8 +48,8 @@ export class MyModalComponent extends Modal {
 
   guardar(): any {
     let objeto = Object.assign({}, this.formGroup.value);
-    this.close('saving');
-    return objeto;
+    this.close(objeto); 
+    return true;
    }
 
 }

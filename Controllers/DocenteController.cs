@@ -25,7 +25,7 @@ using Microsoft.AspNetCore.Mvc;
 
         // PUT: api/ControladorAvisos/5
         [HttpPut]
-        public ActionResult<docente> Put( [FromBody] docente docente)
+        public ActionResult<docente> Put([FromBody] docente docente)
         {
              
                 ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
