@@ -12,12 +12,12 @@ using MySql.Data.MySqlClient;
 public class ObjetoConexion<T> {
    
         internal Conexion Conexion { get;set; }
-         oObjeto tipo;
+         public oObjeto tipo;
          public ObjetoConexion(oObjeto t){
             this.tipo = t;
             this.Conexion= new Conexion();
          }
- 
+        
         // private ControlAlumnos({ get;set; })
         // {
         //     Con = new ConexionPg();

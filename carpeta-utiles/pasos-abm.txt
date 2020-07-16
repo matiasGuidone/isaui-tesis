@@ -1,0 +1,12 @@
+
+Hacer un ABM
+
+- Hacer la entidad con los nombres de columnas de la tabla que hereda de oObjeto (CSHARP)
+- Hacer la clase conexion que hereda de ObjetoConexion (CSHARP)
+- Hacer el Controller con los métodos de POST-PUT-GET-DELETE (CSHARP)
+- Hacer el front con angular 
+  Componente
+    - copiar y modificar la plantilla html
+    - copiar y modificar el componente typescript
+  Crear la clase de entidad con el constructor que 
+  recibe solo strings como parámetros (esto es para que sea genérico la modal del abm)

@@ -17,8 +17,8 @@ using Microsoft.AspNetCore.Mvc;
         [HttpPost]
         public ActionResult<alumno> Index([FromBody] alumno alumno )
         {
-             ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-             cone.Insert(alumno);
+             //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
+             AlumnoConexion<alumno>.Instance.Insert(alumno);
              return Json("Guardado exitoso");
              
         }
@@ -28,18 +28,18 @@ using Microsoft.AspNetCore.Mvc;
         public ActionResult<alumno> Put([FromBody] alumno alumno)
         {
              
-                ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-                cone.Update(alumno);
+                //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
+                AlumnoConexion<alumno>.Instance.Update(alumno);
                 return Json("Guardado exitoso");
              
         }
 
-        // DELETE: api/ApiWithActions/5
+      
         [HttpDelete]
         public ActionResult Delete([FromHeader]string id)
         {
-             ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-             cone.Delete(Convert.ToInt32(id));
+             //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
+             AlumnoConexion<alumno>.Instance.Delete(Convert.ToInt32(id));
              return Json("registro eliminado");
                 // ControlTablasAvisos.Instance.Delete(id);
              
@@ -47,10 +47,16 @@ using Microsoft.AspNetCore.Mvc;
         [HttpGet]
         public IEnumerable<alumno> Getalumnos() 
         {
-            ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-            return cone.SearchAll();
+            //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
+            return AlumnoConexion<alumno>.Instance.SearchAll();
         }
 
-        
+         // GET: api/ApiWithActions/5
+        [HttpGet("{id}")]
+        public alumno Getalumno(int id) 
+        {
+            //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
+            return AlumnoConexion<alumno>.Instance.SearchId(id);
+        }
     }
  
