@@ -1,7 +1,9 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Modal } from './models/modal.model';
-import {  FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
+import { Router } from '@angular/router';
+import Nodo from '../clases/Nodo';
 
 
 @Component({
@@ -11,38 +13,38 @@ export class MyModalComponent extends Modal {
   title: string;
   message: string;
   tipo: number;
-  parametros : any[];
-  formGroup: FormGroup ;
+  parametros: any[];
+  formGroup: FormGroup;
   objetoIn: any;
-  constructor(private modalService: ModalService){
+  constructor(private modalService: ModalService, private router : Router) {
     super();
     this.formGroup = new FormGroup({});
-
+    
   }
   onInjectInputs(inputs): void {
     this.title = inputs.title;
     this.message = inputs.message;
     this.tipo = inputs.tipo;
-    if (inputs.parametros !=null && inputs.parametros != undefined){
-    this.parametros = new Array();
-    for (var i in inputs.parametros) {
-      //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-      let tp : string= "text";
-      if(Number.isInteger(inputs.parametros[i])){
-        tp = "number";
+    if (inputs.parametros != null && inputs.parametros != undefined) {
+      this.parametros = new Array();
+      for (var i in inputs.parametros) {
+        //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
+        let tp: string = "text";
+        if (Number.isInteger(inputs.parametros[i])) {
+          tp = "number";
+        }
+        else if (inputs.parametros[i] instanceof Date) {
+          tp = "date"
+        }
+        
+        let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
+        this.parametros.push(obj); 
+        this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
       }
-      else if(inputs.parametros[i] instanceof Date){
-        tp = "date"
-      }
-      console.log(tp);
-      let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
-      this.parametros.push(obj);
-      this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
+      this.objetoIn = inputs.parametros;
+
     }
-     this.objetoIn =  inputs.parametros;
-  
   }
-}
 
   save(): boolean {
     this.close('saving');
@@ -56,18 +58,29 @@ export class MyModalComponent extends Modal {
 
   guardar(): any {
     let objeto = Object.assign({}, this.formGroup.value);
-    this.close(objeto); 
+    this.close(objeto);
     return true;
-   }
+  }
+
+  abrirAbm(abm: string, actual:string){
+    let ruta = "abm-"+abm.substr(2);
+    let objeto = Object.assign({}, this.formGroup.value);
+    objeto.name = actual;
+    if(this.modalService.listAbm == null ||this.modalService.listAbm ==undefined){
+    this.modalService.listAbm = new Nodo(objeto);}
+    else{ let nodo = new Nodo(objeto);nodo.setNext(this.modalService.listAbm);this.modalService.listAbm = nodo;}
+    this.router.navigate([ruta]);
+    this.cancel();
+  }
 
 }
 
-class ObjetoValor{
-  tipo :string;
-  valor : string;
-  tipoCampo : string;
-  constructor(tipo : string, valor : string, tipoCampo: string){
-    this.tipo =tipo;
+class ObjetoValor {
+  tipo: string;
+  valor: string;
+  tipoCampo: string;
+  constructor(tipo: string, valor: string, tipoCampo: string) {
+    this.tipo = tipo;
     this.valor = valor;
     this.tipoCampo = tipoCampo;
   }

@@ -13,6 +13,10 @@ import { AbmDocenteComponent } from './abm-docente/abm-docente.component';
 import { MyModalComponent } from './modal/MyModalComponent';
 import { ModalServiceModule } from './modal/modal-service.module';
 import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
+import { AbmdomicilioComponent } from './abm-domicilio/abm-domicilio.component';
+import { AbmpaisComponent } from './abm-pais/abm-pais.component';
+import { AbmprovinciaComponent } from './abm-provincia/abm-provincia.component';
+import { AbmlocalidadComponent } from './abm-localidad/abm-localidad.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
     FetchDataComponent,
     AbmDocenteComponent,
     AbmAlumnoComponent,
+    AbmpaisComponent,
+    AbmdomicilioComponent,
+    AbmprovinciaComponent,
+    AbmlocalidadComponent,
     MyModalComponent
   ],
   entryComponents: [MyModalComponent],
@@ -38,6 +46,10 @@ import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'abm-docente', component: AbmDocenteComponent },
       { path: 'abm-alumno', component: AbmAlumnoComponent },
+      { path: 'abm-domicilio', component: AbmdomicilioComponent },
+      { path: 'abm-pais', component: AbmpaisComponent },
+      { path: 'abm-provincia', component: AbmprovinciaComponent },
+      { path: 'abm-localidad', component: AbmlocalidadComponent },
     ])
   ],
   providers: [],

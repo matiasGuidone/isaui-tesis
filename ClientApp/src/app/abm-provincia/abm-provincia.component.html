@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <h3>Provincia</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Provincia</th>
+                <th scope="col">Pais</th> 
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let provincia of provincias">
+                <td>{{provincia.nombre}}</td>
+                <td>{{provincia.idpais}}</td> 
+                <td><button class="btn btn-outline-success" title="Editar" (click)="editar(provincia.id)" ><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-outline-danger" title="Eliminar" (click)="eliminar(provincia.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(provincia.id)"><span class="fa fa-check"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+</div>
+

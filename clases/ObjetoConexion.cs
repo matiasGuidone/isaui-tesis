@@ -68,7 +68,7 @@ public class ObjetoConexion<T> {
             // recorre las propiedades del objeto
                 foreach (PropertyInfo prop in props)
                 {
-                    if (prop.Name != "ID"){
+                    if (prop.Name != "Id"){
                     object propValue = prop.GetValue(objeto, null);
                     param.Add(new MySqlParameter (prop.Name ,propValue ));
 
@@ -113,7 +113,7 @@ public class ObjetoConexion<T> {
             // recorre las propiedades del objeto
                 foreach (PropertyInfo prop in props)
                 {
-                    if (prop.Name != "ID"){
+                    if (prop.Name != "Id"){
                     object propValue = prop.GetValue(objeto, null);
                     param.Add(new MySqlParameter (prop.Name ,propValue ));
 
@@ -134,28 +134,28 @@ public class ObjetoConexion<T> {
                 Conexion.ConsultaParametros(consulta, param);
 
         }
-         public void Delete(int ID, oObjeto param = null)
+         public void Delete(int Id, oObjeto param = null)
         {
             //si el objeto no es null se elimina ese objeto
             if (param != null){
-                String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE ID = ?ID";
+                String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE Id = ?Id";
                 List<MySqlParameter> parametro = new List<MySqlParameter>();
-                parametro.Add(new MySqlParameter("ID", param.Id));
+                parametro.Add(new MySqlParameter("Id", param.Id));
                 Conexion.ConsultaParametros(consulta, parametro);
             }
             else {
                 //si el objeto es nulo se elimina por ID
-                String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE ID = ?ID";
+                String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE Id = ?Id";
                 List<MySqlParameter> parametro = new List<MySqlParameter>();
-                parametro.Add(new MySqlParameter("ID", ID));
+                parametro.Add(new MySqlParameter("Id", Id));
                 Conexion.ConsultaParametros(consulta, parametro);
             }
            
         }
 
-        public T SearchId(int ID) {
+        public T SearchId(int Id) {
             // oObjeto retorna;
-             string consulta = $"SELECT * FROM {this.tipo.GetType()} Where ID = {ID}";
+             string consulta = $"SELECT * FROM {this.tipo.GetType()} Where ID = {Id}";
              var temp = new List<T>();
              temp = (List<T>)Conexion.consultaList<T>(consulta);
              return temp[0];

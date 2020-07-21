@@ -12,7 +12,7 @@
                 return instance;
             }
         } 
-        private AlumnoConexion(oObjeto aux): base(aux){ 
+        private AlumnoConexion(alumno aux): base(aux){ 
             
         }
         
