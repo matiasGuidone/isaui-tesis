@@ -5,6 +5,8 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Documento</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Telefono</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -13,6 +15,8 @@
                 <td>{{docente.nombre}}</td>
                 <td>{{docente.apellido}}</td>
                 <td>{{docente.dni}}</td>
+                <td>{{docente.correo}}</td>
+                <td>{{docente.telefono}}</td>
                 <td><button class="btn btn-outline-success" (click)="editar(docente.id)" >Editar</button><button class="btn btn-outline-danger" (click)="eliminar(docente.id)">Eliminar</button></td>
             </tr>
         </tbody>

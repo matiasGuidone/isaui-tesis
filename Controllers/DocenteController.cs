@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //apunta docente.cs
 
     public class DocenteController : Controller
     {
@@ -51,6 +51,11 @@ using Microsoft.AspNetCore.Mvc;
             return cone.SearchAll();
         }
 
-        
+      /*   [HttpGet]
+        public docente getByID([FromHeader]int id)
+        {
+            ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+            return cone.SearchId(id);
+        } */
     }
  

@@ -30,8 +30,8 @@ export class AbmDocenteComponent implements OnInit {
     this.abrirModal('Editar docente', '' , 3, this.docentes.find( docente => docente.id === id )).subscribe(
       obj => this.guardarDocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
       else{
-        let doc : docente = new docente("0","","","");
-        this.abrirModal('Nueve docente', '' , 3, doc ).subscribe(
+        let doc : docente = new docente("0","","","", "","","");
+        this.abrirModal('Nueve Docente', '' , 3, doc ).subscribe(
           obj => this.guardarDocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
 }
 
@@ -55,11 +55,11 @@ export class AbmDocenteComponent implements OnInit {
 
   guardarDocente(obj) : Observable<docente>{
         if(+obj.id != 0){
-        let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni);
+        let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni, obj.correro, obj.telefono, obj.iddomicio);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http.put<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );}
         else{
-          let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni);
+          let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni,  obj.correro, obj.telefono, obj.iddomicio);
           let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
           return this.http.post<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );
         }
