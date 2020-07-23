@@ -5,10 +5,10 @@ export class docente{
     dni : string;
     correo: string;
     telefono: string;
-    //idusuario: number;
-    //iddomicilio: number;
+    idusuario: number;
+    iddomicilio: number;
     
-    constructor(id: string, nombre:string, apellido:string, dni:string, correo:string, telefono:string, iddomicilio:string){
+    constructor(id: string, nombre:string, apellido:string, dni:string, correo:string, telefono:string, iddomicilio:string, idusuario:string){
         //el orden de os parametros afecta la vista de los input en el modal
         this.nombre = nombre;
         this.apellido =  apellido;
@@ -16,7 +16,7 @@ export class docente{
         this.id = +id; // formateo a number el string // parseInt(valor)
         this.correo=correo;
         this.telefono=telefono;
-
-      //  this.iddomicilio=+iddomicilio;
+        this.idusuario=+idusuario;
+        this.iddomicilio=+iddomicilio;
     }
 }

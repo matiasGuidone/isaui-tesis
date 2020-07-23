@@ -17,7 +17,11 @@
                 <td>{{docente.dni}}</td>
                 <td>{{docente.correo}}</td>
                 <td>{{docente.telefono}}</td>
-                <td><button class="btn btn-outline-success" (click)="editar(docente.id)" >Editar</button><button class="btn btn-outline-danger" (click)="eliminar(docente.id)">Eliminar</button></td>
+                <td>
+                    <button class="btn btn-outline-success" (click)="editar(docente.id)" ><span class="fa fa-edit"></span>Editar</button>
+                    <button class="btn btn-outline-danger" (click)="eliminar(docente.id)"><span class="fa fa-trash-alt"></span>Eliminar</button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(docente.id)"><span class="fa fa-check"></span></button>
+                </td>
             </tr>
         </tbody>
     </table>

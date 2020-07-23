@@ -51,11 +51,10 @@ using Microsoft.AspNetCore.Mvc;
             return cone.SearchAll();
         }
 
-      /*   [HttpGet]
+         [HttpGet("{id}")]
         public docente getByID([FromHeader]int id)
         {
             ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
             return cone.SearchId(id);
-        } */
+        }  
     }
- 
