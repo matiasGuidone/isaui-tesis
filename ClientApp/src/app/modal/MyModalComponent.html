@@ -17,14 +17,24 @@
     <p class="p3">
     {{title}}<br/><br/>
     <a *ngFor="let par of parametros" >
-        <div *ngIf="par.tipo != 'id'">
+        <!--campos con foráneas-->
+        <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0)">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
+                </div>  
+          <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}" value="{{par.valor}}"/> 
+          <button title="{{par.tipo}}" id="btn-abm" class="btn btn-info" (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button> 
+          </div>
+        </div>
+        <div *ngIf="par.tipo != 'id' && !par.tipo.startsWith('id',0)">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
               </div>  
          <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}" value="{{par.valor}}" />  
         </div>
-    </div>
+        </div>
        </a>
        <button type="button" class="btn btn-info" (click)="guardar()">Guardar</button>
        <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button>
@@ -119,7 +129,11 @@ p.p3 {
   min-inline-size: -webkit-fill-available;
 }
 }
-
+#btn-abm{
+  width: auto;
+  height: 38px;
+  margin:0;
+}
 
  
  

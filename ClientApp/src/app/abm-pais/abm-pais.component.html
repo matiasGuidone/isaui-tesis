@@ -1,0 +1,21 @@
+<div class="table-responsive">
+    <h3>Pais</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Pais</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let pais of paises">
+                <td>{{pais.nombre}}</td>
+                <td><button class="btn btn-outline-success" title="Editar" (click)="editar(pais.id)" ><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-outline-danger" title="Eliminar" (click)="eliminar(pais.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(pais.id)"><span class="fa fa-check"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+</div>
+

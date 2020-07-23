@@ -11,10 +11,11 @@ import {
 import { Modal } from './models/modal.model';
 import { ModalRef } from './models/modal-ref.model';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
+import Nodo from '../clases/Nodo';
 
 @Injectable()
 export class ModalService {
-
+  listAbm : Nodo;
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
 
