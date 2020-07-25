@@ -18,7 +18,6 @@ import { AbmpaisComponent } from './abm-pais/abm-pais.component';
 import { AbmprovinciaComponent } from './abm-provincia/abm-provincia.component';
 import { AbmlocalidadComponent } from './abm-localidad/abm-localidad.component';
 import { AbmCarreraComponent } from './abm-carrera/abm-carrera.component';
-
 import { AbmCursoComponent } from './abm-curso/abm-curso.component';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { AbmCursoComponent } from './abm-curso/abm-curso.component';
     AbmCarreraComponent,
     AbmCursoComponent,
     MyModalComponent
-
   ],
   entryComponents: [MyModalComponent],
   imports: [
