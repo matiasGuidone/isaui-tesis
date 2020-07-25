@@ -36,8 +36,11 @@ export class MyModalComponent extends Modal {
         else if (inputs.parametros[i] instanceof Date) {
           tp = "date"
         }
-        
-        let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
+        if (i.toString().startsWith('fecha',0)){
+          tp = "date";
+          inputs.parametros[i] = this.formatearFecha(inputs.parametros[i]);
+        }
+        let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString() , tp);
         this.parametros.push(obj); 
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
       }
@@ -53,13 +56,20 @@ export class MyModalComponent extends Modal {
 
   cancel(): boolean {
     this.dismiss('canceling');
+    if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
+      this.modalService.listAbm = null;
+    }
     return false;
   }
 
   guardar(): any {
     let objeto = Object.assign({}, this.formGroup.value);
     this.close(objeto);
+    if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
+      this.modalService.listAbm = null;
+    }
     return true;
+    
   }
 
   abrirAbm(abm: string, actual:string){
@@ -70,9 +80,21 @@ export class MyModalComponent extends Modal {
     this.modalService.listAbm = new Nodo(objeto);}
     else{ let nodo = new Nodo(objeto);nodo.setNext(this.modalService.listAbm);this.modalService.listAbm = nodo;}
     this.router.navigate([ruta]);
-    this.cancel();
+    //this.cancel();
+    this.dismiss('canceling');
   }
 
+  formatearFecha(f: any): string {
+    if (f instanceof Date){
+      f.setDate(f.getDate() +1); 
+    }
+    let fecha: Date = new Date(f);
+    let mes: string = (fecha.getMonth() + 1).toString();
+    let dia: string = (fecha.getDate()).toString();
+    if (mes.length < 2) { mes = '0' + mes; }
+    if (dia.length < 2) { dia = '0' + dia; }
+    return (fecha.getFullYear() + '-' + mes + '-' + dia);
+}
 }
 
 class ObjetoValor {
