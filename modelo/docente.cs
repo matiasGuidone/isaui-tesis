@@ -18,8 +18,8 @@ public docente( DataRow dr){
     this.Dni = dr["dni"].ToString();
     this.Correo=dr["correo"].ToString();
     this.Telefono=dr["telefono"].ToString();
-    this.Iddomicilio=Convert.ToInt32(dr["iddomicilios"]);
-    this.Idusuario=Convert.ToInt32(dr["idusuarios"]);
+    this.Iddomicilio=Convert.ToInt32(dr["iddomicilio"]);
+    this.Idusuario=Convert.ToInt32(dr["idusuario"]);
 }
 
 

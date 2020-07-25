@@ -85,6 +85,7 @@ public class Conexion
     //para un insert o un update o un delete
     public Boolean ConsultaParametros(String consulta, List<MySqlParameter> param)
     {
+        try{
         MySqlCommand comando = new MySqlCommand();
         comando.CommandText = consulta;
         comando.Connection = this.conn;
@@ -96,7 +97,8 @@ public class Conexion
         comando.ExecuteNonQuery();
         conn.Close();
         return true;
-
+ }
+        catch (System.InvalidOperationException e) { conn.Close(); return false; }
     }
 
 
