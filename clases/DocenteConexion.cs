@@ -11,7 +11,7 @@ using System.Collections.Generic;
             get
             {
                 if (instance == null)
-                    instance = new DocenteConexion<T>(new alumno());
+                    instance = new DocenteConexion<T>(new docente());
                 return instance;
             }
         } 

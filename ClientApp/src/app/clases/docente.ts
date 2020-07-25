@@ -16,7 +16,8 @@ export class docente{
         this.id = +id; // formateo a number el string // parseInt(valor)
         this.correo=correo;
         this.telefono=telefono;
-        this.idusuario=+idusuario;
         this.iddomicilio=+iddomicilio;
+        this.idusuario=+idusuario;
     }
 }
+        

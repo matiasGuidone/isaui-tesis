@@ -20,7 +20,8 @@ import { docente } from '../clases/docente';
 export class AbmDocenteComponent implements OnInit {
 
   docentes: docente[];
-  isAdd : boolean = false;
+  isAdd : boolean = false; //pocua
+
   constructor( private location: Location, private modalService:ModalService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { }
 
   ngOnInit() {
@@ -61,6 +62,7 @@ export class AbmDocenteComponent implements OnInit {
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http.put<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );}
         else{
+          this.isAdd = true;
           let param : docente = new docente(obj.id, obj.nombre, obj.apellido, obj.dni,  obj.correro, obj.telefono, obj.iddomicio, obj.idususairo);
           let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
           return this.http.post<docente>(this.baseUrl + 'api/Docente', param, {headers:headers} );
