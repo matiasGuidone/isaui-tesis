@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">isaui_tesis</a>
+      <a class="navbar-brand" [routerLink]="['/']"><img class="custom-logo-link" style="width:160px;" [src]="'/assets/Logo.png'" alt="ISAUI"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,7 +20,7 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-          <li
+          <!-- <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -31,20 +31,43 @@
             <a class="nav-link text-dark" [routerLink]="['/counter']"
               >Counter</a
             >
-          </li>
+          </li> -->
           <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
               >Fetch data</a
             >
           </li> -->
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/abm-docente']"
-              >Docentes</a>
+            <a class="nav-link text-dark" [routerLink]="['/abm-alumno']">Alumnos</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/abm-alumno']"
-              >Alumnos</a>
+            <a class="nav-link text-dark" [routerLink]="['/abm-docente']">Docentes</a>
           </li>
+          <li class="nav-item dropdown" [routerLinkActive]="['link-active']" >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Alta-Baja-Modificación
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/abm-domicilio']">Domicilio</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/abm-pais']">Pais</a>
+              <a class="dropdown-item" [routerLink]="['/abm-provincia']">Provincia</a>
+              <a class="dropdown-item" [routerLink]="['/abm-localidad']">Localidad</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/abm-curso']">Cursos</a>
+            </div>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>Toggle dropdown</button>
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <button class="dropdown-item">Action - 1</button>
+                <button class="dropdown-item">Another Action</button>
+                <button class="dropdown-item">Something else is here</button>
+              </div>
+            </div>
+          </li> -->
+           
         </ul>
       </div>
     </div>

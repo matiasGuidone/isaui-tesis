@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
+@font-face {
+  font-family: lato-regular;
+  src: url(./assets/Lato-Regular.ttf);
+  }
+body{
+  font-family: lato-regular;
+}
 a {
   color: #0366d6;
 }
@@ -21,5 +28,5 @@ code {
   backdrop-filter: blur(6px);
 }
 .btn{
-  margin:5px;
+  margin:3px;
 }

@@ -19,8 +19,7 @@ import { alumno } from '../clases/alumno';
 })
 export class AbmAlumnoComponent implements OnInit {
 
-  alumnos: alumno[];
-  isAdd : boolean = false;
+  alumnos: alumno[]; 
 
   constructor( private location: Location, private modalService:ModalService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { 
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
@@ -66,12 +65,12 @@ export class AbmAlumnoComponent implements OnInit {
 
   guardaralumno(obj) : Observable<alumno>{
         if(+obj.id != 0){
-        let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.idalumno,  obj.idusuario);
+        let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio,  obj.idusuario);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http.put<alumno>(this.baseUrl + 'api/alumno', param, {headers:headers} );}
         else{
-          this.isAdd = true;
-          let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.idalumno, obj.idusuario);
+          
+          let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio, obj.idusuario);
           let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
           return this.http.post<alumno>(this.baseUrl + 'api/alumno', param, {headers:headers} );
         }
