@@ -23,7 +23,8 @@
               <div class="input-group-prepend">
                   <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
                 </div>  
-          <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}" value="{{par.valor}}"/> 
+          <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"  (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}"/>
+          <input style="width:40%;" disabled type="text" id="{{par.tipo}}-desc" /> 
           <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info" (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button> 
           </div>
         </div>

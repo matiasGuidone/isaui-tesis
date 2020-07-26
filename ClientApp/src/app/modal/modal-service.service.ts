@@ -4,6 +4,7 @@ import {
   ComponentFactory,
   ApplicationRef,
   ComponentRef,
+  Inject,
   Type
 } from '@angular/core';
 
@@ -12,6 +13,8 @@ import { Modal } from './models/modal.model';
 import { ModalRef } from './models/modal-ref.model';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
 import Nodo from '../clases/Nodo';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ModalService {
@@ -21,7 +24,8 @@ export class ModalService {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private appRef: ApplicationRef
+    private appRef: ApplicationRef,
+    private http: HttpClient, @Inject('BASE_URL') private baseUrl: string
   ) {
     this.setupModalContainerFactory();
   }
@@ -49,6 +53,10 @@ export class ModalService {
 
   private setupModalContainerFactory(): void {
     this.modalContainerFactory = this.componentFactoryResolver.resolveComponentFactory(ModalContainerComponent);
+  }
+  public getDescripcion(id: string, tabla :string) : Observable<any>{
+    const headers = new HttpHeaders({ });
+    return this.http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
   }
 
   
