@@ -102,7 +102,9 @@ export class MyModalComponent extends Modal {
   buscarDescripcion(desc : string, val:string){
     let par = desc.substr(2);
     let valor = "0";
-    try{ valor = document.getElementById("in-"+desc)['value'];document.getElementById(desc+'-desc')['value'] = "";}
+    try{ valor = document.getElementById("in-"+desc)['value'];
+    document.getElementById(desc+'-desc')['value'] = "";
+    this.formGroup.get(desc).setValue('');}
     catch(e){  valor = val;}
     this.modalService.getDescripcion(valor, par)
       .subscribe( 
@@ -111,9 +113,17 @@ export class MyModalComponent extends Modal {
   }
   cargarCampo(res:any, desc:string){
     for (var i in res) {
+      this.formGroup.get(desc).setValue(res['id']);
       document.getElementById(desc+'-desc')['value'] = res[i];
       break;
     }
+  }
+  isValidDesc(campo): boolean{
+    try{
+      if(document.getElementById(campo+'-desc')['value'] != '')
+      {this.formGroup.get(campo).setValue('');return true;}
+      else return false;
+    }catch(excep){this.formGroup.get(campo).setValue(''); return true;}
   }
   
 }

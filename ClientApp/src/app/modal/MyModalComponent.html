@@ -19,6 +19,8 @@
     <a *ngFor="let par of parametros" >
         <!--campos con foráneas-->
         <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0) ">
+          <div class="form-group"
+         [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                   <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
@@ -27,20 +29,39 @@
           <input style="width:40%;" disabled type="text" id="{{par.tipo}}-desc" /> 
           <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info" (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button> 
           </div>
+          <span  style="margin:2px;" class="help-block" *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors ">
+            <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
+              Campo erróneo
+            </span>
+          </span>
+          </div>
         </div>
 
         <div *ngIf="par.tipo != 'id' && !par.tipo.startsWith('id',0) ">
+          <div class="form-group"
+         [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
               </div>  
          <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}" value="{{par.valor}}" />  
         </div>
+        <span class="help-block" *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
+          <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
+            Campo erróneo
+          </span>
+        </span>
+        </div>
         </div>
        </a>
        <button type="button" class="btn btn-outline-danger" (click)="cancel()"><span class="fa fa-reply"></span>Cerrar</button>
-       <button type="button" class="btn btn-outline-success" (click)="guardar()"><span class="fa fa-save"></span>Guardar</button>
-       
+       <button type="button" [disabled]="!formGroup.valid" class="btn btn-outline-success" (click)="guardar()"><span class="fa fa-save"></span>Guardar</button>
+       <br />
+       <span class="help-block" *ngIf="!formGroup.valid">
+        <span style="color:#bd1818; margin:auto;">
+          Revise los campos
+        </span>
+      </span>
     </p>
 </form> 
 </div>
