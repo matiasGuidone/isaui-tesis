@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
 import { Router } from '@angular/router';
 import Nodo from '../clases/Nodo';
+ 
 
 
 @Component({
@@ -16,7 +17,7 @@ export class MyModalComponent extends Modal {
   parametros: any[];
   formGroup: FormGroup;
   objetoIn: any;
-  constructor(private modalService: ModalService, private router : Router) {
+  constructor( private modalService: ModalService, private router : Router) {
     super();
     this.formGroup = new FormGroup({});
     
@@ -43,6 +44,9 @@ export class MyModalComponent extends Modal {
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString() , tp);
         this.parametros.push(obj); 
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
+        if(obj.tipo.length > 2 && obj.tipo.startsWith('id',0)){
+          this.buscarDescripcion(i.toString(),inputs.parametros[i].toString());
+        }
       }
       this.objetoIn = inputs.parametros;
 
@@ -95,6 +99,33 @@ export class MyModalComponent extends Modal {
     if (dia.length < 2) { dia = '0' + dia; }
     return (fecha.getFullYear() + '-' + mes + '-' + dia);
 }
+  buscarDescripcion(desc : string, val:string){
+    let par = desc.substr(2);
+    let valor = "0";
+    try{ valor = document.getElementById("in-"+desc)['value'];
+    document.getElementById(desc+'-desc')['value'] = "";
+    this.formGroup.get(desc).setValue('');}
+    catch(e){  valor = val;}
+    this.modalService.getDescripcion(valor, par)
+      .subscribe( 
+        res => this.cargarCampo(res,desc));
+   
+  }
+  cargarCampo(res:any, desc:string){
+    for (var i in res) {
+      this.formGroup.get(desc).setValue(res['id']);
+      document.getElementById(desc+'-desc')['value'] = res[i];
+      break;
+    }
+  }
+  isValidDesc(campo): boolean{
+    try{
+      if(document.getElementById(campo+'-desc')['value'] != '')
+      {this.formGroup.get(campo).setValue('');return true;}
+      else return false;
+    }catch(excep){this.formGroup.get(campo).setValue(''); return true;}
+  }
+  
 }
 
 class ObjetoValor {

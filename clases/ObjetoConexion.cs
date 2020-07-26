@@ -158,7 +158,8 @@ public class ObjetoConexion<T> {
              string consulta = $"SELECT * FROM {this.tipo.GetType()} Where ID = {Id}";
              var temp = new List<T>();
              temp = (List<T>)Conexion.consultaList<T>(consulta);
-             return temp[0];
+             try{
+             return temp[0];}catch(System.ArgumentOutOfRangeException e){ return default(T); }
             // return retorna;
             //return null;
         }
