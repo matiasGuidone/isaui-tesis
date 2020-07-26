@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; //injectar
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -87,6 +87,24 @@ export class AbmDocenteComponent implements OnInit {
     this.modalService.listAbm.getData().iddocente = id; 
     this.location.back();
   }
+   // modelo back, front
+   // controlers (api)
+   // component vista
+  
+ //suscribir 
+
+   buscarDatoGrilla()/* : Observable<docente>[] */{
+    let dato = document.getElementById("dato")['value'];//Js
+    if(dato!=null)
+    {
+      const headers = new HttpHeaders({"dato": dato});
+     return this.http.get<docente[]>(this.baseUrl + 'api/docente', {headers:headers})
+     .subscribe( res => this.docentes = res)
+ 
+    }
+   
+  } 
+
 }
 
 

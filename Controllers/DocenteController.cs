@@ -44,10 +44,16 @@ public class DocenteController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<docente> Getdocentes()
+    public IEnumerable<docente> Getdocentes([FromHeader]string dato)
     {
         //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+        if(dato!=null)
+        {
+        return DocenteConexion<docente>.Instance.serchDniLastName(dato);
+        }
+        else
         return DocenteConexion<docente>.Instance.SearchAll();
+    
     }
 
     // GET: api/ApiWithActions/5
@@ -57,5 +63,8 @@ public class DocenteController : Controller
         //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
         return DocenteConexion<docente>.Instance.SearchId(id);
     }
+
+
+  
 }
 

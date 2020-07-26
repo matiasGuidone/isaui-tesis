@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
         public List<T> serchDniLastName(string dato)
         {
-            string consulta = $"SELECT * FROM {this.tipo.GetType()}";
+            string consulta = $"SELECT * FROM {this.tipo.GetType()} ";
             if(dato!=null)
             {
                 consulta+=$"WHERE dni LIKE '%{dato}%' OR nombre  LIKE '%{dato}%' OR apellido LIKE '%{dato}%'";

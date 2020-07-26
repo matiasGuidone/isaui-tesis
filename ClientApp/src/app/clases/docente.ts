@@ -19,5 +19,7 @@ export class docente{
         this.iddomicilio=+iddomicilio;
         this.idusuario=+idusuario;
     }
+    
+  
 }
         
