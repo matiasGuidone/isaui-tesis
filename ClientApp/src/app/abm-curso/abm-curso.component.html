@@ -5,7 +5,6 @@
             <tr>
                 <th scope="col">Curso</th>
                 <th scope="col">Nivel</th>
-                <th scope="col">Carrera</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -13,7 +12,6 @@
             <tr *ngFor = "let curso of cursos">
                 <td>{{curso.nombre}}</td>
                 <td>{{curso.nivel}}</td>
-                <td>{{curso.idcarrera}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(curso.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(curso.id)"><span class="fa fa-trash-alt"></span></button>
                     <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(curso.id)"><span class="fa fa-check"></span></button></td>

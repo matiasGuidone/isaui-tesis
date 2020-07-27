@@ -41,6 +41,9 @@ export class MyModalComponent extends Modal {
           tp = "date";
           inputs.parametros[i] = this.formatearFecha(inputs.parametros[i]);
         }
+        else if(i.toString().startsWith('codigo',0)){
+          tp = "password";
+        }
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString() , tp);
         this.parametros.push(obj); 
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
@@ -56,6 +59,10 @@ export class MyModalComponent extends Modal {
   save(): boolean {
     this.close('saving');
     return true;
+  }
+  cerrarModal(){
+    this.dismiss('canceling');
+    return false;
   }
 
   cancel(): boolean {

@@ -37,26 +37,27 @@
               >Fetch data</a
             >
           </li> -->
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/abm-alumno']">Alumnos</a>
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
+            
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/abm-docente']">Docentes</a>
-          </li>
+            
+          </li> -->
           <li class="nav-item dropdown" [routerLinkActive]="['link-active']" >
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Alta-Baja-Modificación
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/abm-usuario']">Usuario</a>
+              <a class="dropdown-item" [routerLink]="['/abm-docente']">Docentes</a>
+              <a class="dropdown-item" [routerLink]="['/abm-alumno']">Alumnos</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['/abm-curso']">Curso</a>
               <a class="dropdown-item" [routerLink]="['/abm-carrera']">Carrera</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" [routerLink]="['/abm-usuario']">Usuario</a>
-              <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['/abm-domicilio']">Domicilio</a>
-              <a class="dropdown-item" [routerLink]="['/abm-provincia']">Provincia</a>
               <a class="dropdown-item" [routerLink]="['/abm-localidad']">Localidad</a>
+              <a class="dropdown-item" [routerLink]="['/abm-provincia']">Provincia</a>
               <a class="dropdown-item" [routerLink]="['/abm-pais']">Pais</a> 
             </div>
           </li>

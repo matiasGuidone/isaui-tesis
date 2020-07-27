@@ -12,10 +12,12 @@
 
        <button type="button" class="btn btn-primary" (click)="save()">Aceptar</button></p>
 </div> 
-<div *ngIf="tipo == 3" >
-<form class="form-horizontal"  [formGroup]="formGroup">
-    <p class="p3">
-    {{title}}<br/><br/>
+<div *ngIf="tipo == 3">
+<form class="form-horizontal" [formGroup]="formGroup">
+    <p class="p3"  style="max-height: 100%; overflow-y: auto;">
+      <button type="button" style="width:17px;" class="close" (click)="cerrarModal()" aria-label="Cerrar">
+      <span aria-hidden="true">&times;</span>
+    </button><br />{{title}} <br /><br />
     <a *ngFor="let par of parametros" >
         <!--campos con foráneas-->
         <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0) ">
