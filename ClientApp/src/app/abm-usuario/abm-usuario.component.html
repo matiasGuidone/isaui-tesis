@@ -4,15 +4,13 @@
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Codigo ayuda</th>
-                <th scope="col">Correro</th>
+                <th scope="col">Correo</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor = "let usuario of usuarios">
                 <td>{{usuario.nombre}}</td>
-                <td>{{usuario.codigoayuda}}</td>
                 <td>{{usuario.correo}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(usuario.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(usuario.id)"><span class="fa fa-trash-alt"></span></button>
