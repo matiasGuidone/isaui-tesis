@@ -16,19 +16,32 @@ import { carrera } from '../clases/carrera';
 export class AbmCarreraComponent implements OnInit {
 
   carreras: carrera[];
-  constructor(private location: Location, private modalService:ModalService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { }
+  constructor(private location: Location, private modalService:ModalService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { 
+    if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
+      if(this.modalService.listAbm.getData().name == 'carrera'){
+        this.editar(this.modalService.listAbm.getData().id,this.modalService.listAbm.getData() ); 
+    }
+  }
+  }
 
   ngOnInit() {
     this.cargarGrilla().subscribe( res => this.carreras = res);
   }
 
-  editar(id: number){
-    if (id !=0){
-    this.abrirModal('Editar carrera', '' , 3, this.carreras.find(carrera=> carrera.id === id )).subscribe(
-      obj => this.guardarCarrera(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.carreras = res)));}
+  editar(id: number, obj:any){
+    if (obj != null && obj != undefined){
+      let car : carrera = new carrera(id.toString(),obj.nombre,obj.descripcion);
+      this.abrirModal('Editar carrera', 'carrera' , 3, car).subscribe(
+      obj => this.guardarCarrera(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.carreras = res)));
+    }
+    else if(id!=0)
+    {
+      this.abrirModal('Editar carrera', 'carrera' , 3, this.carreras.find( carrera => carrera.id === id )).subscribe(
+        obj => this.guardarCarrera(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.carreras = res)));
+    }
       else{
-        let doc : carrera = new carrera("0","","");
-        this.abrirModal('Nueve Carrera', '' , 3, doc ).subscribe(
+        let car : carrera = new carrera("0","","");
+        this.abrirModal('Nueve Carrera', 'carrera' , 3, car ).subscribe(
           obj => this.guardarCarrera(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.carreras = res)));}
 }
 

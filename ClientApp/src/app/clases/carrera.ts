@@ -4,9 +4,9 @@ export class carrera{
     descripcion : string;
     
     
-    constructor(id: string, nomb:string, des:string){
+    constructor(id: string, nombre:string, descripcion:string){
         this.id = +id;
-        this.nombre = nomb;
-        this.descripcion =  des;
+        this.nombre = nombre;
+        this.descripcion =  descripcion;
 }
 }
