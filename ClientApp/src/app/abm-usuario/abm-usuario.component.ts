@@ -77,6 +77,7 @@ export class AbmUsuarioComponent implements OnInit {
     const headers = new HttpHeaders({ });
     return this.http.get<usuario[]>(this.baseUrl + 'api/usuario', { headers: headers });
   }
+  
   seleccionar(id){
     let nodo = this.modalService.listAbm;
     while(nodo.getData().name=="usuario")
