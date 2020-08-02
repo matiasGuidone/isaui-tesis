@@ -7,9 +7,11 @@ export class docente{
     telefono: string;
     idusuario: number;
     iddomicilio: number;
+    legajo: number;
     
-    constructor(id: string, nombre:string, apellido:string, dni:string, correo:string, telefono:string, iddomicilio:string, idusuario:string){
+    constructor(id: string, legajo:string, nombre:string, apellido:string, dni:string, correo:string, telefono:string, iddomicilio:string, idusuario:string){
         //el orden de os parametros afecta la vista de los input en el modal
+        this.legajo=+legajo;
         this.nombre = nombre;
         this.apellido =  apellido;
         this.dni = dni;
