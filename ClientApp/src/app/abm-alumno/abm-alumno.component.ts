@@ -36,7 +36,7 @@ export class AbmAlumnoComponent implements OnInit {
  
   editar(id: number, obj:any){
     if(obj != null && obj != undefined){
-      let doc : alumno = new alumno(id.toString(),obj.nombre,obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio, obj.idusuario);
+      let doc : alumno = new alumno(id.toString(),obj.nombre,obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio, obj.idusuario, obj.legajo);
       this.abrirModal('Nuevo alumno', 'alumno' , 3, doc ).subscribe(
         obj => this.guardaralumno(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.alumnos = res)));
     }
@@ -44,7 +44,7 @@ export class AbmAlumnoComponent implements OnInit {
     this.abrirModal('Editar alumno', 'alumno' , 3, this.alumnos.find( alumno => alumno.id === id )).subscribe(
       obj => this.guardaralumno(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.alumnos = res)));}
       else{
-        let doc : alumno = new alumno("0","","","","","","","","");
+        let doc : alumno = new alumno("0","","","","","","","","","");
         this.abrirModal('Nuevo alumno', 'alumno' , 3, doc ).subscribe(
           obj => this.guardaralumno(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.alumnos = res)));}
 }
@@ -65,12 +65,12 @@ export class AbmAlumnoComponent implements OnInit {
 
   guardaralumno(obj) : Observable<alumno>{
         if(+obj.id != 0){
-        let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio,  obj.idusuario);
+        let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio,  obj.idusuario, obj.legajo);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http.put<alumno>(this.baseUrl + 'api/alumno', param, {headers:headers} );}
         else{
           
-          let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio, obj.idusuario);
+          let param : alumno = new alumno(obj.id, obj.nombre, obj.apellido, obj.numerodoc, obj.condicion, obj.correo, obj.fechanac, obj.iddomicilio, obj.idusuario, obj.legajo);
           let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
           return this.http.post<alumno>(this.baseUrl + 'api/alumno', param, {headers:headers} );
         }

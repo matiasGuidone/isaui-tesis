@@ -33,9 +33,9 @@ public class ObjetoConexion<T> {
         //             instance = new this();
         //         return instance;
         //     }
-        // } 
-
-        public List<T> SearchAll()
+        // } [ Nombre, Apellido, 
+        //  [null,"Chanan",null, null]
+        public List<T> SearchAll( string[] parametros = null )
         {
             // Type myType = objeto.GetType();
             // IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
@@ -46,9 +46,37 @@ public class ObjetoConexion<T> {
 
             //     // Do something with propValue
             // }
+            if (parametros == null){
         	string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
              
-            return (List<T>)Conexion.consultaList<T>(consulta);
+            return (List<T>)Conexion.consultaList<T>(consulta);}
+            else{
+                IList<PropertyInfo> props = new List<PropertyInfo>(this.tipo.GetType().GetProperties());
+                List<MySqlParameter> param = new List<MySqlParameter>();
+                String consulta = $"SELECT * FROM {this.tipo.GetType()} ";
+                var i = 0;
+                
+                for (int j =0;j < parametros.Length;j++){
+                    if (parametros[j] != null){consulta += " WHERE 1 = 1 "; break;}
+                }
+                foreach (PropertyInfo prop in props)
+                {
+
+                    if (prop.Name != "Id" && parametros[i] != null){
+                        //object propValue = prop.GetValue(objeto, null);
+                        //param.Add(new MySqlParameter (prop.Name ,parametros[i] ));
+                        if (prop.PropertyType.Equals(typeof(System.Int32))||prop.PropertyType.Equals(typeof(int))){
+                            consulta += $" AND {prop.Name} = {parametros[i]} ";
+                        }
+                        else if(prop.PropertyType.Equals(typeof(System.String))||prop.PropertyType.Equals(typeof(string))){consulta += $" AND {prop.Name} LIKE '%{parametros[i]}%' ";}
+                        else if(prop.PropertyType.Equals(typeof(System.DateTime))){consulta += $" AND {prop.Name} = '{parametros[i]}' ";}
+                      // Do something with propValue
+                    }
+                    i++;
+
+                }
+                return (List<T>)Conexion.consultaList<T>(consulta);
+            }
             // this.Alumnos  = temAlumno;
             // return Instance.Con.consultaDataTable(consulta);
         }

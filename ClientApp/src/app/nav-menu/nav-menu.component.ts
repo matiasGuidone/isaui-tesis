@@ -20,6 +20,7 @@ export class NavMenuComponent {
 
   collapse() {
     this.isExpanded = false;
+    
   }
 
   toggle() {

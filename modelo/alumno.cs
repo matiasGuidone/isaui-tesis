@@ -5,6 +5,7 @@ public class alumno : oObjeto
     public string Nombre { get; set; }
     public string Apellido { get; set; }
     public string Numerodoc { get; set; }
+    public int Legajo { get; set; }
     public string Condicion { get; set; }
     public string Correo { get; set; }
     public DateTime Fechanac { get; set; }
@@ -22,6 +23,7 @@ public class alumno : oObjeto
         this.Fechanac = Convert.ToDateTime(dr["fechanac"]);
         this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]); 
         this.Idusuario = Convert.ToInt32(dr["idusuario"]);
+        this.Legajo = Convert.ToInt32(dr["legajo"]);
     }
 
 }

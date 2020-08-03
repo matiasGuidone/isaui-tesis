@@ -25,7 +25,7 @@
          [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                  <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
+                  <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}" class="input-group-text" id="basic-addon1">{{par.tipo.substr(2)}}</span>
                 </div>  
           <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"  (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}"/>
           <input style="width:40%;" disabled type="text" id="{{par.tipo}}-desc" /> 

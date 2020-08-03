@@ -18,7 +18,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ModalService {
-  listAbm : Nodo;
+  
+  public listAbm : Nodo; //Es la lista de nodos de navegacion que el usuario recorre cuando navega hacia otro abm
+  public lista : string[] = new Array<string>(); //es una lista de string de los componentes abm que el usuario recorre
+  public actual : string ; //representa el componente abm actual
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
 
@@ -58,6 +61,18 @@ export class ModalService {
     const headers = new HttpHeaders({ });
     return this.http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
   }
+  public setListaAbm () {
+    this.lista = new Array<string>();
+    if (this.listAbm == null || this.listAbm == undefined){ return [];}
+    let node = this.listAbm;
+    while (node.getData() != null && node.getData() != undefined){
+      this.lista.push(node.getData().name);
+      if (node.getNext() != null && node.getNext() != undefined){
+        node = node.getNext();}
+        else {break;}
+    }
 
+    this.lista = this.lista.reverse();
+  } 
   
 }
