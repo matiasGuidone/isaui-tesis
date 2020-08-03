@@ -10,9 +10,11 @@ public string Telefono{get; set;}
 //foreign key
 public int Idusuario{get; set;}
 public int Iddomicilio{get; set;}
+public int Legajo{get; set;}
 public docente(){}
 public docente( DataRow dr){
     this.Id = Convert.ToInt32(dr["id"]);
+    this.Legajo= Convert.ToInt32(dr["legajo"]);
     this.Nombre = dr["nombre"].ToString();
     this.Apellido = dr["apellido"].ToString();
     this.Dni = dr["dni"].ToString();

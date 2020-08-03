@@ -36,7 +36,7 @@ export class AbmDocenteComponent implements OnInit {
  
   editar(id: number, obj:any){
     if(obj != null && obj != undefined){
-      let doc : docente = new docente(id.toString(),obj.nombre,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+      let doc : docente = new docente(id.toString(),obj.nombre,obj.legajo ,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
       this.abrirModal('Nuevo docente', 'docente' , 3, doc ).subscribe(
         obj => this.guardardocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));
     }
@@ -44,14 +44,14 @@ export class AbmDocenteComponent implements OnInit {
     this.abrirModal('Editar docente', 'docente' , 3, this.docentes.find( docente => docente.id === id )).subscribe(
       obj => this.guardardocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
       else{
-        let doc : docente = new docente("0","","","","","","","");
+        let doc : docente = new docente("0","","","","","","","","");
         this.abrirModal('Nuevo docente', 'docente' , 3, doc ).subscribe(
           obj => this.guardardocente(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res)));}
 }
 
   eliminar(id: number){
     this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
-      closed => {
+      closed => { 
     const headers = new HttpHeaders({'id' : id.toString()});
     return this.http.delete(this.baseUrl + 'api/docente', { headers: headers })
       .subscribe(json => this.cargarGrilla().subscribe( res => this.docentes = res))});
@@ -65,12 +65,12 @@ export class AbmDocenteComponent implements OnInit {
 
   guardardocente(obj) : Observable<docente>{
         if(+obj.id != 0){
-        let param : docente = new docente(obj.id, obj.nombre,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+        let param : docente = new docente(obj.id, obj.legajo ,obj.nombre,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http.put<docente>(this.baseUrl + 'api/docente', param, {headers:headers} );}
         else{
           
-          let param : docente = new docente(obj.id, obj.nombre,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+          let param : docente = new docente(obj.id, obj.legajo ,obj.nombre,obj.apellido, obj.dni, obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
           let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
           return this.http.post<docente>(this.baseUrl + 'api/docente', param, {headers:headers} );
         }
