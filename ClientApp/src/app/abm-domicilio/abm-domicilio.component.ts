@@ -82,7 +82,8 @@ eliminar(id: number){
   seleccionar(id){
     let nodo = this.modalService.listAbm;
     while(nodo.getData().name=="domicilio")
-    {this.modalService.listAbm = nodo.getNext();nodo = nodo.getNext();}
+    { this.modalService.listAbm = nodo.getNext();
+      nodo = nodo.getNext();}
     this.modalService.listAbm.getData().iddomicilio = id; 
     this.location.back();
   }

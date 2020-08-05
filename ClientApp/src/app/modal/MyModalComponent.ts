@@ -20,13 +20,14 @@ export class MyModalComponent extends Modal {
   constructor( private modalService: ModalService, private router : Router) {
     super();
     this.formGroup = new FormGroup({});
-    
+    this.modalService.setListaAbm();
   }
   onInjectInputs(inputs): void {
     this.title = inputs.title;
     this.message = inputs.message;
     this.tipo = inputs.tipo;
     if (inputs.parametros != null && inputs.parametros != undefined) {
+      this.modalService.setListaAbm ();
       this.parametros = new Array();
       for (var i in inputs.parametros) {
         //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
@@ -70,6 +71,7 @@ export class MyModalComponent extends Modal {
     if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
       this.modalService.listAbm = null;
     }
+    this.modalService.setListaAbm();
     return false;
   }
 
@@ -79,6 +81,7 @@ export class MyModalComponent extends Modal {
     if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
       this.modalService.listAbm = null;
     }
+    this.modalService.setListaAbm();
     return true;
     
   }
@@ -89,9 +92,19 @@ export class MyModalComponent extends Modal {
     objeto.name = actual;
     if(this.modalService.listAbm == null ||this.modalService.listAbm ==undefined){
     this.modalService.listAbm = new Nodo(objeto);}
-    else{ let nodo = new Nodo(objeto);nodo.setNext(this.modalService.listAbm);this.modalService.listAbm = nodo;}
+    else{ 
+      if(objeto.name == this.modalService.listAbm.getData().name){
+        this.modalService.listAbm.setData(objeto);
+      }else{
+        let nodo = new Nodo(objeto);
+        nodo.setNext(this.modalService.listAbm);
+        this.modalService.listAbm = nodo;
+      }
+    }
     this.router.navigate([ruta]);
     //this.cancel();
+    this.modalService.setListaAbm();
+    this.modalService.actual = abm.substr(2);
     this.dismiss('canceling');
   }
 

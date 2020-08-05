@@ -4,6 +4,15 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']"><img class="custom-logo-link" style="width:160px;" [src]="'/assets/Logo.png'" alt="ISAUI"></a>
+      <nav *ngIf="this.modalService.lista && this.modalService.lista.length > 0" aria-label="breadcrumb">
+        <ol  class="breadcrumb">
+          
+          <li *ngFor="let item of this.modalService.lista"  class="breadcrumb-item"><a href="#">{{item}}</a></li>
+          <!-- <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+          <li class="breadcrumb-item active" aria-current="page"><a href="#">{{this.modalService.actual}}</a></li>  
+         
+        </ol>
+      </nav>
       <button
         class="navbar-toggler"
         type="button"
@@ -77,5 +86,6 @@
         </ul>
       </div>
     </div>
+    
   </nav>
 </header>
