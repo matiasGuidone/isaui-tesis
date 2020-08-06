@@ -21,6 +21,7 @@ import { AbmCarreraComponent } from './abm-carrera/abm-carrera.component';
 import { AbmCursoComponent } from './abm-curso/abm-curso.component';
 import { AbmUsuarioComponent } from './abm-usuario/abm-usuario.component';
 import { AbmMenuComponent } from './abm-menu/abm-menu.component';
+import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AbmMenuComponent } from './abm-menu/abm-menu.component';
     AbmCursoComponent,
     MyModalComponent,
     AbmUsuarioComponent, 
-    AbmMenuComponent
+    AbmMenuComponent,
+    AbmCiclolectivoComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -62,6 +64,7 @@ import { AbmMenuComponent } from './abm-menu/abm-menu.component';
       { path: 'abm-curso', component: AbmCursoComponent },
       { path: 'abm-usuario', component: AbmUsuarioComponent },
       { path: 'abm-menu', component: AbmMenuComponent },
+      { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent}
     ])
   ],
   providers: [],

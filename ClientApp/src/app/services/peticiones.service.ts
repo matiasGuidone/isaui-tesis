@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 // Observable: recoge informacion de la api rest (header / body)
-import {Observable} from 'rxjs';
+import {Observable, from} from 'rxjs';
+
 
 
 @Injectable()
@@ -9,15 +10,17 @@ export class PeticionesService {
 
    public url : string;
     constructor( public _http: HttpClient
+     
    
     ){
-     this.url ="https://localhost:4200/api/";
+      // URL de peticiones
+     this.url ="https://localhost:5001/api/";
     }
-
-    loadGrilla() : Observable<any>{
-        const headers = new HttpHeaders({ });
-        return this._http.get<any>(this.url+ 'docente');
+    // llena el array de cada component para mostrar los datos en la tabla  
+    loadGrilla(abm: string) : Observable<any>{
+        return this._http.get<any>(this.url+ abm);
       }
+    // ---- Este metodo aun no le he investigado
 
     findDatoGrilla()/* : Observable<docente>[] */{
         let dato = document.getElementById("dato")['value'];//Js
@@ -27,20 +30,37 @@ export class PeticionesService {
          return this._http.get<any>(this.url + 'docente', {headers:headers})
         }  
     }
-
-
-    getUsers(){
-        return this._http.get(this.url);
-    }
-
-    getUser(userId): Observable<any>{
-        return this._http.get(this.url+ userId);
-    }
-
-    addUser(user): Observable<any>{
-        let params=JSON.stringify(user);
+   
+    // POST o PUT para un registro recibe dos parametros obj : el tipo de objeto que estamos enviando 
+    // desde el component y abm: la ruta del controler (ciclolectivo) -- en la condicion else leer "Documentacion"
+    addSingleAbm(obj, abm:string ) : Observable<any>{
+        if(+obj.id != 0){
+        let params=JSON.stringify(obj);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this._http.post(this.url, params, {headers: headers});
+        return this._http.put<any>(this.url + abm , params, {headers:headers});
     }
+
+        else{
+          // Documentacion
+          console.log("Comenzando stringify para almacenar el objeto");
+          // pasamos el objeto a una variable tipo paramatros que sera params
+          let params = obj;
+          //convertimos el objeto de angular a tipo json para que viaje con nuestra peticion al backend
+          JSON.stringify(params);
+          console.log(params);
+          // seteamos los header del http que el content type reciba un tipo application/json
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          //mandamos la peticion post para insertar el objeto dentro de nuestra base de datos
+          //nos retornara un mensaje de exito con la siguiente leyenda "Guardado Exitoso"
+          //de los contrario nos figuara cual es el error por el cual no puede tomar la peticion
+          return this._http.post<any>(this.url + abm, params, {headers:headers} );
+         
+;        }
+  }
+// Elimina el registro
+  eliminar(id: number, abm: string){
+    const headers = new HttpHeaders({'id' : id.toString()});
+    return this._http.delete(this.url + abm, { headers: headers });
+  }
    
 }
