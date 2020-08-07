@@ -1,19 +1,20 @@
 using System.Data;
 using System;
-    public class cicloLectivo : oObjeto
+    public class ciclolectivo : oObjeto
     {
         
        // public DateTime FechaInicio {get; set;}
         public string Nombre {get; set;}
         public string Descripcion {get; set;}
+        public DateTime Fechainicio { get; set; }           
         
-        public cicloLectivo(){}
-        public cicloLectivo(DataRow dr)
+        public ciclolectivo(){}
+        public ciclolectivo(DataRow dr)
     {
         this.Id = Convert.ToInt32(dr["id"]);
-       // this.FechaInicio = DateTime.Parse(dr["fechainicio"].ToString());
         this.Nombre = dr["nombre"].ToString();
         this.Descripcion = dr["descripcion"].ToString();
+        this.Fechainicio = Convert.ToDateTime(dr["fechainicio"]);
        
     }
 

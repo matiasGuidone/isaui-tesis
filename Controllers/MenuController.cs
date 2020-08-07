@@ -39,8 +39,8 @@ public class MenuController : Controller
     [HttpGet]
     public IEnumerable<menu> GetMenus()
     {
-        string[] filtros = {"Usuarios","abm-usuario",null};
-        return MenuConexion<menu>.Instance.SearchAll(filtros);
+         //string[] filtros = {"Usuarios","abm-usuario",null};
+        return MenuConexion<menu>.Instance.SearchAll();//filtros);
     }
 
     // GET: api/ApiWithActions/5

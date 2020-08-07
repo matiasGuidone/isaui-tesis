@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {CicloLectivo} from '../clases/ciclolectivo';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {PeticionesService} from '../services/peticiones.service';
 
-//VentanaModal
+//ventanas modales
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
 import { Observable } from 'rxjs';
+import { ciclolectivo } from '../clases/ciclolectivo';
+import { PeticionesService } from '../services/peticiones.service';
+
+//ventanas modales
 
 @Component({
   selector: 'app-abm-ciclolectivo',
@@ -17,107 +18,85 @@ import { Observable } from 'rxjs';
 })
 export class AbmCiclolectivoComponent implements OnInit {
 
-  ciclosLectivos: Array<CicloLectivo>;
+  ciclosLectivos: ciclolectivo[];
+  constructor(private location: Location, 
+              private modalService: ModalService,
+              private servicio: PeticionesService) {
 
-  fecha: Date = new Date();
+    this.modalService.setFiltro(new ciclolectivo("0", "", "",""));
 
-  constructor(public modalService: ModalService,
-              private location: Location,
-              private router: Router,
-              private _peticionesService: PeticionesService,
-              
-    )
-    {}
+    if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
+
+      if (this.modalService.listAbm.getData().name == 'ciclolectivo') {
+        this.editar(this.modalService.listAbm.getData().id, 
+        this.modalService.listAbm.getData());
+      }
+
+    }
+  }
+
   ngOnInit() {
-    // llamamos al servicio y al metodo loadGrilla que nos devolvera el contenido de nuestra tabla
-    this._peticionesService.loadGrilla("ciclolectivo").subscribe(  
-      x => {console.log('Observer tuvo un valor: ' + x);
-    //guardamos la informacion dentro de nuestro arreglo de tipo cicloLectivo
-    this.ciclosLectivos = x;
-    console.log(this.ciclosLectivos);
-     
-  },
-    // si tenemos algun error reportara via consola
-    err => console.error('Observer got an error: ' + err)
-    );
-  }
-// editar el registro que seleccionemos mediante su id
-  editar(id: number){
-    if (id != null && id != 0){
-         for (let i= 0; i<this.ciclosLectivos.length; i++){
-           if (id == this.ciclosLectivos[i].id){
-             // creamos un nuevo objeto "registroFilled" llendando con los datos que coinciden con el id solicitado
-            let registroFilled = new CicloLectivo(
-              this.ciclosLectivos[i].id,
-              this.ciclosLectivos[i].nombre,
-              this.ciclosLectivos[i].descripcion
-              );
-              //abrimos el modal -------
-            // esta es una alternativa al modal inicial--- ya que he experimentado problemas con el backend
-            // cargamos nuestro objeto "registroFilled" al modal
-            this.abrirModal('Nuevo ciclo Lectivo', 'curso' , 3, registroFilled).subscribe( 
-             x =>{
-               // aqui crearemos un nevo objeto con las modificaciones que haremos dentro del campo del modal
-             let updateRegistro= new CicloLectivo(id, x.nombre, x.descripcion);
-             this._peticionesService.addSingleAbm(updateRegistro,"ciclolectivo").subscribe(
-             r => {
-               // si esta todo bien el back nos respondera con la leyenda "Guardado Exitoso"
-                console.log('El back-end respondio: ' + r);
-                this._peticionesService.loadGrilla("ciclolectivo").subscribe(  
-                  x => {
-                this.ciclosLectivos = x;   
-              },
-                // si tenemos algun error reportara via consola
-             err => console.error('error: ' + err)
-                );
-              },
-             err => console.error('error: ' + err.data))
-             }
-             ,
-             err=>{ console.log(err);
-             }); 
-           }
-         }
+    this.servicio.loadGrilla('ciclolectivo').subscribe(res =>{ this.ciclosLectivos = res ;console.log(this.ciclosLectivos)});
   }
 
-}
-addRecord(){
-let registro = new CicloLectivo(0,"","");
-// alternativa modal
-this.abrirModal('Nuevo ciclo Lectivo', 'curso' , 3, registro).subscribe( 
- x =>{
- let nuevoRegistro= new CicloLectivo(0, x.nombre, x.descripcion);
- this._peticionesService.addSingleAbm(nuevoRegistro,"ciclolectivo").subscribe(
- r => {
-    console.log('El back-end respondio: ' + r);
-    this._peticionesService.loadGrilla("ciclolectivo").subscribe(  
-      x => {
-    this.ciclosLectivos = x;   
-  },
-    // si tenemos algun error reportara via consola
- err => console.error('error: ' + err)
-    );
-  },
- err => console.error('error: ' + err.data))
- }
- ,
- err=>{ console.log(err);
- }); 
+  editar(id: number, obj: any) {
+    if (obj != null && obj != undefined) {
+      let doc: ciclolectivo = new ciclolectivo(id.toString(), obj.nombre, obj.descripcion, obj.fechainicio );
+      this.abrirModal('Nuevo ciclolectivo', 'ciclolectivo', 3, doc)
+      .subscribe(obj => this.guardarciclolectivo(obj)
+      .subscribe(json => this.servicio.loadGrilla('ciclolectivo')
+      .subscribe(res => this.ciclosLectivos = res)));
+    }
+    else if (id != 0) {
+      this.abrirModal('Editar ciclolectivo', 'ciclolectivo', 3, this.ciclosLectivos
+      .find(ciclolectivo => ciclolectivo.id === id)).subscribe(
+        obj => this.guardarciclolectivo(obj)
+        .subscribe(json => this.servicio.loadGrilla('ciclolectivo')
+        .subscribe(res => this.ciclosLectivos = res)));
+    }
+    else {
+      let doc: ciclolectivo = new ciclolectivo( "0", "", "" ,"");
+      this.abrirModal('Nuevo ciclolectivo', 'ciclolectivo', 3, doc)
+      .subscribe(obj => this.guardarciclolectivo(obj)
+        .subscribe(json => this.servicio.loadGrilla('ciclolectivo')
+          .subscribe(res => this.ciclosLectivos = res)));
+    }
+  }
+
+  eliminar(id: number) {
+    this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
+      closed => {
+        return this.servicio.eliminar(id, "ciclolectivo")
+          .subscribe(json => this.servicio.loadGrilla('ciclolectivo')
+          .subscribe(res => this.ciclosLectivos = res))
+      });
+  }
+
+  abrirModal(titulo: string, mensaje: string, tipo: number, ciclolectivo: any): Observable<any> {
+    const modalRef = 
+    this.modalService.open(MyModalComponent, 
+      { title: titulo, message: mensaje, tipo: tipo, parametros: ciclolectivo });
+    return modalRef.onResult();
+  }
+
+  guardarciclolectivo(obj): Observable<ciclolectivo> {
+      let param: ciclolectivo = 
+      new ciclolectivo(obj.id, obj.nombre, obj.descripcion, obj.fechainicio );
+      console.log(param);
+      return this.servicio.addSingleAbm(param, 'ciclolectivo');
+    
+  }
+
+  seleccionar(id) {
+    let nodo = this.modalService.listAbm;
+    while (nodo.getData().name == "ciclolectivo") {
+      this.modalService.listAbm = nodo.getNext();
+      nodo = nodo.getNext();
+    }
+    this.modalService.listAbm.getData().idciclolectivo = id;
+    this.location.back();
+  }
 }
 
-eliminar(id: number){
-  this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
-    closed => {
-  return this._peticionesService.eliminar(id, "ciclolectivo")
-    .subscribe(json => this._peticionesService.loadGrilla("ciclolectivo")
-    .subscribe( res => this.ciclosLectivos = res))});
-}
-
-//ventanas modales
-abrirModal(titulo: string, mensaje: string, tipo: number, CicloLectivo: any): Observable<any>{
-  const modalRef = this.modalService.open(MyModalComponent, { title: titulo, message: mensaje, tipo: tipo , parametros : CicloLectivo });
-  return modalRef.onResult();
-}
 
 
-}

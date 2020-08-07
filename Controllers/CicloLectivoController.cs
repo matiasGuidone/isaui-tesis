@@ -13,21 +13,21 @@ public class CicloLectivoController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<cicloLectivo> addCicloLectivo([FromBody] cicloLectivo cicloLectivo)
+    public ActionResult<ciclolectivo> addCicloLectivo([FromBody] ciclolectivo cicloLectivo)
     {
         //ObjetoConexion<Curso> cone = new ObjetoConexion<Curso>(new Curso());
-        CicloLectivoConexion<cicloLectivo>.Instance.Insert(cicloLectivo);
+        CicloLectivoConexion<ciclolectivo>.Instance.Insert(cicloLectivo);
         return Json("Guardado exitoso");
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<cicloLectivo> Put([FromBody] cicloLectivo cicloLectivo)
+    public ActionResult<ciclolectivo> Put([FromBody] ciclolectivo cicloLectivo)
     {
 
         //ObjetoConexion<Curso> cone = new ObjetoConexion<Curso>(new Curso());
-        CicloLectivoConexion<cicloLectivo>.Instance.Update(cicloLectivo);
+        CicloLectivoConexion<ciclolectivo>.Instance.Update(cicloLectivo);
         return Json("Guardado exitoso");
     }
 
@@ -35,22 +35,22 @@ public class CicloLectivoController : Controller
     [HttpDelete]
     public ActionResult Delete([FromHeader] string id)
     {
-        CicloLectivoConexion<cicloLectivo>.Instance.Delete(Convert.ToInt32(id));
+        CicloLectivoConexion<ciclolectivo>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<cicloLectivo> GetCicloLectivos()
+    public IEnumerable<ciclolectivo> GetCicloLectivos()
     {
-        return CicloLectivoConexion<cicloLectivo>.Instance.SearchAll();
+        return CicloLectivoConexion<ciclolectivo>.Instance.SearchAll();
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public cicloLectivo GetCCicloLectivo(int id)
+    public ciclolectivo GetCCicloLectivo(int id)
     {
-        return CicloLectivoConexion<cicloLectivo>.Instance.SearchId(id);
+        return CicloLectivoConexion<ciclolectivo>.Instance.SearchId(id);
     }
 }
 

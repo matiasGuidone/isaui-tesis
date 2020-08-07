@@ -1,6 +1,5 @@
     
-<h1>Formateo de fecha:</h1>
-{{fecha | date:'dd/MM/yyyy'}}
+ 
 <div class="table-responsive">
     <h3>Ciclos Lectivos</h3>
     <table class="table table-hover">
@@ -15,7 +14,7 @@
             <tr *ngFor = "let ciclo of ciclosLectivos; index as i">
                 <td>{{ciclo.nombre}}</td>
                 <td>{{ciclo.descripcion}}</td>
-                <td>Fecha de inicio (Aun no esta cargado)</td>
+                <td>{{ciclo.fechainicio}}</td>
                 
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(ciclo.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(ciclo.id)"><span class="fa fa-trash-alt"></span></button>
@@ -23,6 +22,6 @@
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-info" (click)="addRecord()" ><span ></span> Nuevo registro</button>
+    <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
 </div>
 

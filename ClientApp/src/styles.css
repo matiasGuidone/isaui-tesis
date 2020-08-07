@@ -40,3 +40,8 @@ code {
   border-radius: .25rem;
   text-transform:capitalize;
 }
+.toast{
+  opacity: 1;
+  margin:auto;
+  display:none;
+}

@@ -24,7 +24,7 @@ export class ModalService {
   public actual : string ; //representa el componente abm actual
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
-
+  public filtro: any[]; //se obtiene un componente del abm-seleccionado para identificar sus parámetros para el filtrado
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -57,10 +57,14 @@ export class ModalService {
   private setupModalContainerFactory(): void {
     this.modalContainerFactory = this.componentFactoryResolver.resolveComponentFactory(ModalContainerComponent);
   }
+
+  //Busca el objeto de cualquier id seleccionado dentro de la ventana de abm
   public getDescripcion(id: string, tabla :string) : Observable<any>{
     const headers = new HttpHeaders({ });
     return this.http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
   }
+
+  //Actualiza la lista que figura en el navbar de los componentes abmque el usuario recorre
   public setListaAbm () {
     this.lista = new Array<string>();
     if (this.listAbm == null || this.listAbm == undefined){ return [];}
@@ -74,5 +78,22 @@ export class ModalService {
 
     this.lista = this.lista.reverse();
   } 
+
+  //crea un array de filtros para que la ventana de filtros identifique a que abm se hace referencia 
+  // y el usuario pueda filtrar los campos
+  public setFiltro(objeto){
+    this.filtro = new Array<any>();
+    for(var i in objeto){
+        let tp: string = "text";
+        if (Number.isInteger(objeto[i])) {
+          tp = "number";
+        }
+        else if (objeto[i] instanceof Date) {
+          tp = "date"
+        }
+        if(i.toString() != 'id'){
+          this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
+    }
+  }
   
 }

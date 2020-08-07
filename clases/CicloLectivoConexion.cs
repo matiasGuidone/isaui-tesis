@@ -1,4 +1,4 @@
- public class CicloLectivoConexion<T> : ObjetoConexion<cicloLectivo>
+ public class CicloLectivoConexion<T> : ObjetoConexion<ciclolectivo>
     {
        
         private static CicloLectivoConexion<T> instance;
@@ -7,11 +7,11 @@
             get
             {
                 if (instance == null)
-                    instance = new CicloLectivoConexion<T>(new cicloLectivo());
+                    instance = new CicloLectivoConexion<T>(new ciclolectivo());
                 return instance;
             }
         } 
-        private CicloLectivoConexion(cicloLectivo aux): base(aux){ 
+        private CicloLectivoConexion(ciclolectivo aux): base(aux){ 
             
         }
         

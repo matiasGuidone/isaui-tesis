@@ -3,22 +3,18 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 // Observable: recoge informacion de la api rest (header / body)
 import {Observable, from} from 'rxjs';
 
-
-
 @Injectable()
 export class PeticionesService {
 
    public url : string;
-    constructor( public _http: HttpClient
+    constructor( public _http: HttpClient, @Inject('BASE_URL') private baseUrl: string
      
    
-    ){
-      // URL de peticiones
-     this.url ="https://localhost:5001/api/";
+    ){ 
     }
     // llena el array de cada component para mostrar los datos en la tabla  
     loadGrilla(abm: string) : Observable<any>{
-        return this._http.get<any>(this.url+ abm);
+        return this._http.get<any>(this.baseUrl+'api/'+ abm);
       }
     // ---- Este metodo aun no le he investigado
 
@@ -37,7 +33,7 @@ export class PeticionesService {
         if(+obj.id != 0){
         let params=JSON.stringify(obj);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this._http.put<any>(this.url + abm , params, {headers:headers});
+        return this._http.put<any>(this.baseUrl+'api/'+ abm , params, {headers:headers});
     }
 
         else{
@@ -53,14 +49,14 @@ export class PeticionesService {
           //mandamos la peticion post para insertar el objeto dentro de nuestra base de datos
           //nos retornara un mensaje de exito con la siguiente leyenda "Guardado Exitoso"
           //de los contrario nos figuara cual es el error por el cual no puede tomar la peticion
-          return this._http.post<any>(this.url + abm, params, {headers:headers} );
+          return this._http.post<any>(this.baseUrl+'api/'+ abm, params, {headers:headers} );
          
 ;        }
   }
 // Elimina el registro
   eliminar(id: number, abm: string){
     const headers = new HttpHeaders({'id' : id.toString()});
-    return this._http.delete(this.url + abm, { headers: headers });
+    return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
   }
    
 }

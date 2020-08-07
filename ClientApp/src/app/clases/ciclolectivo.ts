@@ -1,10 +1,18 @@
 import { NumberSymbol, DatePipe } from "@angular/common";
 
-export class CicloLectivo{
+export class ciclolectivo{
+         id: number;
+         nombre: string;
+         descripcion: string;
+         fechainicio: Date;
     constructor(
-        public id: number,
-        public nombre: string,
-        public descripcion: string,
-        //public fechainicio: Date
-    ) {}
+          id: string,
+          nombre: string,
+          descripcion: string,
+          fechainicio: string ) {
+        this.id = +id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechainicio = new Date(fechainicio);
+    }
 }

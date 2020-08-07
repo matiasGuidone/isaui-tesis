@@ -17,6 +17,7 @@ export class AbmCarreraComponent implements OnInit {
 
   carreras: carrera[];
   constructor(private location: Location, private modalService:ModalService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { 
+    this.modalService.setFiltro(new carrera("0","",""));
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if(this.modalService.listAbm.getData().name == 'carrera'){
         this.editar(this.modalService.listAbm.getData().id,this.modalService.listAbm.getData() ); 
@@ -41,7 +42,7 @@ export class AbmCarreraComponent implements OnInit {
     }
       else{
         let car : carrera = new carrera("0","","");
-        this.abrirModal('Nueve Carrera', 'carrera' , 3, car ).subscribe(
+        this.abrirModal('Nueva Carrera', 'carrera' , 3, car ).subscribe(
           obj => this.guardarCarrera(obj).subscribe(json => this.cargarGrilla().subscribe( res => this.carreras = res)));}
 }
 
