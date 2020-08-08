@@ -40,8 +40,52 @@ code {
   border-radius: .25rem;
   text-transform:capitalize;
 }
-.toast{
+#filtros{
   opacity: 1;
-  margin:auto;
+  margin-top: -16px;
   display:none;
+  width: 100%;
+  max-width: 100%;
+  height:auto;
+}
+#filtros .form-control{
+  width:auto;
+  height: 35px;
+  float:left;
+
+}
+#filtros label {
+  width:auto;
+  padding: 8px;
+  float:left;
+  margin-left:120px;
+}
+#filtros .btn{
+  margin: 0px;
+  margin-left: 8px;
+  height: 35px;
+  float:left;
+  width: auto;
+}
+
+@media(max-width:550px){
+  #filtros .btn{
+    margin: 0px;
+    margin-left: 8px;
+    height: 35px;
+    float:left;
+    width: 18%;
+  }
+  #filtros .form-control{
+    width:23%;
+    height: 35px;
+    float:left;
+  
+  }
+  #filtros label {
+    width:12%;
+    padding: 8px;
+    float:left;
+    margin-left:0px;
+  }
 }
