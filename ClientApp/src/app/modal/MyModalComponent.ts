@@ -67,11 +67,18 @@ export class MyModalComponent extends Modal {
   }
 
   cancel(): boolean {
-    this.dismiss('canceling');
-    if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
+    //this.message contiene el nombre del objeto actual
+    //this.modalService.listAbm.getData().name contiene el nombre del objeto en la lista de nodos
+    //
+    if(this.modalService.listAbm != null && this.modalService.listAbm != undefined){
+    if (this.modalService.listAbm.getData().name == this.message 
+      && (this.modalService.listAbm.getNext() == null 
+      ||this.modalService.listAbm.getNext() == undefined)){
       this.modalService.listAbm = null;
     }
     this.modalService.setListaAbm();
+  }
+    this.dismiss('canceling');
     return false;
   }
 

@@ -18,7 +18,7 @@ import { PeticionesService } from '../services/peticiones.service';
 })
 export class AbmlocalidadComponent implements OnInit {
 
-  localidads: localidad[];
+  localidades: localidad[];
   constructor(private location: Location, 
               private modalService: ModalService,
               private servicio: PeticionesService) {
@@ -36,7 +36,7 @@ export class AbmlocalidadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.servicio.loadGrilla('localidad').subscribe(res => this.localidads = res);
+    this.servicio.loadGrilla('localidad').subscribe(res => this.localidades = res);
   }
 
   editar(id: number, obj: any) {
@@ -45,21 +45,21 @@ export class AbmlocalidadComponent implements OnInit {
       this.abrirModal('Nuevo localidad', 'localidad', 3, doc)
       .subscribe(obj => this.guardarlocalidad(obj)
       .subscribe(json => this.servicio.loadGrilla('localidad')
-      .subscribe(res => this.localidads = res)));
+      .subscribe(res => this.localidades = res)));
     }
     else if (id != 0) {
-      this.abrirModal('Editar localidad', 'localidad', 3, this.localidads
+      this.abrirModal('Editar localidad', 'localidad', 3, this.localidades
       .find(localidad => localidad.id === id)).subscribe(
         obj => this.guardarlocalidad(obj)
         .subscribe(json => this.servicio.loadGrilla('localidad')
-        .subscribe(res => this.localidads = res)));
+        .subscribe(res => this.localidades = res)));
     }
     else {
       let doc: localidad = new localidad( "0", "", "" );
       this.abrirModal('Nuevo localidad', 'localidad', 3, doc)
       .subscribe(obj => this.guardarlocalidad(obj)
         .subscribe(json => this.servicio.loadGrilla('localidad')
-          .subscribe(res => this.localidads = res)));
+          .subscribe(res => this.localidades = res)));
     }
   }
 
@@ -68,7 +68,7 @@ export class AbmlocalidadComponent implements OnInit {
       closed => {
         return this.servicio.eliminar(id, "localidad")
           .subscribe(json => this.servicio.loadGrilla('localidad')
-          .subscribe(res => this.localidads = res))
+          .subscribe(res => this.localidades = res))
       });
   }
 
