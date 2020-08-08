@@ -4,8 +4,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
 import { Router } from '@angular/router';
 import Nodo from '../clases/Nodo';
- 
-
 
 @Component({
   templateUrl: './MyModalComponent.html',
@@ -17,7 +15,7 @@ export class MyModalComponent extends Modal {
   parametros: any[];
   formGroup: FormGroup;
   objetoIn: any;
-  constructor( private modalService: ModalService, private router : Router) {
+  constructor(private modalService: ModalService, private router: Router) {
     super();
     this.formGroup = new FormGroup({});
     this.modalService.setListaAbm();
@@ -27,7 +25,7 @@ export class MyModalComponent extends Modal {
     this.message = inputs.message;
     this.tipo = inputs.tipo;
     if (inputs.parametros != null && inputs.parametros != undefined) {
-      this.modalService.setListaAbm ();
+      this.modalService.setListaAbm();
       this.parametros = new Array();
       for (var i in inputs.parametros) {
         //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
@@ -38,18 +36,18 @@ export class MyModalComponent extends Modal {
         else if (inputs.parametros[i] instanceof Date) {
           tp = "date"
         }
-        if (i.toString().startsWith('fecha',0)){
+        if (i.toString().startsWith('fecha', 0)) {
           tp = "date";
           inputs.parametros[i] = this.formatearFecha(inputs.parametros[i]);
         }
-        else if(i.toString().startsWith('codigo',0)){
+        else if (i.toString().startsWith('codigo', 0)) {
           tp = "password";
         }
-        let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString() , tp);
-        this.parametros.push(obj); 
+        let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
+        this.parametros.push(obj);
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
-        if(obj.tipo.length > 2 && obj.tipo.startsWith('id',0)){
-          this.buscarDescripcion(i.toString(),inputs.parametros[i].toString());
+        if (obj.tipo.length > 2 && obj.tipo.startsWith('id', 0)) {
+          this.buscarDescripcion(i.toString(), inputs.parametros[i].toString());
         }
       }
       this.objetoIn = inputs.parametros;
@@ -61,7 +59,7 @@ export class MyModalComponent extends Modal {
     this.close('saving');
     return true;
   }
-  cerrarModal(){
+  cerrarModal() {
     this.dismiss('canceling');
     return false;
   }
@@ -70,39 +68,44 @@ export class MyModalComponent extends Modal {
     //this.message contiene el nombre del objeto actual
     //this.modalService.listAbm.getData().name contiene el nombre del objeto en la lista de nodos
     //
-    if(this.modalService.listAbm != null && this.modalService.listAbm != undefined){
-    if (this.modalService.listAbm.getData().name == this.message 
-      && (this.modalService.listAbm.getNext() == null 
-      ||this.modalService.listAbm.getNext() == undefined)){
-      this.modalService.listAbm = null;
+    if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
+      if (this.modalService.listAbm.getData().name == this.message
+        && (this.modalService.listAbm.getNext() == null
+          || this.modalService.listAbm.getNext() == undefined)) {
+        this.modalService.listAbm = null;
+      }
+      this.modalService.setListaAbm();
     }
-    this.modalService.setListaAbm();
-  }
     this.dismiss('canceling');
     return false;
   }
 
   guardar(): any {
     let objeto = Object.assign({}, this.formGroup.value);
-    this.close(objeto);
-    if (this.modalService.listAbm.getNext() == null ||this.modalService.listAbm.getNext() == undefined){
-      this.modalService.listAbm = null;
+    if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
+      if (this.modalService.listAbm.getData().name == this.message
+        && (this.modalService.listAbm.getNext() == null
+          || this.modalService.listAbm.getNext() == undefined)) {
+        this.modalService.listAbm = null;
+      }
+      this.modalService.setListaAbm();
     }
-    this.modalService.setListaAbm();
+    this.close(objeto);
     return true;
-    
+
   }
 
-  abrirAbm(abm: string, actual:string){
-    let ruta = "abm-"+abm.substr(2);
+  abrirAbm(abm: string, actual: string) {
+    let ruta = "abm-" + abm.substr(2);
     let objeto = Object.assign({}, this.formGroup.value);
     objeto.name = actual;
-    if(this.modalService.listAbm == null ||this.modalService.listAbm ==undefined){
-    this.modalService.listAbm = new Nodo(objeto);}
-    else{ 
-      if(objeto.name == this.modalService.listAbm.getData().name){
+    if (this.modalService.listAbm == null || this.modalService.listAbm == undefined) {
+      this.modalService.listAbm = new Nodo(objeto);
+    }
+    else {
+      if (objeto.name == this.modalService.listAbm.getData().name) {
         this.modalService.listAbm.setData(objeto);
-      }else{
+      } else {
         let nodo = new Nodo(objeto);
         nodo.setNext(this.modalService.listAbm);
         this.modalService.listAbm = nodo;
@@ -116,8 +119,8 @@ export class MyModalComponent extends Modal {
   }
 
   formatearFecha(f: any): string {
-    if (f instanceof Date){
-      f.setDate(f.getDate() +1); 
+    if (f instanceof Date) {
+      f.setDate(f.getDate() + 1);
     }
     let fecha: Date = new Date(f);
     let mes: string = (fecha.getMonth() + 1).toString();
@@ -125,34 +128,35 @@ export class MyModalComponent extends Modal {
     if (mes.length < 2) { mes = '0' + mes; }
     if (dia.length < 2) { dia = '0' + dia; }
     return (fecha.getFullYear() + '-' + mes + '-' + dia);
-}
-  buscarDescripcion(desc : string, val:string){
+  }
+  buscarDescripcion(desc: string, val: string) {
     let par = desc.substr(2);
     let valor = "0";
-    try{ valor = document.getElementById("in-"+desc)['value'];
-    document.getElementById(desc+'-desc')['value'] = "";
-    this.formGroup.get(desc).setValue('');}
-    catch(e){  valor = val;}
+    try {
+      valor = document.getElementById("in-" + desc)['value'];
+      document.getElementById(desc + '-desc')['value'] = "";
+      this.formGroup.get(desc).setValue('');
+    }
+    catch (e) { valor = val; }
     this.modalService.getDescripcion(valor, par)
-      .subscribe( 
-        res => this.cargarCampo(res,desc));
-   
+      .subscribe(
+        res => this.cargarCampo(res, desc));
+
   }
-  cargarCampo(res:any, desc:string){
+  cargarCampo(res: any, desc: string) {
     for (var i in res) {
       this.formGroup.get(desc).setValue(res['id']);
-      document.getElementById(desc+'-desc')['value'] = res[i];
+      document.getElementById(desc + '-desc')['value'] = res[i];
       break;
     }
   }
-  isValidDesc(campo): boolean{
-    try{
-      if(document.getElementById(campo+'-desc')['value'] != '')
-      {this.formGroup.get(campo).setValue('');return true;}
+  isValidDesc(campo): boolean {
+    try {
+      if (document.getElementById(campo + '-desc')['value'] != '') { this.formGroup.get(campo).setValue(''); return true; }
       else return false;
-    }catch(excep){this.formGroup.get(campo).setValue(''); return true;}
+    } catch (excep) { this.formGroup.get(campo).setValue(''); return true; }
   }
-  
+
 }
 
 class ObjetoValor {
