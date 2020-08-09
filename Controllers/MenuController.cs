@@ -37,10 +37,10 @@ public class MenuController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<menu> GetMenus()
+    public IEnumerable<menu> GetMenus([FromHeader]string[] arrayfiltros)
     {
          //string[] filtros = {"Usuarios","abm-usuario",null};
-        return MenuConexion<menu>.Instance.SearchAll();//filtros);
+        return MenuConexion<menu>.Instance.SearchAll(arrayfiltros);//filtros);
     }
 
     // GET: api/ApiWithActions/5

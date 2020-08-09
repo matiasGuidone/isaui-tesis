@@ -46,7 +46,7 @@ public class ObjetoConexion<T> {
 
             //     // Do something with propValue
             // }
-            if (parametros == null){
+            if (parametros == null || parametros.Length==0){
         	string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
              
             return (List<T>)Conexion.consultaList<T>(consulta);}
@@ -57,22 +57,25 @@ public class ObjetoConexion<T> {
                 var i = 0;
                 
                 for (int j =0;j < parametros.Length;j++){
-                    if (parametros[j] != null){consulta += " WHERE 1 = 1 "; break;}
+                    if (parametros[j] != null){consulta += " WHERE 1 "; break;}
                 }
                 foreach (PropertyInfo prop in props)
                 {
 
-                    if (prop.Name != "Id" && parametros[i] != null){
+                    if (prop.Name != "Id" && !prop.Name.StartsWith("Id") && parametros[i].ToLower() == prop.Name.ToLower()){
                         //object propValue = prop.GetValue(objeto, null);
                         //param.Add(new MySqlParameter (prop.Name ,parametros[i] ));
+                        i++;
                         if (prop.PropertyType.Equals(typeof(System.Int32))||prop.PropertyType.Equals(typeof(int))){
                             consulta += $" AND {prop.Name} = {parametros[i]} ";
                         }
                         else if(prop.PropertyType.Equals(typeof(System.String))||prop.PropertyType.Equals(typeof(string))){consulta += $" AND {prop.Name} LIKE '%{parametros[i]}%' ";}
                         else if(prop.PropertyType.Equals(typeof(System.DateTime))){consulta += $" AND {prop.Name} = '{parametros[i]}' ";}
                       // Do something with propValue
+                      i=i++;
+                      if(i>=parametros.Length){break;}
                     }
-                    i++;
+                     
 
                 }
                 return (List<T>)Conexion.consultaList<T>(consulta);

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
  
 import { AbmMenuComponent } from '../abm-menu/abm-menu.component';
 import { menu } from '../clases/menu';
@@ -13,9 +14,10 @@ import { PeticionesService } from '../services/peticiones.service';
 
 })
 export class NavMenuComponent {
+
   isExpanded = false;
   menus : menu[];
-  constructor(private modalService:ModalService , private servicio: PeticionesService){
+  constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router){
     servicio.loadGrilla("menu")
     .subscribe( res => this.menus = res);
   }
@@ -27,26 +29,5 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-  }
-  //abrir y cerrar la ventana de filtros
-  showFiltros(){
-    document.getElementById('filtros')['style'].display = "block";
-  }
-  cerrarFiltros(){
-    document.getElementById('filtros')['style'].display = "none";
-  }
-  //obtiene el tipo de input para el filtro seleccionado
-  getTipoFiltro() {
-    let fil = "text";
-    if (this.modalService.filtro != null && this.modalService.filtro !=undefined){
-      let index = document.getElementById('filtro')['value'];
-      fil = (this.modalService.filtro.find( filtro => filtro.campo === index )).tipo;
-       }
-    document.getElementById('valorFiltro')['type'] = fil;
-  }
-
-  //evento para el botón de filtrado
-  filtrarCampo() {
-
   }
 }

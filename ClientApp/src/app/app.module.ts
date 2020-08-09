@@ -22,7 +22,7 @@ import { AbmCursoComponent } from './abm-curso/abm-curso.component';
 import { AbmUsuarioComponent } from './abm-usuario/abm-usuario.component';
 import { AbmMenuComponent } from './abm-menu/abm-menu.component';
 import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.component';
-
+import {FiltroComponent} from './filtro-abm/filtro-abm.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +41,8 @@ import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.comp
     MyModalComponent,
     AbmUsuarioComponent, 
     AbmMenuComponent,
-    AbmCiclolectivoComponent
+    AbmCiclolectivoComponent,
+    FiltroComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [

@@ -44,10 +44,11 @@ public class AlumnoController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<alumno> Getalumnos()
+    public IEnumerable<alumno> Getalumnos([FromHeader]string[] arrayfiltros)
     {
         //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-        return AlumnoConexion<alumno>.Instance.SearchAll();
+        
+        return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

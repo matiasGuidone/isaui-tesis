@@ -23,7 +23,7 @@ export class AbmdomicilioComponent implements OnInit {
               private modalService: ModalService,
               private servicio: PeticionesService) {
 
-    this.modalService.setFiltro(new domicilio("0", "", "", "", ""));
+    this.modalService.setFiltro(new domicilio("0", "", "" ));
 
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
 
@@ -41,7 +41,7 @@ export class AbmdomicilioComponent implements OnInit {
 
   editar(id: number, obj: any) {
     if (obj != null && obj != undefined) {
-      let doc: domicilio = new domicilio(id.toString(), obj.direccion, obj.idlocalidad, obj.idprovincia, obj.idpais);
+      let doc: domicilio = new domicilio(id.toString(), obj.direccion, obj.idlocalidad );
       this.abrirModal('Nuevo domicilio', 'domicilio', 3, doc)
       .subscribe(obj => this.guardardomicilio(obj)
       .subscribe(json => this.servicio.loadGrilla('domicilio')
@@ -55,7 +55,7 @@ export class AbmdomicilioComponent implements OnInit {
         .subscribe(res => this.domicilios = res)));
     }
     else {
-      let doc: domicilio = new domicilio("0", "", "", "", "");
+      let doc: domicilio = new domicilio("0", "", "" );
       this.abrirModal('Nuevo domicilio', 'domicilio', 3, doc)
       .subscribe(obj => this.guardardomicilio(obj)
         .subscribe(json => this.servicio.loadGrilla('domicilio')
@@ -82,12 +82,12 @@ export class AbmdomicilioComponent implements OnInit {
   guardardomicilio(obj): Observable<domicilio> {
     if (+obj.id != 0) {
       let param: domicilio = 
-      new domicilio(obj.id, obj.direccion, obj.idlocalidad, obj.idprovincia, obj.idpais);
+      new domicilio(obj.id, obj.direccion, obj.idlocalidad );
       return this.servicio.addSingleAbm(param, 'domicilio');
     }
     else {
       let param: domicilio = 
-      new domicilio(obj.id, obj.direccion, obj.idlocalidad, obj.idprovincia, obj.idpais);
+      new domicilio(obj.id, obj.direccion, obj.idlocalidad );
       return this.servicio.addSingleAbm(param, 'domicilio');
     }
   }

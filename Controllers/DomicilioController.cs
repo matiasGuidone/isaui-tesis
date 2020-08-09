@@ -37,9 +37,9 @@ public class DomicilioController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<domicilio> GetDomicilios()
+    public IEnumerable<domicilio> GetDomicilios([FromHeader]string[] arrayfiltros)
     {
-        return DomicilioConexion<domicilio>.Instance.SearchAll();
+        return DomicilioConexion<domicilio>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

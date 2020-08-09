@@ -7,14 +7,20 @@ import {Observable, from} from 'rxjs';
 export class PeticionesService {
 
    public url : string;
+  
     constructor( public _http: HttpClient, @Inject('BASE_URL') private baseUrl: string
      
    
     ){ 
     }
     // llena el array de cada component para mostrar los datos en la tabla  
-    loadGrilla(abm: string) : Observable<any>{
-        return this._http.get<any>(this.baseUrl+'api/'+ abm);
+    loadGrilla(abm: string ,filtro: string[] = null) : Observable<any>{
+      if(filtro ==null){
+        return this._http.get<any>(this.baseUrl+'api/'+ abm);}
+        else{
+          let headers : HttpHeaders = new HttpHeaders({'arrayfiltros':filtro});
+          return this._http.get<any>(this.baseUrl+'api/'+ abm, {headers:headers});
+        }
       }
     // ---- Este metodo aun no le he investigado
 

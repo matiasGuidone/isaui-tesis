@@ -18,13 +18,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ModalService {
-  
   public listAbm : Nodo; //Es la lista de nodos de navegacion que el usuario recorre cuando navega hacia otro abm
   public lista : string[] = new Array<string>(); //es una lista de string de los componentes abm que el usuario recorre
   public actual : string ; //representa el componente abm actual
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
-  public filtro: any[]; //se obtiene un componente del abm-seleccionado para identificar sus parámetros para el filtrado
+  public filtro: any[]; //se obtiene un array componente del abm-seleccionado para identificar sus parámetros para el filtrado
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -91,7 +90,7 @@ export class ModalService {
         else if (objeto[i] instanceof Date) {
           tp = "date"
         }
-        if(i.toString() != 'id'){
+        if(!i.toString().startsWith('id')){
           this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
     }
   }
