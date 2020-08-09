@@ -37,9 +37,9 @@ public class ProvinciaController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<provincia> GetProvincias()
+    public IEnumerable<provincia> GetProvincias([FromHeader]string[] arrayfiltros)
     {
-        return ProvinciaConexion<provincia>.Instance.SearchAll();
+        return ProvinciaConexion<provincia>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

@@ -37,9 +37,9 @@ public class PaisController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<pais> GetPaiss()
+    public IEnumerable<pais> GetPaiss([FromHeader]string[] arrayfiltros)
     {
-        return PaisConexion<pais>.Instance.SearchAll();
+        return PaisConexion<pais>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

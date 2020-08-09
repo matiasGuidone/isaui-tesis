@@ -41,9 +41,9 @@ public class CursoController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<curso> GetCursos()
+    public IEnumerable<curso> GetCursos([FromHeader]string[] arrayfiltros)
     {
-        return CursoConexion<curso>.Instance.SearchAll();
+        return CursoConexion<curso>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

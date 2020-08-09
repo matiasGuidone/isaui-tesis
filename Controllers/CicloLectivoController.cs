@@ -41,9 +41,9 @@ public class CicloLectivoController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<ciclolectivo> GetCicloLectivos()
+    public IEnumerable<ciclolectivo> GetCicloLectivos([FromHeader]string[] arrayfiltros)
     {
-        return CicloLectivoConexion<ciclolectivo>.Instance.SearchAll();
+        return CicloLectivoConexion<ciclolectivo>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

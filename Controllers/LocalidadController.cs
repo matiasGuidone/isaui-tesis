@@ -37,9 +37,9 @@ public class LocalidadController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<localidad> GetLocalidads()
+    public IEnumerable<localidad> GetLocalidads([FromHeader]string[] arrayfiltros)
     {
-        return LocalidadConexion<localidad>.Instance.SearchAll();
+        return LocalidadConexion<localidad>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

@@ -44,15 +44,15 @@ public class DocenteController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<docente> Getdocentes([FromHeader]string dato)
+    public IEnumerable<docente> Getdocentes([FromHeader]string[] arrayfiltros)
     {
         //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
-        if(dato!=null)
-        {
-        return DocenteConexion<docente>.Instance.serchDniLastName(dato);
-        }
-        else
-        return DocenteConexion<docente>.Instance.SearchAll();
+        // if(dato!=null)
+        // {
+        // return DocenteConexion<docente>.Instance.serchDniLastName(dato);
+        // }
+        // else
+        return DocenteConexion<docente>.Instance.SearchAll(arrayfiltros);
     
     }
 

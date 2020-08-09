@@ -1,13 +1,12 @@
-    
- 
-<div class="table-responsive">
+<abm-filtro (emisorFiltro)="ciclosLectivos = $event" ></abm-filtro>
+ <div class="table-responsive">
     <h3>Ciclos Lectivos</h3>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Fecha de inicio</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -15,7 +14,7 @@
             <tr *ngFor = "let ciclo of ciclosLectivos; index as i">
                 <td>{{ciclo.nombre}}</td>
                 <td>{{ciclo.descripcion}}</td>
-                <td>{{ciclo.fechainicio}}</td>
+                <td>{{ciclo.fechainicio | date : 'dd/MM/yyyy'}}</td>
                 
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(ciclo.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(ciclo.id)"><span class="fa fa-trash-alt"></span></button>

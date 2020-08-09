@@ -37,9 +37,9 @@ public class UsuarioController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<usuario> Getusuarios()
+    public IEnumerable<usuario> Getusuarios([FromHeader]string[] arrayfiltros)
     {
-        return UsuarioConexion<usuario>.Instance.SearchAll();
+        return UsuarioConexion<usuario>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5

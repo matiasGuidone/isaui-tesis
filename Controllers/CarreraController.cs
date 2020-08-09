@@ -44,10 +44,10 @@ public class CarreraController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<carrera> Getcarreras()
+    public IEnumerable<carrera> Getcarreras([FromHeader]string[] arrayfiltros)
     {
         //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
-        return CarreraConexion<carrera>.Instance.SearchAll();
+        return CarreraConexion<carrera>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5
