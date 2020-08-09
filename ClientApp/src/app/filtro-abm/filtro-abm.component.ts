@@ -4,34 +4,34 @@ import { ModalService } from '../modal/modal-service.service';
 import { PeticionesService } from '../services/peticiones.service';
 
 @Component({
-    selector: 'abm-filtro',
-    templateUrl: './filtro-abm.component.html'
+  selector: 'abm-filtro',
+  templateUrl: './filtro-abm.component.html'
 })
 export class FiltroComponent {
 
-   
-   
-   @Output() emisorFiltro = new EventEmitter<any[]>();
+  arrayValores: string[] = new Array<string>();
+  
+  @Output() emisorFiltro = new EventEmitter<any[]>();
 
-    constructor(private router: Router, private servicio: PeticionesService, private modalService : ModalService ){
+  constructor(private router: Router, private servicio: PeticionesService, private modalService: ModalService) {
 
-    }
-     //abrir y cerrar la ventana de filtros
-  showFiltros(){
+  }
+  //abrir y cerrar la ventana de filtros
+  showFiltros() {
     document.getElementById('filtros')['style'].display = "block";
     document.getElementById('mostrar')['style'].display = "none";
   }
-  cerrarFiltros(){
+  cerrarFiltros() {
     document.getElementById('filtros')['style'].display = "none";
     document.getElementById('mostrar')['style'].display = "block";
   }
   //obtiene el tipo de input para el filtro seleccionado
   getTipoFiltro() {
     let fil = "text";
-    if (this.modalService.filtro != null && this.modalService.filtro !=undefined){
+    if (this.modalService.filtro != null && this.modalService.filtro != undefined) {
       let index = document.getElementById('filtro')['value'];
-      fil = (this.modalService.filtro.find( filtro => filtro.campo === index )).tipo;
-       }
+      fil = (this.modalService.filtro.find(filtro => filtro.campo === index)).tipo;
+    }
     document.getElementById('valorFiltro')['type'] = fil;
   }
 
@@ -39,19 +39,24 @@ export class FiltroComponent {
   filtrarCampo() {
     let filtro = document.getElementById('filtro')['value'];
     let valorFiltro = document.getElementById('valorFiltro')['value'];
-    this.modalService.filtro
-    let arrayValores : string[] = new Array<string>();
-    for(var n = 0 ; n < this.modalService.filtro.length; n++){
-        if(filtro == this.modalService.filtro[n]['campo']){
-          arrayValores.push(filtro);
-          arrayValores.push(valorFiltro.toString());
-        }
+    if(this.arrayValores.find(val => filtro === val))
+      { let ind = this.arrayValores.findIndex(val => filtro === val);
+        ind++;
+        this.arrayValores[ind] = valorFiltro;}
+    else{
+        this.arrayValores.push(filtro);
+        this.arrayValores.push(valorFiltro);
     }
-    //this.filtros.emit(arrayValores);  
-    let abm =  this.router.url.substring(5);
-    this.servicio.loadGrilla(abm,arrayValores)
-    .subscribe(res => this.emisorFiltro.emit(res));
+    let abm = this.router.url.substring(5);
+    this.servicio.loadGrilla(abm, this.arrayValores)
+      .subscribe(res => this.emisorFiltro.emit(res));
   }
- 
 
+  borrar(dato: string) {
+      let ind = this.arrayValores.findIndex(val => dato === val);
+      this.arrayValores.splice(ind,2);
+      let abm = this.router.url.substring(5);
+      this.servicio.loadGrilla(abm, this.arrayValores)
+      .subscribe(res => this.emisorFiltro.emit(res));
+   }
 }

@@ -72,7 +72,7 @@ public class ObjetoConexion<T> {
                         else if(prop.PropertyType.Equals(typeof(System.String))||prop.PropertyType.Equals(typeof(string))){consulta += $" AND {prop.Name} LIKE '%{parametros[i]}%' ";}
                         else if(prop.PropertyType.Equals(typeof(System.DateTime))){consulta += $" AND {prop.Name} = '{parametros[i]}' ";}
                       // Do something with propValue
-                      i=i++;
+                       i++;
                       if(i>=parametros.Length){break;}
                     }
                      

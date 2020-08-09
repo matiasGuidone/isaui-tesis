@@ -18,7 +18,17 @@
       <label>Valor: </label><input type="text" class="form-control" id="valorFiltro"/>
       <button (click)="filtrarCampo()" class="btn btn-info"><span class="fa fa-filter"></span> filtrar</button>
     </div>
-    <br />
-  <br />
+
+    <div style="float:left;">
+      <label *ngFor="let tag of arrayValores let i = index;" class="btn-success" style="width: auto;height:22px;font-size:10pt;padding:0px;margin:2px;border-radius: 30px;">
+        <span style="margin: 5px;" *ngIf="i%2 == 0">
+        {{tag}}
+        <button type="button" id="{{tag}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag}}" class="ml-2 mb-1 close" (click)="borrar(tag)" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </span>
+      </label>
+    
+    </div>
   </div>
   
