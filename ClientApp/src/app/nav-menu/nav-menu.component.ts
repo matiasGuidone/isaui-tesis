@@ -9,9 +9,7 @@ import { PeticionesService } from '../services/peticiones.service';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css'],
-  providers:[PeticionesService]
-
+  styleUrls: ['./nav-menu.component.css'] 
 })
 export class NavMenuComponent {
 

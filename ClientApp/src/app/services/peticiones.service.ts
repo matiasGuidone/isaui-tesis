@@ -6,6 +6,8 @@ import {Observable, from} from 'rxjs';
 @Injectable()
 export class PeticionesService {
 
+   public idsSeleccionados : number[];
+   public idSeleccionado : number;
    public url : string;
   
     constructor( public _http: HttpClient, @Inject('BASE_URL') private baseUrl: string
@@ -13,13 +15,19 @@ export class PeticionesService {
    
     ){ 
     }
+
+   //busca objetos por id
+    public getById(id: string, tabla :string) : Observable<any>{
+      const headers = new HttpHeaders({ });
+      return this._http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
+    }
     // llena el array de cada component para mostrar los datos en la tabla  
-    loadGrilla(abm: string ,filtro: string[] = null) : Observable<any>{
+    loadGrilla(abm: string ,filtro: string[] = null) : Observable<any[]>{
       if(filtro ==null){
-        return this._http.get<any>(this.baseUrl+'api/'+ abm);}
+        return this._http.get<any[]>(this.baseUrl+'api/'+ abm);}
         else{
           let headers : HttpHeaders = new HttpHeaders({'arrayfiltros':filtro});
-          return this._http.get<any>(this.baseUrl+'api/'+ abm, {headers:headers});
+          return this._http.get<any[]>(this.baseUrl+'api/'+ abm, {headers:headers});
         }
       }
     // ---- Este metodo aun no le he investigado
@@ -62,6 +70,11 @@ export class PeticionesService {
 // Elimina el registro
   eliminar(id: number, abm: string){
     const headers = new HttpHeaders({'id' : id.toString()});
+    return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
+  }
+
+  eliminarConFiltro(filtro: string, valor : string, abm: string){
+    const headers = new HttpHeaders({'id' : '0', 'filtro' : filtro.toString(), 'valor': valor.toString()});
     return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
   }
    

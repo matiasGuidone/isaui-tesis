@@ -22,7 +22,10 @@ import { AbmCursoComponent } from './abm-curso/abm-curso.component';
 import { AbmUsuarioComponent } from './abm-usuario/abm-usuario.component';
 import { AbmMenuComponent } from './abm-menu/abm-menu.component';
 import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.component';
+import {AbmMateriaComponent} from './abm-materia/abm-materia.component';
 import {FiltroComponent} from './filtro-abm/filtro-abm.component'
+import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
+import { PeticionesService } from './services/peticiones.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +45,9 @@ import {FiltroComponent} from './filtro-abm/filtro-abm.component'
     AbmUsuarioComponent, 
     AbmMenuComponent,
     AbmCiclolectivoComponent,
-    FiltroComponent
+    FiltroComponent,
+    AbmMateriaComponent,
+    RelAlumnoMateria
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -65,10 +70,12 @@ import {FiltroComponent} from './filtro-abm/filtro-abm.component'
       { path: 'abm-curso', component: AbmCursoComponent },
       { path: 'abm-usuario', component: AbmUsuarioComponent },
       { path: 'abm-menu', component: AbmMenuComponent },
-      { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent}
+      { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent},
+      { path: 'abm-materia', component: AbmMateriaComponent},
+      { path: 'rel-alumnomateria', component: RelAlumnoMateria}
     ])
   ],
-  providers: [],
+  providers: [PeticionesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

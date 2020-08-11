@@ -13,8 +13,7 @@ import { PeticionesService } from '../services/peticiones.service';
 @Component({
   selector: 'app-abm-menu',
   templateUrl: './abm-menu.component.html',
-  styleUrls: ['./abm-menu.component.css'],
-  providers:[PeticionesService]
+  styleUrls: ['./abm-menu.component.css'] 
 })
 export class AbmMenuComponent implements OnInit {
 

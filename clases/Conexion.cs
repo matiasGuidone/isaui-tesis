@@ -71,7 +71,7 @@ public class Conexion
     public IEnumerable<T> consultaList<T>(String consulta)
     {
         List<T> items = new List<T>();
-        var dataTable = consultaDataTable(consulta).Tables[0];
+        try{ var dataTable = consultaDataTable(consulta).Tables[0];
         foreach (var row in dataTable.Rows)
         {
             T item = (T)Activator.CreateInstance(typeof(T), row);
@@ -79,6 +79,7 @@ public class Conexion
 
         }
         return items;
+        }catch(System.NullReferenceException e){ return null;}
 
     }
 
@@ -97,7 +98,7 @@ public class Conexion
         comando.ExecuteNonQuery();
         conn.Close();
         return true;
- }
+        }
         catch (System.InvalidOperationException e) { conn.Close(); return false; }
     }
 

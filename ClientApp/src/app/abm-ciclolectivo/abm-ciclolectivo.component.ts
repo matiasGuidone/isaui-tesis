@@ -13,8 +13,7 @@ import { PeticionesService } from '../services/peticiones.service';
 @Component({
   selector: 'app-abm-ciclolectivo',
   templateUrl: './abm-ciclolectivo.component.html',
-  styleUrls: ['./abm-ciclolectivo.component.css'],
-  providers:[PeticionesService]
+  styleUrls: ['./abm-ciclolectivo.component.css'] 
 })
 export class AbmCiclolectivoComponent implements OnInit {
 

@@ -1,0 +1,27 @@
+<abm-filtro *ngIf="!esRelacion" (emisorFiltro)="materias = $event" ></abm-filtro>
+<div class="table-responsive">
+    <h3>Materias</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th *ngIf="this.servicio.idSeleccionado != null && !esRelacion" >Seleccionar</th>
+                <th scope="col">Nombre</th>
+                <th *ngIf="!esRelacion" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let materia of materias">
+                <td *ngIf="this.servicio.idSeleccionado != null && !esRelacion && this.servicio.idsSeleccionados != null"><input *ngIf="esSeleccionado(materia.id)" type="checkbox" checked id="chk-{{materia.id}}" />
+                    <input *ngIf="!esSeleccionado(materia.id)" type="checkbox" id="chk-{{materia.id}}" /></td>
+                <td>{{materia.nombre}}</td>
+                <td><button *ngIf="!esRelacion" class="btn btn-outline-success" title="Editar" (click)="editar(materia.id)" ><span class="fa fa-edit"></span></button>
+                    <button *ngIf="!esRelacion" class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(materia.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="!esRelacion && this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(materia.id)"><span class="fa fa-check"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+    <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
+    
+</div>
+

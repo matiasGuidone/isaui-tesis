@@ -13,8 +13,7 @@ import { PeticionesService } from '../services/peticiones.service';
 @Component({
   selector: 'app-abm-pais',
   templateUrl: './abm-pais.component.html',
-  styleUrls: ['./abm-pais.component.css'],
-  providers:[PeticionesService]
+  styleUrls: ['./abm-pais.component.css'] 
 })
 export class AbmpaisComponent implements OnInit {
 
