@@ -14,8 +14,7 @@ import { PeticionesService } from '../services/peticiones.service';
 @Component({
   selector: 'app-abm-carrera',
   templateUrl: './abm-carrera.component.html',
-  styleUrls: ['./abm-carrera.component.css'],
-  providers: [PeticionesService]
+  styleUrls: ['./abm-carrera.component.css'] 
 })
 export class AbmCarreraComponent implements OnInit {
 

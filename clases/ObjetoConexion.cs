@@ -62,7 +62,7 @@ public class ObjetoConexion<T> {
                 foreach (PropertyInfo prop in props)
                 {
 
-                    if (prop.Name != "Id" && !prop.Name.StartsWith("Id") && parametros[i].ToLower() == prop.Name.ToLower()){
+                    if (prop.Name != "Id"  && parametros[i].ToLower() == prop.Name.ToLower()){
                         //object propValue = prop.GetValue(objeto, null);
                         //param.Add(new MySqlParameter (prop.Name ,parametros[i] ));
                         i++;
@@ -165,10 +165,16 @@ public class ObjetoConexion<T> {
                 Conexion.ConsultaParametros(consulta, param);
 
         }
-         public void Delete(int Id, oObjeto param = null)
+         public void Delete(int Id, oObjeto param = null, string filtro = null, string valor = null)
         {
             //si el objeto no es null se elimina ese objeto
-            if (param != null){
+            if(filtro != null && filtro != "" && valor != null && valor != ""){
+                String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE {filtro} = ?{filtro}";
+                List<MySqlParameter> parametro = new List<MySqlParameter>();
+                parametro.Add(new MySqlParameter(filtro, valor));
+                Conexion.ConsultaParametros(consulta, parametro);
+            }
+            else if (param != null){
                 String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE Id = ?Id";
                 List<MySqlParameter> parametro = new List<MySqlParameter>();
                 parametro.Add(new MySqlParameter("Id", param.Id));
