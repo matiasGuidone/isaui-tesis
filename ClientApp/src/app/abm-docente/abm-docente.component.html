@@ -4,9 +4,8 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
                 <th scope="col">Legajo</th>
+                <th scope="col">Nombre y Apellido</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Telefono</th>
                 <th scope="col">Acciones</th>
@@ -14,9 +13,8 @@
         </thead>
         <tbody>
             <tr *ngFor = "let docente of docentes">
-                <td>{{docente.nombre}}</td>
-                <td>{{docente.apellido}}</td>
                 <td>{{docente.legajo}}</td>
+                <td>{{docente.nombre}},&nbsp;&nbsp;{{docente.apellido}}</td>
                 <td>{{docente.correo}}</td>
                 <td>{{docente.telefono}}</td>
                 <td>
