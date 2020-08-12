@@ -15,16 +15,8 @@ public class AlumnoMateriaController : Controller
     [HttpPost]
     public ActionResult<alumnomateria> Index([FromBody] alumnomateria AlumnoMateria)
     {
-        // if(AlumnoMateria != null){
-        //     string[] fil = {"idalumno", AlumnoMateria.Idalumno.ToString(), "idmateria", AlumnoMateria.Idmateria.ToString(), "idciclolectivo", AlumnoMateria.Idciclolectivo.ToString()};
-        //     var aux = AlumnoMateriaConexion<alumnomateria>.Instance.SearchAll(fil);
-        //     if(aux.Count == 0 || aux == null){
-                
-        //     }
-        //     else{return Json("El registro ya estaba insertado");}
-        // }
-        
-        // return Json("No se registro ningún cambio");
+        AlumnoMateria.Idciclolectivo = 
+            CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
         AlumnoMateriaConexion<alumnomateria>.Instance.Insert(AlumnoMateria);
         return Json("Guardado exitoso");
     }
@@ -33,8 +25,8 @@ public class AlumnoMateriaController : Controller
     [HttpPut]
     public ActionResult<alumnomateria> Put([FromBody] alumnomateria AlumnoMateria)
     {
-
-        //ObjetoConexion<AlumnoMateria> cone = new ObjetoConexion<AlumnoMateria>(new AlumnoMateria());
+        AlumnoMateria.Idciclolectivo = 
+            CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
         AlumnoMateriaConexion<alumnomateria>.Instance.Update(AlumnoMateria);
         return Json("Guardado exitoso");
     }

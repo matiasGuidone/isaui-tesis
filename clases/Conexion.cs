@@ -65,7 +65,7 @@ public class Conexion
             else return null;
         }
         catch (System.InvalidOperationException e) { conn.Close(); return null; }
-
+        //catch (MySql.Data.MySqlClient.MySqlException e){conn.Close(); return null;}
 
     }
     public IEnumerable<T> consultaList<T>(String consulta)
@@ -100,6 +100,7 @@ public class Conexion
         return true;
         }
         catch (System.InvalidOperationException e) { conn.Close(); return false; }
+        //catch (MySql.Data.MySqlClient.MySqlException e) { conn.Close(); return false; }
     }
 
 
