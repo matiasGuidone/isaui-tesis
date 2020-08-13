@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 //ventanas modales
@@ -18,18 +18,22 @@ import { PeticionesService } from '../services/peticiones.service';
 export class AbmDocenteComponent implements OnInit {
 
   docentes: docente[];
-  constructor(private location: Location, 
-              private modalService: ModalService,
-              private servicio: PeticionesService) {
+  //se agregan parámetros para el nuevo formulario de relación
+  @Input() esRelacion: boolean = false;
+  @Output() emisorId = new EventEmitter<string[]>();
 
-    this.modalService.setFiltro(new docente("0", "", "", "", "","","","",""));
+  constructor(private location: Location,
+    private modalService: ModalService,
+    private servicio: PeticionesService) {
+
+    this.modalService.setFiltro(new docente("0", "", "", "", "", "", "", "", ""));
 
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
 
       if (this.modalService.listAbm.getData().name == 'docente') {
-        this.editar(this.modalService.listAbm.getData().id, 
-        this.modalService.listAbm.getData());
-      } 
+        this.editar(this.modalService.listAbm.getData().id,
+          this.modalService.listAbm.getData());
+      }
     }
   }
 
@@ -40,26 +44,26 @@ export class AbmDocenteComponent implements OnInit {
   editar(id: number, obj: any) {
     if (obj != null && obj != undefined) {
       let doc: docente = new docente
-      (id.toString(), obj.legajo, obj.nombre, obj.apellido, obj.dni,
-        obj.correo, obj.telefono,obj.iddomicilio,obj.idusuario);
+        (id.toString(), obj.legajo, obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
       this.abrirModal('Nuevo docente', 'docente', 3, doc)
-      .subscribe(obj => this.guardardocente(obj)
-      .subscribe(json => this.servicio.loadGrilla('docente')
-      .subscribe(res => this.docentes = res)));
+        .subscribe(obj => this.guardardocente(obj)
+          .subscribe(json => this.servicio.loadGrilla('docente')
+            .subscribe(res => this.docentes = res)));
     }
     else if (id != 0) {
       this.abrirModal('Editar docente', 'docente', 3, this.docentes
-      .find(docente => docente.id === id)).subscribe(
-        obj => this.guardardocente(obj)
-        .subscribe(json => this.servicio.loadGrilla('docente')
-        .subscribe(res => this.docentes = res)));
+        .find(docente => docente.id === id)).subscribe(
+          obj => this.guardardocente(obj)
+            .subscribe(json => this.servicio.loadGrilla('docente')
+              .subscribe(res => this.docentes = res)));
     }
     else {
       let doc: docente = new docente("0", "", "", "", "", "", "", "", "");
       this.abrirModal('Nuevo docente', 'docente', 3, doc)
-      .subscribe(obj => this.guardardocente(obj)
-        .subscribe(json => this.servicio.loadGrilla('docente')
-          .subscribe(res => this.docentes = res)));
+        .subscribe(obj => this.guardardocente(obj)
+          .subscribe(json => this.servicio.loadGrilla('docente')
+            .subscribe(res => this.docentes = res)));
     }
   }
 
@@ -68,40 +72,49 @@ export class AbmDocenteComponent implements OnInit {
       closed => {
         return this.servicio.eliminar(id, "docente")
           .subscribe(json => this.servicio.loadGrilla('docente')
-          .subscribe(res => this.docentes = res))
+            .subscribe(res => this.docentes = res))
       });
   }
 
   abrirModal(titulo: string, mensaje: string, tipo: number, docente: any): Observable<any> {
-    const modalRef = 
-    this.modalService.open(MyModalComponent, 
-      { title: titulo, message: mensaje, tipo: tipo, parametros: docente });
+    const modalRef =
+      this.modalService.open(MyModalComponent,
+        { title: titulo, message: mensaje, tipo: tipo, parametros: docente });
     return modalRef.onResult();
   }
 
   guardardocente(obj): Observable<docente> {
     if (+obj.id != 0) {
-      let param: docente = 
-      new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
-        obj.correo, obj.telefono,obj.iddomicilio,obj.idusuario);
+      let param: docente =
+        new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
       return this.servicio.addSingleAbm(param, 'docente');
     }
     else {
-      let param: docente = 
-      new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
-      obj.correo, obj.telefono,obj.iddomicilio,obj.idusuario);
+      let param: docente =
+        new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
       return this.servicio.addSingleAbm(param, 'docente');
     }
   }
 
   seleccionar(id) {
-    let nodo = this.modalService.listAbm;
-    while (nodo.getData().name == "docente") {
-      this.modalService.listAbm = nodo.getNext();
-      nodo = nodo.getNext();
+    if (this.esRelacion) {
+      let datos = new Array<string>();
+      datos.push(id);
+      datos.push(this.docentes.find(docente => docente.id === id).nombre +", "+ 
+      this.docentes.find(docente => docente.id === id).apellido);
+      this.emisorId.emit(datos);
     }
-    this.modalService.listAbm.getData().iddocente = id;
-    this.location.back();
+    else {
+      let nodo = this.modalService.listAbm;
+      while (nodo.getData().name == "docente") {
+        this.modalService.listAbm = nodo.getNext();
+        nodo = nodo.getNext();
+      }
+      this.modalService.listAbm.getData().iddocente = id;
+      this.location.back();
+    }
   }
 }
 

@@ -25,6 +25,7 @@ import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.comp
 import {AbmMateriaComponent} from './abm-materia/abm-materia.component';
 import {FiltroComponent} from './filtro-abm/filtro-abm.component'
 import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
+import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.component';
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
@@ -51,7 +52,8 @@ import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocator
     AbmMateriaComponent,
     RelAlumnoMateria,
     AbmRolesComponent,
-    AbmConvocatoriaComponent
+    AbmConvocatoriaComponent,
+    RelDocenteMateria
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -78,7 +80,8 @@ import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocator
       { path: 'abm-materia', component: AbmMateriaComponent},
       { path: 'rel-alumnomateria', component: RelAlumnoMateria},
       {path: 'abm-roles', component: AbmRolesComponent},
-      {path: 'abm-convocatoria', component: AbmConvocatoriaComponent}
+      {path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
+      { path: 'rel-docentemateria', component: RelDocenteMateria}
     ])
   ],
   providers: [PeticionesService],

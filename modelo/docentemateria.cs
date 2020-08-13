@@ -1,15 +1,15 @@
 using System.Data;
 using System;
-public class alumnomateria : oObjeto
+public class docentemateria : oObjeto
 {
-    public int Idalumno { get; set; }
+    public int Iddocente { get; set; }
     public int Idmateria { get; set; }
     public int Idciclolectivo { get; set; }
-    public alumnomateria() { }
-    public alumnomateria(DataRow dr)
+    public docentemateria() { }
+    public docentemateria(DataRow dr)
     {
-        
-        this.Idalumno = Convert.ToInt32(dr["idalumno"]);
+       
+        this.Iddocente = Convert.ToInt32(dr["iddocente"]);
         this.Idmateria = Convert.ToInt32(dr["idmateria"]);
         this.Idciclolectivo = Convert.ToInt32(dr["idciclolectivo"]);
     }
