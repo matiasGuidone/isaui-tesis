@@ -26,6 +26,8 @@ import {AbmMateriaComponent} from './abm-materia/abm-materia.component';
 import {FiltroComponent} from './filtro-abm/filtro-abm.component'
 import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
 import { PeticionesService } from './services/peticiones.service';
+import { AbmRolesComponent } from './abm-roles/abm-roles.component';
+import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,9 @@ import { PeticionesService } from './services/peticiones.service';
     AbmCiclolectivoComponent,
     FiltroComponent,
     AbmMateriaComponent,
-    RelAlumnoMateria
+    RelAlumnoMateria,
+    AbmRolesComponent,
+    AbmConvocatoriaComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -72,7 +76,9 @@ import { PeticionesService } from './services/peticiones.service';
       { path: 'abm-menu', component: AbmMenuComponent },
       { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent},
       { path: 'abm-materia', component: AbmMateriaComponent},
-      { path: 'rel-alumnomateria', component: RelAlumnoMateria}
+      { path: 'rel-alumnomateria', component: RelAlumnoMateria},
+      {path: 'abm-roles', component: AbmRolesComponent},
+      {path: 'abm-convocatoria', component: AbmConvocatoriaComponent}
     ])
   ],
   providers: [PeticionesService],
