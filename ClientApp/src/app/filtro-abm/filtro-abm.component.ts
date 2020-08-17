@@ -52,10 +52,11 @@ export class FiltroComponent {
       //Este case es para establecer una de las dos tablas 
       //para el filtrado en los abm relacionales
 
-    switch (abm){
-      case "alumnomateria": abm = "alumno"
-      default :;
-    }
+      switch (abm){
+        case "alumnomateria": { abm = "alumno"; break; }
+        case "docentemateria": { abm = "docente"; break; }
+        default : { break;}
+      }
     
     this.servicio.loadGrilla(abm, this.arrayValores)
       .subscribe(res => this.emisorFiltro.emit(res));
@@ -65,9 +66,11 @@ export class FiltroComponent {
       let ind = this.arrayValores.findIndex(val => dato === val);
       this.arrayValores.splice(ind,2);
       let abm = this.router.url.substring(5);
+      
       switch (abm){
-        case "alumnomateria": abm = "alumno"
-        default :;
+        case "alumnomateria": { abm = "alumno"; break; }
+        case "docentemateria": { abm = "docente"; break; }
+        default : { break;}
       }
       this.servicio.loadGrilla(abm, this.arrayValores)
       .subscribe(res => this.emisorFiltro.emit(res));

@@ -46,7 +46,7 @@ public class ObjetoConexion<T> {
 
             //     // Do something with propValue
             // }
-            if (parametros == null || parametros.Length==0){
+            if (parametros == null || parametros.Length<2){
         	string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
              
             return (List<T>)Conexion.consultaList<T>(consulta);}
