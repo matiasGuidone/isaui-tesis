@@ -29,8 +29,11 @@ import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.compone
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
+import {HtmlpdfComponent} from './HtmlPdf/HtmlPdf.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
 import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,11 @@ import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.componen
     AbmConvocatoriaComponent,
     RelDocenteMateria,
     AbmExamenComponent,
-    AbmAsistenciaComponent
+    AbmAsistenciaComponent,
+    HtmlpdfComponent,
+    AbmExamenComponent
+
+
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -83,11 +90,12 @@ import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.componen
       { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent},
       { path: 'abm-materia', component: AbmMateriaComponent},
       { path: 'rel-alumnomateria', component: RelAlumnoMateria},
-      {path: 'abm-roles', component: AbmRolesComponent},
-      {path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
+      { path: 'abm-roles', component: AbmRolesComponent},
+      { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'rel-docentemateria', component: RelDocenteMateria},
-      {path: 'abm-examen', component: AbmExamenComponent},
-      {path: 'abm-asistencia', component: AbmExamenComponent}
+      { path: 'abm-examen', component: AbmExamenComponent},
+      { path: 'abm-asistencia', component: AbmExamenComponent}
+
     ])
   ],
   providers: [PeticionesService],

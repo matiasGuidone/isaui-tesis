@@ -1,0 +1,2 @@
+ npm install jspdf
+ npm i jspdf-autotable
