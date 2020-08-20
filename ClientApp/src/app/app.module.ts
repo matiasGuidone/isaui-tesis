@@ -29,7 +29,6 @@ import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.compone
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
-import {HtmlpdfComponent} from './HtmlPdf/HtmlPdf.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
 
 @NgModule({
@@ -57,9 +56,6 @@ import { AbmExamenComponent } from './abm-examen/abm-examen.component';
     AbmRolesComponent,
     AbmConvocatoriaComponent,
     RelDocenteMateria,
-
-    HtmlpdfComponent,
-
     AbmExamenComponent
 
   ],
