@@ -30,6 +30,8 @@ import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 import {HtmlpdfComponent} from './HtmlPdf/HtmlPdf.component';
+import { AbmExamenComponent } from './abm-examen/abm-examen.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,11 @@ import {HtmlpdfComponent} from './HtmlPdf/HtmlPdf.component';
     AbmRolesComponent,
     AbmConvocatoriaComponent,
     RelDocenteMateria,
-    HtmlpdfComponent
+
+    HtmlpdfComponent,
+
+    AbmExamenComponent
+
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -83,7 +89,9 @@ import {HtmlpdfComponent} from './HtmlPdf/HtmlPdf.component';
       { path: 'rel-alumnomateria', component: RelAlumnoMateria},
       { path: 'abm-roles', component: AbmRolesComponent},
       { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
-      { path: 'rel-docentemateria', component: RelDocenteMateria}
+      { path: 'rel-docentemateria', component: RelDocenteMateria},
+      { path: 'abm-examen', component: AbmExamenComponent}
+
     ])
   ],
   providers: [PeticionesService],
