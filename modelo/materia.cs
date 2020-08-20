@@ -2,9 +2,10 @@ using System.Data;
 using System;
 public class materia : oObjeto
 {
+    public string Nombre{ get; set; }
     public int Horas { get; set; }
     public int Idcurso { get; set; }
-    public string Nombre{ get; set; }
+    
     public int Turno { get; set; }
     
     public materia() { }
