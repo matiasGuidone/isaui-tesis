@@ -1,0 +1,27 @@
+<abm-filtro (emisorFiltro)="asistencias = $event" ></abm-filtro>
+<div class="table-responsive">
+    <h3>Carreras</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">fecha y hora</th>
+                <th scope="col">Materia</th>
+                <th scope="col">Alumno</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let asistencia of asistencias">
+                <td>{{asistencia.fecha_hora}</td>
+                <td>{{asistencia.idmateria}}</td>
+                <td>{{asistencia.idalumno}}</td>
+                <td>
+                    <button class="btn btn-outline-success" title="Editar" (click)="editar(asistencia.id)" ><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-outline-danger" title="Eliminar" (click)="eliminar(asistencia.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(asistencia.id)"><span class="fa fa-check"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+</div>
