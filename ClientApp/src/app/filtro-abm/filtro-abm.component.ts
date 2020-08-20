@@ -87,6 +87,7 @@ export class FiltroComponent {
     const doc = new jspdf.jsPDF()
     let base64Img = logo64.image;
     if (this.resultados.length >0){
+    let pag = 1;
     let head = [[]];
     let body = new Array<any[]>();
     for(let m in this.resultados[0]){
@@ -119,23 +120,23 @@ export class FiltroComponent {
         if (base64Img) {
             doc.addImage(base64Img, 'JPEG', data.settings.margin.left  , 5, 40, 12);
         }
-        doc.text("Resultados", data.settings.margin.left , 25);
-
+        doc.text("Resultados de la consulta", data.settings.margin.left , 25);
+        doc.setFontSize(9);
+        doc.text("ISAUI - Autogestión ", 155 , 10);
         // Footer
-        //var str = "Página " + doc.nu
+        var str = "Página " + data.pageNumber.toString();
+       
         // Total page number plugin only available in jspdf v1.0+
-        
-        // doc.setFontSize(10);
-
+         
         // // jsPDF 1.4+ uses getWidth, <1.4 uses .width
-        // var pageSize = doc.internal.pageSize;
-        // var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
-        // doc.text(str, data.settings.margin.left, pageHeight - 10);
+         var pageSize = doc.internal.pageSize;
+         var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+        doc.text(str, data.settings.margin.left, pageHeight - 10);
     },
     margin: {top: 30}
     });
     doc.save('resultado.pdf');
-
+   
   }  
  }
  capitalizar (str: string) : string {
