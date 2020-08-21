@@ -1,9 +1,9 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    [class]="this.servicio.classnav"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']"><img class="custom-logo-link" style="width:160px;" [src]="'/assets/Logo.png'" alt="ISAUI"></a>
+      <a class="navbar-brand" [routerLink]="['/']"><img [class]="this.servicio.classimg" style="width:160px;" [src]="'/assets/Logo.png'" alt="ISAUI"></a>
       <nav *ngIf="this.modalService.lista && this.modalService.lista.length > 0" aria-label="breadcrumb">
         <ol  class="breadcrumb">
           
