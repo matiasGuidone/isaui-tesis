@@ -1,8 +1,8 @@
 export class materia{
     id : number;
+    nombre: string;
     horas : number;
     idcurso : number;
-    nombre: string;
     turno : number;
     
     
