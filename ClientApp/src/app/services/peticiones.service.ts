@@ -9,7 +9,12 @@ export class PeticionesService {
    public idsSeleccionados : number[];
    public idSeleccionado : number;
    public url : string;
-  
+   public classbody : string  = "bodyclasswh";
+   public classtable2 : string = "table table-hover";
+   public classtable : string  = "table-responsive";
+   public classimg : string  = "custom-logo-link";
+   public classnav : string = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
+
     constructor( public _http: HttpClient, @Inject('BASE_URL') private baseUrl: string
      
    

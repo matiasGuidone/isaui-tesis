@@ -89,3 +89,23 @@ code {
     margin-left:0px;
   }
 }
+
+.table-responsive{
+  
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+.bodyclass{
+  background-color: #343940;
+  min-height: 100vh;
+}
+.bodyclasswh{
+  background-color: #FFFFFF;
+}
+.img-logo{
+  filter:grayscale(100%) brightness(1000%);
+}
+
+.custom-logo-link{
+  filter:none;
+}

@@ -1,6 +1,7 @@
 <app-abm-docente [esRelacion]="true" (emisorId)="searchMaterias($event)"></app-abm-docente>
 <br />
-<h4>{{docenteSeleccionado}}</h4>
+<br />
+<h4 [class]="this.servicio.classtable">{{docenteSeleccionado}}</h4>
 <br />
 <hr> 
 <br />

@@ -29,8 +29,10 @@ import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.compone
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
+
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 import { AbmEventoComponent } from './abm-evento/abm-evento.component';
+
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
     AbmRolesComponent,
     RelDocenteMateria,
     AbmExamenComponent,
+
     AbmConvocatoriaComponent,
     AbmEventoComponent
 
@@ -92,6 +95,7 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
       { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'abm-examen', component: AbmExamenComponent},
       { path: 'abm-evento', component: AbmEventoComponent},
+
     ])
   ],
   providers: [PeticionesService],

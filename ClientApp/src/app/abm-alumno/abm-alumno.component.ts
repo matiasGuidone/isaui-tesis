@@ -16,7 +16,7 @@ import { PeticionesService } from '../services/peticiones.service';
   styleUrls: ['./abm-alumno.component.css'] 
 })
 export class AbmAlumnoComponent implements OnInit {
-
+  // estilo: string = "table-responsive";
   alumnos: alumno[];
   //se agregan parámetros para el nuevo formulario de relación
   @Input() esRelacion: boolean = false;
@@ -42,6 +42,7 @@ export class AbmAlumnoComponent implements OnInit {
   }
 
   editar(id: number, obj: any) {
+    // this.estilo = "table table-striped table-dark table-responsive";
     if (obj != null && obj != undefined) {
       let doc: alumno = new alumno
         (id.toString(), obj.nombre, obj.apellido, obj.numerodoc, obj.condicion,
