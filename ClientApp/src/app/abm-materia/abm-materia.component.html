@@ -20,8 +20,8 @@
             </tr>
         </tbody>
     </table>
-    <button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
-    <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
     
 </div>
-
+<button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+    <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
+    

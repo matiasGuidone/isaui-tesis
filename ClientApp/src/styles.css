@@ -90,8 +90,14 @@ code {
   }
 }
 
+.table-responsive{
+  
+    overflow-y: scroll;
+    max-height: 80vh;
+}
 .bodyclass{
   background-color: #343940;
+  min-height: 100vh;
 }
 .bodyclasswh{
   background-color: #FFFFFF;

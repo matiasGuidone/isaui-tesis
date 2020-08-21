@@ -30,7 +30,6 @@ import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
-import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.component';
 
 
 @NgModule({
@@ -59,7 +58,6 @@ import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.componen
     AbmConvocatoriaComponent,
     RelDocenteMateria,
     AbmExamenComponent,
-    AbmAsistenciaComponent,
     AbmExamenComponent
 
 
@@ -91,8 +89,7 @@ import { AbmAsistenciaComponent } from './abm-asistencia/abm-asistencia.componen
       { path: 'abm-roles', component: AbmRolesComponent},
       { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'rel-docentemateria', component: RelDocenteMateria},
-      { path: 'abm-examen', component: AbmExamenComponent},
-      { path: 'abm-asistencia', component: AbmExamenComponent}
+      { path: 'abm-examen', component: AbmExamenComponent}
 
     ])
   ],
