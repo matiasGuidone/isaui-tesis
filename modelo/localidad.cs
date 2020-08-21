@@ -8,8 +8,8 @@ public class localidad : oObjeto
     public localidad(DataRow dr)
     {
         this.Id = Convert.ToInt32(dr["id"]);
+        this.Nombre = dr["nombre"].ToString();
         this.Idprovincia = Convert.ToInt32(dr["idprovincia"]);
-        this.Nombre = dr["nombre"].ToString(); 
     }
 
 }

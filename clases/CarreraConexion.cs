@@ -19,7 +19,7 @@ using System.Collections.Generic;
             
         }  
 
-        public List<T> serchName(string dato)
+        /* public List<T> serchName(string dato)
         {
             string consulta = $"SELECT * FROM {this.tipo.GetType()}";
             if(dato!=null)
@@ -28,6 +28,6 @@ using System.Collections.Generic;
             }
              return (List<T>)Conexion.consultaList<T>(consulta);
              
-        }  
+        }   */
     }
  

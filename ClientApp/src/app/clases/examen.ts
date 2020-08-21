@@ -1,10 +1,8 @@
-import { ThrowStmt } from "@angular/compiler";
-import { Data } from "@angular/router";
 
 export class examen
 {
     id: number;
-    fecha: Data;
+    fecha: Date;
     observaciones: string;
     idmateria: number;
     tipo: string;

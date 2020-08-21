@@ -44,8 +44,8 @@ export class AbmDocenteComponent implements OnInit {
   editar(id: number, obj: any) {
     if (obj != null && obj != undefined) {
       let doc: docente = new docente
-        (id.toString(), obj.legajo, obj.nombre, obj.apellido, obj.dni,
-          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+        (id.toString(), obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.idusuario, obj.iddomicilio, obj.legajo);
       this.abrirModal('Nuevo docente', 'docente', 3, doc)
         .subscribe(obj => this.guardardocente(obj)
           .subscribe(json => this.servicio.loadGrilla('docente')
@@ -86,14 +86,14 @@ export class AbmDocenteComponent implements OnInit {
   guardardocente(obj): Observable<docente> {
     if (+obj.id != 0) {
       let param: docente =
-        new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
-          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+        new docente(obj.id, obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.idusuario, obj.iddomicilio, obj.legajo);
       return this.servicio.addSingleAbm(param, 'docente');
     }
     else {
       let param: docente =
-        new docente(obj.id, obj.legajo, obj.nombre, obj.apellido, obj.dni,
-          obj.correo, obj.telefono, obj.iddomicilio, obj.idusuario);
+        new docente(obj.id, obj.nombre, obj.apellido, obj.dni,
+          obj.correo, obj.telefono, obj.idusuario, obj.iddomicilio, obj.legajo);
       return this.servicio.addSingleAbm(param, 'docente');
     }
   }

@@ -1,11 +1,11 @@
 export class curso{
     id : number;
+    nombre : string;
     descripcion : string;
     nivel : number;
-    nombre : string;
     idcarrera : number;  
 
-    constructor(id: string, descripcion:string, nivel:string, nombre:string, idcarrera: string){
+    constructor(id: string, nombre:string, descripcion:string, nivel:string, idcarrera: string){
         //el orden de os parametros afecta la vista de los input en el modal
         this.nombre = nombre;
         this.nivel =  +nivel;

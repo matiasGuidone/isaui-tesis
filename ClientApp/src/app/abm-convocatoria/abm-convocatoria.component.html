@@ -4,20 +4,19 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Descripcion</th>
                 <th scope="col">Fecha de inicio</th>
                 <th scope="col">Fecha de fin</th>
+                <th scope="col">Descripcion</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let convocatoria of convocatorias; index as i">
+            <tr *ngFor = "let convocatoria of convocatorias">
+                <td>{{convocatoria.fechainicio | date : 'dd/MM/yyyy'}}</td>
+                <td>{{convocatoria.fechainicio | date : 'dd/MM/yyyy'}}</td>
                 <td>{{convocatoria.descripcion}}</td>
-                <td>{{convocatoria.fechainicio | date: 'dd/mm/yyyy'}}</td>
-                <td>{{convocatoria.fechafin | date : 'dd/MM/yyyy'}}</td>
                 <td>{{convocatoria.estado}}</td>
-                
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(convocatoria.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(convocatoria.id)"><span class="fa fa-trash-alt"></span></button>
                     <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(convocatoria.id)"><span class="fa fa-check"></span></button></td>
@@ -26,3 +25,4 @@
     </table>
     <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
 </div>
+

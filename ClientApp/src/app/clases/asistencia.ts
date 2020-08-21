@@ -1,9 +1,8 @@
-import { Data } from "@angular/router";
 
 export class asistencia
 {
 id: number;
-fecha_hora: Data;
+fecha_hora: Date;
 idmateria: number;
 iddocente: number;
 idalumno: number;

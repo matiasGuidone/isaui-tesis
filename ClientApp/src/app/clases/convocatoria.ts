@@ -1,13 +1,12 @@
-import { Data } from "@angular/router";
 
 export class convocatoria{
 
     id: number;
-    fechainicio: Data;
-    fechafin:Data;
+    fechainicio: Date;
+    fechafin:Date;
     descripcion: string;
     idmateria: number;
-    estado: string;
+    estado: number;
 
     constructor(id:string, fechainicio:string, fechafin:string, descripcion: string, idmateria:string, estado:string)
     {
@@ -15,7 +14,8 @@ export class convocatoria{
         this.fechainicio= new Date(fechainicio);
         this.fechafin=new Date(fechafin);
         this.descripcion= descripcion;
-        this.idmateria=+Number;
-        this.estado= estado;
+        this.idmateria=+idmateria;
+        this.estado= +estado;
     }
+    
 }
