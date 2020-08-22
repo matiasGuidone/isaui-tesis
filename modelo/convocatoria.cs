@@ -3,11 +3,11 @@ using System.Data;
 
 public class convocatoria: oObjeto{
 
-    public DateTime Fechainicio;
-    public DateTime Fechafin;
-    public string Descripcion;
-    public int Idmateria;
-    public int Estado;
+    public DateTime Fechainicio{get;set;}
+    public DateTime Fechafin{get;set;}
+    public string Descripcion{get;set;}
+    public int Idmateria{get;set;}
+    public int Estado{get;set;}
 
     public convocatoria(){}
 

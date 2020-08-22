@@ -37,14 +37,14 @@ export class PeticionesService {
       }
     // ---- Este metodo aun no le he investigado
 
-    findDatoGrilla()/* : Observable<docente>[] */{
-        let dato = document.getElementById("dato")['value'];//Js
-        if(dato!=null)
-        {
-          const headers = new HttpHeaders({"dato": dato});
-         return this._http.get<any>(this.url + 'docente', {headers:headers})
-        }  
-    }
+    // findDatoGrilla()/* : Observable<docente>[] */{
+    //     let dato = document.getElementById("dato")['value'];//Js
+    //     if(dato!=null)
+    //     {
+    //       const headers = new HttpHeaders({"dato": dato});
+    //      return this._http.get<any>(this.url + 'docente', {headers:headers})
+    //     }  
+    // }
    
     // POST o PUT para un registro recibe dos parametros obj : el tipo de objeto que estamos enviando 
     // desde el component y abm: la ruta del controler (ciclolectivo) -- en la condicion else leer "Documentacion"
