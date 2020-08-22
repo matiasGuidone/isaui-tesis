@@ -17,7 +17,8 @@ import { PeticionesService } from '../services/peticiones.service';
 })
 export class AbmAlumnoComponent implements OnInit {
   // estilo: string = "table-responsive";
-  alumnos: alumno[];
+  @Input() alumnos: alumno[];
+ 
   //se agregan parámetros para el nuevo formulario de relación
   @Input() esRelacion: boolean = false;
   @Output() emisorId = new EventEmitter<string[]>();
@@ -116,6 +117,27 @@ export class AbmAlumnoComponent implements OnInit {
       this.modalService.listAbm.getData().idalumno = id;
       this.location.back();
     }
+  }
+  //evento botón aceptar
+  aceptarSeleccion(){
+    this.servicio.idsSeleccionados = new Array<number>();
+    for(let i = 0; i< this.alumnos.length; i++){
+      //si está marcado el elemento
+      var n = <HTMLInputElement>document.getElementById("chk-"+this.alumnos[i].id);
+      if (n.checked == true){
+        this.servicio.idsSeleccionados.push(this.alumnos[i].id);
+      }
+    }
+    this.location.back();
+  }
+
+//función para evaluar check
+  esSeleccionado(par){
+    if (this.servicio.idsSeleccionados
+      .find(id => id === par) == null)
+      { return false;}
+      else 
+        return true;
   }
 }
 

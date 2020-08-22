@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="carreras = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Carreras</h3>
     <table [class]="this.servicio.classtable2">
@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor ="let carrera of carreras">
+            <tr *ngFor ="let carrera of lista">
                 <td>{{carrera.nombre}}</td>
                 <td>{{carrera.descripcion}}</td>
                 <td>

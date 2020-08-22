@@ -8,14 +8,14 @@ export class convocatoria{
     idmateria: number;
     estado: number;
 
-    constructor(id:string, fechainicio:string, fechafin:string, descripcion: string, idmateria:string, estado:string)
+    constructor(obj)
     {
-        this.id=+ id;
-        this.fechainicio= new Date(fechainicio);
-        this.fechafin=new Date(fechafin);
-        this.descripcion= descripcion;
-        this.idmateria=+idmateria;
-        this.estado= +estado;
+        this.id =+ obj.id;
+        this.fechainicio = new Date(obj.fechainicio);
+        this.fechafin = new Date(obj.fechafin);
+        this.descripcion = obj.descripcion;
+        this.idmateria = +obj.idmateria;
+        this.estado = +obj.estado;
     }
     
 }

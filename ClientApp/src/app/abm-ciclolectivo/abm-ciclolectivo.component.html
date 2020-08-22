@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="ciclosLectivos = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
  <div [class]="this.servicio.classtable">
     <h3>Ciclos Lectivos</h3>
     <table [class]="this.servicio.classtable2">
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let ciclo of ciclosLectivos; index as i">
+            <tr *ngFor = "let ciclo of lista">
                 <td>{{ciclo.nombre}}</td>
                 <td>{{ciclo.descripcion}}</td>
                 <td>{{ciclo.fechainicio | date : 'dd/MM/yyyy'}}</td>

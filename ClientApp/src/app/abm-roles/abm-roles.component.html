@@ -1,14 +1,15 @@
-<abm-filtro (emisorFiltro)="roless = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Roles</h3>
     <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let roles of roless">
+            <tr *ngFor = "let roles of lista">
                 <td>{{roles.nombre}}
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(roles.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(roles.id)"><span class="fa fa-trash-alt"></span></button>

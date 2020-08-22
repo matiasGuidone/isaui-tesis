@@ -7,12 +7,12 @@ export class evento
     idmateria: number;
     idmensaje:number;
 
-    constructor(id:string, nombre:string, fecha:string, idmateria:string, idmensaje:string)
+    constructor(obj)
     {
-        this.id=+ id;
-        this.nombre=nombre;
-        this.fecha=new Date(fecha);
-        this.idmateria=+ idmateria;
-        this.idmensaje=+idmensaje;
+        this.id = +obj.id;
+        this.nombre = obj.nombre;
+        this.fecha = new Date(obj.fecha);
+        this.idmateria = +obj.idmateria;
+        this.idmensaje = +obj.idmensaje;
     }
 }

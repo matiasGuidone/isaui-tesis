@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="usuarios = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Usuarios</h3>
     <table [class]="this.servicio.classtable2">
@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let usuario of usuarios">
+            <tr *ngFor = "let usuario of lista">
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.correo}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(usuario.id)" ><span class="fa fa-edit"></span></button>

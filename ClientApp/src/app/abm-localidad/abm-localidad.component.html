@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="localidades = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Localidad</h3>
     <table [class]="this.servicio.classtable2">
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let localidad of localidades">
+            <tr *ngFor = "let localidad of lista">
                 <td>{{localidad.nombre}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(localidad.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger" title="Eliminar" (click)="eliminar(localidad.id)"><span class="fa fa-trash-alt"></span></button>
