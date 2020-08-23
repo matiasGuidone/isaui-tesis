@@ -4,11 +4,11 @@ export class localidad{
     idprovincia : number;
      
     
-    constructor(id: string, nombre:string, idprovincia:string){
+    constructor(obj){
         //el orden de os parametros afecta la vista de los input en el modal
-        this.id = +id; // formateo a number el string // parseInt(val
-        this.nombre = nombre; 
-        this.idprovincia =  +idprovincia;
+        this.id = +obj.id; // formateo a number el string // parseInt(val
+        this.nombre = obj.nombre; 
+        this.idprovincia =  +obj.idprovincia;
         
         
 

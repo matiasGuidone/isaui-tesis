@@ -13,10 +13,10 @@ import { AbmDocenteComponent } from './abm-docente/abm-docente.component';
 import { MyModalComponent } from './modal/MyModalComponent';
 import { ModalServiceModule } from './modal/modal-service.module';
 import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
-import { AbmdomicilioComponent } from './abm-domicilio/abm-domicilio.component';
-import { AbmpaisComponent } from './abm-pais/abm-pais.component';
-import { AbmprovinciaComponent } from './abm-provincia/abm-provincia.component';
-import { AbmlocalidadComponent } from './abm-localidad/abm-localidad.component';
+import { AbmDomicilioComponent } from './abm-domicilio/abm-domicilio.component';
+import { AbmPaisComponent } from './abm-pais/abm-pais.component';
+import { AbmProvinciaComponent } from './abm-provincia/abm-provincia.component';
+import { AbmLocalidadComponent } from './abm-localidad/abm-localidad.component';
 import { AbmCarreraComponent } from './abm-carrera/abm-carrera.component';
 import { AbmCursoComponent } from './abm-curso/abm-curso.component';
 import { AbmUsuarioComponent } from './abm-usuario/abm-usuario.component';
@@ -44,10 +44,10 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
     FetchDataComponent,
     AbmDocenteComponent,
     AbmAlumnoComponent,
-    AbmpaisComponent,
-    AbmdomicilioComponent,
-    AbmprovinciaComponent,
-    AbmlocalidadComponent,
+    AbmPaisComponent,
+    AbmDomicilioComponent,
+    AbmProvinciaComponent,
+    AbmLocalidadComponent,
     AbmCarreraComponent,
     AbmCursoComponent,
     MyModalComponent,
@@ -79,10 +79,10 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'abm-docente', component: AbmDocenteComponent },
       { path: 'abm-alumno', component: AbmAlumnoComponent },
-      { path: 'abm-domicilio', component: AbmdomicilioComponent },
-      { path: 'abm-pais', component: AbmpaisComponent },
-      { path: 'abm-provincia', component: AbmprovinciaComponent },
-      { path: 'abm-localidad', component: AbmlocalidadComponent },
+      { path: 'abm-domicilio', component: AbmDomicilioComponent },
+      { path: 'abm-pais', component: AbmPaisComponent },
+      { path: 'abm-provincia', component: AbmProvinciaComponent },
+      { path: 'abm-localidad', component: AbmLocalidadComponent },
       { path: 'abm-carrera', component: AbmCarreraComponent},
       { path: 'abm-curso', component: AbmCursoComponent },
       { path: 'abm-usuario', component: AbmUsuarioComponent },

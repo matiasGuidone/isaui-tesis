@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="paises = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Pais</h3>
     <table [class]="this.servicio.classtable2">
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let pais of paises">
+            <tr *ngFor = "let pais of lista">
                 <td>{{pais.nombre}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(pais.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger" title="Eliminar" (click)="eliminar(pais.id)"><span class="fa fa-trash-alt"></span></button>

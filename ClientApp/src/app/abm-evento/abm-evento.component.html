@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="eventos = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
  <div class="table-responsive">
     <h3>Eventos</h3>
     <table class="table table-hover">
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let evento of eventos">
+            <tr *ngFor = "let evento of lista">
                 <td>{{evento.nombre}}</td>
                 <td>{{evento.fecha | date : 'dd/MM/yyyy'}}</td>
                 <td>{{evento.idmateria}}</td>

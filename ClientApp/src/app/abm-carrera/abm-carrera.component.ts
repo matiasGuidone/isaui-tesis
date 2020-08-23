@@ -1,109 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+
 //ventanas modales
-import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
-import { Observable } from 'rxjs';
 import { carrera } from '../clases/carrera';
-//servicio
+import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+
+//ventanas modales
 
 @Component({
   selector: 'app-abm-carrera',
   templateUrl: './abm-carrera.component.html',
   styleUrls: ['./abm-carrera.component.css'] 
 })
-export class AbmCarreraComponent implements OnInit {
+export class AbmCarreraComponent extends abm<carrera> implements OnInit {
+ 
+  constructor( protected location: Location,
+               protected modalService: ModalService,
+               protected servicio: PeticionesService){
+    super(location,modalService,servicio);
 
-  carreras: carrera[];
-  constructor(private location: Location, 
-              private modalService: ModalService, 
-              private servicio: PeticionesService) {
-   
-    this.modalService.setFiltro(new carrera("0", "", ""));
-
+    this.nombre = 'carrera';
+    this.objetoBlanco = new carrera({'id':'0','nombre':'','descripcion':''});
+    this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
-      if (this.modalService.listAbm.getData().name == 'carrera') {
+      if (this.modalService.listAbm.getData().name == this.nombre) {
         this.editar(this.modalService.listAbm.getData().id, 
         this.modalService.listAbm.getData());
       }
     }
   }
 
-  ngOnInit() {
-    this.servicio.loadGrilla('carrera').subscribe(res => this.carreras = res);
-  }
-
-  editar(id: number, obj: any) {
-    if (obj != null && obj != undefined) {
-      let car: carrera = new carrera
-      (id.toString(), obj.nombre, obj.descripcion);
-      this.abrirModal('Editar carrera', 'carrera', 3, car)
-      .subscribe(obj => this.guardarCarrera(obj)
-      .subscribe(json => this.servicio.loadGrilla('carrera')
-      .subscribe(res => this.carreras = res)));
-    }
-    else if (id != 0) {
-      this.abrirModal('Editar carrera', 'carrera', 3, this.carreras
-      .find(carrera => carrera.id === id))
-      .subscribe(obj => this.guardarCarrera(obj)
-      .subscribe(json => this.servicio.loadGrilla('carrera')
-      .subscribe(res => this.carreras = res)));
-    }
-    else {
-      let car: carrera = new carrera("0", "", "");
-      this.abrirModal('Nueva Carrera', 'carrera', 3, car)
-      .subscribe(obj => this.guardarCarrera(obj)
-      .subscribe(json => this.servicio.loadGrilla('carrera')
-      .subscribe(res => this.carreras = res)));
-    }
-  }
-
-  eliminar(id: number) {
-    this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
-      closed => {
-        //const headers = new HttpHeaders({'id' : id.toString()});
-        return this.servicio.eliminar(id, "carrera")
-          .subscribe(json => this.servicio.loadGrilla('carrera')
-          .subscribe(res => this.carreras = res))
-      });
-  }
-
-
-  abrirModal(titulo: string, mensaje: string, tipo: number, carrera: any): Observable<any> {
-    const modalRef = 
-    this.modalService.open(MyModalComponent, 
-      { title: titulo, message: mensaje, tipo: tipo, parametros: carrera });
-    return modalRef.onResult();
-  }
-
-  guardarCarrera(obj): Observable<carrera> {
-    if (+obj.id != 0) {
-      let param: carrera = 
-      new carrera(obj.id, obj.nombre, obj.descripcion);
-      //let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-      return this.servicio.addSingleAbm(param, 'carrera');
-    }
-    else {
-      let param: carrera = new carrera(obj.id, obj.nombre, obj.descripcion);
-      //let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-      return this.servicio.addSingleAbm(param, 'carrera');
-    }
-  }
-
-  /* cargarGrilla() : Observable<carrera[]>{
-    const headers = new HttpHeaders({ });
-    return this.http.get<carrera[]>(this.baseUrl + 'api/Carrera', { headers: headers });
-  } */
-  seleccionar(id) {
-    let nodo = this.modalService.listAbm;
-    while (nodo.getData().name == "carrera") {
-      this.modalService.listAbm = nodo.getNext(); 
-      nodo = nodo.getNext();
-    }
-    this.modalService.listAbm.getData().idcarrera = id;
-    this.location.back();
-  }
 }
 
 

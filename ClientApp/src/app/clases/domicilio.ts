@@ -4,12 +4,12 @@ export class domicilio{
     idlocalidad : number;
    
     
-    constructor(id: string, direccion:string, idlocalidad:string){
+    constructor(obj){
         //el orden de os parametros afecta la vista de los input en el modal
-        this.direccion = direccion;
-        this.idlocalidad = +idlocalidad;
+        this.direccion = obj.direccion;
+        this.idlocalidad = +obj.idlocalidad;
         
-        this.id = +id; // formateo a number el string // parseInt(val
+        this.id = +obj.id; // formateo a number el string // parseInt(val
 
     }
 }
