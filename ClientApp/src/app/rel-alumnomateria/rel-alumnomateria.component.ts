@@ -15,7 +15,7 @@ export class RelAlumnoMateria {
     listaMaterias: materia[] = new Array<materia>();
 
     constructor(private router: Router, private servicio: PeticionesService) {
-        if (this.servicio.idsSeleccionados != null && this.servicio.idSeleccionado != null) {
+        if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {
             this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
             //for ( 0 ; i< ; i++) {
@@ -32,6 +32,7 @@ export class RelAlumnoMateria {
             , this.servicio.idsSeleccionados[i].toString(), "1");
         this.servicio.addSingleAbm(dat, "alumnomateria").subscribe(r => {
             if (i > 0) { this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1); }
+            else if(i==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=[];}
 
         });
     }
@@ -52,9 +53,7 @@ export class RelAlumnoMateria {
                 if (res != null && res.length > 0) {
                     let i = res.length;
                     this.getMateriaById(res, i - 1);
-                    // for (let i = 0; i < res.length; i++) {
-
-                    // }
+                   
                 }
             });
         }

@@ -3,11 +3,12 @@ import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
 import { Observable } from 'rxjs';
 import { PeticionesService } from '../services/peticiones.service';
+import { Input } from '@angular/core';
 
 
 export class abm<T>{
 
-    lista: T[];
+  @Input() lista: T[];
     objetoBlanco : T;
     nombre : string;
     constructor(protected location: Location, 

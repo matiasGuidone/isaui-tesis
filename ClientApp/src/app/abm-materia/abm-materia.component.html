@@ -1,4 +1,4 @@
-<abm-filtro *ngIf="!esRelacion" (emisorFiltro)="materias = $event" ></abm-filtro>
+<abm-filtro *ngIf="!esRelacion" (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Materias</h3>
     <table [class]="this.servicio.classtable2">
@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let materia of materias">
+            <tr *ngFor = "let materia of lista">
                 <td *ngIf="this.servicio.idSeleccionado != null && !esRelacion && this.servicio.idsSeleccionados != null"><input *ngIf="esSeleccionado(materia.id)" type="checkbox" checked id="chk-{{materia.id}}" />
                     <input *ngIf="!esSeleccionado(materia.id)" type="checkbox" id="chk-{{materia.id}}" /></td>
                 <td>{{materia.nombre}}</td>

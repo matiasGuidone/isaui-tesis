@@ -1,4 +1,4 @@
-<abm-filtro (emisorFiltro)="alumnos = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Alumnos</h3>
     <table [class]="this.servicio.classtable2">
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let alumno of alumnos">
+            <tr *ngFor = "let alumno of lista">
                 <td>{{alumno.legajo}}</td>
                 <td>{{alumno.nombre}},&nbsp;&nbsp;{{alumno.apellido}}</td>
                 <td>{{alumno.numerodoc}}</td>
