@@ -13,21 +13,21 @@ public class AsistenciaController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<asistencia> Index([FromBody] asistencia asistencia)
+    public ActionResult<asistencia> Index([FromBody] asistencia Asistencia)
     {
         //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
-        AsistenciaConexion<asistencia>.Instance.Insert(asistencia);
+        AsistenciaConexion<asistencia>.Instance.Insert(Asistencia);
         return Json("Guardado exitoso");
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<asistencia> Put([FromBody] asistencia asistencia)
+    public ActionResult<asistencia> Put([FromBody] asistencia Asistencia)
     {
 
         //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
-        AsistenciaConexion<asistencia>.Instance.Update(asistencia);
+        AsistenciaConexion<asistencia>.Instance.Update(Asistencia);
         return Json("Guardado exitoso");
     }
 
@@ -44,7 +44,7 @@ public class AsistenciaController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<asistencia> Getalumnos([FromHeader]string[] arrayfiltros)
+    public IEnumerable<asistencia> Getasistencias([FromHeader]string[] arrayfiltros)
     {
         //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
         
@@ -53,7 +53,7 @@ public class AsistenciaController : Controller
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public asistencia Getalumno(int id)
+    public asistencia Getasistencia(int id)
     {
         //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
         return AsistenciaConexion<asistencia>.Instance.SearchId(id);

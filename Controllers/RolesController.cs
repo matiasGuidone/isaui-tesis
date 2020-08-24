@@ -13,21 +13,21 @@ public class RolesController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<roles> Index([FromBody] roles roles)
+    public ActionResult<roles> Index([FromBody] roles Roles)
     {
         //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        RolesConexion<roles>.Instance.Insert(roles);
+        RolesConexion<roles>.Instance.Insert(Roles);
         return Json("Guardado exitoso");
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<roles> Put([FromBody] roles roles)
+    public ActionResult<roles> Put([FromBody] roles Roles)
     {
 
         //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        RolesConexion<roles>.Instance.Update(roles);
+        RolesConexion<roles>.Instance.Update(Roles);
         return Json("Guardado exitoso");
     }
 
@@ -44,7 +44,7 @@ public class RolesController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<roles> Getalumnos([FromHeader]string[] arrayfiltros)
+    public IEnumerable<roles> getroless([FromHeader]string[] arrayfiltros)
     {
         //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
         
@@ -53,7 +53,7 @@ public class RolesController : Controller
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public roles Getalumno(int id)
+    public roles getroles(int id)
     {
         //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
         return RolesConexion<roles>.Instance.SearchId(id);
