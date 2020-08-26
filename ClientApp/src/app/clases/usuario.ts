@@ -6,7 +6,7 @@ export class usuario{
     correo : string;
     
     
-    constructor(obj){
+    constructor(obj:any){
         this.id = +obj.id;
         this.nombre = obj.nombre;
         this.codigo = obj.codigo;

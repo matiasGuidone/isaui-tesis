@@ -7,7 +7,7 @@ export class examen
     idmateria: number;
     tipo: string;
 
-    constructor(obj)
+    constructor(obj:any)
     {
         this.id= +obj.id;
         this.fecha=new Date(obj.fecha);

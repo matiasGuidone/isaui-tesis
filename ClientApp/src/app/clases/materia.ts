@@ -7,12 +7,12 @@ export class materia{
     
     
     
-    constructor(id: string, nombre:string, horas:string, turno:string, idcurso:string){
-        this.id = +id;
-        this.nombre = nombre;
-        this.horas= +horas;
-        this.turno = +turno; 
-        this.idcurso = +idcurso;
+    constructor(obj:any){
+        this.id = +obj.id;
+        this.nombre = obj.nombre;
+        this.horas= +obj.horas;
+        this.turno = +obj.turno; 
+        this.idcurso = +obj.idcurso;
 }
 }
  

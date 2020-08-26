@@ -4,7 +4,7 @@ export class carrera{
     descripcion : string;
     
     
-    constructor(obj){
+    constructor(obj:any){
         this.id = +obj.id;
         this.nombre = obj.nombre;
         this.descripcion =  obj.descripcion;

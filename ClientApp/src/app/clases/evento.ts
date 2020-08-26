@@ -7,7 +7,7 @@ export class evento
     idmateria: number;
     idmensaje:number;
 
-    constructor(obj)
+    constructor(obj:any)
     {
         this.id = +obj.id;
         this.nombre = obj.nombre;

@@ -7,13 +7,13 @@ idmateria: number;
 iddocente: number;
 idalumno: number;
 
-constructor(id:string, fecha_hora:string, idmateria: string, idalumno:string, iddocente:string)
+constructor(obj:any)
 {
-this.id=+id;
-this.fecha_hora=new Date(fecha_hora);
-this.idmateria=+idmateria;
-this.iddocente=+iddocente;
-this.idalumno=+idalumno;
+this.id=+obj.id;
+this.fecha_hora=new Date(obj.fecha_hora);
+this.idmateria=+obj.idmateria;
+this.iddocente=+obj.iddocente;
+this.idalumno=+obj.idalumno;
 }
 
 }

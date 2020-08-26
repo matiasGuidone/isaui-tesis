@@ -4,7 +4,7 @@ export class domicilio{
     idlocalidad : number;
    
     
-    constructor(obj){
+    constructor(obj:any){
         //el orden de os parametros afecta la vista de los input en el modal
         this.direccion = obj.direccion;
         this.idlocalidad = +obj.idlocalidad;

@@ -8,7 +8,7 @@ export class convocatoria{
     idmateria: number;
     estado: number;
 
-    constructor(obj)
+    constructor(obj:any)
     {
         this.id =+ obj.id;
         this.fechainicio = new Date(obj.fechainicio);

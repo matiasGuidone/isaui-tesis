@@ -4,11 +4,11 @@ export class mensaje{
     fecha : Date;
     mensaje : string;
     
-    constructor(id: string, fecha:string, mje:string){
+    constructor(obj:any){
         //el orden de os parametros afecta la vista de los input en el modal
-        this.id = +id; // formateo a number el string // parseInt(val
-        this.fecha = new Date(fecha);
-        this.mensaje = mje;
+        this.id = +obj.id; // formateo a number el string // parseInt(val
+        this.fecha = new Date(obj.fecha);
+        this.mensaje = obj.mensaje;
         
     }
 }

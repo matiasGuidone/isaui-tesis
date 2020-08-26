@@ -3,7 +3,7 @@ export class roles{
     nombre : string;
    
     
-    constructor(obj){
+    constructor(obj:any){
         this.id = +obj.id;
         this.nombre = obj.nombre;
     

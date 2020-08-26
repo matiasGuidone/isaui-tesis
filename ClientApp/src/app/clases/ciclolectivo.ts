@@ -4,7 +4,7 @@ export class ciclolectivo{
          descripcion: string;
          fechainicio: Date;
 
-    constructor(obj) {
+    constructor(obj:any) {
         this.id = +obj.id;
         this.nombre = obj.nombre;
         this.descripcion = obj.descripcion;
