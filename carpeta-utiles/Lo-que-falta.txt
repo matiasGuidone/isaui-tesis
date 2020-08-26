@@ -1,14 +1,14 @@
 - antecedentetitulo
 - calificacionalumno
 - curriculum
-curriculumantecedente
-curriculumconvocatoria
+- curriculumantecedente
+- curriculumconvocatoria
 - datoadjunto
-docenteexamen
+- docenteexamen
 - -docentemateria
 - investigacioninformacion
 - lugar
-materiaalumnomensaje
+- materiaalumnomensaje
 - mensaje
-rolesusuario
+- rolesusuario
 - publicacion

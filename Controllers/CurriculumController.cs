@@ -13,19 +13,19 @@ public class CurriculumController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<curriculum> Index([FromBody] curriculum curriculum)
+    public ActionResult<curriculum> Index([FromBody] curriculum Curriculum)
     {
-        CurriculumConexion<curriculum>.Instance.Insert(curriculum);
+        CurriculumConexion<curriculum>.Instance.Insert(Curriculum);
         return Json("Guardado exitoso");
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<curriculum> Put([FromBody] curriculum curriculum)
+    public ActionResult<curriculum> Put([FromBody] curriculum Curriculum)
     {
 
-        CurriculumConexion<curriculum>.Instance.Update(curriculum);
+        CurriculumConexion<curriculum>.Instance.Update(Curriculum);
         return Json("Guardado exitoso");
     }
 
