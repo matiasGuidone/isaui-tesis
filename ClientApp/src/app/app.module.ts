@@ -26,6 +26,7 @@ import {AbmMateriaComponent} from './abm-materia/abm-materia.component';
 import {FiltroComponent} from './filtro-abm/filtro-abm.component'
 import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
 import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.component';
+import {RelCursoAlumno} from './rel-cursoalumno/rel-cursoalumno.component';
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
@@ -60,11 +61,9 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
     AbmRolesComponent,
     RelDocenteMateria,
     AbmExamenComponent,
-
     AbmConvocatoriaComponent,
-    AbmEventoComponent
-
-
+    AbmEventoComponent,
+    RelCursoAlumno 
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -95,6 +94,7 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
       { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'abm-examen', component: AbmExamenComponent},
       { path: 'abm-evento', component: AbmEventoComponent},
+      { path: 'rel-cursoalumno', component: RelCursoAlumno },
 
     ])
   ],

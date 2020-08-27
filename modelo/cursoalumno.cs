@@ -1,5 +1,6 @@
 using System.Data;
 using System;
+//** no existe esta tabla ;D
 public class cursoalumno : oObjeto
 {
      public int Idcurso { get; set; }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 //ventanas modales
@@ -16,6 +16,9 @@ import { PeticionesService } from '../services/peticiones.service';
 })
 export class AbmCursoComponent extends abm<curso> implements OnInit {
  
+  @Input() esRelacion: boolean = false;
+  @Output() emisorId = new EventEmitter<string[]>();
+
   constructor( protected location: Location,
                protected modalService: ModalService,
                protected servicio: PeticionesService){
@@ -29,6 +32,24 @@ export class AbmCursoComponent extends abm<curso> implements OnInit {
         this.editar(this.modalService.listAbm.getData().id, 
         this.modalService.listAbm.getData());
       }
+    }
+  }
+
+  seleccionar(id) {
+    if (this.esRelacion) {
+      let datos = new Array<string>();
+      datos.push(id);
+      datos.push(this.lista.find(curso => curso.id === id).nombre);
+      this.emisorId.emit(datos);
+    }
+    else {
+      let nodo = this.modalService.listAbm;
+      while (nodo.getData().name == "curso") {
+        this.modalService.listAbm = nodo.getNext();
+        nodo = nodo.getNext();
+      }
+      this.modalService.listAbm.getData().idcurso = id;
+      this.location.back();
     }
   }
 

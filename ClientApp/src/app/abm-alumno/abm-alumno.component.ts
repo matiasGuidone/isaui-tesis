@@ -22,6 +22,7 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
 
   //se agregan parámetros para el nuevo formulario de relación
   @Input() esRelacion: boolean = false;
+  @Input() esRelacionCurso: boolean = false;
   @Output() emisorId = new EventEmitter<string[]>();
 
   constructor(protected location: Location,
@@ -37,6 +38,17 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
           this.modalService.listAbm.getData());
       }
     }
+  }
+
+  ngOnInit() {
+
+    if (!this.esRelacionCurso) {
+      this.modalService.setFiltro(this.objetoBlanco);
+      this.servicio.loadGrilla('alumno').subscribe(res => {
+        this.lista = res;
+      });
+    }
+
   }
 
 

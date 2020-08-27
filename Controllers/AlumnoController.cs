@@ -45,10 +45,12 @@ public class AlumnoController : Controller
     //GET
     [HttpGet]
     public IEnumerable<alumno> Getalumnos([FromHeader]string[] arrayfiltros)
-    {
-        //ObjetoConexion<alumno> cone = new ObjetoConexion<alumno>(new alumno());
-        
-        return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);
+    { 
+        if(!arrayfiltros.Any(p => p == "idcurso")){
+            return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);}
+        else{
+            return AlumnoConexion<alumno>.Instance.SearchAlumnosCurso(Convert.ToInt32(arrayfiltros[1]));
+        }
     }
 
     // GET: api/ApiWithActions/5

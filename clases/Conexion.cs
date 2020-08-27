@@ -100,7 +100,10 @@ public class Conexion
         return true;
         }
         catch (System.InvalidOperationException e) { conn.Close(); return false; }
+        catch (MySql.Data.MySqlClient.MySqlException er) 
+        { if (er.ToString().Contains("Duplicate entry")) {conn.Close(); return false;} }
         //catch (MySql.Data.MySqlClient.MySqlException e) { conn.Close(); return false; }
+        return false;
     }
 
 

@@ -17,35 +17,10 @@ public class ObjetoConexion<T> {
             this.tipo = t;
             this.Conexion= new Conexion();
          }
-        
-        // private ControlAlumnos({ get;set; })
-        // {
-        //     Con = new ConexionPg();
-        //     Alumnos = new List<Alumno>();
-            
-        // }
-
-        // public static ControlAlumnos Instance
-        // {
-        //     get
-        //     {
-        //         if (instance == null)
-        //             instance = new this();
-        //         return instance;
-        //     }
-        // } [ Nombre, Apellido, 
-        //  [null,"Chanan",null, null]
+       
         public List<T> SearchAll( string[] parametros = null )
         {
-            // Type myType = objeto.GetType();
-            // IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-
-            // foreach (PropertyInfo prop in props)
-            // {
-            //     object propValue = prop.GetValue(objeto, null);
-
-            //     // Do something with propValue
-            // }
+         
             if (parametros == null || parametros.Length<2){
         	string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
              
@@ -63,15 +38,14 @@ public class ObjetoConexion<T> {
                 {
 
                     if (prop.Name != "Id"  && parametros[i].ToLower() == prop.Name.ToLower()){
-                        //object propValue = prop.GetValue(objeto, null);
-                        //param.Add(new MySqlParameter (prop.Name ,parametros[i] ));
+             
                         i++;
                         if (prop.PropertyType.Equals(typeof(System.Int32))||prop.PropertyType.Equals(typeof(int))){
                             consulta += $" AND {prop.Name} = {parametros[i]} ";
                         }
                         else if(prop.PropertyType.Equals(typeof(System.String))||prop.PropertyType.Equals(typeof(string))){consulta += $" AND {prop.Name} LIKE '%{parametros[i]}%' ";}
                         else if(prop.PropertyType.Equals(typeof(System.DateTime))){consulta += $" AND {prop.Name} = '{parametros[i]}' ";}
-                      // Do something with propValue
+  
                        i++;
                       if(i>=parametros.Length){break;}
                     }
@@ -80,15 +54,13 @@ public class ObjetoConexion<T> {
                 }
                 return (List<T>)Conexion.consultaList<T>(consulta);
             }
-            // this.Alumnos  = temAlumno;
-            // return Instance.Con.consultaDataTable(consulta);
+   
         }
        
 
         public void Insert(oObjeto objeto)
         {	
-            //Type myType = objeto.GetType();
-
+        
             // Lista de propiedades del objeto que recobe por parametro
             IList<PropertyInfo> props = new List<PropertyInfo>(objeto.GetType().GetProperties());
             // inicilizar la lista de parametros para la consutla de insercion
@@ -119,16 +91,7 @@ public class ObjetoConexion<T> {
 
                 Conexion.ConsultaParametros(consulta, param);
 
-                
-            //                   $"(nombre, apellido, nroDocumento, email, celular) VALUES (@NOMBRE, @APELLIDO, @NRODOCUMENTO, @EMAIL, @CELULAR)";
-        	// List<pgsqlParameter> param =new List<NpgsqlParameter>();
-        	// param.Add(new NpgsqlParameter ("NOMBRE",parametro .Nombre ));
-        	// param.Add(new NpgsqlParameter ("APELLIDO",parametro .Apellido  ));
-        	// param.Add(new NpgsqlParameter ("NRODOCUMENTO",parametro .NroDocumento  ));
-        	// param.Add(new NpgsqlParameter ("EMAIL",parametro .Email ));
-        	// param.Add(new NpgsqlParameter ("CELULAR",parametro .Celular  ));
-        	// Instance.Con.ConsultaParametros(consulta,param);
-            
+           
 
         }
         public void Update(oObjeto objeto)

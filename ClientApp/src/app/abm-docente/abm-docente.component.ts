@@ -16,7 +16,7 @@ import { abm } from '../clases/abm';
   templateUrl: './abm-docente.component.html',
   styleUrls: ['./abm-docente.component.css']
 })
-export class AbmdocenteComponent extends abm<docente> implements OnInit {
+export class AbmDocenteComponent extends abm<docente> implements OnInit {
 
   @Input() esRelacion: boolean = false;
   @Output() emisorId = new EventEmitter<string[]>();

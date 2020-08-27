@@ -27,7 +27,7 @@ export class AbmMateriaComponent extends abm<materia> implements OnInit {
     super(location, modalService, servicio);
 
     this.nombre = 'materia';
-    this.objetoBlanco = new materia("0", "", "", "", "");
+    this.objetoBlanco = new materia({'id':"0", 'nombre': "", 'horas':"", 'turno':"", 'idcurso':""});
 
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

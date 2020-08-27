@@ -16,7 +16,7 @@ public class AlumnoMateriaController : Controller
     public ActionResult<alumnomateria> Index([FromBody] alumnomateria AlumnoMateria)
     {
         AlumnoMateria.Idciclolectivo = 
-            CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+        CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
         AlumnoMateriaConexion<alumnomateria>.Instance.Insert(AlumnoMateria);
         return Json("Guardado exitoso");
     }
@@ -35,8 +35,13 @@ public class AlumnoMateriaController : Controller
     [HttpDelete]
     public ActionResult Delete([FromHeader] string id,[FromHeader]string filtro,[FromHeader]string valor)
     {
-        AlumnoMateriaConexion<alumnomateria>.Instance.Delete(Convert.ToInt32(id), null, filtro, valor);
-        return Json("registro eliminado");
+        if (filtro == "idcurso"){
+             AlumnoMateriaConexion<alumnomateria>.Instance.DeleteByCurso(Convert.ToInt32(valor));
+            return Json("registro eliminado");
+        }
+        else{
+            AlumnoMateriaConexion<alumnomateria>.Instance.Delete(Convert.ToInt32(id), null, filtro, valor);
+            return Json("registro eliminado");}
     }
 
     //GET

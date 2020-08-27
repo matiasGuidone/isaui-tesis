@@ -32,14 +32,12 @@ export class RelAlumnoMateria {
             , this.servicio.idsSeleccionados[i].toString(), "1");
         this.servicio.addSingleAbm(dat, "alumnomateria").subscribe(r => {
             if (i > 0) { this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1); }
-            else if(i==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=[];}
+            else if(i==0){ this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados = null; }
 
         });
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     searchMaterias(alumno) {
         if (alumno != null) {

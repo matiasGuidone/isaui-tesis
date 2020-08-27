@@ -3,6 +3,7 @@ import { alumno } from '../clases/alumno';
 import { cursoalumno } from '../clases/cursoalumno';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
+import { alumnomateria } from '../clases/alumnomateria';
 
 @Component({
     selector: 'app-cursoalumno',
@@ -16,26 +17,32 @@ export class RelCursoAlumno {
 
     constructor(private router: Router, private servicio: PeticionesService) {
         if (this.servicio.idsSeleccionados != null && this.servicio.idSeleccionado != null) {
-            this.servicio.idSeleccionado.toString();
+            let idcurso = this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
-            //for ( 0 ; i< ; i++) {
-            this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1);
-
-
+            //se realiza una búsqueda de los ids de las materias del curso seleccionado
+            this.servicio.loadGrilla("materia", ['idcurso',idcurso]).subscribe(
+                idsmaterias =>{
+                this.guardarRecursivo
+                    (idsmaterias, idsmaterias.length-1 , this.servicio.idsSeleccionados, i - 1);}
+            );
+             //this.servicio.idsSeleccionados.length;
+            
         }
     }
 
     //método recursivo para el almacenado de los datos
 
-    guardarRecursivo(res, i: number) {
-        let dat = new cursoalumno("0", this.servicio.idSeleccionado.toString()
-            , this.servicio.idsSeleccionados[i].toString(), "1");
-        this.servicio.addSingleAbm(dat, "cursoalumno").subscribe(r => {
-            if (i > 0) { this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1); }
-
+    guardarRecursivo(idsmaterias, j:number, idsalumnos, i: number) {
+        let dat = new alumnomateria("0", this.servicio.idsSeleccionados[i].toString()
+            , idsmaterias[j].id.toString(), "1");
+            if (i==0){j--;i = idsalumnos.length}
+            if (i==0 && j==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=null;}
+            this.servicio.addSingleAbm(dat, "alumnomateria").subscribe(r => {
+                if (i >= 0 && j >= 0) 
+                    { this.guardarRecursivo(idsmaterias, j, idsalumnos, i - 1);}
         });
     }
-
+    
     ngOnInit() {
 
     }
@@ -48,23 +55,10 @@ export class RelCursoAlumno {
             this.listaAlumnos = new Array<alumno>();
             fil.push("idcurso");
             fil.push(curso[0]);
-            this.servicio.loadGrilla("cursoalumno", fil).subscribe(res => {
-                if (res != null && res.length > 0) {
-                    let i = res.length;
-                    this.getAlumnoById(res, i - 1);
-                    // for (let i = 0; i < res.length; i++) {
-
-                    // }
-                }
+            this.servicio.loadGrilla("alumno", fil).subscribe(res => {
+                this.listaAlumnos = res;
             });
         }
-    }
-    //método recursivo para buscar campos de alumno
-    getAlumnoById(res, i: number) {
-        this.servicio.getById(res[i].idalumno, "alumno").subscribe(re => {
-            this.listaAlumnos.push(re);
-            if (i > 0) { this.getAlumnoById(res, i - 1); }
-        });
     }
     //evento botón modificar
     modificar() {
@@ -73,9 +67,8 @@ export class RelCursoAlumno {
             this.servicio.idsSeleccionados.push(this.listaAlumnos[i].id);
         }
         this.servicio.eliminarConFiltro
-            ("idcurso", this.servicio.idSeleccionado.toString(), "cursoalumno")
+            ("idcurso", this.servicio.idSeleccionado.toString(), "alumnomateria")
             .subscribe(res => { this.router.navigate(["abm-alumno"]); })
-
     }
 
 }

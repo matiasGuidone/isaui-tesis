@@ -59,10 +59,7 @@ export class MyModalComponent extends Modal {
     this.close('saving');
     return true;
   }
-  cerrarModal() {
-    this.dismiss('canceling');
-    return false;
-  }
+ 
 
   cancel(): boolean {
     //this.message contiene el nombre del objeto actual

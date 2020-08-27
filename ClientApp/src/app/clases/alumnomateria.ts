@@ -5,12 +5,12 @@ export class alumnomateria{
     idmateria : number;
     idciclolectivo : number;
     
-    constructor(obj:any){
+    constructor(id:string,idalumno:string,idmateria:string,idciclolectivo:string){
         //el orden de os parametros afecta la vista de los input en el modal
-        this.id = +obj.id;
-        this.idalumno = +obj.idalumno;
-        this.idmateria =  +obj.idmateria;
-        this.idciclolectivo = +obj.idciclolectivo;
+        this.id = +id;
+        this.idalumno = +idalumno;
+        this.idmateria =  +idmateria;
+        this.idciclolectivo = +idciclolectivo;
        
          // formateo a number el string // parseInt(val
 

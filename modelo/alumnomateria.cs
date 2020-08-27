@@ -7,8 +7,7 @@ public class alumnomateria : oObjeto
     public int Idciclolectivo { get; set; }
     public alumnomateria() { }
     public alumnomateria(DataRow dr)
-    {
-        
+    { 
         this.Idalumno = Convert.ToInt32(dr["idalumno"]);
         this.Idmateria = Convert.ToInt32(dr["idmateria"]);
         this.Idciclolectivo = Convert.ToInt32(dr["idciclolectivo"]);

@@ -12,8 +12,6 @@
                 return instance;
             }
         } 
-        private MensajeConexion(mensaje aux): base(aux){ 
-            
-        }
+        private MensajeConexion(mensaje aux): base(aux){}
         
     }

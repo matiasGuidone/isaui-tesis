@@ -15,7 +15,7 @@
                 <td>{{curso.nivel}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(curso.id)" ><span class="fa fa-edit"></span></button>
                     <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(curso.id)"><span class="fa fa-trash-alt"></span></button>
-                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(curso.id)"><span class="fa fa-check"></span></button></td>
+                    <button *ngIf="(this.modalService.listAbm != null && this.modalService.listAbm != undefined) || this.esRelacion" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(curso.id)"><span class="fa fa-check"></span></button></td>
             </tr>
         </tbody>
     </table>

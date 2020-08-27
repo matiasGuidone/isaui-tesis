@@ -20,25 +20,21 @@ export class RelDocenteMateria {
             let i = this.servicio.idsSeleccionados.length;
             //for ( 0 ; i< ; i++) {
             this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1);
-
-
-        }
+      }
     }
 
     //método recursivo para el almacenado de los datos
 
     guardarRecursivo(res, i: number) {
-        let dat = new docentemateria("0", this.servicio.idSeleccionado.toString()
-            , this.servicio.idsSeleccionados[i].toString(), "1");
+        let dat = new docentemateria({'id':"0", 'iddocente' : this.servicio.idSeleccionado.toString()
+            , 'idmateria' : this.servicio.idsSeleccionados[i].toString(), 'idciclolectivo': "1"});
         this.servicio.addSingleAbm(dat, "docentemateria").subscribe(r => {
             if (i > 0) { this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1); }
-            else if(i==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=[];}
+            else if(i==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=null;}
         });
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     searchMaterias(docente) {
         if (docente != null) {
