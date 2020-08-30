@@ -84,13 +84,17 @@ export class ModalService {
     this.filtro = new Array<any>();
     for(var i in objeto){
         let tp: string = "text";
-        if (Number.isInteger(objeto[i])) {
+        if(i.toString().startsWith('id')){
+          tp = "list";
+          i = i.replace("id","");
+        }
+        else if (Number.isInteger(objeto[i])) {
           tp = "number";
         }
         else if (objeto[i] instanceof Date) {
           tp = "date"
         }
-        if(!i.toString().startsWith('id')){
+        if(!(i.toString()=='id')){
           this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
     }
   }

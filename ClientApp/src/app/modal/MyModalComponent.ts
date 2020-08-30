@@ -7,6 +7,7 @@ import Nodo from '../clases/Nodo';
 
 @Component({
   templateUrl: './MyModalComponent.html',
+  styleUrls: ['./Modal.css']
 })
 export class MyModalComponent extends Modal {
   title: string;

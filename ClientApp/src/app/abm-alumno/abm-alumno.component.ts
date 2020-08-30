@@ -18,7 +18,7 @@ import { abm } from '../clases/abm';
 })
 export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
   // estilo: string = "table-responsive";
-  //@Input() alumnos: alumno[];
+  @Input() alumnos: alumno[] = new Array<alumno>();
 
   //se agregan parámetros para el nuevo formulario de relación
   @Input() esRelacion: boolean = false;

@@ -1,73 +1,55 @@
 <header>
-  <nav
-    [class]="this.servicio.classnav"
-  >
+  <nav [class]="this.servicio.classnav">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']"><img [class]="this.servicio.classimg" style="width:160px;" [src]="'/assets/Logo.png'" alt="ISAUI"></a>
+      <a class="navbar-brand" [routerLink]="['/']"><img [class]="this.servicio.classimg" style="width:160px;"
+          [src]="'/assets/Logo.png'" alt="ISAUI"></a>
       <nav *ngIf="this.modalService.lista && this.modalService.lista.length > 0" aria-label="breadcrumb">
-        <ol  class="breadcrumb">
-          
-          <li *ngFor="let item of this.modalService.lista"  class="breadcrumb-item"><a href="#">{{item}}</a></li>
-          <!-- <li class="breadcrumb-item"><a href="#">Library</a></li>-->
-          <li class="breadcrumb-item active" aria-current="page"><a href="#">{{this.modalService.actual}}</a></li>  
-         
+        <ol class="breadcrumb">
+          <li *ngFor="let item of this.modalService.lista" class="breadcrumb-item"><a href="#">{{item}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">{{this.modalService.actual}}</a></li>
         </ol>
       </nav>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-           
-          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
-            <button style="border:none; background: none;" class="nav-link text-dark" (click)="showFiltros()"
-              >Filtros</button>
-          </li> -->
-          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
-            
+          <li>
+            <div>
+              <button class="btn btn-info" title="Temas" style="padding: .1rem .4rem;border-radius: 50px;" (click)="cambiarEstilo()" ><span class="fa fa-swatchbook"></span></button>
+            </div>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            
-          </li> -->
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']" >
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               Alta-Baja-Modificación
             </a>
-            <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-              <a *ngIf="item.tipo == 'abm'" class="dropdown-item"  [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
-            </div>
-              
+                <a *ngIf="item.tipo == 'abm'" class="dropdown-item"
+                  [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
+              </div>
+
             </div>
           </li>
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']" >
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               Carga de datos
             </a>
-            <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-              <a *ngIf="item.tipo == 'rel'" class="dropdown-item"  [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
-            </div>
-              
+                <a *ngIf="item.tipo == 'rel'" class="dropdown-item"
+                  [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
+              </div>
+
             </div>
           </li>
-          
-           
+
+
         </ul>
       </div>
     </div>
-    </nav>
+  </nav>
 </header>
-
-

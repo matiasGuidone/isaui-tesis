@@ -1,10 +1,10 @@
-<abm-filtro *ngIf="!esRelacionCurso" (emisorFiltro)="lista = $event" ></abm-filtro>
+<abm-filtro [resultados]="this.lista" (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Alumnos</h3>
     <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
-                <th *ngIf="this.servicio.idSeleccionado != null && !esRelacionCurso" >Seleccionar</th>
+                <th *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion" >Seleccionar</th>
                 <th scope="col">Legajo</th>
                 <th scope="col">Nombre y apellido</th>
                 <th scope="col">Documento</th>
@@ -28,4 +28,4 @@
    
 </div>
 <button *ngIf="!esRelacionCurso" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
-<button *ngIf="this.servicio.idSeleccionado != null && !esRelacionCurso" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
+<button *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>

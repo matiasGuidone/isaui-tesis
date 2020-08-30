@@ -35,8 +35,9 @@ export class RelCursoAlumno {
     guardarRecursivo(idsmaterias, j:number, idsalumnos, i: number) {
         let dat = new alumnomateria("0", this.servicio.idsSeleccionados[i].toString()
             , idsmaterias[j].id.toString(), "1");
-            if (i==0){j--;i = idsalumnos.length}
             if (i==0 && j==0){this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados=null;}
+            if (i==0){j--;i = idsalumnos.length}
+            
             this.servicio.addSingleAbm(dat, "alumnomateria").subscribe(r => {
                 if (i >= 0 && j >= 0) 
                     { this.guardarRecursivo(idsmaterias, j, idsalumnos, i - 1);}
