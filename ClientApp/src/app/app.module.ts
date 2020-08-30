@@ -33,6 +33,7 @@ import { AbmExamenComponent } from './abm-examen/abm-examen.component';
 
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 import { AbmEventoComponent } from './abm-evento/abm-evento.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -63,7 +64,9 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
     AbmExamenComponent,
     AbmConvocatoriaComponent,
     AbmEventoComponent,
-    RelCursoAlumno 
+    RelCursoAlumno,
+    FooterComponent,
+     
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -95,6 +98,7 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
       { path: 'abm-examen', component: AbmExamenComponent},
       { path: 'abm-evento', component: AbmEventoComponent},
       { path: 'rel-cursoalumno', component: RelCursoAlumno },
+      
 
     ])
   ],
