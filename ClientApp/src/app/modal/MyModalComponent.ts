@@ -16,6 +16,8 @@ export class MyModalComponent extends Modal {
   parametros: any[];
   formGroup: FormGroup;
   objetoIn: any;
+  
+
   constructor(private modalService: ModalService, private router: Router) {
     super();
     this.formGroup = new FormGroup({});
@@ -47,6 +49,10 @@ export class MyModalComponent extends Modal {
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
         this.parametros.push(obj);
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
+        if (obj.tipo == 'estado'|| obj.tipo == 'tipo'){
+          let abm = this.router.url.substring(5);
+          this.modalService.setCaseEstado(abm);
+        }
         if (obj.tipo.length > 2 && obj.tipo.startsWith('id', 0)) {
           this.buscarDescripcion(i.toString(), inputs.parametros[i].toString());
         }
@@ -55,6 +61,7 @@ export class MyModalComponent extends Modal {
 
     }
   }
+  
 
   save(): boolean {
     this.close('saving');

@@ -25,6 +25,11 @@
           {{cargarCampo(fil)}}
         </option>
       </select>
+      <select  id="valorFilCase" style="display:none;" class="form-control">
+        <option *ngFor="let fil of estado let i = index; " [value]="i">
+          {{fil}}
+        </option>
+      </select>
       <button (click)="filtrarCampo()" class="btn btn-info"><span class="fa fa-filter"></span> filtrar</button>
     </div>
 

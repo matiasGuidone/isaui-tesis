@@ -24,6 +24,8 @@ export class ModalService {
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
   public filtro: any[]; //se obtiene un array componente del abm-seleccionado para identificar sus parámetros para el filtrado
+  public estados: string[];
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -88,14 +90,33 @@ export class ModalService {
           tp = "list";
           i = i.replace("id","");
         }
+        else if (i.toString()=='estado'){
+          tp = "case";
+        }
         else if (Number.isInteger(objeto[i])) {
           tp = "number";
         }
         else if (objeto[i] instanceof Date) {
           tp = "date"
         }
+
         if(!(i.toString()=='id')){
           this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
+    }
+  }
+  
+  public setCaseEstado(abm: string) {
+    switch(abm){
+      case 'convocatoria' : 
+        this.estados = ["activo","anulado"]
+        break;
+        case 'examen' : 
+        this.estados = ["parcial","libre","regular","final"]
+        break;
+        case 'menu' : 
+        this.estados = ["abm","rel"]
+        break;
+      default : break;
     }
   }
   

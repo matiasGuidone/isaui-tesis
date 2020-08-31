@@ -18,6 +18,7 @@ export class FiltroComponent {
   @Input() resultados : any[] = [];
   private camposid = new Array<any[]>();
   private listSeleccionado : any[];
+  private estado : any[]= new Array<string>();
   @Output() emisorFiltro = new EventEmitter<any[]>();
 
   constructor(private router: Router, private servicio: PeticionesService, private modalService: ModalService) {
@@ -59,11 +60,22 @@ export class FiltroComponent {
       this.camposid;
       document.getElementById('valorFilList').style['display'] = 'block';
       document.getElementById('valorFiltro').style['display'] = 'none';
+      document.getElementById('valorFilCase').style['display'] = 'none';
       document.getElementById('valorFiltro')['value'] = fil;
+    }
+    else if (fil == 'case'){
+      document.getElementById('valorFilList').style['display'] = 'none';
+      document.getElementById('valorFiltro').style['display'] = 'none';
+      document.getElementById('valorFilCase').style['display'] = 'block';
+      document.getElementById('valorFiltro')['value'] = fil;
+      let abm = this.router.url.substring(5);
+      this.modalService.setCaseEstado(abm);
+      this.estado = this.modalService.estados;
     }
     else{
       document.getElementById('valorFilList').style['display'] = 'none';
       document.getElementById('valorFiltro').style['display'] = 'block';
+      document.getElementById('valorFilCase').style['display'] = 'none';
       document.getElementById('valorFiltro')['type'] = fil;
       } 
     }
@@ -76,6 +88,9 @@ export class FiltroComponent {
     if(document.getElementById('valorFiltro')['value']=='list'){
         filtro = 'id'+filtro;
         valorFiltro = document.getElementById('valorFilList')['value'];
+    }
+    else if(document.getElementById('valorFiltro')['value']=='case'){
+      valorFiltro = document.getElementById('valorFilCase')['value'];
     }
     if(this.arrayValores.find(val => filtro === val))
       { let ind = this.arrayValores.findIndex(val => filtro === val);
