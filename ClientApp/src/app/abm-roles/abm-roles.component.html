@@ -1,22 +1,27 @@
-<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
+<abm-filtro *ngIf="!esRelacion" (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Roles</h3>
     <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
+                <th *ngIf="this.servicio.idSeleccionado != null && !esRelacion" >Seleccionar</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Acciones</th>
+                <th *ngIf="!esRelacion" scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor = "let roles of lista">
-                <td>{{roles.nombre}}
-                <td><button class="btn btn-outline-success" title="Editar" (click)="editar(roles.id)" ><span class="fa fa-edit"></span></button>
-                    <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(roles.id)"><span class="fa fa-trash-alt"></span></button>
-                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(roles.id)"><span class="fa fa-check"></span></button></td>
+                <td *ngIf="this.servicio.idSeleccionado != null && !esRelacion && this.servicio.idsSeleccionados != null"><input *ngIf="esSeleccionado(roles.id)" type="checkbox" checked id="chk-{{roles.id}}" />
+                    <input *ngIf="!esSeleccionado(roles.id)" type="checkbox" id="chk-{{roles.id}}" /></td>
+                <td>{{roles.nombre}}</td>
+                <td><button *ngIf="!esRelacion" class="btn btn-outline-success" title="Editar" (click)="editar(roles.id)" ><span class="fa fa-edit"></span></button>
+                    <button *ngIf="!esRelacion" class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(roles.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="!esRelacion && this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(roles.id)"><span class="fa fa-check"></span></button></td>
             </tr>
         </tbody>
     </table>
     
 </div>
-<button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+<button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+    <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
+    

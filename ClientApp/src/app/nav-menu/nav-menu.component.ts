@@ -12,7 +12,7 @@ import { PeticionesService } from '../services/peticiones.service';
   styleUrls: ['./nav-menu.component.css'] 
 })
 export class NavMenuComponent {
- num = 1;
+ num = 0;
   isExpanded = false;
   menus : menu[];
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router){

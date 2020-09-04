@@ -27,6 +27,7 @@ import {FiltroComponent} from './filtro-abm/filtro-abm.component'
 import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
 import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.component';
 import {RelCursoAlumno} from './rel-cursoalumno/rel-cursoalumno.component';
+
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
@@ -34,7 +35,7 @@ import { AbmExamenComponent } from './abm-examen/abm-examen.component';
 import { AbmConvocatoriaComponent } from './abm-convocatoria/abm-convocatoria.component';
 import { AbmEventoComponent } from './abm-evento/abm-evento.component';
 import { FooterComponent } from './footer/footer.component';
-
+import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { FooterComponent } from './footer/footer.component';
     AbmEventoComponent,
     RelCursoAlumno,
     FooterComponent,
+    RelRolesUsuario,
      
   ],
   entryComponents: [MyModalComponent],
@@ -98,8 +100,7 @@ import { FooterComponent } from './footer/footer.component';
       { path: 'abm-examen', component: AbmExamenComponent},
       { path: 'abm-evento', component: AbmEventoComponent},
       { path: 'rel-cursoalumno', component: RelCursoAlumno },
-      
-
+      { path: 'rel-rolesusuario', component: RelRolesUsuario },
     ])
   ],
   providers: [PeticionesService],

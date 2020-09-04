@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 //ventanas modales
@@ -16,6 +16,8 @@ import { PeticionesService } from '../services/peticiones.service';
 })
 export class AbmRolesComponent extends abm<roles> implements OnInit {
  
+  @Input() esRelacion: boolean = false;
+  
   constructor( protected location: Location,
                protected modalService: ModalService,
                protected servicio: PeticionesService){
@@ -31,7 +33,36 @@ export class AbmRolesComponent extends abm<roles> implements OnInit {
       }
     }
   }
+  ngOnInit() {
 
+    if (!this.esRelacion) {
+      this.modalService.setFiltro(this.objetoBlanco);
+      this.servicio.loadGrilla('roles').subscribe(res => {
+        this.lista = res;
+      });
+    }
+
+  }
+  //evento botón aceptar
+  aceptarSeleccion() {
+    this.servicio.idsSeleccionados = new Array<number>();
+    for (let i = 0; i < this.lista.length; i++) {
+      //si está marcado el elemento
+      var n = <HTMLInputElement>document.getElementById("chk-" + this.lista[i].id);
+      if (n.checked == true) {
+        this.servicio.idsSeleccionados.push(this.lista[i].id);
+      }
+    }
+    this.location.back();
+  }
+
+  //función para evaluar check
+  esSeleccionado(par) {
+    if (this.servicio.idsSeleccionados
+      .find(id => id === par) == null) { return false; }
+    else
+      return true;
+  }
 }
 
 
