@@ -2,9 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 //ventanas modales
-import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
-import { Observable } from 'rxjs';
 import { docente } from '../clases/docente';
 import { PeticionesService } from '../services/peticiones.service';
 import { abm } from '../clases/abm';
@@ -55,18 +53,7 @@ export class AbmDocenteComponent extends abm<docente> implements OnInit {
       this.location.back();
     }
   }
-  //evento botón aceptar
-  aceptarSeleccion() {
-    this.servicio.idsSeleccionados = new Array<number>();
-    for (let i = 0; i < this.lista.length; i++) {
-      //si está marcado el elemento
-      var n = <HTMLInputElement>document.getElementById("chk-" + this.lista[i].id);
-      if (n.checked == true) {
-        this.servicio.idsSeleccionados.push(this.lista[i].id);
-      }
-    }
-    this.location.back();
-  }
+
   //función para evaluar check
   esSeleccionado(par) {
     if (this.servicio.idsSeleccionados

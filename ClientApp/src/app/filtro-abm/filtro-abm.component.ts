@@ -109,6 +109,7 @@ export class FiltroComponent {
         case "alumnomateria": { abm = "alumno"; break; }
         case "docentemateria": { abm = "docente"; break; }
         case "cursoalumno": { abm = "alumno"; break; }
+        case "rolesusuario": { abm = "usuario"; break; }
         default : { break;}
       }
     
@@ -125,6 +126,7 @@ export class FiltroComponent {
         case "alumnomateria": { abm = "alumno"; break; }
         case "docentemateria": { abm = "docente"; break; }
         case "cursoalumno": { abm = "alumno"; break; }
+        case "rolesusuario": { abm = "usuario"; break; }
         default : { break;}
       }
       this.servicio.loadGrilla(abm, this.arrayValores)
@@ -150,6 +152,7 @@ export class FiltroComponent {
         switch (abm){
           case "alumnomateria": { abm = "alumno"; break; }
           case "docentemateria": { abm = "docente"; break; }
+          case "rolesusuario": { abm = "usuario"; break; }
           default : { break;}
         }
       
