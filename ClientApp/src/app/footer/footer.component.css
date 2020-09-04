@@ -1,0 +1,53 @@
+
+.redes-conteiner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: #333333; */            /* Color q no debe ir */
+    margin: 0 0px;
+    width: -10px;
+        height: 10px;
+        text-align: center;
+    }
+    
+    
+    
+    .redes-conteiner ul li{
+        display: inline-block;
+        margin: 0 0px;
+        width: 35px; /* acho */
+        height: 0px; /* altura */
+        text-align: center;
+    }
+    
+    .redes-conteiner ul li a{
+     display: block;
+     padding: 0 10px;
+     color: #ffffff;
+    line-height: 35px;
+    font-size: 10px;/* tamaño del icono */
+    /* box-shadow: 0 3px 5px 0px rgb(0, 0, 0, .2); */   /* diseño de boton, no debe ir */
+    transition: .2s;
+    }
+    .redes-conteiner ul:hover a{
+        filter: blur(2px) /* desenfoca todo */
+    }
+    
+    .redes-conteiner ul li a:hover{
+         transform: translateY(-3px) scale(1.05); 
+       /*  box-shadow: 0 5px 5px 0px rgb(0, 0, 0, .2);       /* diseño de boton, no debe ir */
+        filter: none;
+    }
+    
+    .redes-conteiner ul li .facebook:hover{
+        color: #2f68e2;
+    }
+    .redes-conteiner ul li .instagram:hover{
+        color: #bc2a8b;
+    }
+    .redes-conteiner ul li .google-plus:hover{
+        color: #ff3f32;  
+    }
+    .redes-conteiner ul li .youtube:hover{
+        color: #ff1100;  
+    }
