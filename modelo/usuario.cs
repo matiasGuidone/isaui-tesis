@@ -6,7 +6,7 @@ public class usuario : oObjeto
     public string Codigo { get; set; }
     public string Codigoayuda{ get; set; }
     public string Correo { get; set; }
-    
+    public int Estado{get;set;}
     public usuario() { }
     public usuario(DataRow dr)
     {
@@ -15,7 +15,7 @@ public class usuario : oObjeto
         this.Codigo = dr["codigo"].ToString();
         this.Codigoayuda = dr["codigoayuda"].ToString();
         this.Correo = dr["correo"].ToString();
-        
+        this.Estado=Convert.ToInt32(dr["estado"]);
     }
 
 }

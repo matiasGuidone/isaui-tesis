@@ -4,7 +4,7 @@ export class usuario{
     codigo : string;
     codigoayuda: string;
     correo : string;
-    
+    estado:number;
     
     constructor(obj:any){
         this.id = +obj.id;
@@ -12,5 +12,6 @@ export class usuario{
         this.codigo = obj.codigo;
         this.codigoayuda= obj.codigoayuda;
         this.correo = obj.correo;
+        this.estado=+ obj.estado;
 }
 }

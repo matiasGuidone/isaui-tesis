@@ -25,7 +25,7 @@ export class AbmUsuarioComponent extends abm<usuario> implements OnInit {
     super(location, modalService, servicio);
 
     this.nombre = 'usuario';
-    this.objetoBlanco = new usuario({ 'id': '0', 'nombre': '' ,'codigo':'','codigoayuda':'','correo':''});
+    this.objetoBlanco = new usuario({ 'id': '0', 'nombre': '' ,'codigo':'','codigoayuda':'','correo':'', 'estado':'' });
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {
