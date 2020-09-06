@@ -10,7 +10,9 @@
         text-align: center;
     }
     
-    
+   ul{
+    padding-inline-start: 0px;
+   } 
     
     .redes-conteiner ul li{
         display: inline-block;
@@ -22,7 +24,7 @@
     
     .redes-conteiner ul li a{
      display: block;
-     padding: 0 10px;
+     
      color: #ffffff;
     line-height: 35px;
     font-size: 10px;/* tamaño del icono */
