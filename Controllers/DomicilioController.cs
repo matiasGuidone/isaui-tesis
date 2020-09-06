@@ -16,7 +16,9 @@ public class DomicilioController : Controller
     public ActionResult<domicilio> Index([FromBody] domicilio Domicilio)
     {
         DomicilioConexion<domicilio>.Instance.Insert(Domicilio);
-        return Json("Guardado exitoso");
+        var id = DomicilioConexion<domicilio>.Instance.SearchAll().Max(x => x.Id);
+         
+        return Json(id);
     }
 
     // PUT

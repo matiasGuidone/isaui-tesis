@@ -20,7 +20,10 @@
       </button><br />{{title}} <br /><br />
       <a *ngFor="let par of parametros">
         <!--campos con foráneas-->
-        <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0) ">
+        <div *ngIf="par.tipo.startsWith('iddomicilio',0) ">
+          <app-abm-domicilio (emisorId)="this.formGroup.get('iddomicilio').setValue($event)"  [id]="+par.valor"></app-abm-domicilio>
+        </div>
+        <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0) && !par.tipo.startsWith('iddomicilio',0) ">
           <div class="form-group"
             [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
             <div class="input-group mb-3">
@@ -31,11 +34,7 @@
               <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
                 style="flex: none; width:20px;" (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}" />
               <input style="width:40%;flex: 20 1 110px;" disabled type="text" id="{{par.tipo}}-desc" />
-              <!-- <select formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control">
-                <option *ngFor="let obj of this.idsdatos[idIndice()] " [ngValue]="obj.id">
-                  {{obj[1]}}
-                </option>
-              </select> -->
+               
               <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info"
                 (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button>
             </div>

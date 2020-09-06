@@ -1,4 +1,59 @@
-<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
+
+  <div class="cuadro-editar">
+<h5 style="float:left;">Domicilio</h5>
+<button style="float:right;border-radius: 50px;margin: 5px;width:30px;height:30px;" class="btn btn-outline-success"   title="Editar" (click)="colapsar()" ><span style="margin-left: -5px;"class="fa fa-edit fa-md"></span></button>
+<div style="display:none;" id="editor" >
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span style="width:110px;text-align: right;" title="pais"
+        class="input-group-text" id="basic-addon1">Pais</span>
+    </div>
+  <select (change)="onChangePais()" id="pais" class="form-control">
+    <option *ngFor="let pais of listaPais " [value]="pais.id">
+      {{pais.nombre}}
+    </option>
+  </select>
+  <button class="btn btn-outline-success" style="margin: 0;" title="Editar" (click)="addPais()" ><span class="fa fa-plus"></span></button>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span style="width:110px;text-align: right;" title="pais"
+        class="input-group-text" id="basic-addon1">Provincia</span>
+    </div>
+  <select  (change)="onChangeProvincia()" id="provincia" class="form-control">
+    <option *ngFor="let provincia of listaprovincia " [value]="provincia.id">
+      {{provincia.nombre}}
+    </option>
+  </select>
+  <button class="btn btn-outline-success" style="margin: 0;" title="Editar" (click)="addProvincia()" ><span class="fa fa-plus"></span></button>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span style="width:110px;text-align: right;" title="pais"
+        class="input-group-text" id="basic-addon1">Localidad</span>
+    </div>
+  <select  id="localidad" class="form-control">
+    <option *ngFor="let localidad of listalocalidad " [value]="localidad.id">
+      {{localidad.nombre}}
+    </option>
+  </select>
+  <button class="btn btn-outline-success" style="margin: 0;" title="Editar" (click)="addLocalidad()" ><span class="fa fa-plus"></span></button>
+</div>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span style="width:110px;text-align: right;" title="pais"
+        class="input-group-text" id="basic-addon1">Domicilio</span>
+    </div>
+  <input class="form-control" id="direccion" type="text" placeholder="calle-altura-depto.-piso">
+</div>
+<button class="btn btn-info" (click)="guardarDomicilio()" ><span ></span>Aceptar</button>
+</div>
+</div>
+
+
+
+<!-- <abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div [class]="this.servicio.classtable">
     <h3>Domicilio</h3>
     <table [class]="this.servicio.classtable2">
@@ -19,4 +74,4 @@
     </table>
   
 </div>
-<button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+<button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button> -->

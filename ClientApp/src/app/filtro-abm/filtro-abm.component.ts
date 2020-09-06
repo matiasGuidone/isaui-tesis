@@ -5,6 +5,7 @@ import { PeticionesService } from '../services/peticiones.service';
 import * as jspdf from 'jspdf';  
 import autoTable from 'jspdf-autotable'
 import { logo64 } from './logo-base64';
+import { MyModalComponent } from '../modal/MyModalComponent';
 
 @Component({
   selector: 'abm-filtro',
@@ -15,7 +16,7 @@ export class FiltroComponent {
 
   arrayValores: string[] = new Array<string>();
 
-  @Input() resultados : any[] = [];
+  @Input() resultados : any[] = new Array<any>();
   private camposid = new Array<any[]>();
   private listSeleccionado : any[];
   private estado : any[]= new Array<string>();
@@ -236,6 +237,12 @@ export class FiltroComponent {
       doc.save( abm+fechafile+'.pdf');
     
     }  
+    else{
+      const modalRef = 
+      this.modalService.open(MyModalComponent, 
+        { title: "Generar reporte", message: "Debe filtrar por alguno de los campos para obtener resultados", tipo: 2, parametros: null });
+      return modalRef.onResult();
+    }
  }
  capitalizar (str: string) : string {
   return str.charAt(0).toUpperCase() + str.slice(1);

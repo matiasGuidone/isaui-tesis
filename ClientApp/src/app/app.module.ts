@@ -14,6 +14,7 @@ import { MyModalComponent } from './modal/MyModalComponent';
 import { ModalServiceModule } from './modal/modal-service.module';
 import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
 import { AbmDomicilioComponent } from './abm-domicilio/abm-domicilio.component';
+import { AbmDireccionComponent } from './abm-direccion/abm-direccion.component';
 import { AbmPaisComponent } from './abm-pais/abm-pais.component';
 import { AbmProvinciaComponent } from './abm-provincia/abm-provincia.component';
 import { AbmLocalidadComponent } from './abm-localidad/abm-localidad.component';
@@ -68,6 +69,7 @@ import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
     RelCursoAlumno,
     FooterComponent,
     RelRolesUsuario,
+    AbmDireccionComponent,
      
   ],
   entryComponents: [MyModalComponent],
@@ -84,6 +86,7 @@ import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
       { path: 'abm-docente', component: AbmDocenteComponent },
       { path: 'abm-alumno', component: AbmAlumnoComponent },
       { path: 'abm-domicilio', component: AbmDomicilioComponent },
+      { path: 'abm-direccion', component: AbmDireccionComponent },
       { path: 'abm-pais', component: AbmPaisComponent },
       { path: 'abm-provincia', component: AbmProvinciaComponent },
       { path: 'abm-localidad', component: AbmLocalidadComponent },

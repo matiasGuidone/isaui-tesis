@@ -1,6 +1,6 @@
 
 <button (click)="showFiltros()" id="mostrar" title="Mostrar filtros" style="border-radius:50px;width:30px;height:30px;position:absolute; padding: 0px;" class="btn btn-outline-info"><span class="fas fa-filter fa-md"></span></button>
-<button *ngIf="this.resultados.length > 0" (click)="generarPDF()" id="pdf" title="Resultados pdf" style="margin-left:35px;border-radius:50px;position:absolute;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>
+<button *ngIf="this.resultados" (click)="generarPDF()" id="pdf" title="Resultados pdf" style="margin-left:35px;border-radius:50px;position:absolute;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>
 <div id="filtros" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <!-- <div class="toast-header"> -->
       <!-- <img src="..." class="rounded mr-2" alt="..."> -->
