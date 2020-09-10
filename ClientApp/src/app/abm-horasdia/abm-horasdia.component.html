@@ -1,0 +1,23 @@
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
+<div [class]="this.servicio.classtable">
+    <h3>Módulos de cursado</h3>
+    <table [class]="this.servicio.classtable2">
+        <thead>
+            <tr>
+                <th scope="col">Orden</th>
+                <th scope="col">Hora</th> 
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let horasdia of lista">
+                <td>{{horasdia.numorden}}</td>
+                <td>{{horasdia.hora }}</td> 
+                <td><button class="btn btn-outline-success" title="Editar" (click)="editar(horasdia.id)" ><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(horasdia.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(horasdia.id)"><span class="fa fa-check"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>

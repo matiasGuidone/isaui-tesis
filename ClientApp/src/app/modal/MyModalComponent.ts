@@ -46,6 +46,9 @@ export class MyModalComponent extends Modal {
         else if (i.toString().startsWith('codigo', 0)) {
           tp = "password";
         }
+        else if (i.toString().startsWith('hora', 0)) {
+          tp = "time";
+        }
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
         this.parametros.push(obj);
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));

@@ -7,6 +7,7 @@ public class usuario : oObjeto
     public string Codigoayuda{ get; set; }
     public string Correo { get; set; }
     public int Estado{get;set;}
+    
     public usuario() { }
     public usuario(DataRow dr)
     {

@@ -1,0 +1,36 @@
+<div [class]="this.servicio.classtable" >
+        <h3>Asistencias</h3>
+             <hr> 
+             <div class="form-group">
+                <h5 class="col-md-2 control-label">Materias: </h5> 
+             <div class="col-md-6">
+             <select (change)="seleccionarMateria()" class="form-control" id="materia" >
+                <option *ngFor="let materia of materias"  [value]="materia.id" >
+                     {{materia.nombre}}
+                </option>
+             </select>
+             
+            </div>
+<hr>
+<table [class]="this.servicio.classtable2" >
+    <thead>
+        <th scope="col">Alumnos</th> 
+        <th scope="col" *ngFor="let dia of dias" id="d{{dia.numero}}" >{{dia.numero}}</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let alumno of alumnos let i = index;">
+            <td>{{alumno.apellido}},&nbsp;{{alumno.nombre}} </td>
+            
+        <th scope="col" *ngFor="let dia of dias" id="celda{{dia.numero}}-{{i}}" >
+          
+            <!-- <div *ngIf="dia.diasemana == 6 ||dia.diasemana == 0" style=" text-align: center; margin: 0; height: 47px;padding:50%;background-color: rgba(104, 112, 138, 0.774);"></div>
+            <div *ngIf="esHoy(dia)" style="text-align: center; margin: 0; height: 47px;padding:50%;background-color: ;"></div> -->
+            <small (click)="cambiarCheck(dia,i)" style="margin-left:0px;padding:7px;">{{dia.sem}}</small>
+            <br />
+        </th>
+        
+        </tr>
+    </tbody>
+</table>
+<button id="aceptar" style="display: none;" (click)="registrarAsistencias()" class="btn btn-info">Aceptar selección</button>
+</div>

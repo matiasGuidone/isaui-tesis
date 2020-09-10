@@ -114,11 +114,11 @@ export class ModalService {
         this.estados = ["parcial","libre","regular","final"]
         break;
         case 'menu' : 
-        this.estados = ["abm","rel"]
+        this.estados = ["abm","rel","frm"]
         break;
         case 'usuario':
-          this.estados=["activo", "inactivo"]
-          break;
+        this.estados=["activo", "inactivo"]
+        break;
       default : break;
     }
   }

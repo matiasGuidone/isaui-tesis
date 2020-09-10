@@ -34,5 +34,13 @@ using System.Collections.Generic;
             
             return (List<alumno>)Conexion.consultaList<alumno>(consulta);
         }
+         public List<alumno> SearchAlumnosMateria( Int32 idmateria )
+        {  
+            string consulta =   $"select alumno.* from alumno where "+
+                                $"alumno.id in (select idalumno from"+
+                                $" alumnomateria where idmateria = {idmateria})";
+            
+            return (List<alumno>)Conexion.consultaList<alumno>(consulta);
+        }
     }
  

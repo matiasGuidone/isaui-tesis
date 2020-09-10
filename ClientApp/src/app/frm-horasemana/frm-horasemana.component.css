@@ -1,0 +1,30 @@
+td{
+    border: 1px solid rgba(182, 185, 187, 0.576);
+}
+.edit{
+    display: none;  
+    height: 178px;
+    width: 165px;
+    -webkit-box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.75);
+    z-index: 5000;
+    position: absolute;
+    background-color: rgb(108, 108, 109);
+    padding: 10px;
+    margin: auto;
+   
+}
+@media(max-width:600px){
+    .edit{
+        display: none;  
+        height: 178px;
+        width: 210px; 
+        z-index: 5000;
+        position: relative;
+        background-color: rgb(108, 108, 109);
+        padding: 10px;
+        margin: auto;
+       
+    }
+}

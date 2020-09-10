@@ -97,7 +97,7 @@ export class abm<T>{
           else if (p instanceof Date || i.toString().startsWith('fecha', 0)){
             let d : any = new Date(obj[i]);
             objaux[i] = d;
-          }
+          } 
           else {
             objaux[i] = obj[i];
           }

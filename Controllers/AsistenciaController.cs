@@ -13,10 +13,12 @@ public class AsistenciaController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<asistencia> Index([FromBody] asistencia Asistencia)
+    public ActionResult<asistencia> Index([FromBody] asistencia[] Asistencia)
     {
         //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
-        AsistenciaConexion<asistencia>.Instance.Insert(Asistencia);
+        foreach(var asisten in Asistencia ){
+            AsistenciaConexion<asistencia>.Instance.Insert(asisten);
+        }
         return Json("Guardado exitoso");
 
     }
@@ -46,9 +48,12 @@ public class AsistenciaController : Controller
     [HttpGet]
     public IEnumerable<asistencia> Getasistencias([FromHeader]string[] arrayfiltros)
     {
-        //ObjetoConexion<asistencia> cone = new ObjetoConexion<asistencia>(new asistencia());
-        
+        if(arrayfiltros.Any(p => p == "idmateria")){
+            return AsistenciaConexion<asistencia>.Instance.SearchPorMateria(Convert.ToInt32(arrayfiltros[1]));
+        }
+        else{
         return AsistenciaConexion<asistencia>.Instance.SearchAll(arrayfiltros);
+        }
     }
 
     // GET: api/ApiWithActions/5

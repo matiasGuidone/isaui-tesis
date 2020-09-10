@@ -49,6 +49,11 @@ export class PeticionesService {
     // POST o PUT para un registro recibe dos parametros obj : el tipo de objeto que estamos enviando 
     // desde el component y abm: la ruta del controler (ciclolectivo) -- en la condicion else leer "Documentacion"
     addSingleAbm(obj, abm:string ) : Observable<any>{
+      if(Array.isArray(obj)){
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post<any>(this.baseUrl+'api/'+ abm, obj, {headers:headers} );
+      }
+      else
         if(+obj.id != 0){
         let params=JSON.stringify(obj);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');

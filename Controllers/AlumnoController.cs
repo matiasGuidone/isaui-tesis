@@ -46,10 +46,14 @@ public class AlumnoController : Controller
     [HttpGet]
     public IEnumerable<alumno> Getalumnos([FromHeader]string[] arrayfiltros)
     { 
-        if(!arrayfiltros.Any(p => p == "idcurso")){
-            return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);}
-        else{
+        if(arrayfiltros.Any(p => p == "idcurso")){
             return AlumnoConexion<alumno>.Instance.SearchAlumnosCurso(Convert.ToInt32(arrayfiltros[1]));
+           }
+        else if(arrayfiltros.Any(p => p == "idmateria")){
+            return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]));
+        }
+        else{
+             return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);
         }
     }
 
