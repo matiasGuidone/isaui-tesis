@@ -1,5 +1,5 @@
  
- using System;
+using System;
 using System.Collections.Generic;
     public class AlumnoConexion<T> : ObjetoConexion<alumno>
     {

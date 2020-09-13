@@ -12,7 +12,6 @@ constructor(obj:any)
 this.id=+obj.id;
 this.fecha=new Date(obj.fecha);
 this.idhoramateria=+obj.idhoramateria;
-this.iddocente=+obj.iddocente;
 this.idalumno=+obj.idalumno;
 }
 

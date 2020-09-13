@@ -18,7 +18,7 @@ public class ObjetoConexion<T> {
             this.Conexion= new Conexion();
          }
        
-        public List<T> SearchAll( string[] parametros = null )
+        public List<T> SearchAll( string[] parametros = null, string concatenar = null )
         {
          
             if (parametros == null || parametros.Length<2){
@@ -51,6 +51,9 @@ public class ObjetoConexion<T> {
                     }
                      
 
+                }
+                if(concatenar != null){
+                    consulta += concatenar;
                 }
                 return (List<T>)Conexion.consultaList<T>(consulta);
             }

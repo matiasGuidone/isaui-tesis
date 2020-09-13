@@ -15,7 +15,7 @@ public class HorasMateriaController : Controller
     [HttpPost]
     public ActionResult<horasmateria> Index([FromBody] horasmateria HorasMateria)
     {
-        HorasMateriaConexion<horasmateria>.Instance.Insert(HorasMateria);
+        HorasMateriaConexion<horasmateria>.Instance.InsertHoramateria(HorasMateria);
         return Json("Guardado exitoso");
 
     }
@@ -32,7 +32,7 @@ public class HorasMateriaController : Controller
     [HttpDelete]
     public ActionResult Delete([FromHeader] string id)
     {
-         HorasMateriaConexion<horasmateria>.Instance.Delete(Convert.ToInt32(id));
+         HorasMateriaConexion<horasmateria>.Instance.DeleteHoramateria(Convert.ToInt32(id));
         return Json("registro eliminado"); 
 
     }
@@ -41,7 +41,7 @@ public class HorasMateriaController : Controller
     [HttpGet]
     public IEnumerable<horasmateria> GetHorasMaterias([FromHeader]string[] arrayfiltros)
     {
-        return HorasMateriaConexion<horasmateria>.Instance.SearchAll(arrayfiltros);
+        return HorasMateriaConexion<horasmateria>.Instance.SearchAll(arrayfiltros," AND activo = 1 ");
     }
 
     // GET: api/ApiWithActions/5
