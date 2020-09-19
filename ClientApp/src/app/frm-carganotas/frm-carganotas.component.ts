@@ -38,7 +38,9 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     if (+out > 10) { out = '10'; }
     if (+out < 1) { out = '1'; }
     document.getElementById(id)['value'] = out;
-    if (out != '1') { document.getElementById(id).select(); }
+    if (out != '1') { 
+      let n : any =document.getElementById(id);
+      n.select(); }
   }
 
 
