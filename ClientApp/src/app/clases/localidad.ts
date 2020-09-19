@@ -2,6 +2,7 @@ export class localidad{
     id : number;
     nombre : string; 
     idprovincia : number;
+    codpostal : number;
      
     
     constructor(obj:any){
@@ -9,9 +10,7 @@ export class localidad{
         this.id = +obj.id; // formateo a number el string // parseInt(val
         this.idprovincia =  +obj.idprovincia;
         this.nombre = obj.nombre; 
-        
-        
-        
-
+        this.codpostal = +obj.codpostal;
+         
     }
 }

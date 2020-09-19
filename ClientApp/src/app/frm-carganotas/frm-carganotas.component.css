@@ -1,0 +1,28 @@
+td{
+    border: 1px solid rgba(182, 185, 187, 0.576);
+    padding:6px;
+}
+th{
+    border: 1px solid #b6b9bb93; 
+    padding: 6px;
+}
+#nota{
+    width: 300px;
+    position: absolute;
+    display: none;
+}
+.nota{
+    width: 300px;
+    position: absolute;
+    display: none;
+}
+@media(max-width:600px){
+    #nota{
+        width: 300px;
+        position: relative; 
+    }
+    .nota{
+        width: 300px;
+        position: relative; 
+    }
+}

@@ -39,6 +39,7 @@ import { FooterComponent } from './footer/footer.component';
 import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
 import {FrmAsistenciaComponent} from './frm-asistencia/frm-asistencia.component';
 import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
+import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component'
     FrmAsistenciaComponent,
     FrmHoraSemanaComponent,
     AbmHorasDiaComponent,
+    FrmCarganotasComponent,
      
   ],
   entryComponents: [MyModalComponent],
@@ -99,7 +101,7 @@ import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component'
       { path: 'abm-curso', component: AbmCursoComponent },
       { path: 'abm-usuario', component: AbmUsuarioComponent },
       { path: 'abm-menu', component: AbmMenuComponent },
-      { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent},
+      { path: 'abm-ciclolectivo', component: AbmCiclolectivoComponent},
       { path: 'abm-materia', component: AbmMateriaComponent},
       { path: 'rel-alumnomateria', component: RelAlumnoMateria},
       { path: 'abm-roles', component: AbmRolesComponent},
@@ -111,7 +113,8 @@ import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component'
       { path: 'rel-cursoalumno', component: RelCursoAlumno },
       { path: 'rel-rolesusuario', component: RelRolesUsuario },
       { path: 'frm-asistencia', component: FrmAsistenciaComponent },
-      { path: 'frm-horasemana', component: FrmHoraSemanaComponent },
+      { path: 'frm-horasemana', component: FrmHoraSemanaComponent }, 
+      { path: 'frm-carganotas', component: FrmCarganotasComponent },
     ])
   ],
   providers: [PeticionesService],

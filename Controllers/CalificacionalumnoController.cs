@@ -46,9 +46,10 @@ public class CalificacionalumnoController : Controller
     [HttpGet]
     public IEnumerable<calificacionalumno> Getcalificacionalumnos([FromHeader]string[] arrayfiltros)
     {
-        //ObjetoConexion<calificacionalumno> cone = new ObjetoConexion<calificacionalumno>(new calificacionalumno());
-        
-        return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchAll(arrayfiltros);
+         if(arrayfiltros.Any(p => p == "ids-examenes")){
+             return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchExamenes(arrayfiltros);
+         }
+         else{ return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchAll(arrayfiltros);}
     }
 
     // GET: api/ApiWithActions/5

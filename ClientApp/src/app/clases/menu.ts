@@ -4,6 +4,7 @@ export class menu {
     nombre : string;
     componente : string;
     tipo : string;
+    idroles : number;
 
     constructor(obj:any){
         //el orden de os parametros afecta la vista de los input en el modal
@@ -12,5 +13,6 @@ export class menu {
         this.componente = obj.componente
         this.tipo = obj.tipo;
         this.id = +obj.id; // formateo a number el string // parseInt(val
+        this.idroles = +obj.idroles;
     }
 }

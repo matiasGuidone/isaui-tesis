@@ -175,7 +175,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
 
         if (ass['checked'] == true) {
               let d = this.dias.find(dia => dia.diasemana == m.numsemana);
-              let date = '2020-'+d.numero.substring(3,5)+'-'+d.numero.substring(0,2);
+              let date = new Date().getFullYear()+'-'+d.numero.substring(3,5)+'-'+d.numero.substring(0,2);
               asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idalumno': this.alumnos[i].id.toString() }))
             
           }

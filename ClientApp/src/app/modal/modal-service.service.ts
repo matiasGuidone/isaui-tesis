@@ -15,6 +15,8 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
 import Nodo from '../clases/Nodo';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+// Importo el archivo JSON 
+import parametros from 'src/assets/json/parametros.json';
 
 @Injectable()
 export class ModalService {
@@ -100,26 +102,17 @@ export class ModalService {
           tp = "date"
         }
 
-        if(!(i.toString()=='id')){
+        if(!(i.toString()=='id')&&!(i.toString().startsWith('codigo'))){
           this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
     }
   }
   
   public setCaseEstado(abm: string) {
-    switch(abm){
-      case 'convocatoria' : 
-        this.estados = ["activo","anulado"]
-        break;
-        case 'examen' : 
-        this.estados = ["parcial","libre","regular","final"]
-        break;
-        case 'menu' : 
-        this.estados = ["abm","rel","frm"]
-        break;
-        case 'usuario':
-        this.estados=["activo", "inactivo"]
-        break;
-      default : break;
+    let parame = parametros;
+    for (let p in parame){
+      if(p==abm){
+        this.estados = parame[p];
+      }
     }
   }
   

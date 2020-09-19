@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr *ngFor = "let examen of lista">
-                <td>{{examen.fecha}}</td>
+                <td>{{examen.fecha | date : 'dd/MM/yyyy'}}</td>
                 <td>{{examen.tipo}}</td>
                 <td>{{examen.idmateria}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(examen.id)" ><span class="fa fa-edit"></span></button>
