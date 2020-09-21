@@ -91,9 +91,11 @@ public class Conexion
         comando.CommandText = consulta;
         comando.Connection = this.conn;
         conn.Open();
-        foreach (var par in param)
-        {
-            comando.Parameters.Add(par);
+        if(param != null){
+            foreach (var par in param)
+            {
+                comando.Parameters.Add(par);
+            }
         }
         comando.ExecuteNonQuery();
         conn.Close();

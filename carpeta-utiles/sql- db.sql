@@ -15,3 +15,5 @@ ALTER TABLE `horasdia` CHANGE `hora` `hora` VARCHAR(10) NOT NULL;
 
 
 ALTER TABLE `asistencia` DROP INDEX `fk_asistencia_docente`;
+
+ALTER TABLE `usuario` ADD `token` VARCHAR(32) NULL AFTER `estado`;

@@ -39,7 +39,8 @@ import { FooterComponent } from './footer/footer.component';
 import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
 import {FrmAsistenciaComponent} from './frm-asistencia/frm-asistencia.component';
 import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
-
+import { IniciarSesionComponent } from './iniciar-sesion/inicar-sesion.component';
+import{AuthLoginService} from './services/authlogin.service';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component'
     FrmAsistenciaComponent,
     FrmHoraSemanaComponent,
     AbmHorasDiaComponent,
+    IniciarSesionComponent,
      
   ],
   entryComponents: [MyModalComponent],
@@ -112,9 +114,11 @@ import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component'
       { path: 'rel-rolesusuario', component: RelRolesUsuario },
       { path: 'frm-asistencia', component: FrmAsistenciaComponent },
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent },
-    ])
+      {path: 'iniciar-sesion', component: IniciarSesionComponent},
+    ]),
+
   ],
-  providers: [PeticionesService],
+  providers: [PeticionesService, AuthLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

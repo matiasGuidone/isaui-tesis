@@ -1,0 +1,41 @@
+
+<section id="iniciarsecion" class="mb-5 aling-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+                <div class=""> <!-- card_login -->
+                    <div class=""> <!-- card -->
+                        <div class="text-center"><!-- card-body  -->
+                            <form class="custom-form" method="POST" #form='ngForm' autocomplete="off" ><!-- #formLogin="ngForm" (ngSubmit)="onLogin()" -->
+                                <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
+                                <div class="form-group">
+                                    <input type="text" id="name" name="nCuenta" [(ngModel)]="nCuenta" placeholder="Nombre de usuario" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="password" name="nClave"  [(ngModel)]="nClave" placeholder="Contraseña" class="form-control" required>
+                                </div>
+                                <button type="submit"  class="btn brn-lg btn-primary btn-block"  (click)="onLogin()">Ingresar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <!--   <form (submit)="ingresarUsuario($event)">
+        <p>
+
+                <input type="text" matInput placeholder="Nombre de usuario">
+
+        </p>
+        <p>
+                <input type="password" matInput placeholder="Password">
+
+            <input type="submit" value="Submit">
+        </p>
+        <p>
+            <button type="submit" mat-raised-button color="primary">Ingresar</button>
+        
+        </p>
+    </form> -->

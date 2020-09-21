@@ -13,5 +13,6 @@ export class usuario{
         this.codigoayuda= obj.codigoayuda;
         this.correo = obj.correo;
         this.estado=+ obj.estado;
-}
+    }
+
 }

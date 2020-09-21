@@ -14,3 +14,18 @@ export class FooterComponent {
   }
 
 }
+/*   let ubicacionPrincipalArriba = window.pageYOffset;*/
+/* 186.6666717529297   */
+let ubicacionPrincipalFooter = 186  
+window.onscroll=function(){
+    let desplazamiento_Y= window.pageYOffset;
+    if(ubicacionPrincipalFooter >= desplazamiento_Y)
+    {
+      document.getElementById('redessociales').style.top='186.6666717529297 '
+    }
+    else
+    {
+      document.getElementById('redessociales').style.top= '-100px';
+    }
+    ubicacionPrincipalFooter = desplazamiento_Y;
+  }  

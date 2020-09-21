@@ -39,14 +39,17 @@ public class UsuarioController : Controller
     [HttpGet]
     public IEnumerable<usuario> Getusuarios([FromHeader]string[] arrayfiltros)
     {
-        return UsuarioConexion<usuario>.Instance.SearchAll(arrayfiltros);
+    
+            return UsuarioConexion<usuario>.Instance.SearchAll(arrayfiltros);
     }
 
     // GET: api/ApiWithActions/5
-    [HttpGet("{id}")]
-    public usuario Getusuario(int id)
+    [HttpGet("{id}" )]
+    public usuario Getusuario(int id, string nom=null, string cod=null)
     {
-        return UsuarioConexion<usuario>.Instance.SearchId(id);
+        
+            return UsuarioConexion<usuario>.Instance.SearchId(id);
+        
     }
 }
 

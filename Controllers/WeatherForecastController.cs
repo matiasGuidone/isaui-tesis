@@ -4,11 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization; //importa el  authorize
+/* using Microsoft.AspNetCore.Authentication.JwtBearer; */ // jwtbearrerdefaults
 
 namespace isaui_tesis.Controllers
 {
     [ApiController]
+    [Produces("application/json")]  //agregado
     [Route("[controller]")]
+    /* [Authorize (AuthenticationSchemes= JwtBearerDefaults.AuthenticationSchemes)] */ //inpide el acceso a aquelos usuario q no estan autorizado (no podran entrar a este controlador)
+    // entre parentesis se pone la autorizacion de json web token
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
