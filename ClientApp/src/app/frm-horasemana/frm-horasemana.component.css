@@ -15,6 +15,9 @@ td{
     margin: auto;
    
 }
+a{
+    border-radius: 50px;
+}
 @media(max-width:600px){
     .edit{
         display: none;  
@@ -28,3 +31,4 @@ td{
        
     }
 }
+

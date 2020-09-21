@@ -39,14 +39,8 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     let desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
     let semana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     for (var i = 0; i < 13; i++) {
-      if(desde.getUTCDay()!=0 && desde.getUTCDay()!=6){
         this.dias.push({ 'numero': this.formatearFecha(desde, ''), 'diasemana': desde.getUTCDay(), 'sem': semana[desde.getUTCDay()] });
-      }
-      if(desde.getUTCDay()==6){
-        this.dias.push({ 'numero': '.                '.substring(0,i), 'diasemana': desde.getUTCDay(), 'sem': '' });
-      }
-        desde.setDate(desde.getDate() + 1);
-      
+        desde.setDate(desde.getDate() + 1); 
     }
     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; })
 
@@ -129,11 +123,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
                     celda.appendChild(ass);
                     // si existen registros para aprobar se habilita el botón aceptar
                     document.getElementById('aceptar').style.display='block';
-                    // this.id=+obj.id;
-                    // this.fecha=new Date(obj.fecha_hora);
-                    // this.idhoramateria=+obj.idhoramateria;
-                    // this.iddocente=+obj.iddocente;
-                    // this.idalumno=+obj.idalumno;
+                
                   }
                 }
               }
@@ -158,6 +148,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
           });
     });
   }
+
   celdaEstilo(dia): string {
     if (dia == 6 || dia == 0) {
       return 'background-color:#b6b9bb93';
@@ -172,18 +163,17 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
       for (var i = 0; i < this.alumnos.length; i++) {
 
         let ass = document.getElementById(this.alumnos[i].id.toString() + '-' + m.id.toString());
-
+        if(ass!= null){
         if (ass['checked'] == true) {
               let d = this.dias.find(dia => dia.diasemana == m.numsemana);
               let date = new Date().getFullYear()+'-'+d.numero.substring(3,5)+'-'+d.numero.substring(0,2);
-              asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idalumno': this.alumnos[i].id.toString() }))
+              asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idalumno': this.alumnos[i].id.toString() }));
             
           }
 
         }
       }
-    
-    //this.almacenar(asistencias, asistencias.length - 1);
+      }
     this.servicio.addSingleAbm(asistencias,'asistencia').subscribe(res =>{
       this.abrirModal('Almacenado exitoso','El registro de asistencias se concretó con éxito', 2, i).subscribe(r =>{
         this.seleccionarMateria();
@@ -201,11 +191,9 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     }
     for(let g of r) {
       let nn = document.getElementById(this.alumnos[ind].id.toString()+'-'+g);
-      nn['checked']=false;
+      if(nn['checked']== true){nn['checked']=false;}
+      else{nn['checked']=true;}
     }
   }
 
 }
-
-            
-//modificacion de práctico- colaorativo cambiar las actividades - estudio de campo de red

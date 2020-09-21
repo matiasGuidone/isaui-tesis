@@ -3,7 +3,8 @@
        "convocatoria": ["activo","anulado"],
        "examen": ["parcial","libre","regular","final","otro"],
        "menu": ["abm","rel","frm"],
-       "usuario": ["activo", "inactivo"]
+       "usuario": ["activo", "inactivo"],
+       "modulo": ["40"]
        
     } 
  

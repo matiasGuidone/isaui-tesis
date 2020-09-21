@@ -1,2 +1,5 @@
  npm install jspdf
  npm i jspdf-autotable
+ npm install html2canvas
+ npm install file-saver
+ npm install xlsx

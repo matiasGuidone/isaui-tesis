@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { materia } from '../clases/materia';
 import { alumno } from '../clases/alumno';
 import { calificacionalumno } from '../clases/calificacionalumno';
+import { ExcelService } from '../services/excel.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-frm-carganotas',
@@ -22,7 +24,8 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
+    protected servicio: PeticionesService,
+    protected excelservicio: ExcelService) {
     super(location, modalService, servicio);
     this.modalService.setCaseEstado('examen');
     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; });
@@ -155,6 +158,25 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
       not.style.display="none";
     });
      
+  }
+  //exportar archivo de notas
+  excelNotas(){
+    let data : any[] = new Array<any>();
+    for (let n of this.alumnos){ 
+      let alu : any= new Object();
+      alu['Alumnos'] = n.apellido+", "+n.nombre;
+      for(let i of this.examenes){
+        let no = this.notas.find(m => m.idalumno==n.id && m.idexamen== i.id);
+        if(no != undefined){
+          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = no.nota;
+        }
+        else{
+          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = '-';
+        }
+      }
+      data.push(alu);
+    }
+    this.excelservicio.exportAsExcelFile(data, "file.xlsx");
   }
 
 }

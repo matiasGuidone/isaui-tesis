@@ -40,6 +40,8 @@ import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
 import {FrmAsistenciaComponent} from './frm-asistencia/frm-asistencia.component';
 import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
 import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.component';
+import { ExcelService } from './services/excel.service';
+import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
 
 
 @NgModule({
@@ -77,6 +79,7 @@ import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.componen
     FrmHoraSemanaComponent,
     AbmHorasDiaComponent,
     FrmCarganotasComponent,
+    FrmConsultaasistenciasComponent,
      
   ],
   entryComponents: [MyModalComponent],
@@ -115,9 +118,10 @@ import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.componen
       { path: 'frm-asistencia', component: FrmAsistenciaComponent },
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent }, 
       { path: 'frm-carganotas', component: FrmCarganotasComponent },
+      { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent },
     ])
   ],
-  providers: [PeticionesService],
+  providers: [PeticionesService, ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

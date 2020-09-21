@@ -2,7 +2,7 @@
 
    <h3>Carga de notas</h3>
    <hr>
-   <div class="form-group">
+   <div class="row">
       <h5 class="col-md-2 control-label">Materias: </h5>
       <div class="col-md-6">
          <select (change)="seleccionarMateria()" class="form-control" id="materia">
@@ -12,11 +12,12 @@
          </select>
 
       </div>
+   </div>
       <br />
       <table [class]="this.servicio.classtable2">
          <thead>
             <tr>
-               <th scope="col">Alumnos</th>
+               <th scope="col"> <a title="Archivo de notas" (click)="excelNotas()" class="fa fa-file-excel border transparent bg-success p-2 m-2"></a>Alumnos</th>
                <th scope="col" *ngFor="let examen of examenes"  >
                   <span class="lead" (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
                   <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
