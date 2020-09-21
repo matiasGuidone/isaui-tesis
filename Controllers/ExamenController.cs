@@ -15,6 +15,7 @@ public class ExamenController : Controller
     [HttpPost]
     public ActionResult<examen> Index([FromBody] examen Examen)
     {
+        Examen.Idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
         ExamenConexion<examen>.Instance.Insert(Examen);
         return Json("Guardado exitoso");
     }

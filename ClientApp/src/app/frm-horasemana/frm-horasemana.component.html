@@ -1,9 +1,11 @@
 <div [class]="this.servicio.classtable" >
 <h3>Organizador semanal de horarios de cursado</h3>
      <hr> 
-     <div class="form-group">
-        <h5 class="col-md-2 control-label">Carreras: </h5> 
-     <div class="col-md-6">
+     <!-- <div class="form-group"> -->
+        
+        <div class="row">
+            <h5 class="col-md-1 control-label">Carreras: </h5> 
+     <div class="col-md-5 col-sm-12 ">
      <select (change)="seleccionarCarrera()" class="form-control" id="carrera" >
         <option *ngFor="let carrera of carreras"  [value]="carrera.id" >
              {{carrera.nombre}}
@@ -11,22 +13,23 @@
      </select>
      
     </div>
-       <h5 class="col-md-2 control-label">Cursos: </h5> 
-       <div class="col-md-6">
+       <h5 class="col-md-1 control-label">Cursos: </h5> 
+       <div class=" col-md-5 col-sm-12 ">
         <select (change)="seleccionarCurso()"  class="form-control" id="curso" >
            <option *ngFor="let curso of cursos" [value]="curso.id" >
                 {{curso.nombre}}
            </option>
         </select> 
        </div>
-       </div>
+    </div>
+       <!-- </div> -->
        <hr> 
     </div>
-<div [class]="this.servicio.classtable" >
+<div id="horarios" [class]="this.servicio.classtable" >
     <table [class]="this.servicio.classtable2">
         <thead>
-            <tr>
-                <th scope="col">#</th> 
+            <tr class="lead">
+                <th scope="col"># <a title="Pdf de horarios" (click)="pdfhorarios()" class="fa fa-file-pdf border transparent bg-danger p-2 m-2"></a></th> 
                 <th scope="col">Domingo&nbsp;&nbsp;</th> 
                 <th scope="col">Lunes&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th scope="col">Martes&nbsp;&nbsp;&nbsp;</th>
@@ -41,11 +44,11 @@
                 <td>{{hora.numorden}}</td>
                 <!-- dias semanales -->
                 <td style="background-color: #b0c4de71;"></td>
-                <td id="celda{{hora.numorden}}-1" (click)="dialogoSetear(hora.numorden,1)">{{hora.hora}}<br /><div class="edit" id="editor{{hora.numorden}}-1"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-1" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><button class="btn btn-secondary" title="cancelar" (click)="cerraredit(hora.numorden,1)"><span class="fa fa-window-close"></span></button><button class="btn btn-info" title="guardar" (click)="guardarModulo(hora.numorden,1,hora.id)"><span class="fa fa-save"></span></button><button class="btn btn-success" title="borrar" (click)="limpiarModulo(hora.numorden,1,hora.id)"><span class="fa fa-eraser"></span></button></div></td>
-                <td id="celda{{hora.numorden}}-2" (click)="dialogoSetear(hora.numorden,2)">{{hora.hora}}<br /><div class="edit" id="editor{{hora.numorden}}-2"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-2" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><button class="btn btn-secondary" title="cancelar" (click)="cerraredit(hora.numorden,2)"><span class="fa fa-window-close"></span></button><button class="btn btn-info" title="guardar" (click)="guardarModulo(hora.numorden,2,hora.id)"><span class="fa fa-save"></span></button><button class="btn btn-success" title="borrar" (click)="limpiarModulo(hora.numorden,2,hora.id)"><span class="fa fa-eraser"></span></button></div></td>
-                <td id="celda{{hora.numorden}}-3" (click)="dialogoSetear(hora.numorden,3)">{{hora.hora}}<br /><div class="edit" id="editor{{hora.numorden}}-3"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-3" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><button class="btn btn-secondary" title="cancelar" (click)="cerraredit(hora.numorden,3)"><span class="fa fa-window-close"></span></button><button class="btn btn-info" title="guardar" (click)="guardarModulo(hora.numorden,3,hora.id)"><span class="fa fa-save"></span></button><button class="btn btn-success" title="borrar" (click)="limpiarModulo(hora.numorden,3,hora.id)"><span class="fa fa-eraser"></span></button></div></td>
-                <td id="celda{{hora.numorden}}-4" (click)="dialogoSetear(hora.numorden,4)">{{hora.hora}}<br /><div class="edit" id="editor{{hora.numorden}}-4"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-4" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><button class="btn btn-secondary" title="cancelar" (click)="cerraredit(hora.numorden,4)"><span class="fa fa-window-close"></span></button><button class="btn btn-info" title="guardar" (click)="guardarModulo(hora.numorden,4,hora.id)"><span class="fa fa-save"></span></button><button class="btn btn-success" title="borrar" (click)="limpiarModulo(hora.numorden,4,hora.id)"><span class="fa fa-eraser"></span></button></div></td>
-                <td id="celda{{hora.numorden}}-5" (click)="dialogoSetear(hora.numorden,5)">{{hora.hora}}<br /><div class="edit" id="editor{{hora.numorden}}-5"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-5" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><button class="btn btn-secondary" title="cancelar" (click)="cerraredit(hora.numorden,5)"><span class="fa fa-window-close"></span></button><button class="btn btn-info" title="guardar" (click)="guardarModulo(hora.numorden,5,hora.id)"><span class="fa fa-save"></span></button><button class="btn btn-success" title="borrar" (click)="limpiarModulo(hora.numorden,5,hora.id)"><span class="fa fa-eraser"></span></button></div></td>
+                <td id="celda{{hora.numorden}}-1" (click)="dialogoSetear(hora.numorden,1)"><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small><br /><div class="edit" id="editor{{hora.numorden}}-1"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-1" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><a class="fa p-2 m-1 fa-window-close border bg-secondary" title="cancelar" (click)="cerraredit(hora.numorden,1)"></a><a class="fa fa-save p-2 m-1 border bg-info" title="guardar" (click)="guardarModulo(hora.numorden,1,hora.id)"></a><a class="fa fa-eraser p-2 m-1 bg-success border" title="borrar" (click)="limpiarModulo(hora.numorden,1,hora.id)"></a></div></td>
+                <td id="celda{{hora.numorden}}-2" (click)="dialogoSetear(hora.numorden,2)"><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small><br /><div class="edit" id="editor{{hora.numorden}}-2"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-2" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><a class="fa p-2 m-1 fa-window-close border bg-secondary" title="cancelar" (click)="cerraredit(hora.numorden,2)"></a><a class="fa fa-save p-2 m-1 border bg-info" title="guardar" (click)="guardarModulo(hora.numorden,2,hora.id)"></a><a class="fa fa-eraser p-2 m-1 bg-success border" title="borrar" (click)="limpiarModulo(hora.numorden,2,hora.id)"></a></div></td>
+                <td id="celda{{hora.numorden}}-3" (click)="dialogoSetear(hora.numorden,3)"><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small><br /><div class="edit" id="editor{{hora.numorden}}-3"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-3" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><a class="fa p-2 m-1 fa-window-close border bg-secondary" title="cancelar" (click)="cerraredit(hora.numorden,3)"></a><a class="fa fa-save p-2 m-1 border bg-info" title="guardar" (click)="guardarModulo(hora.numorden,3,hora.id)"></a><a class="fa fa-eraser p-2 m-1 bg-success border" title="borrar" (click)="limpiarModulo(hora.numorden,3,hora.id)"></a></div></td>
+                <td id="celda{{hora.numorden}}-4" (click)="dialogoSetear(hora.numorden,4)"><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small><br /><div class="edit" id="editor{{hora.numorden}}-4"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-4" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><a class="fa p-2 m-1 fa-window-close border bg-secondary" title="cancelar" (click)="cerraredit(hora.numorden,4)"></a><a class="fa fa-save p-2 m-1 border bg-info" title="guardar" (click)="guardarModulo(hora.numorden,4,hora.id)"></a><a class="fa fa-eraser p-2 m-1 bg-success border" title="borrar" (click)="limpiarModulo(hora.numorden,4,hora.id)"></a></div></td>
+                <td id="celda{{hora.numorden}}-5" (click)="dialogoSetear(hora.numorden,5)"><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small><br /><div class="edit" id="editor{{hora.numorden}}-5"> <h5>Materias</h5><br /><select class="form-control" id="materia{{hora.numorden}}-5" > <option *ngFor="let materia of materias"  [value]="materia.id" >{{materia.nombre}}</option></select><br /><a class="fa p-2 m-1 fa-window-close border bg-secondary" title="cancelar" (click)="cerraredit(hora.numorden,5)"></a><a class="fa fa-save p-2 m-1 border bg-info" title="guardar" (click)="guardarModulo(hora.numorden,5,hora.id)"></a><a class="fa fa-eraser p-2 m-1 bg-success border" title="borrar" (click)="limpiarModulo(hora.numorden,5,hora.id)"></a></div></td>
                 <td style="background-color:  #b0c4de71;" ></td>
             </tr>
         </tbody>

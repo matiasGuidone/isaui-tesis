@@ -53,7 +53,7 @@ export class PeticionesService {
         return this._http.post<any>(this.baseUrl+'api/'+ abm, obj, {headers:headers} );
       }
       else
-        if(+obj.id != 0){
+        if(+obj.id != 0 && obj.id != undefined){
         let params=JSON.stringify(obj);
         let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : localStorage.getItem("Access_Token")});//.set('Content-Type', 'application/json');
         return this._http.put<any>(this.baseUrl+'api/'+ abm , params, {headers:headers});

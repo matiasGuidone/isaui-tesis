@@ -22,7 +22,7 @@ export class AbmLocalidadComponent extends abm<localidad> implements OnInit {
     super(location,modalService,servicio);
 
     this.nombre = 'localidad';
-    this.objetoBlanco = new localidad({'id':'0','nombre':'','idprovincia':''});
+    this.objetoBlanco = new localidad({'id':'0','nombre':'','idprovincia':'','codpostal':''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

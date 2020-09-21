@@ -1,21 +1,17 @@
 
-export class calificaiconalumno
-{
-id: number;
-idalumno: number;
-idmateria: number;
+export class calificacionalumno
+{ 
+idalumno: number; 
 nota: number;
-idexamen: number;
-observacion:string;
+idexamen: number; 
+id: number;
 
 constructor(obj:any)
-{
-this.id=+obj.id;
-this.idalumno=+obj.idalumno;
-this.idmateria=+obj.idmateria;
+{ 
+this.idalumno=+obj.idalumno; 
 this.nota=+obj.nota;
-this.idexamen=+obj.idexamen;
-this.observacion=obj.observacion;
+this.idexamen=+obj.idexamen; 
+this.id = +obj.id;
 }
 
 }

@@ -41,6 +41,10 @@ import {FrmAsistenciaComponent} from './frm-asistencia/frm-asistencia.component'
 import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
 import { IniciarSesionComponent } from './iniciar-sesion/inicar-sesion.component';
 import{AuthLoginService} from './services/authlogin.service';
+import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.component';
+import { ExcelService } from './services/excel.service';
+import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
+ 
 
 @NgModule({
   declarations: [
@@ -75,9 +79,10 @@ import{AuthLoginService} from './services/authlogin.service';
     AbmDireccionComponent,
     FrmAsistenciaComponent,
     FrmHoraSemanaComponent,
-    AbmHorasDiaComponent,
-    IniciarSesionComponent,
-     
+    AbmHorasDiaComponent, 
+    IniciarSesionComponent, 
+    FrmCarganotasComponent,
+    FrmConsultaasistenciasComponent,      
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -101,7 +106,7 @@ import{AuthLoginService} from './services/authlogin.service';
       { path: 'abm-curso', component: AbmCursoComponent },
       { path: 'abm-usuario', component: AbmUsuarioComponent },
       { path: 'abm-menu', component: AbmMenuComponent },
-      { path: 'abm-cicloLectivo', component: AbmCiclolectivoComponent},
+      { path: 'abm-ciclolectivo', component: AbmCiclolectivoComponent},
       { path: 'abm-materia', component: AbmMateriaComponent},
       { path: 'rel-alumnomateria', component: RelAlumnoMateria},
       { path: 'abm-roles', component: AbmRolesComponent},
@@ -113,12 +118,13 @@ import{AuthLoginService} from './services/authlogin.service';
       { path: 'rel-cursoalumno', component: RelCursoAlumno },
       { path: 'rel-rolesusuario', component: RelRolesUsuario },
       { path: 'frm-asistencia', component: FrmAsistenciaComponent },
-      { path: 'frm-horasemana', component: FrmHoraSemanaComponent },
+      { path: 'frm-horasemana', component: FrmHoraSemanaComponent }, 
+      { path: 'frm-carganotas', component: FrmCarganotasComponent },
+      { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent },
       {path: 'iniciar-sesion', component: IniciarSesionComponent},
-    ]),
-
+    ])
   ],
-  providers: [PeticionesService, AuthLoginService],
+  providers: [PeticionesService, ExcelService, AuthLoginService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

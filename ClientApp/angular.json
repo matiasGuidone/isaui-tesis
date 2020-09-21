@@ -27,6 +27,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [
+              "./node_modules/html2canvas/dist/html2canvas.min.js",
               "./node_modules/jspdf/dist/jspdf.node.js"
             ]
           },

@@ -1,5 +1,17 @@
 .table-responsive{
-  
     overflow-y: scroll;
-    max-height: 68vh;
+    max-height: 65vh;
+}
+ 
+@media(min-width:2400px){
+    .table-responsive{
+        overflow-y: scroll;
+        max-height: 74vh;
+    }
+}
+@media(min-width:3100px){
+    .table-responsive{
+        overflow-y: scroll;
+        max-height: 90vh;
+    }
 }
