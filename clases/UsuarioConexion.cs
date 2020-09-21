@@ -38,6 +38,12 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         token = token.Replace("=", "").Replace("+", "");
         return token;
     }
+    public List<usuario> getUserToken(string token)
+    {   
+        string consulta = $"select * from usuario where token = '{token}'";
+        var lista = Conexion.consultaList<usuario>(consulta);
+        return (List<usuario>)lista;
+    }
 
     //Este metodo encripta / desencripta la cadena de claves para que no se vea en la base de datos
     private String enc_des(String clave, char tipo)

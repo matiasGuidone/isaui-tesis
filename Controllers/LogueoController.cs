@@ -13,7 +13,7 @@ public class LogueoController : Controller
       
     //GET
     [HttpGet]
-    public JsonResult logueo([FromHeader]string usuario,[FromHeader] string pass)
+    public JsonResult logueo([FromHeader]string usuario,[FromHeader] string pass, [FromHeader] string token)
     {
         //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
         //desencriptar
@@ -21,7 +21,7 @@ public class LogueoController : Controller
         var user = UsuarioConexion<usuario>.Instance.SearchAll(filtro);
         if (user.Count==1){
             var tok = UsuarioConexion<usuario>.Instance.generarToken(user[0]);
-            var obj = Json("['accessToken':'"+tok+"', 'expiresIn':60]");
+            var obj = Json("{ \"accessToken\":\""+tok+"\", \"expiresIn\": \"60\" }");
          return obj;
             //this.saveToken(res.accessToken, res.expiresIn);
         }

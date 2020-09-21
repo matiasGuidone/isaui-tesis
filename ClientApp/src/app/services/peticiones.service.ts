@@ -8,11 +8,7 @@ import {isNullOrUndefined} from 'util'
 import { usuario } from '../clases/usuario';
 /* -- */
 
-@Injectable(
-  /* -log- */
-  {providedIn: "root"}
-  /* -- */
-  )
+@Injectable()
 export class PeticionesService {
 
    public idsSeleccionados : number[];
@@ -32,15 +28,22 @@ export class PeticionesService {
 
    //busca objetos por id
     public getById(id: string, tabla :string) : Observable<any>{
-      const headers = new HttpHeaders({ });
+      let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+      const headers = new HttpHeaders({'token':token });
       return this._http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
     }
     // llena el array de cada component para mostrar los datos en la tabla  
     loadGrilla(abm: string ,filtro: string[] = null) : Observable<any[]>{
       if(filtro ==null){
-        return this._http.get<any[]>(this.baseUrl+'api/'+ abm);}
+        let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+        const headers = new HttpHeaders({'token':token });
+        return this._http.get<any[]>(this.baseUrl+'api/'+ abm, { headers: headers });}
         else{
-          let headers : HttpHeaders = new HttpHeaders({'arrayfiltros':filtro, 'token' : localStorage.getItem("Access_Token")});
+          let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+          let headers : HttpHeaders = new HttpHeaders({'arrayfiltros':filtro, 'token' : token});
           return this._http.get<any[]>(this.baseUrl+'api/'+ abm, {headers:headers});
         }
       }
@@ -49,13 +52,17 @@ export class PeticionesService {
     // desde el component y abm: la ruta del controler (ciclolectivo) -- en la condicion else leer "Documentacion"
     addSingleAbm(obj, abm:string ) : Observable<any>{
       if(Array.isArray(obj)){
-        let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : localStorage.getItem("Access_Token")});//.set();
+        let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+        let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : token});//.set();
         return this._http.post<any>(this.baseUrl+'api/'+ abm, obj, {headers:headers} );
       }
       else
         if(+obj.id != 0 && obj.id != undefined){
         let params=JSON.stringify(obj);
-        let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : localStorage.getItem("Access_Token")});//.set('Content-Type', 'application/json');
+        let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+        let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : token});//.set('Content-Type', 'application/json');
         return this._http.put<any>(this.baseUrl+'api/'+ abm , params, {headers:headers});
     }
 
@@ -68,7 +75,9 @@ export class PeticionesService {
           JSON.stringify(params);
           console.log(params);
           // seteamos los header del http que el content type reciba un tipo application/json
-          let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : localStorage.getItem("Access_Token")});//.set('Content-Type', 'application/json');
+          let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+          let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : token});//.set('Content-Type', 'application/json');
           //mandamos la peticion post para insertar el objeto dentro de nuestra base de datos
           //nos retornara un mensaje de exito con la siguiente leyenda "Guardado Exitoso"
           //de los contrario nos figuara cual es el error por el cual no puede tomar la peticion
@@ -78,12 +87,16 @@ export class PeticionesService {
   }
 // Elimina el registro
   eliminar(id: number, abm: string){
-    const headers = new HttpHeaders({'id' : id.toString(),'token' : localStorage.getItem("Access_Token")});
+    let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+    const headers = new HttpHeaders({'id' : id.toString(),'token' : token});
     return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
   }
 
   eliminarConFiltro(filtro: string, valor : string, abm: string){
-    const headers = new HttpHeaders({'id' : '0', 'filtro' : filtro.toString(), 'valor': valor.toString(),'token' : localStorage.getItem("Access_Token")});
+    let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+    const headers = new HttpHeaders({'id' : '0', 'filtro' : filtro.toString(), 'valor': valor.toString(),'token' : token });
     return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
   }
 }

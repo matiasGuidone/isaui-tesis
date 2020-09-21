@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthLoginService } from '../services/authlogin.service';
-import { usuario } from '../clases/usuario';
-import {loginI} from '../clases//login';
+import { usuario } from '../clases/usuario'; 
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';// sacar 
 import {Router} from '@angular/router';

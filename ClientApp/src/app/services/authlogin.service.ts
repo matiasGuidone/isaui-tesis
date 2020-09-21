@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders}  from '@angular/common/http';
-import {usuario} from '../clases/usuario';
-import {loginI} from '../clases/login';
+import {usuario} from '../clases/usuario'; 
 import {tap} from 'rxjs/operators';
 import { observable, BehaviorSubject, Observable } from 'rxjs';
 
@@ -22,9 +21,10 @@ private token: string;
    let Headers : HttpHeaders = new HttpHeaders({'usuario': user.nombre , 'pass': user.codigo});
       //return this._http.get<any>(this.baseUrl + 'api/Usuario?nombre=' + user.nombre + '&codigo=' + user.codigo );
      return this._http.get<any>(this.baseUrl +'api/logueo', {headers: Headers}).pipe(tap((res)=>{
-      if(res){ 
-          this.saveToken(res.accessToken, res.expiresIn);
-          console.log(res);
+      if(res){  
+          let json = JSON.parse(res.toString());
+          this.saveToken(json.accessToken, json.expiresIn);
+          console.log(json);
       }
     })); 
   }
