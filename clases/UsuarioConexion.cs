@@ -35,12 +35,12 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         //int longitud = 15;
         Guid miGuid = Guid.NewGuid();
         string token = Convert.ToBase64String(miGuid.ToByteArray());
-        token = token.Replace("=", "").Replace("+", "");
+        token = token.Replace("=", "").Replace("+", "").Replace("\\", "").Replace("/", "").Replace("-", "");
         return token;
     }
     public List<usuario> getUserToken(string token)
     {   
-        string consulta = $"select * from usuario where token = '{token}'";
+        string consulta = $"select usuario.id, usuario.nombre, usuario.codigo, usuario.codigoayuda, usuario.correo, usuario.estado from usuario where usuario.token LIKE '{token}' and usuario.estado = 0 ";
         var lista = Conexion.consultaList<usuario>(consulta);
         return (List<usuario>)lista;
     }

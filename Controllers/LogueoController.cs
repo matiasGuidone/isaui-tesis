@@ -21,7 +21,9 @@ public class LogueoController : Controller
         var user = UsuarioConexion<usuario>.Instance.SearchAll(filtro);
         if (user.Count==1){
             var tok = UsuarioConexion<usuario>.Instance.generarToken(user[0]);
-            var obj = Json("{ \"accessToken\":\""+tok+"\", \"expiresIn\": \"60\" }");
+            var componentes =  MenuConexion<usuario>.Instance.getComponentsByUser(user[0].Id); 
+
+            var obj = Json("{ \"accessToken\":\""+tok+"\", \"expiresIn\": \"60\", "+componentes+"}");
          return obj;
             //this.saveToken(res.accessToken, res.expiresIn);
         }

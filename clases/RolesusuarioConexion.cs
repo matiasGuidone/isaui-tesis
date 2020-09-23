@@ -15,5 +15,4 @@
         private RolesusuarioConexion(rolesusuario aux): base(aux){ 
             
         }
-        
     }

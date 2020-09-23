@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AbmMenuComponent } from '../abm-menu/abm-menu.component';
 import { menu } from '../clases/menu';
 import { ModalService } from '../modal/modal-service.service';
+import { AuthLoginService } from '../services/authlogin.service';
 import { PeticionesService } from '../services/peticiones.service';
 
 @Component({
@@ -15,14 +16,14 @@ export class NavMenuComponent {
  num = 0;
   isExpanded = false;
   menus : menu[];
-  constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router){
+
+  constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => this.menus = res);
   }
 
   collapse() {
     this.isExpanded = false;
-    
   }
 
   toggle() {
@@ -59,5 +60,9 @@ export class NavMenuComponent {
       default:
         break;
   }
+  }
+  // esta funcion setea el componente al cual se dirige el usuario al hacer click
+  setGuardComponente(componente){
+    this.logservicio.componenteGuard = componente;
   }
 }

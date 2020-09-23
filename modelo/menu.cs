@@ -5,7 +5,7 @@ public class menu : oObjeto
     public string Nombre { get; set; }
     public string Componente { get; set; }
     public string Tipo { get; set; }
-    public int Idroles { get; set; }
+    public int Idroles { get; set; } 
     public menu() { }
     public menu(DataRow dr)
     {
@@ -13,7 +13,7 @@ public class menu : oObjeto
         this.Nombre = dr["nombre"].ToString();
         this.Componente = dr["componente"].ToString();
         this.Tipo = dr["tipo"].ToString();
-        this.Idroles = Convert.ToInt32(dr["idroles"]);
+        this.Idroles = Convert.ToInt32(dr["idroles"]); 
     }
 
 }

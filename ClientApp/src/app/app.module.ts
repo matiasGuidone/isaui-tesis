@@ -44,6 +44,7 @@ import{AuthLoginService} from './services/authlogin.service';
 import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.component';
 import { ExcelService } from './services/excel.service';
 import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
+import { Guard } from './clases/guard';
  
 
 @NgModule({
@@ -96,7 +97,7 @@ import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-c
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'abm-docente', component: AbmDocenteComponent },
-      { path: 'abm-alumno', component: AbmAlumnoComponent },
+      { path: 'abm-alumno', component: AbmAlumnoComponent, canActivate : [Guard] },
       { path: 'abm-domicilio', component: AbmDomicilioComponent },
       { path: 'abm-direccion', component: AbmDireccionComponent },
       { path: 'abm-pais', component: AbmPaisComponent },
@@ -124,7 +125,7 @@ import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-c
       {path: 'iniciar-sesion', component: IniciarSesionComponent},
     ])
   ],
-  providers: [PeticionesService, ExcelService, AuthLoginService], 
+  providers: [PeticionesService, ExcelService, AuthLoginService, Guard], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

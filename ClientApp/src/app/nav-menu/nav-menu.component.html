@@ -27,7 +27,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'abm'" class="dropdown-item"
+                <a *ngIf="item.tipo == 'abm'" (click)="setGuardComponente(item.componente)" class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 
@@ -40,7 +40,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'rel'" class="dropdown-item"
+                <a *ngIf="item.tipo == 'rel'" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 

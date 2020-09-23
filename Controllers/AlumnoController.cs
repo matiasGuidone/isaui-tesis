@@ -14,8 +14,7 @@ public class AlumnoController : Controller
     // POST
     [HttpPost]
     public ActionResult<alumno> Index([FromBody] alumno alumno, [FromHeader] string token)
-    {
-        string[] filtro = { "token", token };
+    { 
         var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
         if (user.Count == 1)
         {
@@ -29,7 +28,6 @@ public class AlumnoController : Controller
     [HttpPut]
     public ActionResult<alumno> Put([FromBody] alumno alumno, [FromHeader] string token)
     {
-        string[] filtro = { "token", token };
         var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
         if (user.Count == 1)
         {
@@ -42,8 +40,7 @@ public class AlumnoController : Controller
     // DELETE
     [HttpDelete]
     public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
-    {
-        string[] filtro = { "token", token };
+    { 
         var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
         if (user.Count == 1)
         {
@@ -57,8 +54,7 @@ public class AlumnoController : Controller
     //GET
     [HttpGet]
     public IEnumerable<alumno> Getalumnos([FromHeader] string[] arrayfiltros, [FromHeader] string token)
-    {
-        string[] filtro = { "token", token };
+    { 
         var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
         if (user.Count == 1)
         {
@@ -81,8 +77,7 @@ public class AlumnoController : Controller
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
     public alumno Getalumno(int id, [FromHeader] string token)
-    {
-        string[] filtro = { "token", token };
+    { 
         var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
         if (user.Count == 1)
         {

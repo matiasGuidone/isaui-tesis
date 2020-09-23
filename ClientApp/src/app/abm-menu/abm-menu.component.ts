@@ -21,7 +21,7 @@ export class AbmMenuComponent extends abm<menu> implements OnInit {
                protected servicio: PeticionesService){
     super(location,modalService,servicio);
     this.nombre = 'menu';
-    this.objetoBlanco = new menu({'id':'0','nombre':'','tipo':'','componente':'','idroles':''});
+    this.objetoBlanco = new menu({'id':'0','nombre':'','tipo':'','componente':'','idroles':'', 'controles': ''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

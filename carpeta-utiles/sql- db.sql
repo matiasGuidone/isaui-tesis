@@ -39,3 +39,4 @@ CREATE TABLE `test_isaui`.`calificacionalumno` ( `Idalumno` INT NOT NULL , `Nota
 
 ALTER TABLE `calificacionalumno` ADD `Id` INT NOT NULL AUTO_INCREMENT AFTER `Idexamen`, ADD PRIMARY KEY (`Id`);
  
+ 

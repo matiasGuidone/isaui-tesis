@@ -17,7 +17,8 @@ public class ObjetoConexion<T> {
             this.tipo = t;
             this.Conexion= new Conexion();
          }
-       
+       //['columna','valor','columna','valor','columna','valor']
+       //concatenar = concatenar una condición mas " AND Columna = 1 AND Columna2 = 2 OR Columna3 = 3"
         public List<T> SearchAll( string[] parametros = null, string concatenar = null )
         {
          
@@ -49,8 +50,7 @@ public class ObjetoConexion<T> {
                        i++;
                       if(i>=parametros.Length){break;}
                     }
-                     
-
+                      
                 }
                 if(concatenar != null){
                     consulta += concatenar;
@@ -166,7 +166,7 @@ public class ObjetoConexion<T> {
             // return retorna;
             //return null;
         }
-       
+             
        
             
         

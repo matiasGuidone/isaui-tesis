@@ -6,11 +6,11 @@ import { observable, BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable()
-export class AuthLoginService {
-//authServer: string = 'http://localhost:5001/';
+export class AuthLoginService { 
 authSubject= new BehaviorSubject(false);
 private token: string;
-
+public componenteGuard:string ='';
+public componentes : any[]=new Array<any>();
   constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   login( user ) : Observable<any>/* user: usuario */
@@ -23,7 +23,7 @@ private token: string;
      return this._http.get<any>(this.baseUrl +'api/logueo', {headers: Headers}).pipe(tap((res)=>{
       if(res){  
           let json = JSON.parse(res.toString());
-          this.saveToken(json.accessToken, json.expiresIn);
+          this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes));
           console.log(json);
       }
     })); 
@@ -34,12 +34,15 @@ private token: string;
     this.token='';
     localStorage.removeItem("Access_Token");
     localStorage.removeItem("Expires_In");
+    localStorage.removeItem("Componentes");
   }
 
-  private saveToken(token: string, expiresIn: string): void{
+  private saveToken(token: string, expiresIn: string, componentes: string): void{
     localStorage.setItem("Access_Token", token);
     localStorage.setItem("Expires_In", expiresIn);
-    this.token= token;
+    localStorage.setItem("Componentes", componentes);
+    this.token = token;
+    //cargar componentes del usuario seleccionado
   }
 
   private getToken(): string
