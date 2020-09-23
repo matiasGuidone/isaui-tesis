@@ -9,7 +9,7 @@ body{
   font-family: lato-regular;
   margin: 0;
   padding: 0; 
-  min-height: 100vh;
+  min-height: 90vh;
   flex-wrap: wrap;  
 }
 a {
@@ -49,7 +49,7 @@ code {
 
 .bodyclass{
   background-color: #343940;
-  min-height: 100vh;
+  min-height: 90vh;
 }
 .bodyclasswh{
   background-color: #FFFFFF;

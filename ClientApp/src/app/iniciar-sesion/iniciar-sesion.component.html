@@ -23,20 +23,22 @@
         </div>
     </div>
 </section> -->
-
-<form class="form-signin border " id="formjs">
+<div style="min-block-size: -webkit-fill-available;" class="row">
     
-    <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
+<div style="justify-items: center;" class="col form-signin border align-self-center" id="formjs">
+    
+    <h1 style="text-align: center;" class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
     <label for="inputLegajo"  class="sr-only">Legajo</label>
-    <input type="text" [(ngModel)]="nCuenta"  id="name" name="nCuenta" id="inputLegajo" class="form-control mb-3" placeholder="Email address" required autofocus>
+    <input type="text" [(ngModel)]="nCuenta"  id="name" name="nCuenta" id="inputLegajo" class="form-control mb-3" placeholder="Usuario" required autofocus>
     <label for="inputPassword" class="sr-only">Contraseña</label>
-    <input type="password"  [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Password" required="">
+    <input type="password"  [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Contraseña" required="">
     <div class="checkbox mb-3">
     </div>
     <button (click)="onLogin()" class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
     <p class="mt-5 mb-3 text-muted">© Isaui</p>
-  </form>
-
+  </div>
+</div>
+ 
 
 
   <!-- ---------- -->
