@@ -8,51 +8,67 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class CurriculumantecedenteController: Controller
+public class CurriculumantecedenteController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<curriculumantecedente> Index([FromBody] curriculumantecedente Curriculumantecedente)
+    public ActionResult<curriculumantecedente> Index([FromBody] curriculumantecedente Curriculumantecedente, [FromHeader] string token)
     {
-        CurriculumantecedenteConexion<curriculumantecedente>.Instance.Insert(Curriculumantecedente);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            CurriculumantecedenteConexion<curriculumantecedente>.Instance.Insert(Curriculumantecedente);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<curriculumantecedente> Put([FromBody] curriculumantecedente Curriculumantecedente)
+    public ActionResult<curriculumantecedente> Put([FromBody] curriculumantecedente Curriculumantecedente, [FromHeader] string token)
     {
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
 
-        CurriculumantecedenteConexion<curriculumantecedente>.Instance.Update(Curriculumantecedente);
-        return Json("Guardado exitoso");
+            CurriculumantecedenteConexion<curriculumantecedente>.Instance.Update(Curriculumantecedente);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        
-        CurriculumantecedenteConexion<curriculumantecedente>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
-
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            CurriculumantecedenteConexion<curriculumantecedente>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<curriculumantecedente> Getcurriculumantecedentes([FromHeader]string[] arrayfiltros)
+    public IEnumerable<curriculumantecedente> Getcurriculumantecedentes([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        
-        return CurriculumantecedenteConexion<curriculumantecedente>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return CurriculumantecedenteConexion<curriculumantecedente>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public curriculumantecedente Getcurriculumantecedente(int id)
+    public curriculumantecedente Getcurriculumantecedente(int id, [FromHeader] string token)
     {
-      
-        return CurriculumantecedenteConexion<curriculumantecedente>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return CurriculumantecedenteConexion<curriculumantecedente>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

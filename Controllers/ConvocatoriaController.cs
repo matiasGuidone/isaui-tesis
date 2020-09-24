@@ -13,55 +13,62 @@ public class ConvocatoriaController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<convocatoria> Index([FromBody] convocatoria Convocatoria)
-    {
-        //ObjetoConexion<convocatoria> cone = new ObjetoConexion<convocatoria>(new convocatoria());
+    public ActionResult<convocatoria> Index([FromBody] convocatoria Convocatoria, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         ConvocatoriaConexion<convocatoria>.Instance.Insert(Convocatoria);
         return Json("Guardado exitoso");
-
+        }
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<convocatoria> Put([FromBody] convocatoria Convocatoria)
-    {
-
-        //ObjetoConexion<convocatoria> cone = new ObjetoConexion<convocatoria>(new convocatoria());
+    public ActionResult<convocatoria> Put([FromBody] convocatoria Convocatoria, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         ConvocatoriaConexion<convocatoria>.Instance.Update(Convocatoria);
         return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        //ObjetoConexion<convocatoria> cone = new ObjetoConexion<convocatoria>(new convocatoria());
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         ConvocatoriaConexion<convocatoria>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
-        // ControlTablasAvisos.Instance.Delete(id);
+        return Json("registro eliminado"); 
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<convocatoria> Getconvocatorias([FromHeader]string[] arrayfiltros)
+    public IEnumerable<convocatoria> Getconvocatorias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
-        //ObjetoConexion<convocatoria> cone = new ObjetoConexion<convocatoria>(new convocatoria());
-        // if(dato!=null)
-        // {
-        // return ConvocatoriaConexion<convocatoria>.Instance.serchDniLastName(dato);
-        // }
-        // else
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return ConvocatoriaConexion<convocatoria>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public convocatoria Getconvocatoria(int id)
-    {
-        //ObjetoConexion<convocatoria> cone = new ObjetoConexion<convocatoria>(new convocatoria());
+    public convocatoria Getconvocatoria(int id, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return ConvocatoriaConexion<convocatoria>.Instance.SearchId(id);
+        }
+        else return null;
     }
 
 

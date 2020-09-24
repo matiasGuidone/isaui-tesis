@@ -9,6 +9,7 @@ import { PeticionesService } from '../services/peticiones.service';
 import { pais } from '../clases/pais';
 import { provincia } from '../clases/provincia';
 import { localidad } from '../clases/localidad';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -27,8 +28,9 @@ export class AbmDomicilioComponent extends abm<any> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     this.nombre = 'domicilio';
     this.objetoBlanco = new domicilio({'id':'0','direccion':'','idlocalidad':''});
     this.modalService.setFiltro(this.objetoBlanco);

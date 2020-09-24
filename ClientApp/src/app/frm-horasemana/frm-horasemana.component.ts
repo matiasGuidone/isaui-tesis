@@ -16,6 +16,7 @@ import { componentFactoryName } from '@angular/compiler';
 import * as jspdf from 'jspdf';  
 import { logo64 } from '../filtro-abm/logo-base64';
 import * as html2canvas from 'html2canvas';
+import { AuthLoginService } from '../services/authlogin.service';
 
 
 //ventanas modales
@@ -38,8 +39,9 @@ export class FrmHoraSemanaComponent extends abm<horasdia> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     
   } 
   

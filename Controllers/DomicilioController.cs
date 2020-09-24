@@ -13,42 +13,62 @@ public class DomicilioController : Controller
 
     // POST
     [HttpPost]
-    public ActionResult<domicilio> Index([FromBody] domicilio Domicilio)
+    public ActionResult<domicilio> Index([FromBody] domicilio Domicilio, [FromHeader] string token)
     {
-        DomicilioConexion<domicilio>.Instance.Insert(Domicilio);
-        var id = DomicilioConexion<domicilio>.Instance.SearchAll().Max(x => x.Id);
-         
-        return Json(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DomicilioConexion<domicilio>.Instance.Insert(Domicilio);
+            var id = DomicilioConexion<domicilio>.Instance.SearchAll().Max(x => x.Id);
+
+            return Json(id);
+        }
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<domicilio> Put([FromBody] domicilio Domicilio)
+    public ActionResult<domicilio> Put([FromBody] domicilio Domicilio, [FromHeader] string token)
     {
-        DomicilioConexion<domicilio>.Instance.Update(Domicilio);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DomicilioConexion<domicilio>.Instance.Update(Domicilio);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        DomicilioConexion<domicilio>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DomicilioConexion<domicilio>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<domicilio> GetDomicilios([FromHeader]string[] arrayfiltros)
+    public IEnumerable<domicilio> GetDomicilios([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        return DomicilioConexion<domicilio>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return DomicilioConexion<domicilio>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public domicilio GetDomicilio(int id)
+    public domicilio GetDomicilio(int id, [FromHeader] string token)
     {
-        return DomicilioConexion<domicilio>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return DomicilioConexion<domicilio>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

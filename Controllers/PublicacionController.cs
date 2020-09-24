@@ -10,53 +10,68 @@ using Microsoft.AspNetCore.Mvc;
 
 public class PublicacionController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<publicacion> Index([FromBody] publicacion Publicacion)
+    public ActionResult<publicacion> Index([FromBody] publicacion Publicacion, [FromHeader] string token)
     {
-        //ObjetoConexion<publicacion> cone = new ObjetoConexion<publicacion>(new publicacion());
-        PublicacionConexion<publicacion>.Instance.Insert(Publicacion);
-        return Json("Guardado exitoso");
 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            PublicacionConexion<publicacion>.Instance.Insert(Publicacion);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<publicacion> Put([FromBody] publicacion Publicacion)
+    public ActionResult<publicacion> Put([FromBody] publicacion Publicacion, [FromHeader] string token)
     {
 
-        //ObjetoConexion<publicacion> cone = new ObjetoConexion<publicacion>(new publicacion());
-        PublicacionConexion<publicacion>.Instance.Update(Publicacion);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            PublicacionConexion<publicacion>.Instance.Update(Publicacion);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        //ObjetoConexion<publicacion> cone = new ObjetoConexion<publicacion>(new publicacion());
-        PublicacionConexion<publicacion>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
-        // ControlTablasAvisos.Instance.Delete(id);
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            PublicacionConexion<publicacion>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<publicacion> getpublicacions([FromHeader]string[] arrayfiltros)
+    public IEnumerable<publicacion> getpublicacions([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        //ObjetoConexion<publicacion> cone = new ObjetoConexion<publicacion>(new publicacion());
-        
-        return PublicacionConexion<publicacion>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return PublicacionConexion<publicacion>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public publicacion getpublicacion(int id)
+    public publicacion getpublicacion(int id, [FromHeader] string token)
     {
-        //ObjetoConexion<publicacion> cone = new ObjetoConexion<publicacion>(new publicacion());
-        return PublicacionConexion<publicacion>.Instance.SearchId(id);
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return PublicacionConexion<publicacion>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { roles } from '../clases/roles';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -20,8 +21,9 @@ export class AbmRolesComponent extends abm<roles> implements OnInit {
   
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService){
-    super(location,modalService,servicio);
+               protected servicio: PeticionesService,
+               protected logservicio: AuthLoginService){
+    super(location,modalService,servicio, logservicio);
 
     this.nombre = 'roles';
     this.objetoBlanco = new roles({'id':'0','nombre':''});
@@ -54,6 +56,7 @@ export class AbmRolesComponent extends abm<roles> implements OnInit {
       }
     }
     this.location.back();
+    this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
   }
 
   //función para evaluar check

@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { curso } from '../clases/curso';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -21,8 +22,9 @@ export class AbmCursoComponent extends abm<curso> implements OnInit {
 
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService){
-    super(location,modalService,servicio);
+               protected servicio: PeticionesService,
+               protected logservicio: AuthLoginService){
+    super(location,modalService,servicio, logservicio);
 
     this.nombre = 'curso';
     this.objetoBlanco = new curso({'id':'0','nombre':'','nivel':'','descripcion':'','idcarrera':''});
@@ -50,6 +52,7 @@ export class AbmCursoComponent extends abm<curso> implements OnInit {
       }
       this.modalService.listAbm.getData().idcurso = id;
       this.location.back();
+      this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
     }
   }
 

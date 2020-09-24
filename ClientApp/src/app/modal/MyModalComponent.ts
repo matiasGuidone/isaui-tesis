@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
 import { Router } from '@angular/router';
 import Nodo from '../clases/Nodo';
+import { AuthLoginService } from '../services/authlogin.service';
 
 @Component({
   templateUrl: './MyModalComponent.html',
@@ -18,7 +19,7 @@ export class MyModalComponent extends Modal {
   objetoIn: any;
   
 
-  constructor(private modalService: ModalService, private router: Router) {
+  constructor(private modalService: ModalService, private router: Router,private logservicio: AuthLoginService) {
     super();
     this.formGroup = new FormGroup({});
     this.modalService.setListaAbm();
@@ -119,6 +120,7 @@ export class MyModalComponent extends Modal {
         this.modalService.listAbm = nodo;
       }
     }
+    this.logservicio.componenteGuard = ruta;
     this.router.navigate([ruta]);
     //this.cancel();
     this.modalService.setListaAbm();

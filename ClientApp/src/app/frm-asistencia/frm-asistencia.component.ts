@@ -11,6 +11,7 @@ import { asistencia } from '../clases/asistencia';
 import { abm } from '../clases/abm';
 import { materia } from '../clases/materia';
 import { horasmateria } from '../clases/horasmateria';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -30,8 +31,9 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     //**array de dias */
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 6;
     //let dia = 1000 * 60 * 60 * 12;

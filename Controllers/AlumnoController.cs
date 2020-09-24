@@ -15,8 +15,8 @@ public class AlumnoController : Controller
     [HttpPost]
     public ActionResult<alumno> Index([FromBody] alumno alumno, [FromHeader] string token)
     { 
-        var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
-        if (user.Count == 1)
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             AlumnoConexion<alumno>.Instance.Insert(alumno);
             return Json("Guardado exitoso");
@@ -28,8 +28,8 @@ public class AlumnoController : Controller
     [HttpPut]
     public ActionResult<alumno> Put([FromBody] alumno alumno, [FromHeader] string token)
     {
-        var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
-        if (user.Count == 1)
+         
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             AlumnoConexion<alumno>.Instance.Update(alumno);
             return Json("Guardado exitoso");
@@ -41,8 +41,8 @@ public class AlumnoController : Controller
     [HttpDelete]
     public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     { 
-        var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
-        if (user.Count == 1)
+         
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             AlumnoConexion<alumno>.Instance.Delete(Convert.ToInt32(id));
             return Json("registro eliminado");
@@ -55,8 +55,8 @@ public class AlumnoController : Controller
     [HttpGet]
     public IEnumerable<alumno> Getalumnos([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     { 
-        var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
-        if (user.Count == 1)
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             if (arrayfiltros.Any(p => p == "idcurso"))
             {
@@ -78,8 +78,8 @@ public class AlumnoController : Controller
     [HttpGet("{id}")]
     public alumno Getalumno(int id, [FromHeader] string token)
     { 
-        var user = UsuarioConexion<usuario>.Instance.getUserToken(token);
-        if (user.Count == 1)
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             return AlumnoConexion<alumno>.Instance.SearchId(id);
         }

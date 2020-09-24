@@ -13,41 +13,62 @@ public class ExamenController : Controller
 
     // POST
     [HttpPost]
-    public ActionResult<examen> Index([FromBody] examen Examen)
+    public ActionResult<examen> Index([FromBody] examen Examen, [FromHeader] string token)
     {
-        Examen.Idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
-        ExamenConexion<examen>.Instance.Insert(Examen);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            Examen.Idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            ExamenConexion<examen>.Instance.Insert(Examen);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<examen> Put([FromBody] examen Examen)
+    public ActionResult<examen> Put([FromBody] examen Examen, [FromHeader] string token)
     {
-        ExamenConexion<examen>.Instance.Update(Examen);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            ExamenConexion<examen>.Instance.Update(Examen);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        ExamenConexion<examen>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            ExamenConexion<examen>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<examen> GetDomicilios([FromHeader]string[] arrayfiltros)
+    public IEnumerable<examen> GetDomicilios([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        return ExamenConexion<examen>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return ExamenConexion<examen>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public examen GetDomicilio(int id)
+    public examen GetDomicilio(int id, [FromHeader] string token)
     {
-        return ExamenConexion<examen>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return ExamenConexion<examen>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

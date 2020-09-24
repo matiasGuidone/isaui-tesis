@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { ciclolectivo } from '../clases/ciclolectivo';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -18,8 +19,9 @@ export class AbmCiclolectivoComponent extends abm<ciclolectivo> implements OnIni
  
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService){
-    super(location,modalService,servicio);
+               protected servicio: PeticionesService,
+               protected logservicio: AuthLoginService){
+    super(location,modalService,servicio, logservicio);
 
     this.nombre = 'ciclolectivo';
     this.objetoBlanco = new ciclolectivo({'id':'0','nombre':'','descripcion':'','fechainicio':''});

@@ -10,53 +10,65 @@ using Microsoft.AspNetCore.Mvc;
 
 public class RolesController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<roles> Index([FromBody] roles Roles)
+    public ActionResult<roles> Index([FromBody] roles Roles, [FromHeader] string token)
     {
-        //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        RolesConexion<roles>.Instance.Insert(Roles);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            RolesConexion<roles>.Instance.Insert(Roles);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<roles> Put([FromBody] roles Roles)
+    public ActionResult<roles> Put([FromBody] roles Roles, [FromHeader] string token)
     {
-
-        //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        RolesConexion<roles>.Instance.Update(Roles);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            RolesConexion<roles>.Instance.Update(Roles);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        RolesConexion<roles>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
-        // ControlTablasAvisos.Instance.Delete(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            RolesConexion<roles>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<roles> getroless([FromHeader]string[] arrayfiltros)
+    public IEnumerable<roles> getroless([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        
-        return RolesConexion<roles>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return RolesConexion<roles>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public roles getroles(int id)
+    public roles getroles(int id, [FromHeader] string token)
     {
-        //ObjetoConexion<roles> cone = new ObjetoConexion<roles>(new roles());
-        return RolesConexion<roles>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return RolesConexion<roles>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

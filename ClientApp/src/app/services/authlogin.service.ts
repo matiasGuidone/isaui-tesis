@@ -18,13 +18,14 @@ public componentes : any[]=new Array<any>();
     /* user.nombre="maxi";
     user.codigo="123456";
    */
-   let Headers : HttpHeaders = new HttpHeaders({'usuario': user.nombre , 'pass': user.codigo});
+
+   let Headers : HttpHeaders = new HttpHeaders({'usuario': user.nombre , 'pass': user.codigo, 'token':''});
       //return this._http.get<any>(this.baseUrl + 'api/Usuario?nombre=' + user.nombre + '&codigo=' + user.codigo );
      return this._http.get<any>(this.baseUrl +'api/logueo', {headers: Headers}).pipe(tap((res)=>{
       if(res){  
           let json = JSON.parse(res.toString());
           this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes));
-          console.log(json);
+          
       }
     })); 
   }

@@ -46,7 +46,7 @@ public class Conexion
     }
 
 
-    public DataSet consultaDataTable(String consulta)
+    public  DataSet consultaDataTable(String consulta)
     {
         try
         {

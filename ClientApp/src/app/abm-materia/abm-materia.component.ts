@@ -9,6 +9,7 @@ import { materia } from '../clases/materia';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { abm } from '../clases/abm';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -23,8 +24,9 @@ export class AbmMateriaComponent extends abm<materia> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
 
     this.nombre = 'materia';
     this.objetoBlanco = new materia({'id':"0", 'nombre': "", 'idcurso':""});
@@ -58,6 +60,7 @@ export class AbmMateriaComponent extends abm<materia> implements OnInit {
       }
     }
     this.location.back();
+    this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
   }
 
   //función para evaluar check

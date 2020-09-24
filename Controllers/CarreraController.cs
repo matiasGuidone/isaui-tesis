@@ -13,49 +13,67 @@ public class CarreraController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<carrera> Index([FromBody] carrera carrera)
-    {
-        //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
+    public ActionResult<carrera> Index([FromBody] carrera carrera, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CarreraConexion<carrera>.Instance.Insert(carrera);
         return Json("Guardado exitoso");
+        }
+        else return null;
+
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<carrera> Put([FromBody] carrera carrera)
-    {
-
-        //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
+    public ActionResult<carrera> Put([FromBody] carrera carrera, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CarreraConexion<carrera>.Instance.Update(carrera);
         return Json("Guardado exitoso");
+        }
+        else return null;
+
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
-    {
-        //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CarreraConexion<carrera>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
-        // ControlTablasAvisos.Instance.Delete(id);
+       }
+        else return null;
+
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<carrera> Getcarreras([FromHeader]string[] arrayfiltros)
-    {
-        //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
+    public IEnumerable<carrera> Getcarreras([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return CarreraConexion<carrera>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
+
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public carrera Getcarrera(int id)
+    public carrera Getcarrera(int id, [FromHeader] string token)
     {
-        //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return CarreraConexion<carrera>.Instance.SearchId(id);
+        }
+        else return null;
+
     }
 }
 

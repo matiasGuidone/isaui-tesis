@@ -20,7 +20,7 @@ nClave: string;
     const user= {nombre: this.nCuenta, codigo: this.nClave};
     this.autS.login(user).subscribe(res =>{
       console.log(res)
-      this.router.navigate(['/']);
+      this.router.navigate(['/autogestion']);
     },
     er=>console.log(er)
       );

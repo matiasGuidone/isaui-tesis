@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { alumno } from '../clases/alumno';
 import { PeticionesService } from '../services/peticiones.service';
 import { abm } from '../clases/abm';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -27,8 +28,9 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     this.nombre = 'alumno';
     this.objetoBlanco = new alumno("0", "", "", "", "", "", "", "", "", "");
     this.modalService.setFiltro(this.objetoBlanco);
@@ -68,6 +70,7 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
       }
       this.modalService.listAbm.getData().idalumno = id;
       this.location.back();
+      this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
     }
   }
   //evento botón aceptar

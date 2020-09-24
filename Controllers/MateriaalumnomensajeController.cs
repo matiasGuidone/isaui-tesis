@@ -8,51 +8,69 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class MateriaalumnomensajeController: Controller
+public class MateriaalumnomensajeController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<materiaalumnomensaje> Index([FromBody] materiaalumnomensaje Materiaalumnomensaje)
+    public ActionResult<materiaalumnomensaje> Index([FromBody] materiaalumnomensaje Materiaalumnomensaje, [FromHeader] string token)
     {
-        MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Insert(Materiaalumnomensaje);
-        return Json("Guardado exitoso");
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Insert(Materiaalumnomensaje);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<materiaalumnomensaje> Put([FromBody] materiaalumnomensaje Materiaalumnomensaje)
+    public ActionResult<materiaalumnomensaje> Put([FromBody] materiaalumnomensaje Materiaalumnomensaje, [FromHeader] string token)
     {
 
-        MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Update(Materiaalumnomensaje);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Update(Materiaalumnomensaje);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        
-        MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<materiaalumnomensaje> Getmateriaalumnomensajes([FromHeader]string[] arrayfiltros)
+    public IEnumerable<materiaalumnomensaje> Getmateriaalumnomensajes([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        
-        return MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public materiaalumnomensaje Getmateriaalumnomensaje(int id)
+    public materiaalumnomensaje Getmateriaalumnomensaje(int id, [FromHeader] string token)
     {
-      
-        return MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

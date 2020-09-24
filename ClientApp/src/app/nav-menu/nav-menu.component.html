@@ -20,34 +20,50 @@
               <button class="btn btn-info" title="Temas" style="width:30px;height:30px; padding: .1rem .4rem;border-radius: 50px;" (click)="cambiarEstilo()" ><span class="fa fa-swatchbook fa-md"></span></button>
             </div>
           </li>
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+          <li class="nav-item dropdown" *ngIf="alguncomponente('abm')" [routerLinkActive]="['link-active']">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Alta-Baja-Modificación
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'abm'" (click)="setGuardComponente(item.componente)" class="dropdown-item"
+                <a *ngIf="item.tipo == 'abm' && componenteHabiliado(item.componente)" (click)="setGuardComponente(item.componente)" class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 
             </div>
           </li>
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+          
+          <li class="nav-item dropdown" *ngIf="alguncomponente('rel')" [routerLinkActive]="['link-active']">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              Carga de datos
+              Formularios de relaciones
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'rel'" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
+                <a *ngIf="item.tipo == 'rel' && componenteHabiliado(item.componente)" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 
             </div>
           </li>
+          <li class="nav-item dropdown" *ngIf="alguncomponente('frm')"  [routerLinkActive]="['link-active']">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Formularios
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div *ngFor="let item of menus">
+                <a *ngIf="item.tipo == 'frm' && componenteHabiliado(item.componente)" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
+                  [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
+              </div>
 
-
+            </div>
+          </li>
+          <li></li>
+           <li class="nav-item" *ngIf="estaEnSesion()">
+             <a class="nav-link" (click)="cerrarSesion()">Cerrar sesión</a>
+           </li> 
         </ul>
       </div>
     </div>

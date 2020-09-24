@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { convocatoria } from '../clases/convocatoria';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -18,8 +19,9 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
  
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService){
-    super(location,modalService,servicio);
+               protected servicio: PeticionesService,
+               protected logservicio: AuthLoginService){
+    super(location,modalService,servicio, logservicio);
 
     this.nombre = 'convocatoria';
     this.objetoBlanco = new convocatoria({'id':'0','nombre':'','fechainicio':'','fechafin':'','descripcion':'','idmateria':'','estado':''});

@@ -10,45 +10,65 @@ using Microsoft.AspNetCore.Mvc;
 
 public class HorasMateriaController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<horasmateria> Index([FromBody] horasmateria HorasMateria)
+    public ActionResult<horasmateria> Index([FromBody] horasmateria HorasMateria, [FromHeader] string token)
     {
-        HorasMateriaConexion<horasmateria>.Instance.InsertHoramateria(HorasMateria);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasMateriaConexion<horasmateria>.Instance.InsertHoramateria(HorasMateria);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<horasmateria> Put([FromBody] horasmateria HorasMateria)
+    public ActionResult<horasmateria> Put([FromBody] horasmateria HorasMateria, [FromHeader] string token)
     {
-        HorasMateriaConexion<horasmateria>.Instance.Update(HorasMateria);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasMateriaConexion<horasmateria>.Instance.Update(HorasMateria);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-         HorasMateriaConexion<horasmateria>.Instance.DeleteHoramateria(Convert.ToInt32(id));
-        return Json("registro eliminado"); 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasMateriaConexion<horasmateria>.Instance.DeleteHoramateria(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<horasmateria> GetHorasMaterias([FromHeader]string[] arrayfiltros)
+    public IEnumerable<horasmateria> GetHorasMaterias([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        return HorasMateriaConexion<horasmateria>.Instance.SearchAll(arrayfiltros," AND activo = 1 ");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return HorasMateriaConexion<horasmateria>.Instance.SearchAll(arrayfiltros, " AND activo = 1 ");
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public horasmateria GetHorasMateria(int id)
+    public horasmateria GetHorasMateria(int id, [FromHeader] string token)
     {
-         return HorasMateriaConexion<horasmateria>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return HorasMateriaConexion<horasmateria>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

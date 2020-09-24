@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { docente } from '../clases/docente';
 import { PeticionesService } from '../services/peticiones.service';
 import { abm } from '../clases/abm';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -21,8 +22,9 @@ export class AbmDocenteComponent extends abm<docente> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService) {
-    super(location, modalService, servicio);
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     this.nombre = 'docente';
     this.objetoBlanco = new docente("0", "", "", "", "", "", "", "", "");
     this.modalService.setFiltro(this.objetoBlanco);
@@ -51,6 +53,7 @@ export class AbmDocenteComponent extends abm<docente> implements OnInit {
       }
       this.modalService.listAbm.getData().iddocente = id;
       this.location.back();
+      this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
     }
   }
 

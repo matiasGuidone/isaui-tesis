@@ -8,51 +8,66 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class DocenteexamenController: Controller
+public class DocenteexamenController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<docenteexamen> Index([FromBody] docenteexamen Docenteexamen)
+    public ActionResult<docenteexamen> Index([FromBody] docenteexamen Docenteexamen, [FromHeader] string token)
     {
-        DocenteexamenConexion<docenteexamen>.Instance.Insert(Docenteexamen);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DocenteexamenConexion<docenteexamen>.Instance.Insert(Docenteexamen);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<docenteexamen> Put([FromBody] docenteexamen Docenteexamen)
+    public ActionResult<docenteexamen> Put([FromBody] docenteexamen Docenteexamen, [FromHeader] string token)
     {
-
-        DocenteexamenConexion<docenteexamen>.Instance.Update(Docenteexamen);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DocenteexamenConexion<docenteexamen>.Instance.Update(Docenteexamen);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        
-        DocenteexamenConexion<docenteexamen>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
-
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            DocenteexamenConexion<docenteexamen>.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<docenteexamen> Getdocenteexamens([FromHeader]string[] arrayfiltros)
+    public IEnumerable<docenteexamen> Getdocenteexamens([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        
-        return DocenteexamenConexion<docenteexamen>.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return DocenteexamenConexion<docenteexamen>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public docenteexamen Getdocenteexamen(int id)
+    public docenteexamen Getdocenteexamen(int id, [FromHeader] string token)
     {
-      
-        return DocenteexamenConexion<docenteexamen>.Instance.SearchId(id);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return DocenteexamenConexion<docenteexamen>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

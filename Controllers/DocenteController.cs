@@ -13,55 +13,65 @@ public class DocenteController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<docente> Index([FromBody] docente docente)
+    public ActionResult<docente> Index([FromBody] docente docente, [FromHeader] string token)
     {
-        //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         DocenteConexion<docente>.Instance.Insert(docente);
         return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<docente> Put([FromBody] docente docente)
+    public ActionResult<docente> Put([FromBody] docente docente, [FromHeader] string token)
     {
-
-        //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+ 
+ if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         DocenteConexion<docente>.Instance.Update(docente);
         return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
-    {
-        //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         DocenteConexion<docente>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
-        // ControlTablasAvisos.Instance.Delete(id);
+        }
+        else return null;
+     
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<docente> Getdocentes([FromHeader]string[] arrayfiltros)
+    public IEnumerable<docente> Getdocentes([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
-        //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
-        // if(dato!=null)
-        // {
-        // return DocenteConexion<docente>.Instance.serchDniLastName(dato);
-        // }
-        // else
+     if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return DocenteConexion<docente>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public docente Getdocente(int id)
-    {
-        //ObjetoConexion<docente> cone = new ObjetoConexion<docente>(new docente());
+    public docente Getdocente(int id, [FromHeader] string token)
+    { 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return DocenteConexion<docente>.Instance.SearchId(id);
+        }
+        else return null;
     }
 
 

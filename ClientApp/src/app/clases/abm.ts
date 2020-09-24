@@ -4,6 +4,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { Observable } from 'rxjs';
 import { PeticionesService } from '../services/peticiones.service';
 import { Input } from '@angular/core';
+import { AuthLoginService } from '../services/authlogin.service';
 
 
 export class abm<T>{
@@ -13,7 +14,8 @@ export class abm<T>{
     nombre : string;
     constructor(protected location: Location, 
                 protected modalService: ModalService,
-                protected servicio: PeticionesService
+                protected servicio: PeticionesService,
+                protected logservicio: AuthLoginService
                 ) {}
 
     ngOnInit() {
@@ -59,6 +61,7 @@ export class abm<T>{
         }
         this.modalService.listAbm.getData()['id'+this.nombre] = id;
         this.location.back();
+        this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
       }
 
       editar(id: number, obj: any) {

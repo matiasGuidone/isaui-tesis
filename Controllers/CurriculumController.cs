@@ -13,46 +13,62 @@ public class CurriculumController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<curriculum> Index([FromBody] curriculum Curriculum)
+    public ActionResult<curriculum> Index([FromBody] curriculum Curriculum, [FromHeader] string token)
     {
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CurriculumConexion<curriculum>.Instance.Insert(Curriculum);
         return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<curriculum> Put([FromBody] curriculum Curriculum)
+    public ActionResult<curriculum> Put([FromBody] curriculum Curriculum, [FromHeader] string token)
     {
-
+if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CurriculumConexion<curriculum>.Instance.Update(Curriculum);
         return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         CurriculumConexion<curriculum>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<curriculum> Getcurriculums([FromHeader]string[] arrayfiltros)
+    public IEnumerable<curriculum> Getcurriculums([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
-        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return CurriculumConexion<curriculum>.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public curriculum Getcurriculum(int id)
+    public curriculum Getcurriculum(int id, [FromHeader] string token)
     {
-      
+      if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         return CurriculumConexion<curriculum>.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

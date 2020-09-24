@@ -9,6 +9,7 @@ import { alumno } from '../clases/alumno';
 import { calificacionalumno } from '../clases/calificacionalumno';
 import { ExcelService } from '../services/excel.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { AuthLoginService } from '../services/authlogin.service';
 
 @Component({
   selector: 'app-frm-carganotas',
@@ -25,8 +26,9 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
-    protected excelservicio: ExcelService) {
-    super(location, modalService, servicio);
+    protected excelservicio: ExcelService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
     this.modalService.setCaseEstado('examen');
     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; });
   }

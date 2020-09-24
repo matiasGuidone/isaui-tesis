@@ -65,4 +65,29 @@ export class NavMenuComponent {
   setGuardComponente(componente){
     this.logservicio.componenteGuard = componente;
   }
+  // verifica que determinado item esté habilitado por los permisos del usuario logueado
+  componenteHabiliado(componente){
+    if(localStorage.getItem("Componentes") != 'undefined' && localStorage.getItem("Componentes") != null){
+      let componentes : any[] =  JSON.parse(localStorage.getItem("Componentes")); 
+      if(componentes.find(c => c == componente)) {return true;}
+    }else return false;
+  }
+  // verifica que determinado tipo de componente esté habilitado por los permisos del usuario logueado
+  alguncomponente(tipo){
+    if(localStorage.getItem("Componentes") != 'undefined' && localStorage.getItem("Componentes") != null){
+          let componentes : any[] =  JSON.parse(localStorage.getItem("Componentes")); 
+          if(componentes.find(c => c.toString().substring(0,3) == tipo)) {return true;}
+    }else return false;
+  }
+  //cerrar la sesion iniciada
+  cerrarSesion(){
+    this.logservicio.logout();
+  }
+  //comprueba si hay sesion iniciada
+  estaEnSesion(){
+    if(localStorage.getItem('Access_Token')!= undefined && localStorage.getItem('Access_Token') != 'undefined'){
+      return true;
+    }
+    return false;
+  }
 }

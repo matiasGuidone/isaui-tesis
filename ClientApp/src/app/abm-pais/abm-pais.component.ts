@@ -6,6 +6,7 @@ import { ModalService } from '../modal/modal-service.service';
 import { pais } from '../clases/pais';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
+import { AuthLoginService } from '../services/authlogin.service';
 
 //ventanas modales
 
@@ -18,8 +19,9 @@ export class AbmPaisComponent extends abm<pais> implements OnInit {
  
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService){
-    super(location,modalService,servicio);
+               protected servicio: PeticionesService,
+               protected logservicio: AuthLoginService){
+    super(location,modalService,servicio, logservicio);
     this.nombre = 'pais';
     this.objetoBlanco = new pais({'id':'0','nombre':''});
     this.modalService.setFiltro(this.objetoBlanco);

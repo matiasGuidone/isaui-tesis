@@ -11,12 +11,14 @@ export class Guard implements CanActivate {
 
     canActivate() {
         
+        if(localStorage.getItem("Componentes") != 'undefined' && localStorage.getItem("Componentes") != null){
         let componentes : any[] =  JSON.parse(localStorage.getItem("Componentes")); 
         if (componentes.find(da => da ==  this.logservicio.componenteGuard )) {
             this.logservicio.componenteGuard = '';
             return true;
             
         }
+    }
         this.logservicio.componenteGuard = '';
         return false;
     }

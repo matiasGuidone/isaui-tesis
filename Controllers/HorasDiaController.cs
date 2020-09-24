@@ -10,45 +10,66 @@ using Microsoft.AspNetCore.Mvc;
 
 public class HorasDiaController : Controller
 {
-    
+
     // POST
     [HttpPost]
-    public ActionResult<horasdia> Index([FromBody] horasdia HorasDia)
+    public ActionResult<horasdia> Index([FromBody] horasdia HorasDia, [FromHeader] string token)
     {
-        HorasDiaConexion.Instance.Insert(HorasDia);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasDiaConexion.Instance.Insert(HorasDia);
+            return Json("Guardado exitoso");
+        }
+        else return null;
 
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<horasdia> Put([FromBody] horasdia HorasDia)
+    public ActionResult<horasdia> Put([FromBody] horasdia HorasDia, [FromHeader] string token)
     {
-        HorasDiaConexion.Instance.Update(HorasDia);
-        return Json("Guardado exitoso");
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasDiaConexion.Instance.Update(HorasDia);
+            return Json("Guardado exitoso");
+        }
+        else return null;
     }
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
     {
-         HorasDiaConexion.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado"); 
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            HorasDiaConexion.Instance.Delete(Convert.ToInt32(id));
+            return Json("registro eliminado");
+        }
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<horasdia> GetHorasDias([FromHeader]string[] arrayfiltros)
+    public IEnumerable<horasdia> GetHorasDias([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
-        return HorasDiaConexion.Instance.SearchAll(arrayfiltros);
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return HorasDiaConexion.Instance.SearchAll(arrayfiltros);
+        }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public horasdia GetHorasDia(int id)
+    public horasdia GetHorasDia(int id, [FromHeader] string token)
     {
-         return HorasDiaConexion.Instance.SearchId(id);
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return HorasDiaConexion.Instance.SearchId(id);
+        }
+        else return null;
     }
 }
 

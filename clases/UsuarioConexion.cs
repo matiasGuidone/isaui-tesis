@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Data;
 using System.Text;
+using System.Threading.Tasks;
 public class UsuarioConexion<T> : ObjetoConexion<usuario>
 {
 
+    private List<token> tokens = new List<token>();
     private static UsuarioConexion<T> instance;
     public static UsuarioConexion<T> Instance
     {
@@ -24,9 +26,21 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
 
     public string generarToken(usuario user)
     {
+
         var token = this.tok();
-        string consulta = $"update usuario set token = '{token}' where id = {user.Id} ";
-        Conexion.ConsultaParametros(consulta, null);
+        if (tokens.Count< 100){ //parametrizar la variable de cantidad de sesiones para regular si se cortan mucho
+            tokens.Add(new token(token,System.DateTime.Now));
+        }
+        else{
+            var fe = System.DateTime.Now;
+            var indice = 0;
+            for(int i = 0; i < tokens.Count; i++){
+                if(tokens[i].fechahora<fe){fe = tokens[i].fechahora; indice = i;}
+            }
+            tokens[indice] = new token(token,System.DateTime.Now);
+        } 
+        //string consulta = $"update usuario set token = '{token}' where id = {user.Id} ";
+        //Conexion.ConsultaParametros(consulta, null);
         return token;
     }
 
@@ -38,11 +52,12 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         token = token.Replace("=", "").Replace("+", "").Replace("\\", "").Replace("/", "").Replace("-", "");
         return token;
     }
-    public List<usuario> getUserToken(string token)
+    public bool getUserToken(string token)
     {   
-        string consulta = $"select usuario.id, usuario.nombre, usuario.codigo, usuario.codigoayuda, usuario.correo, usuario.estado from usuario where usuario.token LIKE '{token}' and usuario.estado = 0 ";
-        var lista = Conexion.consultaList<usuario>(consulta);
-        return (List<usuario>)lista;
+        foreach(var n in tokens){
+            if(n.tok.Equals(token))
+            {return true;}}
+          return false; 
     }
 
     //Este metodo encripta / desencripta la cadena de claves para que no se vea en la base de datos
