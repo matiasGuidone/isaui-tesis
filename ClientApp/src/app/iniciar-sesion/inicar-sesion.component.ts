@@ -19,8 +19,8 @@ nClave: string;
   onLogin(){
     const user= {nombre: this.nCuenta, codigo: this.nClave};
     this.autS.login(user).subscribe(res =>{
-      
-      this.router.navigate(['autogestion']);
+      console.log(res);
+       this.router.navigate(['autogestion']);
     },
     er=>console.log(er)
       );
@@ -36,7 +36,11 @@ nClave: string;
       error =>{console.log(error);} //pasa por error 
     ); */
   }
-  
+  enterLogin(key){
+   if(key.keyCode === 13){
+     this.onLogin();
+   }
+  }
   ngOnInit() {
   }
 
