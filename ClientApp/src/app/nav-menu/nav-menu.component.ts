@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
  
 import { AbmMenuComponent } from '../abm-menu/abm-menu.component';
 import { menu } from '../clases/menu';
@@ -16,10 +17,11 @@ export class NavMenuComponent {
  num = 0;
   isExpanded = false;
   menus : menu[];
-
+ componentes:any[];
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => this.menus = res);
+     
   }
 
   collapse() {
@@ -66,7 +68,7 @@ export class NavMenuComponent {
     this.logservicio.componenteGuard = componente;
   }
   // verifica que determinado item esté habilitado por los permisos del usuario logueado
-  componenteHabiliado(componente){
+  componenteHabilitado(componente){
     if(localStorage.getItem("Componentes") != 'undefined' && localStorage.getItem("Componentes") != null){
       let componentes : any[] =  JSON.parse(localStorage.getItem("Componentes")); 
       if(componentes.find(c => c == componente)) {return true;}

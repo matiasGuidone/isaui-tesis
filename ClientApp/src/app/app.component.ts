@@ -7,5 +7,12 @@ import { PeticionesService } from './services/peticiones.service';
 })
 export class AppComponent {
   title = 'app';
-  constructor(private servicio: PeticionesService){}
+  //sesionIniciada: boolean = false;
+  constructor(private servicio: PeticionesService){
+    localStorage.setItem("InicioSesion", "false" );
+  }
+  estaSesion(){
+    if(localStorage.getItem('InicioSesion')=='true') return true;
+    return false;
+  }
 }

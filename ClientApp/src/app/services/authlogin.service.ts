@@ -36,12 +36,14 @@ public componentes : any[]=new Array<any>();
     localStorage.removeItem("Access_Token");
     localStorage.removeItem("Expires_In");
     localStorage.removeItem("Componentes");
+    localStorage.setItem("InicioSesion", "false" );
   }
 
   private saveToken(token: string, expiresIn: string, componentes: string): void{
     localStorage.setItem("Access_Token", token);
     localStorage.setItem("Expires_In", expiresIn);
     localStorage.setItem("Componentes", componentes);
+    localStorage.setItem("InicioSesion", "true" );
     this.token = token;
     //cargar componentes del usuario seleccionado
   }

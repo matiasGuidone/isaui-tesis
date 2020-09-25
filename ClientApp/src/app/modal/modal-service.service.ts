@@ -63,7 +63,10 @@ export class ModalService {
 
   //Busca el objeto de cualquier id seleccionado dentro de la ventana de abm
   public getDescripcion(id: string, tabla :string) : Observable<any>{
-    const headers = new HttpHeaders({ });
+    let token = localStorage.getItem("Access_Token");
+        if (token == undefined || token == null){token ='';}
+          let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : token});
+    //const headers = new HttpHeaders({ });
     return this.http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
   }
 
