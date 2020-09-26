@@ -17,8 +17,9 @@ public class LogueoController : Controller
     {
         //ObjetoConexion<carrera> cone = new ObjetoConexion<carrera>(new carrera());
         //desencriptar
-        string[] filtro = {"codigo",pass,"nombre",usuario};
-        var user = UsuarioConexion<usuario>.Instance.SearchAll(filtro);
+        //string[] filtro = {"codigo",pass,"nombre",usuario};
+        string condicion = $" AND codigo LIKE '{pass}' AND nombre LIKE '{usuario}'";
+        var user = UsuarioConexion<usuario>.Instance.SearchAll(null,condicion);
         if (user.Count==1){
             var tok = UsuarioConexion<usuario>.Instance.generarToken(user[0]);
             var componentes =  MenuConexion<usuario>.Instance.getComponentsByUser(user[0].Id); 
