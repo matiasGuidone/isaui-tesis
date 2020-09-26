@@ -45,6 +45,7 @@ import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.componen
 import { ExcelService } from './services/excel.service';
 import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
 import { Guard } from './clases/guard';
+import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
  
 
 @NgModule({
@@ -83,7 +84,8 @@ import { Guard } from './clases/guard';
     AbmHorasDiaComponent, 
     IniciarSesionComponent, 
     FrmCarganotasComponent,
-    FrmConsultaasistenciasComponent,      
+    FrmConsultaasistenciasComponent,
+    AbmMensajeComponent,      
   ],
   entryComponents: [MyModalComponent],
   imports: [

@@ -1,0 +1,27 @@
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
+ <div class="table-responsive">
+    <h3>Mensaje</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">titulo</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Fecha inicio</th>
+                <th scope="col">Fecha fin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let mensaje of lista">
+                <td>{{mensaje.titulo}}</td>
+                <td>{{mensaje.mensaje}</td>
+                <td>{{mensaje.fecha_inicio | date : 'dd/MM/yyyy'}}</td>
+                <td>{{mensaje.fecha_fin | date : 'dd/MM/yyyy'}}</td>
+                <td><button class="btn btn-outline-success" title="Editar" (click)="editar(mensaje.id)" ><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(mensaje.id)"><span class="fa fa-trash-alt"></span></button>
+                    <button *ngIf="this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(mensaje.id)"><span class="fa fa-check"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+</div>
+

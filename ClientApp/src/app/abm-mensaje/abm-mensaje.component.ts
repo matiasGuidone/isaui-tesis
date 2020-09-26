@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { mensaje } from '../clases/mensaje';
 import { Location } from '@angular/common';
-
-//ventanas modales
 import { ModalService } from '../modal/modal-service.service';
-import { evento } from '../clases/evento';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
 import { AuthLoginService } from '../services/authlogin.service';
 
-//ventanas modales
 
 @Component({
-  selector: 'app-abm-evento',
-  templateUrl: './abm-evento.component.html',
-  styleUrls: ['./abm-evento.component.css'] 
+  selector: 'app-abm-mensaje',
+  templateUrl: './abm-mensaje.component.html',
+  styleUrls: ['./abm-mensaje.component.css']
 })
-export class AbmEventoComponent extends abm<evento> implements OnInit {
+export class AbmMensajeComponent extends abm<mensaje> implements OnInit {
  
   constructor( protected location: Location,
                protected modalService: ModalService,
@@ -24,7 +21,7 @@ export class AbmEventoComponent extends abm<evento> implements OnInit {
     super(location,modalService,servicio, logservicio);
 
     this.nombre = 'evento';
-    this.objetoBlanco = new evento({'id':'0','nombre':'','fecha_inicio':'','fecha_fin':'','tipo':'','idcurso':''});
+    this.objetoBlanco = new mensaje({'id':'0','fecha_inicio':'','fecha_fin':'','titulo':'','mensaje':'','idcurso':''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {
@@ -35,6 +32,3 @@ export class AbmEventoComponent extends abm<evento> implements OnInit {
   }
 
 }
-
-
-

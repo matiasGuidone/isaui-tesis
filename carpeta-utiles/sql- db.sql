@@ -38,5 +38,8 @@ ALTER TABLE `examen` ADD `Idciclolectivo` INT NULL AFTER `tipo`;
 CREATE TABLE `test_isaui`.`calificacionalumno` ( `Idalumno` INT NOT NULL , `Nota` INT NOT NULL , `Idexamen` INT NOT NULL ) ENGINE = InnoDB;
 
 ALTER TABLE `calificacionalumno` ADD `Id` INT NOT NULL AUTO_INCREMENT AFTER `Idexamen`, ADD PRIMARY KEY (`Id`);
- 
- 
+
+CREATE TABLE `test_isaui`.`evento` ( `Id` INT(11) NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(20) NOT NULL , `fecha_inicio` DATE NOT NULL , `fecha_fin` DATE NOT NULL , `tipo` INT NOT NULL , `Idcurso` INT NOT NULL , PRIMARY KEY (`Id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
+
+ALTER TABLE `mensaje` CHANGE `fecha` `fecha_inicio` DATE NULL DEFAULT NULL;
+ALTER TABLE `mensaje` ADD `fecha_fin` DATE NOT NULL AFTER `mensaje`, ADD `titulo` VARCHAR(10) NOT NULL AFTER `fecha_fin`, ADD `Idcurso` INT NOT NULL AFTER `titulo`;

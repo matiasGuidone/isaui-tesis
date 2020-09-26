@@ -34,7 +34,7 @@
     <input type="password"  [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Contraseña" required="">
     <div class="checkbox mb-3">
     </div>
-    <button (click)="onLogin()" class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+    <button (click)="onLogin()" class="btn btn-lg btn-primary btn-block" type="submit" onkeypress="onLogin(event)">Ingresar</button>
     <p class="mt-5 mb-3 text-muted">© Isaui</p>
   </div>
 </div>

@@ -3,16 +3,18 @@ export class evento
 {
     id: number;
     nombre: string;
-    fecha: Date;
-    idmateria: number;
-    idmensaje:number;
+    fecha_inicio: Date;
+    fecha_fin: Date;
+    tipo: number;
+    idcurso:number;
 
     constructor(obj:any)
     {
         this.id = +obj.id;
         this.nombre = obj.nombre;
-        this.fecha = new Date(obj.fecha);
-        this.idmateria = +obj.idmateria;
-        this.idmensaje = +obj.idmensaje;
+        this.fecha_inicio = new Date(obj.fecha_inicio);
+        this.fecha_fin = new Date(obj.fecha_fin);
+        this.tipo = +obj.tipo;
+        this.idcurso = +obj.idcurso;
     }
 }
