@@ -9,7 +9,8 @@ export class AppComponent {
   title = 'app';
   //sesionIniciada: boolean = false;
   constructor(private servicio: PeticionesService){
-    localStorage.setItem("InicioSesion", "false" );
+    if(localStorage.getItem('InicioSesion')!='true'){
+        localStorage.setItem("InicioSesion", "false" );}
   }
   estaSesion(){
     if(localStorage.getItem('InicioSesion')=='true') return true;
