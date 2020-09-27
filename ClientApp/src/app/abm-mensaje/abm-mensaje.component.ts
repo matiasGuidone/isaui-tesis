@@ -21,7 +21,7 @@ export class AbmMensajeComponent extends abm<mensaje> implements OnInit {
     super(location,modalService,servicio, logservicio);
 
     this.nombre = 'mensaje';
-    this.objetoBlanco = new mensaje({'id':'0','fecha_inicio':'','fecha_fin':'','titulo':'','mensaje':'','idcurso':''});
+    this.objetoBlanco = new mensaje({'id':'0','fechainicio':'','fechafin':'','titulo':'','mensaje':'','idmateria':'','iddocente':''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

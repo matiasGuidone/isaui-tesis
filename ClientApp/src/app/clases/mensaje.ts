@@ -5,7 +5,9 @@ export class mensaje{
     fechafin: Date;
     titulo: string;
     mensaje : string;
-    idcurso: number;
+    idmateria : number;
+    iddocente: number;
+  
     
     constructor(obj:any){
         //el orden de os parametros afecta la vista de los input en el modal
@@ -14,6 +16,7 @@ export class mensaje{
         this.fechafin= new Date (obj.fechafin);
         this.titulo= obj.titulo;
         this.mensaje = obj.mensaje;
-        this.idcurso= + obj.idcurso;
+        this.idmateria= +obj.idmateria;
+        this.iddocente= +obj.iddocente;
     }
 }

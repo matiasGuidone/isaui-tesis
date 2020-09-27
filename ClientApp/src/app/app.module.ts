@@ -46,6 +46,7 @@ import { ExcelService } from './services/excel.service';
 import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
 import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
+import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
  
 
 @NgModule({
@@ -85,7 +86,8 @@ import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
     IniciarSesionComponent, 
     FrmCarganotasComponent,
     FrmConsultaasistenciasComponent,
-    AbmMensajeComponent,      
+    AbmMensajeComponent,
+    FrmMensajesComponent,      
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -124,6 +126,7 @@ import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] }, 
       { path: 'frm-carganotas', component: FrmCarganotasComponent, canActivate : [Guard] },
       { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent, canActivate : [Guard] },
+      { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]}, 
       // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
     ])

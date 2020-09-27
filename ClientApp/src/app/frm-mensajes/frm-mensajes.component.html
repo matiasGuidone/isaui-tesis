@@ -1,0 +1,46 @@
+ 
+<div [class]="this.servicio.classtable">
+    <h3>Editor de mensajes</h3>
+     
+    <div>
+        <select (change)="seleccionarMateria()" class="form-control my-2 col-md-9 col-12" id="materia" >
+           <option *ngFor="let materia of materias"  [value]="materia.id" >
+                {{materia.nombre}}
+           </option>
+        </select>
+    </div>
+    <div >
+        <select  class="form-control my-2 col-md-9 col-12" id="mensaje" >
+           <option *ngFor="let mensaje of mensajes"  [value]="mensaje.id" >
+                {{mensaje.titulo}}
+           </option>
+        </select>
+        <button title="editar" (click)="seleccionarMensaje()" class="btn btn-info"><span class="fa fa-edit"></span>Editar mensaje</button>
+    </div>
+
+    <div class="my-2">
+        <input class="form-control col-md-9 col-12 my-2" type="text" id="titulo" placeholder="Título">
+    </div>
+    
+    <!-- <textarea id="texto" (keyup)="setEditor()" class="editor col-md-9 border col-12 p-2 my-2"></textarea> -->
+    <div>
+        <div class="btn-group" role="group" >
+            <button type="button" title="texto pequeño" (click)="textChiquite()" class="btn border btn-light"><span class="fa fa-font"></span></button>
+            <button type="button" title="texto negrita" (click)="textBold()" class="btn border btn-light"><span class="fa fa-bold"></span></button>
+            <button type="button" title="texto cursiva" (click)="textItalic()" class="btn border btn-light"><span class="fa fa-italic"></span></button>
+            <button type="button" title="texto remarcado" (click)="textmark()"  class="btn border btn-light"><span class="fa fa-highlighter"></span></button>
+            <button type="button" title="texto código" (click)="textCode()"  class="btn border btn-light"><span class="fa fa-code"></span></button>
+            <button type="button" title="texto tachado" (click)="textStr()" class="btn border btn-light"><span class="fa fa-strikethrough"></span></button>
+            <button type="button" title="texto subrayado" (click)="textSubrayado()" class="btn border btn-light"><span class="fa fa-underline"></span></button>
+               
+          </div>
+          <div id="visualiza" (keyup)="countsize()" contenteditable="true" class="editor col-md-9 border col-12 p-2 my-2"></div>
+    </div>
+    <div>
+        <input class="form-control col-md-9 col-12 my-2" id="fechad" type="date" placeholder="Fecha de publicado">
+    </div>
+    <div>
+        <input class="form-control col-md-9 col-12" type="date" id="fechah" placeholder="Fecha de expiración">
+    </div>
+     <button (click)="guardarMensaje()" class="btn btn-info my-2">Publicar mensaje</button>
+</div>
