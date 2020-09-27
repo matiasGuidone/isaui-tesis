@@ -124,6 +124,7 @@ import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] }, 
       { path: 'frm-carganotas', component: FrmCarganotasComponent, canActivate : [Guard] },
       { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent, canActivate : [Guard] },
+      {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]}, 
       // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
     ])
   ],

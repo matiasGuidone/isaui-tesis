@@ -20,7 +20,7 @@ export class AbmMensajeComponent extends abm<mensaje> implements OnInit {
                protected logservicio: AuthLoginService){
     super(location,modalService,servicio, logservicio);
 
-    this.nombre = 'evento';
+    this.nombre = 'mensaje';
     this.objetoBlanco = new mensaje({'id':'0','fecha_inicio':'','fecha_fin':'','titulo':'','mensaje':'','idcurso':''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {

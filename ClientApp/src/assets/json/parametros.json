@@ -5,7 +5,7 @@
        "menu": ["abm","rel","frm"],
        "usuario": ["activo", "inactivo"],
        "modulo": ["40"],
-       "evento": ["",""]
+       "evento": ["materia","general"]
        
     } 
  
