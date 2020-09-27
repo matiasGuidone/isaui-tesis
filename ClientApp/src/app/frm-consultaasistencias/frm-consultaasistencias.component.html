@@ -1,9 +1,32 @@
+<abm-filtro (emisorFiltro)="lista = $event"></abm-filtro>
 <div [class]="this.servicio.classtable">
-    
+
     <div class="container">
-        <h3 >Consulta de asistencias</h3>
+        <h3>Consulta de asistencias</h3>
 
-        <abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
-
+        <table [class]="this.servicio.classtable2">
+            <thead>
+                <tr>
+                    <th scope="col"><small>Apellido y nombre</small></th>
+                    <th scope="col"><small>Materia</small></th>
+                    <th scope="col"><small>Módulos presente</small></th>
+                    <th scope="col"><small>Módulos ausente</small></th>
+                    <th scope="col"><small>Total módulos</small></th>
+                    <th scope="col"><small>Porcentaje de asistencia</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let registro of lista">
+                    <td><small>{{registro.alumno}}</small></td>
+                    <td><small>{{registro.materia}}</small></td>
+                    <td><small>{{registro.modulosPresente}}</small></td>
+                    <td><small>{{registro.cantidadModulos-registro.modulosPresente}}</small></td> 
+                    <td><small>{{registro.cantidadModulos}}</small></td> 
+                    <td><small>{{ (registro.modulosPresente/registro.cantidadModulos*100).toString().substring(0,5) }} %</small></td> 
+                </tr>
+                <!-- Alumno Materia ModulosPresente CantidadModulos -->
+            </tbody>
+        </table>      
     </div>
+
 </div>

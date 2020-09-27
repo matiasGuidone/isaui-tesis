@@ -5,8 +5,9 @@
        "menu": ["abm","rel","frm"],
        "usuario": ["activo", "inactivo"],
        "modulo": ["40"],
-       "evento": ["",""]
+       "evento": ["",""],
+       "filtroAsistencias": {"Nombre/Apellido alumno":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
        
     } 
  
- 
+  

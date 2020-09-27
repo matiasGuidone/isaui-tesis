@@ -3,6 +3,7 @@ import { materia } from '../clases/materia';
 import { alumnomateria } from '../clases/alumnomateria';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
+import { AuthLoginService } from '../services/authlogin.service';
 
 @Component({
     selector: 'app-alumnomateria',
@@ -14,7 +15,7 @@ export class RelAlumnoMateria {
     alumnoSeleccionado = "No hay alumno seleccionado";
     listaMaterias: materia[] = new Array<materia>();
 
-    constructor(private router: Router, private servicio: PeticionesService) {
+    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {
             this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
@@ -71,7 +72,7 @@ export class RelAlumnoMateria {
         }
         this.servicio.eliminarConFiltro
             ("idalumno", this.servicio.idSeleccionado.toString(), "alumnomateria")
-            .subscribe(res => { this.router.navigate(["abm-materia"]); })
+            .subscribe(res => { this.logservicio.componenteGuard="abm-materia";  this.router.navigate(["abm-materia"]); })
 
     }
 

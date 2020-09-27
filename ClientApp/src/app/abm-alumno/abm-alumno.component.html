@@ -14,8 +14,8 @@
         <tbody>
             <tr *ngFor = "let alumno of lista">
                 <td *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion">
-                    <input *ngIf="esSeleccionado(alumno.id)" type="checkbox" checked id="chk-{{alumno.id}}" />
-                    <input *ngIf="!esSeleccionado(alumno.id)" type="checkbox" id="chk-{{alumno.id}}" /></td>
+                    <input  (click)="cambiarEstado(alumno.id)"  *ngIf="esSeleccionado(alumno.id)" type="checkbox" checked id="chk-{{alumno.id}}" />
+                    <input   (click)="cambiarEstado(alumno.id)" *ngIf="!esSeleccionado(alumno.id)" type="checkbox" id="chk-{{alumno.id}}" /></td>
                 <td>{{alumno.legajo}}</td>
                 <td>{{alumno.nombre}},&nbsp;&nbsp;{{alumno.apellido}}</td>
                 <td>{{alumno.numerodoc}}</td>

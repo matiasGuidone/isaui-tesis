@@ -26,7 +26,7 @@ export class ModalService {
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
   public filtro: any[]; //se obtiene un array componente del abm-seleccionado para identificar sus parámetros para el filtrado
-  public estados: string[];
+  public estados: any;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -101,7 +101,7 @@ export class ModalService {
         else if (Number.isInteger(objeto[i])) {
           tp = "number";
         }
-        else if (objeto[i] instanceof Date) {
+        else if (objeto[i] instanceof Date || i.toString().startsWith("fecha")) {
           tp = "date"
         }
 

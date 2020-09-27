@@ -3,6 +3,7 @@ import { roles } from '../clases/roles';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { rolesusuario } from '../clases/rolesusuario';
+import { AuthLoginService } from '../services/authlogin.service';
 
 @Component({
     selector: 'app-rolesusuario',
@@ -14,7 +15,7 @@ export class RelRolesUsuario {
     usuarioSeleccionado = "No hay usuario seleccionado";
     listaroles: roles[] = new Array<roles>();
 
-    constructor(private router: Router, private servicio: PeticionesService) {
+    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {
             this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
@@ -67,7 +68,7 @@ export class RelRolesUsuario {
         }
         this.servicio.eliminarConFiltro
             ("idusuario", this.servicio.idSeleccionado.toString(), "rolesusuario")
-            .subscribe(res => { this.router.navigate(["abm-roles"]); })
+            .subscribe(res => { this.logservicio.componenteGuard="abm-roles";  this.router.navigate(["abm-roles"]); })
 
     }
 

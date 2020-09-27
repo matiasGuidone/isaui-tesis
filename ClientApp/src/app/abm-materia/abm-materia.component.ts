@@ -10,6 +10,7 @@ import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { abm } from '../clases/abm';
 import { AuthLoginService } from '../services/authlogin.service';
+import { isDimensionToken } from 'html2canvas/dist/types/css/syntax/parser';
 
 //ventanas modales
 
@@ -69,6 +70,25 @@ export class AbmMateriaComponent extends abm<materia> implements OnInit {
       .find(id => id === par) == null) { return false; }
     else
       return true;
+  }
+
+  //funcion para cambiar de estado un registro
+  cambiarEstado(id){
+    var n = <HTMLInputElement>document.getElementById("chk-" + id);
+   
+    if(n.checked == true){
+      if (this.servicio.idsSeleccionados
+        .find(ids => ids === id) == null){
+          this.servicio.idsSeleccionados.push(id);
+        }
+    }
+    else{
+      if (this.servicio.idsSeleccionados
+        .find(ids => ids === id) != null){
+          let ind = this.servicio.idsSeleccionados.findIndex(ids=> ids == id);
+          this.servicio.idsSeleccionados.splice(ind,1);
+        }
+    }
   }
 }
 
