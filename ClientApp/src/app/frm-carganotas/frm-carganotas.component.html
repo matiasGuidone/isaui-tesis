@@ -17,7 +17,8 @@
       <table [class]="this.servicio.classtable2">
          <thead>
             <tr>
-               <th scope="col"> <a title="Archivo de notas" (click)="excelNotas()" class="fa fa-file-excel border transparent bg-success p-2 m-2"></a>Alumnos</th>
+               <th scope="col"><button title="Excel de notas" (click)="excelNotas()" id="excel"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-success"><span class="fas fa-file-excel fa-md"></span></button>
+                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>Alumnos</th>
                <th scope="col" *ngFor="let examen of examenes"  >
                   <span class="lead" (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
                   <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">

@@ -4,6 +4,7 @@ import { cursoalumno } from '../clases/cursoalumno';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { alumnomateria } from '../clases/alumnomateria';
+import { AuthLoginService } from '../services/authlogin.service';
 
 @Component({
     selector: 'app-cursoalumno',
@@ -15,7 +16,7 @@ export class RelCursoAlumno {
     cursoSeleccionado = "No hay curso seleccionado";
     listaAlumnos: alumno[] = new Array<alumno>();
 
-    constructor(private router: Router, private servicio: PeticionesService) {
+    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         if (this.servicio.idsSeleccionados != null && this.servicio.idSeleccionado != null) {
             let idcurso = this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
@@ -69,7 +70,7 @@ export class RelCursoAlumno {
         }
         this.servicio.eliminarConFiltro
             ("idcurso", this.servicio.idSeleccionado.toString(), "alumnomateria")
-            .subscribe(res => { this.router.navigate(["abm-alumno"]); })
+            .subscribe(res => { this.logservicio.componenteGuard="abm-alumno";  this.router.navigate(["abm-alumno"]); })
     }
 
 }

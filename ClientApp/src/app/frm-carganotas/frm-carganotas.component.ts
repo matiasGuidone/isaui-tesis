@@ -10,6 +10,11 @@ import { calificacionalumno } from '../clases/calificacionalumno';
 import { ExcelService } from '../services/excel.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { AuthLoginService } from '../services/authlogin.service';
+import * as jspdf from 'jspdf';
+import autoTable from 'jspdf-autotable'
+import { logo64 } from '../filtro-abm/logo-base64';
+import { MyModalComponent } from '../modal/MyModalComponent';
+import { datoadjunto } from '../clases/datoadjunto';
 
 @Component({
   selector: 'app-frm-carganotas',
@@ -178,7 +183,101 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
       }
       data.push(alu);
     }
-    this.excelservicio.exportAsExcelFile(data, "file.xlsx");
+    this.excelservicio.exportAsExcelFile(data, 'Notas-'+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.xlsx');
+  }
+   //exportar archivo de notas
+   pdfNotas(){
+    let fecha = this.stringFecha(new Date(), 'comp');
+      let fechafile = this.stringFecha(new Date(), '');
+    let head = [[]];
+    let body = new Array<any[]>();
+    const doc = new jspdf.jsPDF();
+    let descripcion: string;
+    //obtengo la imagen base64
+    let base64Img = logo64.image;
+    let data : any[] = new Array<any>();
+    for (let n of this.alumnos){ 
+      let alu : any= new Object();
+      alu['Alumnos'] = n.apellido+", "+n.nombre;
+      for(let i of this.examenes){
+        let no = this.notas.find(m => m.idalumno==n.id && m.idexamen== i.id);
+        if(no != undefined){
+          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = no.nota;
+        }
+        else{
+          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = '-';
+        }
+      }
+      data.push(alu);
+    }
+    //this.excelservicio.exportAsExcelFile(data, "file.xlsx");
+
+    for (let m in data[0]) { 
+        head[0].push(m);
+    }
+  
+    for (var i in data) {
+      let ar: any[] = new Array<any>();
+      for (var j in  data[i]) {
+         ar.push( data[i][j]); }     
+      body.push(ar);
+    }
+    let desc = 'Notas de la materia '+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre;
+    autoTable(doc, {
+      head: head,
+      body: body,
+      didDrawPage: function (dat) {
+        // Header
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+
+        if (base64Img) {
+          doc.addImage(base64Img, 'JPEG', dat.settings.margin.left, 5, 40, 12);
+        }
+        doc.text(desc, dat.settings.margin.left, 22);
+        doc.setFontSize(9);
+
+        //doc.text(, data.settings.margin.left, 28);
+        doc.text("Hora y fecha de emisión: " + fecha, 113, 14);
+        doc.text("ISAUI - Autogestión ", 168, 10);
+        // Footer
+        var str = "Página " + dat.pageNumber.toString();
+
+        // Total page number plugin only available in jspdf v1.0+
+
+        // // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+        doc.text(str, dat.settings.margin.left, pageHeight - 8);
+      },
+      margin: { top: 30 }
+    });
+    doc.save( 'Notas-'+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.pdf');
+
   }
 
+
+  stringFecha(fecha: Date, t: string): string {
+    if (t == 'comp') {
+      let meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      let formatFecha: string = '';
+      formatFecha += fecha.getHours().toString() + ":";
+      formatFecha += fecha.getMinutes().toString() + ":";
+      formatFecha += fecha.getSeconds().toString() + " - ";
+      formatFecha += fecha.getDate().toString();
+      formatFecha += ' de ' + meses[fecha.getMonth()];
+      formatFecha += ' del ' + fecha.getFullYear().toString();
+      return formatFecha;
+    }
+    else {
+      let formatFecha: string = '';
+      formatFecha += fecha.getHours().toString() + "-";
+      formatFecha += fecha.getMinutes().toString() + "-";
+      formatFecha += fecha.getSeconds().toString() + "-";
+      formatFecha += fecha.getDate().toString();
+      formatFecha += '-' + (fecha.getMonth() + 1).toString();
+      formatFecha += '-' + fecha.getFullYear().toString();
+      return formatFecha;
+    }
+  }
 }

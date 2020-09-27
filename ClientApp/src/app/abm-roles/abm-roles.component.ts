@@ -66,6 +66,25 @@ export class AbmRolesComponent extends abm<roles> implements OnInit {
     else
       return true;
   }
+
+  //funcion para cambiar de estado un registro
+  cambiarEstado(id){
+    var n = <HTMLInputElement>document.getElementById("chk-" + id);
+   
+    if(n.checked == true){
+      if (this.servicio.idsSeleccionados
+        .find(ids => ids === id) == null){
+          this.servicio.idsSeleccionados.push(id);
+        }
+    }
+    else{
+      if (this.servicio.idsSeleccionados
+        .find(ids => ids === id) != null){
+          let ind = this.servicio.idsSeleccionados.findIndex(ids=> ids == id);
+          this.servicio.idsSeleccionados.splice(ind,1);
+        }
+    }
+  }
 }
 
 

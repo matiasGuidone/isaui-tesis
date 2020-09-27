@@ -11,8 +11,8 @@
         </thead>
         <tbody>
             <tr *ngFor = "let materia of lista">
-                <td *ngIf="this.servicio.idSeleccionado != null && !esRelacion && this.servicio.idsSeleccionados != null"><input *ngIf="esSeleccionado(materia.id)" type="checkbox" checked id="chk-{{materia.id}}" />
-                    <input *ngIf="!esSeleccionado(materia.id)" type="checkbox" id="chk-{{materia.id}}" /></td>
+                <td *ngIf="this.servicio.idSeleccionado != null && !esRelacion && this.servicio.idsSeleccionados != null"><input *ngIf="esSeleccionado(materia.id)" (click)="cambiarEstado(materia.id)" type="checkbox" checked id="chk-{{materia.id}}" />
+                    <input *ngIf="!esSeleccionado(materia.id)" (click)="cambiarEstado(materia.id)" type="checkbox" id="chk-{{materia.id}}" /></td>
                 <td>{{materia.nombre}}</td>
                 <td><button *ngIf="!esRelacion" class="btn btn-outline-success" title="Editar" (click)="editar(materia.id)" ><span class="fa fa-edit"></span></button>
                     <button *ngIf="!esRelacion" class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(materia.id)"><span class="fa fa-trash-alt"></span></button>

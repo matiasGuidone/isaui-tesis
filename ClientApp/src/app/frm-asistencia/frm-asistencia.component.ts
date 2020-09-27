@@ -113,9 +113,17 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
               for (let m of dias) {
                 for (var i = 0; i < this.alumnos.length; i++) {
                   let celda = document.getElementById('celda' + m.numero.toString() + '-' + i.toString());
-                  celda.style.backgroundColor = "#308bc893";
+                  
+                  let f = new Date("2020-"+m.numero.toString().substring(3,5)+"-"+m.numero.toString().substring(0,2));
+                  let f2 = new Date("2020-"+this.hoyr.substring(3,5)+"-"+this.hoyr.substring(0,2));
+                  if ( f > f2 ){
+                  celda.style.backgroundColor = "#22587c93";
+                  celda.style.border = "1px solid #308bc8";}
+                  else{
+                    celda.style.backgroundColor = "#308bc893";
                   celda.style.border = "1px solid #308bc8";
-                  if (m.numero.toString() <= this.hoyr && !filtro.find(c =>c == m.numero.toString())) {
+                  }
+                  if ( f <= f2 && !filtro.find(c =>c == m.numero.toString())) {
                     const ass = document.createElement('input');
                     ass.type = "checkbox";
                     ass.style.width = "15px"

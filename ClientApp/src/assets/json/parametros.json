@@ -4,9 +4,11 @@
        "examen": ["parcial","libre","regular","final","otro"],
        "menu": ["abm","rel","frm"],
        "usuario": ["activo", "inactivo"],
+       "consultaasistencia": ["todos"],
        "modulo": ["40"],
-       "evento": ["materia","general"]
+       "evento": ["materia","general"],
+       "filtroAsistencias": {"Nombre/Apellido alumno":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
        
     } 
  
- 
+  

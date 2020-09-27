@@ -36,7 +36,7 @@ public class Conexion
 
          }
          return ""; */
-        return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;";
+        return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
     }
 
     public Conexion()
@@ -79,7 +79,7 @@ public class Conexion
 
         }
         return items;
-        }catch(System.NullReferenceException e){ return null;}
+        }catch(System.NullReferenceException e){return null;}
 
     }
 
