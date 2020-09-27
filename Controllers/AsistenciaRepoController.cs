@@ -55,12 +55,14 @@ public class AsistenciaRepoController : Controller
     [HttpGet]
     public IEnumerable<asistenciarepo> Getasistencias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
-       
+       if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
         string nombreape = null;
         var fechad = default(DateTime);
         var fechah = default(DateTime); 
         var idcurso = default(Int32);
         var idmateria = default(Int32);
+        var totales = false;
         if(arrayfiltros.Length > 1){
             for (int i =0; i < arrayfiltros.Length;i++){
                 // "Nombre/Apellido alumno":"", "Carrera":"","Curso":"","fecha desde": "","fecha hasta":""
@@ -81,14 +83,19 @@ public class AsistenciaRepoController : Controller
                     case "fecha hasta":
                         fechah = Convert.ToDateTime(arrayfiltros[i+1]);
                         break;
+                    case "totales":
+                        totales = true;
+                        break;
+
                     default: break;
                 }  
 
                 }
                  
             }
-        return AsistenciaConexion<asistenciarepo>.Instance.ReporteAsistencias(fechad,fechah,idcurso,idmateria,nombreape);
-        
+        return AsistenciaConexion<asistenciarepo>.Instance.ReporteAsistencias(fechad,fechah,idcurso,idmateria,nombreape, totales);
+          }
+        else return null;
     }
 
     // GET: api/ApiWithActions/5

@@ -20,9 +20,9 @@ import parametros from 'src/assets/json/parametros.json';
 
 @Injectable()
 export class ModalService {
-  public listAbm : Nodo; //Es la lista de nodos de navegacion que el usuario recorre cuando navega hacia otro abm
-  public lista : string[] = new Array<string>(); //es una lista de string de los componentes abm que el usuario recorre
-  public actual : string ; //representa el componente abm actual
+  public listAbm: Nodo; //Es la lista de nodos de navegacion que el usuario recorre cuando navega hacia otro abm
+  public lista: string[] = new Array<string>(); //es una lista de string de los componentes abm que el usuario recorre
+  public actual: string; //representa el componente abm actual
   private modalContainer: HTMLElement;
   private modalContainerFactory: ComponentFactory<ModalContainerComponent>;
   public filtro: any[]; //se obtiene un array componente del abm-seleccionado para identificar sus parámetros para el filtrado
@@ -62,61 +62,64 @@ export class ModalService {
   }
 
   //Busca el objeto de cualquier id seleccionado dentro de la ventana de abm
-  public getDescripcion(id: string, tabla :string) : Observable<any>{
+  public getDescripcion(id: string, tabla: string): Observable<any> {
     let token = localStorage.getItem("Access_Token");
-        if (token == undefined || token == null){token ='';}
-          let headers = new HttpHeaders({'Content-Type':'application/json', 'token' : token});
+    if (token == undefined || token == null) { token = ''; }
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'token': token });
     //const headers = new HttpHeaders({ });
-    return this.http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
+    return this.http.get<any>(this.baseUrl + 'api/' + tabla + '/' + id, { headers: headers });
   }
 
   //Actualiza la lista que figura en el navbar de los componentes abmque el usuario recorre
-  public setListaAbm () {
+  public setListaAbm() {
     this.lista = new Array<string>();
-    if (this.listAbm == null || this.listAbm == undefined){ return [];}
+    if (this.listAbm == null || this.listAbm == undefined) { return []; }
     let node = this.listAbm;
-    while (node.getData() != null && node.getData() != undefined){
+    while (node.getData() != null && node.getData() != undefined) {
       this.lista.push(node.getData().name);
-      if (node.getNext() != null && node.getNext() != undefined){
-        node = node.getNext();}
-        else {break;}
+      if (node.getNext() != null && node.getNext() != undefined) {
+        node = node.getNext();
+      }
+      else { break; }
     }
 
     this.lista = this.lista.reverse();
-  } 
+  }
 
   //crea un array de filtros para que la ventana de filtros identifique a que abm se hace referencia 
   // y el usuario pueda filtrar los campos
-  public setFiltro(objeto){
+  public setFiltro(objeto) {
     this.filtro = new Array<any>();
-    for(var i in objeto){
-        let tp: string = "text";
-        if(i.toString().startsWith('id')){
-          tp = "list";
-          i = i.replace("id","");
-        }
-        else if (i.toString()=='estado'){
-          tp = "case";
-        }
-        else if (Number.isInteger(objeto[i])) {
-          tp = "number";
-        }
-        else if (objeto[i] instanceof Date || i.toString().startsWith("fecha")) {
-          tp = "date"
-        }
+    for (var i in objeto) {
+      let tp: string = "text";
+      if (i.toString().startsWith('id') && i.toString() != 'id') {
+        tp = "list";
+        i = i.replace("id", "");
 
-        if(!(i.toString()=='id')&&!(i.toString().startsWith('codigo'))){
-          this.filtro.push({'campo' : i.toString(), 'tipo' : tp})}
+      }
+      else if (i.toString() == 'estado' || i.toString() == 'tipo'|| i.toString() == 'totales') {
+        tp = "case";
+      }
+      else if (Number.isInteger(objeto[i])) {
+        tp = "number";
+      }
+      else if (objeto[i] instanceof Date || i.toString().startsWith("fecha")) {
+        tp = "date"
+      }
+
+      if (!(i.toString() == 'id') && !(i.toString().startsWith('codigo'))) {
+        this.filtro.push({ 'campo': i.toString(), 'tipo': tp })
+      }
     }
   }
-  
+
   public setCaseEstado(abm: string) {
     let parame = parametros;
-    for (let p in parame){
-      if(p==abm){
+    for (let p in parame) {
+      if (p == abm) {
         this.estados = parame[p];
       }
     }
   }
-  
+
 }

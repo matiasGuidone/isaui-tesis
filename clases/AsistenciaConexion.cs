@@ -31,11 +31,16 @@ using System.Collections.Generic;
                                                 DateTime fechaHasta = default(DateTime),
                                                 Int32 idcurso = default(Int32), 
                                                  Int32 idmateria = default(Int32),
-                                                string nombreapellido = null){
+                                                string nombreapellido = null,
+                                                Boolean totales = false){
+            var alumno = "";
+            var consulta = "";
             if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-10); }
             if(fechaHasta == default(DateTime)){fechaHasta = System.DateTime.Now; }
-             
-            var consulta = $"select concat(alumno.apellido,', ',alumno.nombre) as Alumno,"+
+            if(totales){alumno = "alumno.Id,"; 
+                        consulta += "SELECT T3.Alumno, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos from ( ";}
+
+            consulta += $"select {alumno} concat(alumno.apellido,', ',alumno.nombre) as Alumno,"+
                 $"materia.nombre as Materia, count(asistencia.Id) as ModulosPresente , "+
                 $"modulos as CantidadModulos from asistencia "+
                 $"join horasmateria on asistencia.idhoramateria = horasmateria.id "+
@@ -50,6 +55,7 @@ using System.Collections.Generic;
                 $"WHERE horasmateria.activo = 1 and horasmateria.numsemana = T1.DIA group by idmateria ) T2 "+
                 $"ON materia.Id = T2.idmateria "+
                 $"WHERE asistencia.fecha BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' and '{fechaHasta.ToString("yyyy-MM-dd")}' ";
+           
             if (nombreapellido != null){consulta += $" and concat(alumno.apellido,', ',alumno.nombre) LIKE '%{nombreapellido}%' "; }
             if (idmateria !=  default(Int32)){consulta += $" and materia.Id = {idmateria} "; }
             if (idcurso != default(Int32)){consulta += $" and alumno.Id IN "+ 
@@ -66,8 +72,8 @@ using System.Collections.Generic;
                                                     $" group by idalumno) as T2 where T1.materias"+
                                                     " = T2.materias_alumno))";}
                   
-            consulta +=" group by asistencia.idalumno, materia.Id; ";
-
+            consulta +=" group by asistencia.idalumno, materia.Id ";
+            if(totales){consulta += ") T3 group by T3.Id ";}
             return (List<asistenciarepo>)Conexion.consultaList<asistenciarepo>(consulta);
         }
     }
