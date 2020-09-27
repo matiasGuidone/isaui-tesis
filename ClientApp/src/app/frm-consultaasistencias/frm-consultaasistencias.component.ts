@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ModalService } from '../modal/modal-service.service';
+import { MyModalComponent } from '../modal/MyModalComponent';
 import { PeticionesService } from '../services/peticiones.service';
 
 @Component({
@@ -20,5 +22,17 @@ export class FrmConsultaasistenciasComponent implements OnInit {
 
   ngOnInit() {
   }
+  setList(list){
+    if(list.length == 0){
+        this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el=> console.log(el));
+    }
+    this.lista = list;
+  }
 
+  abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
+    const modalRef = 
+    this.modalService.open(MyModalComponent, 
+      { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
+    return modalRef.onResult();
+  }
 }

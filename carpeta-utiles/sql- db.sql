@@ -44,3 +44,5 @@ CREATE TABLE `test_isaui`.`evento` ( `Id` INT(11) NOT NULL AUTO_INCREMENT , `nom
 ALTER TABLE `mensaje` CHANGE `fecha` `fechainicio` DATE NULL DEFAULT NULL;
 ALTER TABLE `mensaje` ADD `fechafin` DATE NOT NULL AFTER `mensaje`, ADD `titulo` VARCHAR(10) NOT NULL AFTER `fechafin`, ADD `Idcurso` INT NOT NULL AFTER `titulo`;
 ALTER TABLE `evento` CHANGE `tipo` `tipo` VARCHAR(11) NOT NULL;
+
+ALTER TABLE `mensaje` CHANGE `mensaje` `mensaje` VARCHAR(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

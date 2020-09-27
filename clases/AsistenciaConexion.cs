@@ -35,7 +35,7 @@ using System.Collections.Generic;
                                                 Boolean totales = false){
             var alumno = "";
             var consulta = "";
-            if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-10); }
+            if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-7); }
             if(fechaHasta == default(DateTime)){fechaHasta = System.DateTime.Now; }
             if(totales){alumno = "alumno.Id,"; 
                         consulta += "SELECT T3.Alumno, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos from ( ";}
@@ -46,15 +46,15 @@ using System.Collections.Generic;
                 $"join horasmateria on asistencia.idhoramateria = horasmateria.id "+
                 $"JOIN alumno on asistencia.idalumno = alumno.id "+
                 $"join materia on horasmateria.idmateria = materia.Id "+
-                $"JOIN (SELECT horasmateria.idmateria, COUNT(horasmateria.id)*Cnt AS modulos "+
+                $"JOIN ( SELECT idmateria, Sum(modulos) as modulos from ( SELECT horasmateria.idmateria, COUNT(horasmateria.id)*Cnt AS modulos "+
                 $"FROM horasmateria,(SELECT DAYOFWEEK(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY))-1 as DIA, " +
                 $"COUNT(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY)) as Cnt "+
                 $"FROM ( SELECT @row := @row+1 AS row FROM INFORMATION_SCHEMA.COLUMNS, "+
                 $"(SELECT @row := 0) t ) T WHERE DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY) "+
-                $"BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' AND '{fechaHasta.ToString("yyyy-MM-dd")}' GROUP BY DAYOFWEEK(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY))) T1 "+
-                $"WHERE horasmateria.activo = 1 and horasmateria.numsemana = T1.DIA group by idmateria ) T2 "+
+                $"BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' AND '{fechaHasta.ToString("yyyy-MM-dd")+" 23:59:59" }' GROUP BY DAYOFWEEK(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY))) T1 "+
+                $"WHERE horasmateria.activo = 1 and horasmateria.numsemana = T1.DIA group by idmateria , horasmateria.numsemana) T4 group by idmateria ) T2 "+
                 $"ON materia.Id = T2.idmateria "+
-                $"WHERE asistencia.fecha BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' and '{fechaHasta.ToString("yyyy-MM-dd")}' ";
+                $"WHERE asistencia.fecha BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' and '{fechaHasta.ToString("yyyy-MM-dd")+" 23:59:59" }' ";
            
             if (nombreapellido != null){consulta += $" and concat(alumno.apellido,', ',alumno.nombre) LIKE '%{nombreapellido}%' "; }
             if (idmateria !=  default(Int32)){consulta += $" and materia.Id = {idmateria} "; }
