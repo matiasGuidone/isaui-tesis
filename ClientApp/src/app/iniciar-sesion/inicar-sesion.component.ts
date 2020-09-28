@@ -59,5 +59,18 @@ export class IniciarSesionComponent implements OnInit {
     return modalRef.onResult();
   }
 
+  /* clearTxt(input: HTMLInputElement)
+  {
+    input.value='';
+  }
+*/
+  clearT(key)
+  {
+    if(key.keyCode!== "" || key.keyCode!== null)
+    {
+    this.nClave='';
+    this.nCuenta='';
+    }
+  } 
 
 }
