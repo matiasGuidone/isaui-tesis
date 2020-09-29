@@ -28,17 +28,20 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
     {
 
         var token = this.tok();
-        if (tokens.Count< 100){ //parametrizar la variable de cantidad de sesiones para regular si se cortan mucho
-            tokens.Add(new token(token,System.DateTime.Now));
+        if (tokens.Count < 100)
+        { //parametrizar la variable de cantidad de sesiones para regular si se cortan mucho
+            tokens.Add(new token(token, System.DateTime.Now));
         }
-        else{
+        else
+        {
             var fe = System.DateTime.Now;
             var indice = 0;
-            for(int i = 0; i < tokens.Count; i++){
-                if(tokens[i].fechahora<fe){fe = tokens[i].fechahora; indice = i;}
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if (tokens[i].fechahora < fe) { fe = tokens[i].fechahora; indice = i; }
             }
-            tokens[indice] = new token(token,System.DateTime.Now);
-        } 
+            tokens[indice] = new token(token, System.DateTime.Now);
+        }
         //string consulta = $"update usuario set token = '{token}' where id = {user.Id} ";
         //Conexion.ConsultaParametros(consulta, null);
         return token;
@@ -53,11 +56,13 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         return token;
     }
     public bool getUserToken(string token)
-    {   
-        foreach(var n in tokens){
-            if(n.tok.Equals(token))
-            {return true;}}
-          return false; 
+    {
+        foreach (var n in tokens)
+        {
+            if (n.tok.Equals(token))
+            { return true; }
+        }
+        return false;
     }
 
     //Este metodo encripta / desencripta la cadena de claves para que no se vea en la base de datos
@@ -89,6 +94,41 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
 
         }
         return "";
+    }
+    public string datosUsuario(int id)
+    {
+        var rol = "";
+        var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
+        if (Tabla.Rows.Count == 1)
+        {
+            rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" ";
+            if (rol.ToUpper().Equals("DOCENTE"))
+            {
+                try
+                {
+                    Tabla = this.Conexion.consultaDataTable($"SELECT docente.* FROM docente where docente.idusuario = {id} ").Tables[0];
+                    if (Tabla.Rows.Count > 0)
+                    {
+                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"iddocente\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                    }
+                }
+                catch (Exception e) { }
+            }
+            else if (rol.ToUpper().Equals("ALUMNO"))
+            {
+                try
+                {
+                    Tabla = this.Conexion.consultaDataTable($"SELECT alumno.* FROM alumno where alumno.idusuario = {id} ").Tables[0];
+                    if (Tabla.Rows.Count > 0)
+                    {
+                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"idalumno\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                    }
+                }
+                catch (Exception e) { }
+            }
+
+        } 
+        return " { "+rol+" } ";
     }
 
 }

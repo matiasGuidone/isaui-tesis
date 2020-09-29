@@ -25,7 +25,7 @@ public componentes : any[]=new Array<any>();
       if(res){
           let json = JSON.parse(res.toString());
           console.log(json);
-          this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), json.rol);
+          this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
 
       }
     }));
@@ -38,6 +38,7 @@ public componentes : any[]=new Array<any>();
     localStorage.removeItem("Expires_In");
     localStorage.removeItem("Componentes");
     localStorage.setItem("InicioSesion", "false" );
+    localStorage.removeItem("Rol");
   }
 
   private saveToken(token: string, expiresIn: string, componentes: string, rol: string): void{
