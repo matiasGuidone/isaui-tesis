@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthLoginService } from '../services/authlogin.service';
 import { usuario } from '../clases/usuario';
 import { abm } from '../clases/abm';
-import { PeticionesService } from '../services/peticiones.service';// sacar 
+import { PeticionesService } from '../services/peticiones.service';// sacar
 import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { MyModalComponent } from '../modal/MyModalComponent';
@@ -22,7 +22,7 @@ export class IniciarSesionComponent implements OnInit {
     const user = { nombre: this.nCuenta, codigo: this.nClave };
     this.autS.login(user).subscribe(res => {
       console.log(res);
-      if (res != "404") { this.router.navigate(['autogestion']); }
+      if (res != "404") { this.autS.componenteGuard = "autogestion";this.router.navigate(['autogestion']); }
       else {
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => {  localStorage.setItem("InicioSesion", "false" );});
       }
@@ -41,7 +41,7 @@ export class IniciarSesionComponent implements OnInit {
 
     /* this.peticionesService.login(user, "prueba").subscribe(
       data =>{console.log(data);},
-      error =>{console.log(error);} //pasa por error 
+      error =>{console.log(error);} //pasa por error
     ); */
   }
   enterLogin(key) {
@@ -71,6 +71,6 @@ export class IniciarSesionComponent implements OnInit {
     this.nClave='';
     this.nCuenta='';
     }
-  } 
+  }
 
 }

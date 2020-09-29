@@ -47,7 +47,7 @@ import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-c
 import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
 import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
- 
+
 
 @NgModule({
   declarations: [
@@ -65,7 +65,7 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
     AbmCarreraComponent,
     AbmCursoComponent,
     MyModalComponent,
-    AbmUsuarioComponent, 
+    AbmUsuarioComponent,
     AbmMenuComponent,
     AbmCiclolectivoComponent,
     FiltroComponent,
@@ -82,12 +82,12 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
     AbmDireccionComponent,
     FrmAsistenciaComponent,
     FrmHoraSemanaComponent,
-    AbmHorasDiaComponent, 
-    IniciarSesionComponent, 
+    AbmHorasDiaComponent,
+    IniciarSesionComponent,
     FrmCarganotasComponent,
     FrmConsultaasistenciasComponent,
     AbmMensajeComponent,
-    FrmMensajesComponent,      
+    FrmMensajesComponent,
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -97,7 +97,7 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'autogestion', component: HomeComponent, canActivate : [Guard] },
+      { path: 'autogestion', component: HomeComponent, canActivate: [Guard]},
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },
@@ -123,15 +123,15 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
       { path: 'rel-cursoalumno', component: RelCursoAlumno, canActivate : [Guard] },
       { path: 'rel-rolesusuario', component: RelRolesUsuario, canActivate : [Guard] },
       { path: 'frm-asistencia', component: FrmAsistenciaComponent, canActivate : [Guard] },
-      { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] }, 
+      { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] },
       { path: 'frm-carganotas', component: FrmCarganotasComponent, canActivate : [Guard] },
       { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
-      {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]}, 
-      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
+      {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
+     // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [PeticionesService, ExcelService, AuthLoginService, Guard], 
+  providers: [PeticionesService, ExcelService, AuthLoginService, Guard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

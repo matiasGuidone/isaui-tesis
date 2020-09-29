@@ -1,8 +1,8 @@
 <header>
   <nav [class]="this.servicio.classnav">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']"><img [class]="this.servicio.classimg" style="width:160px;"
-          [src]="'/assets/Logo.png'" alt="ISAUI"></a>
+      <a class="navbar-brand"><img [class]="this.servicio.classimg" style="width:160px;"
+          [src]="'/assets/Logo.png'" alt="ISAUI" (click)="IrHome()"></a>
       <nav *ngIf="this.modalService.lista && this.modalService.lista.length > 0" aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li *ngFor="let item of this.modalService.lista" class="breadcrumb-item"><a href="#">{{item}}</a></li>
@@ -33,7 +33,7 @@
 
             </div>
           </li>
-          
+
           <li class="nav-item dropdown" *ngIf="alguncomponente('rel')" [routerLinkActive]="['link-active']">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -63,7 +63,7 @@
           <li></li>
            <li class="nav-item" *ngIf="estaEnSesion()">
              <a class="nav-link" (click)="cerrarSesion()">Cerrar sesión</a>
-           </li> 
+           </li>
         </ul>
       </div>
     </div>
