@@ -16,6 +16,7 @@ export class HomeComponent {
     if ( localStorage.getItem("Rol")=="Docente"){
        this.rol="Docente";
     }
+
 }
 }
 
