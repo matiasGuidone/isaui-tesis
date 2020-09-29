@@ -17,6 +17,7 @@ export class HomeComponent {
        this.rol = JSON.parse(localStorage.getItem("Rol"));
 
     }
+
 }
 }
 
