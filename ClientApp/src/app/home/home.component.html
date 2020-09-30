@@ -1,9 +1,9 @@
-
+<div [class]="this.servicio.classtable2" >
 <section id="banner">
 <div class="content">
 <header>
 
-<h2 style="margin-top:55px">Bienvenido {{rol}}<br />al portal Autogestion</h2>
+<h2>Bienvenido {{rol.nombreusuario}}<br />al portal Autogestion de {{rol.nombrerol}}</h2>
 
 </header>
 <p>Asistencias, Calificaciones, fechas de examanes y mensajes con los docentes</p>
@@ -17,14 +17,14 @@
 </div>
 </article>
 <article>
-<span class="btn btn-outline-light icon solid fa-calendar-alt"></span>
+<span class="btn btn-outline-light icon solid fa-file-signature"></span>
 <div class="content">
 <h3>Calificaciones</h3>
 
 </div>
 </article>
 <article>
-<span class="btn btn-outline-light icon solid fa-rocket"></span>
+<span class="btn btn-outline-light icon solid fa-calendar-alt"></span>
 <div class="content">
 <h3>Calendario Academico</h3>
 
@@ -41,3 +41,4 @@
 
 </section>
 
+</div>

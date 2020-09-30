@@ -38,21 +38,21 @@ export class NavMenuComponent {
     this.num++;
     if(this.num == 4){this.num=1;}
     switch (this.num){
-      case 1 :
+      case 1 ://estilo negro
         this.servicio.classtable2 = "table table-dark table-hover";
         this.servicio.classtable = "table table-striped table-dark table-responsive";
         this.servicio.classimg = "img-logo";
         this.servicio.classbody  = "bodyclass";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3";
         break;
-      case 2:
+      case 2://estilo blanco
         this.servicio.classtable2 = "table table-hover";
         this.servicio.classtable = "table-responsive";
         this.servicio.classimg = "custom-logo-link";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
         this.servicio.classbody  = "bodyclasswh";
         break;
-      case 3:
+      case 3: //estilo gey
         this.servicio.classtable2 = "table table-hover bg-secondary ";
         this.servicio.classtable = "table-responsive bg-secondary ";
         this.servicio.classimg = "custom-logo-link";

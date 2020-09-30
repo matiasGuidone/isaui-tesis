@@ -5,7 +5,6 @@
         <thead>
             <tr>
                 <th scope="col">Titulo</th>
-                <th scope="col">Mensaje</th>
                 <th scope="col">Fecha inicio</th>
                 <th scope="col">Fecha fin</th>
                 <th scope="col">Acciones</th>
@@ -14,7 +13,6 @@
         <tbody>
             <tr *ngFor = "let mensaje of lista">
                 <td>{{mensaje.titulo}}</td>
-                <td>{{mensaje.mensaje}}</td>
                 <td>{{mensaje.fechainicio| date : 'dd-MM-yyyy'}}</td>
                 <td>{{mensaje.fechafin | date : 'dd/MM/yyyy'}}</td>
                 <td><button class="btn btn-outline-success" title="Editar" (click)="editar(mensaje.id)" ><span class="fa fa-edit"></span></button>
