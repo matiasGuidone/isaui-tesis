@@ -89,6 +89,10 @@ export class FrmMensajesComponent implements OnInit {
   textBold(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<strong>"+texto+"</strong>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<strong>"+texto+"</strong>", visualiza.innerHTML);
     }
@@ -96,10 +100,15 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<strong>"+texto+"</strong>",texto, visualiza.innerHTML);
     }
   }
+  }
    
   textItalic(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<em>"+texto+"</em>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<em>"+texto+"</em>", visualiza.innerHTML);
     }
@@ -107,9 +116,14 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<em>"+texto+"</em>",texto, visualiza.innerHTML);
     }
   }
+  }
   textChiquite(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<small>"+texto+"</small>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<small>"+texto+"</small>", visualiza.innerHTML);
     }
@@ -117,9 +131,14 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<small>"+texto+"</small>",texto, visualiza.innerHTML);
     }
   }
+  }
   textSubrayado(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<u>"+texto+"</u>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<u>"+texto+"</u>", visualiza.innerHTML);
     }
@@ -127,10 +146,15 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<u>"+texto+"</u>",texto, visualiza.innerHTML);
     }
   }
+  }
 
   textCode(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<code>"+texto+"</code>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<code>"+texto+"</code>", visualiza.innerHTML);
     }
@@ -138,9 +162,14 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<code>"+texto+"</code>",texto, visualiza.innerHTML);
     }
   }
+  }
   textmark(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<mark>"+texto+"</mark>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<mark>"+texto+"</mark>", visualiza.innerHTML);
     }
@@ -148,15 +177,21 @@ export class FrmMensajesComponent implements OnInit {
       visualiza.innerHTML =   this.replaceAll("<mark>"+texto+"</mark>",texto, visualiza.innerHTML);
     }
   }
+  }
   textStr(){
     let visualiza = document.getElementById("visualiza"); 
     let texto = window.getSelection().toString();
+    if(this.estaVacio()==true)
+    {return;}
+    else
+    {
     if(visualiza.innerHTML.includes("<s>"+texto+"</s>") == false){
       visualiza.innerHTML =   this.replaceAll(texto,"<s>"+texto+"</s>", visualiza.innerHTML);
     }
     else{
       visualiza.innerHTML =   this.replaceAll("<s>"+texto+"</s>",texto, visualiza.innerHTML);
     }
+  }
   }
   
 
@@ -165,4 +200,45 @@ export class FrmMensajesComponent implements OnInit {
     return target.split(search).join(replacement);
      }
   
+      txt= document.getElementById('visualiar');
+      botonera=document.getElementById('grupobot');
+
+      estaVacio()
+      {
+        let texto = window.getSelection().toString();
+        if(texto=="")
+        {return true;}
+        else
+        {return false;}
+        
+      }
+
+/*       textItalic2(){
+        let visualiza = document.getElementById("visualiza"); 
+        let texto = window.getSelection().toString();
+        let arrayTexto: string [] ;
+        arrayTexto= Array.prototype.keys[texto];
+        if(this.estaVacio()==true)
+        {return;}
+        else
+        {
+          
+        if(visualiza.innerHTML.includes("<em>"+texto+"</em>") == false){
+          visualiza.innerHTML =   this.replaceAll(texto,"<em>"+texto+"</em>", visualiza.innerHTML);
+          for(let i=0; i<arrayTexto.length; i++)
+          {
+            if(arrayTexto[0]!=null && arrayTexto[i]==null)
+            {visualiza.innerHTML=this.replaceAll(arrayTexto[i], "<em> </em>", visualiza.innerHTML )}
+            else{
+              return
+            }
+          }
+        }
+        else{
+          visualiza.innerHTML =   this.replaceAll("<em>"+texto+"</em>",texto, visualiza.innerHTML);
+          
+        }
+      }
+      console.log(visualiza.nodeValue);
+      } */
 }
