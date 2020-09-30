@@ -65,6 +65,7 @@ public class ObjetoConexion<T>
 
                 consulta += concatenar;
             }
+
             return (List<T>)Conexion.consultaList<T>(consulta);
         }
 
