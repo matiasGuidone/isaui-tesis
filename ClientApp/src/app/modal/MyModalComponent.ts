@@ -17,9 +17,9 @@ export class MyModalComponent extends Modal {
   parametros: any[];
   formGroup: FormGroup;
   objetoIn: any;
-  
 
-  constructor(private modalService: ModalService, private router: Router,private logservicio: AuthLoginService) {
+
+  constructor(private modalService: ModalService, private router: Router, private logservicio: AuthLoginService) {
     super();
     this.formGroup = new FormGroup({});
     this.modalService.setListaAbm();
@@ -53,7 +53,7 @@ export class MyModalComponent extends Modal {
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
         this.parametros.push(obj);
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));
-        if (obj.tipo == 'estado'|| obj.tipo == 'tipo'){
+        if (obj.tipo == 'estado' || obj.tipo == 'tipo') {
           let abm = this.router.url.substring(5);
           this.modalService.setCaseEstado(abm);
         }
@@ -65,13 +65,13 @@ export class MyModalComponent extends Modal {
 
     }
   }
-  
+
 
   save(): boolean {
     this.close('saving');
     return true;
   }
- 
+
 
   cancel(): boolean {
     //this.message contiene el nombre del objeto actual
@@ -166,7 +166,12 @@ export class MyModalComponent extends Modal {
       else return false;
     } catch (excep) { this.formGroup.get(campo).setValue(''); return true; }
   }
+  
+  selectRol(item) {
+    this.close(item);
+    return true;
 
+  }
 }
 
 class ObjetoValor {

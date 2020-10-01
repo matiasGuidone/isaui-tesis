@@ -95,14 +95,60 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         }
         return "";
     }
-    public string datosUsuario(int id)
+    public string datosUsuario(int id = default(Int32), string token = null, string roles = null)
     {
-        var rol = "";
-        var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
-        if (Tabla.Rows.Count == 1)
+        if (token == null && roles == null)
         {
-            rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" ";
-            if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("DOCENTE"))
+            var rol = "";
+            var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
+            if (Tabla.Rows.Count == 1)
+            {
+                rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" ";
+                if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("DOCENTE"))
+                {
+                    try
+                    {
+                        Tabla = this.Conexion.consultaDataTable($"SELECT docente.* FROM docente where docente.idusuario = {id} ").Tables[0];
+                        if (Tabla.Rows.Count > 0)
+                        {
+                            rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                        }
+                    }
+                    catch (Exception e) { }
+                }
+                else if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("ALUMNO"))
+                {
+                    try
+                    {
+                        Tabla = this.Conexion.consultaDataTable($"SELECT alumno.* FROM alumno where alumno.idusuario = {id} ").Tables[0];
+                        if (Tabla.Rows.Count > 0)
+                        {
+                            rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                        }
+                    }
+                    catch (Exception e) { }
+                }
+                return " { " + rol + " } ";
+            }
+
+            else
+            {
+                rol = $" \"nombrerol\" : [ ";
+                foreach (DataRow r in Tabla.Rows)
+                {
+                    rol += $"\"{r["nombre"].ToString()}\" ,";
+                }
+                rol = rol.Substring(0, rol.Length - 1) + $" ] ";
+                return " { " + rol + " } ***multiple***";
+            }
+        }
+        else
+        {
+            var rol = "";
+
+            DataTable Tabla;
+            rol = $" \"nombrerol\" : \"{roles}\" ";
+            if (roles.ToUpper().Equals("DOCENTE"))
             {
                 try
                 {
@@ -114,7 +160,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                 }
                 catch (Exception e) { }
             }
-            else if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("ALUMNO"))
+            else if (roles.ToUpper().Equals("ALUMNO"))
             {
                 try
                 {
@@ -127,8 +173,8 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                 catch (Exception e) { }
             }
 
-        } 
-        return " { "+rol+" } ";
-    }
+            return " { " + rol + " } ";
+        }
 
+    }
 }

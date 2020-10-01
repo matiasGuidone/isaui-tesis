@@ -10,6 +10,10 @@ import { usuario } from '../clases/usuario';
 
 @Injectable()
 export class PeticionesService {
+  
+  logueosegundo(Headers: HttpHeaders) : Observable<any> {
+    return this._http.get<any>(this.baseUrl + 'api/logueo', { headers: Headers });
+  }
 
    public idsSeleccionados : number[];
    public idSeleccionado : number;

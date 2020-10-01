@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders}  from '@angular/common/http';
 import {usuario} from '../clases/usuario';
 import {tap} from 'rxjs/operators';
 import { observable, BehaviorSubject, Observable } from 'rxjs';
+import { ModalService } from '../modal/modal-service.service';
+import { MyModalComponent } from '../modal/MyModalComponent';
 
 
 @Injectable()
@@ -23,10 +25,14 @@ public componentes : any[]=new Array<any>();
       //return this._http.get<any>(this.baseUrl + 'api/Usuario?nombre=' + user.nombre + '&codigo=' + user.codigo );
      return this._http.get<any>(this.baseUrl +'api/logueo', {headers: Headers}).pipe(tap((res)=>{
       if(res){
-          let json = JSON.parse(res.toString());
-          console.log(json);
+          let json = JSON.parse(res.toString()); 
+          //si hay varios roles se abre un dialogo al usuario para el ingreso de uno específico
+          if(Array.isArray(json.rol.nombrerol)){
+             return json;
+          } 
+          else{
           this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
-
+          }
       }
     }));
   }
@@ -41,7 +47,7 @@ public componentes : any[]=new Array<any>();
     localStorage.removeItem("Rol");
   }
 
-  private saveToken(token: string, expiresIn: string, componentes: string, rol: string): void{
+   saveToken(token: string, expiresIn: string, componentes: string, rol: string): void{
     localStorage.setItem("Access_Token", token);
     localStorage.setItem("Expires_In", expiresIn);
     localStorage.setItem("Componentes", componentes);
@@ -59,4 +65,6 @@ public componentes : any[]=new Array<any>();
     }
     return this.token;
   }
+  
+
 }

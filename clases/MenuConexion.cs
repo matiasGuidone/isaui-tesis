@@ -16,7 +16,7 @@
         private MenuConexion(menu aux): base(aux){ 
             
         }
-         public string getComponentsByUser(Int32 idusuario){
+         public string getComponentsByUser(Int32 idusuario , string nombrerol=null){
 
             var consulta = $"select GROUP_CONCAT( CONCAT"+
                             $"(\"'\",menu.componente,\"'\")) "+
@@ -24,7 +24,7 @@
                             $"es on menu.idroles = roles."+
                             $"id join rolesusuario on rol"+
                             $"es.Id = rolesusuario.Idrole"+
-                            $"s where rolesusuario.Idusuario ={idusuario}";
+                            $"s where rolesusuario.Idusuario ={idusuario} AND roles.nombre LIKE '{nombrerol}' ";
             
             var result = Conexion.consultaDataTable(consulta);
             if (result.Tables.Count>0){return " \"componentes\" : [ "+ result.Tables[0].Rows[0]["datos"].ToString().Replace("'","\"")+" ] ";}

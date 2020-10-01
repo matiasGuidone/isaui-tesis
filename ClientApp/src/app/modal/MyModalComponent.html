@@ -128,4 +128,19 @@
       </span>
     </p>
   </form>
+
+</div>
+<div *ngIf="tipo == 4">
+  <p class="p2">
+    {{title}}<br /><br />
+     <br /><br />
+    <a >
+      <div class="list-group">
+      <div class="select" *ngFor="let item of message">
+        <a (click)="selectRol(item)" class="list-group-item list-group-item-action">{{item}}</a>
+        
+      </div>
+    </div>
+    </a> 
+    <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button></p>
 </div>

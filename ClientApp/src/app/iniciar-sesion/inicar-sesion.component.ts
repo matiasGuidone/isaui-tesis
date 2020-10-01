@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -16,15 +17,28 @@ import { ModalService } from '../modal/modal-service.service';
 export class IniciarSesionComponent implements OnInit {
   nCuenta: string;
   nClave: string;
-  constructor(private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { }
+  constructor(private servicio: PeticionesService, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { }
 
   onLogin() {
     const user = { nombre: this.nCuenta, codigo: this.nClave };
     this.autS.login(user).subscribe(res => {
       console.log(res);
-      if (res != "404") { this.autS.componenteGuard = "autogestion";this.router.navigate(['autogestion']); }
+      if (res != "404") {
+        let json = JSON.parse(res.toString());
+        if (Array.isArray(json.rol.nombrerol)) {
+          this.abrirModal("Seleccione un Rol para ingresar", json.rol.nombrerol, 4, null).subscribe(obj => {
+            let Headers: HttpHeaders = new HttpHeaders({ 'usuario': user.nombre, 'pass': user.codigo, 'token': json.accessToken, 'rol': obj });
+            this.servicio.logueosegundo(Headers).subscribe(res => {
+              let json = JSON.parse(res.toString());
+              this.autS.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
+
+            });
+          });
+        }
+        else { this.autS.componenteGuard = "autogestion"; this.router.navigate(['autogestion']); }
+      }
       else {
-        this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => {  localStorage.setItem("InicioSesion", "false" );});
+        this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { localStorage.setItem("InicioSesion", "false"); });
       }
     },
       er => {
@@ -64,12 +78,10 @@ export class IniciarSesionComponent implements OnInit {
     input.value='';
   }
 */
-  clearT(key)
-  {
-    if(key.keyCode!== "" || key.keyCode!== null)
-    {
-    this.nClave='';
-    this.nCuenta='';
+  clearT(key) {
+    if (key.keyCode !== "" || key.keyCode !== null) {
+      this.nClave = '';
+      this.nCuenta = '';
     }
   }
 
