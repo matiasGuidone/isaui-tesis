@@ -102,7 +102,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         if (Tabla.Rows.Count == 1)
         {
             rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" ";
-            if (rol.ToUpper().Equals("DOCENTE"))
+            if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("DOCENTE"))
             {
                 try
                 {
@@ -114,7 +114,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                 }
                 catch (Exception e) { }
             }
-            else if (rol.ToUpper().Equals("ALUMNO"))
+            else if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("ALUMNO"))
             {
                 try
                 {
