@@ -1,4 +1,7 @@
  
+  
+using System;
+using System.Collections.Generic;
     public class MateriaConexion<T> : ObjetoConexion<materia>
     {
        
@@ -15,5 +18,27 @@
         private MateriaConexion(materia aux): base(aux){ 
             
         }
-        
+         public List<materia> SearchByAlumno( Int32 idalumno ,Int32 idciclolectivo = default(Int32))
+        {  
+            if(idciclolectivo == default(Int32)){
+                idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            }
+            
+            string consulta =   $"select materia.* from materia where "+
+                                $"materia.id in (select idmateria from"+
+                                $" alumnomateria where idalumno = {idalumno} and idciclolectivo = {idciclolectivo}) ";
+            
+            return (List<materia>)Conexion.consultaList<materia>(consulta);
+        }
+         public List<materia> SearchByDocente( Int32 iddocente,Int32 idciclolectivo = default(Int32) )
+        {  
+            if(idciclolectivo == default(Int32)){
+                idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            }
+            string consulta =   $"select materia.* from materia where "+
+                                $"materia.id in (select idmateria from"+
+                                $" docentemateria where iddocente = {iddocente} and idciclolectivo = {idciclolectivo})";
+            
+            return (List<materia>)Conexion.consultaList<materia>(consulta);
+        }
     }

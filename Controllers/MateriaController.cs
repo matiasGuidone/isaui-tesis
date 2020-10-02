@@ -53,7 +53,18 @@ public class MateriaController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
+            if (arrayfiltros.Any(p => p == "idalumno"))
+            {   if (arrayfiltros.Length==2)
+                return MateriaConexion<materia>.Instance.SearchByAlumno(Convert.ToInt32(arrayfiltros[1])); 
+                if (arrayfiltros.Length==4)
+                return MateriaConexion<materia>.Instance.SearchByAlumno(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]));}
+            else if (arrayfiltros.Any(p => p == "iddocente"))
+            {   if (arrayfiltros.Length==2)
+                return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1])); 
+                if (arrayfiltros.Length==4)
+                return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3])); }
             return MateriaConexion<materia>.Instance.SearchAll(arrayfiltros);
+
         }
         else return null;
     }

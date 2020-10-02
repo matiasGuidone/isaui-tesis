@@ -28,7 +28,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
   hoyr = this.formatearFecha(new Date(), 'n');
   horamateria: horasmateria[] = new Array<horasmateria>();
   asistencias: asistencia[] = new Array<asistencia>();
-
+  iddocente = null;
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
@@ -44,8 +44,11 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
         this.dias.push({ 'numero': this.formatearFecha(desde, ''), 'diasemana': desde.getUTCDay(), 'sem': semana[desde.getUTCDay()] });
         desde.setDate(desde.getDate() + 1); 
     }
-    this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; })
-
+    let rol = JSON.parse(localStorage.getItem("Rol"));
+     if(rol.nombrerol.toString()=="Docente"){
+      this.servicio.loadGrilla('materia',['iddocente',rol.id.toString()]).subscribe(resultado => { this.materias = resultado; });
+     }
+    
   }
 
   ngOnInit(): void {

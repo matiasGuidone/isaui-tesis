@@ -155,7 +155,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                     Tabla = this.Conexion.consultaDataTable($"SELECT docente.* FROM docente where docente.idusuario = {id} ").Tables[0];
                     if (Tabla.Rows.Count > 0)
                     {
-                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"iddocente\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
                     }
                 }
                 catch (Exception e) { }
@@ -167,7 +167,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                     Tabla = this.Conexion.consultaDataTable($"SELECT alumno.* FROM alumno where alumno.idusuario = {id} ").Tables[0];
                     if (Tabla.Rows.Count > 0)
                     {
-                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"idalumno\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
+                        rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
                     }
                 }
                 catch (Exception e) { }
