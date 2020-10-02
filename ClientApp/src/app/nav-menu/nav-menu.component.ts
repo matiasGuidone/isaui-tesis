@@ -83,6 +83,7 @@ export class NavMenuComponent {
   }
   //cerrar la sesion iniciada
   cerrarSesion(){
+    this.logservicio.componenteGuard = "autogestion";this.router.navigate(['autogestion']);
     this.logservicio.logout();
   }
   //comprueba si hay sesion iniciada
