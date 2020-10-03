@@ -1,41 +1,17 @@
-<!-- 
-<section id="iniciarsecion" class="mb-5 aling-items-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-                <div class="">  
-                    <div class="">  
-                        <div class="text-center"> 
-                            <form class="custom-form" method="POST" #form='ngForm' autocomplete="off" > 
-                                <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
-                                <div class="form-group">
-                                    <input type="text" id="name" name="nCuenta" [(ngModel)]="nCuenta" placeholder="Nombre de usuario" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" id="password" name="nClave"  [(ngModel)]="nClave" placeholder="Contraseña" class="form-control" required>
-                                </div>
-                                <button type="submit"  class="btn brn-lg btn-primary btn-block"  (click)="onLogin()">Ingresar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
+
 <div style="min-block-size: -webkit-fill-available;" class="row align-items-center justifi-content-center vh-100">
     
 <div style="justify-items: center;" class="col form-signin border align-self-center" id="formjs">
     
     <h1 style="text-align: center;" class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
     <label for="inputLegajo"  class="sr-only">Legajo</label>
-    <input type="text" [(ngModel)]="nCuenta"  id="name" name="nCuenta" id="inputLegajo" class="form-control mb-3" placeholder="Usuario" required autofocus>
+    <input type="text" (keydown)="enterLogin($event)" [(ngModel)]="nCuenta"  id="name" name="nCuenta" id="inputLegajo" class="form-control mb-3" placeholder="Usuario" required autofocus>
     <label for="inputPassword" class="sr-only">Contraseña</label>
-    <input type="password"  (keydown)="enterLogin($event); clearT()" [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+    <input type="password"  (keydown)="enterLogin($event)" [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Contraseña" required="">
     <div class="checkbox mb-3">
     </div>
  
-    <button (click)="onLogin(); clearT()"  class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+    <button (click)="onLogin()"  class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
  
     <p class="mt-5 mb-3 text-muted">© Isaui</p>
   </div>

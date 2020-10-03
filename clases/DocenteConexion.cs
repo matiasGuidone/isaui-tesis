@@ -19,7 +19,7 @@ using System.Collections.Generic;
             
         }  
 
-/*         public List<T> serchDniLastName(string dato)
+        public List<T> serchDniLastName(string dato)
         {
             string consulta = $"SELECT * FROM {this.tipo.GetType()} ";
             if(dato!=null)
@@ -29,7 +29,7 @@ using System.Collections.Generic;
              return (List<T>)Conexion.consultaList<T>(consulta);
              
         }  
- */
+
 
     }
  

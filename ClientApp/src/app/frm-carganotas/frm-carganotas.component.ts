@@ -23,12 +23,13 @@ import { datoadjunto } from '../clases/datoadjunto';
 })
 export class FrmCarganotasComponent extends abm<examen> implements OnInit {
 
-  materias: materia[];
-  alumnos: alumno[];
-  examenes: examen[];
-  notas: calificacionalumno[];
+  materias: materia[] = new Array<materia>();
+  alumnos: alumno[]= new Array<alumno>();
+  examenes: examen[] = new Array<examen>();
+  notas: calificacionalumno[] ;
   @Input() esRelacion: boolean = false;
   @Output() emisorId = new EventEmitter<string[]>();
+  iddocente = null;
 
   constructor(protected location: Location,
     protected modalService: ModalService,
@@ -37,7 +38,16 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
     this.modalService.setCaseEstado('examen');
-    this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; });
+    //--
+    let rol = JSON.parse(localStorage.getItem("Rol"));
+    if(rol.nombrerol.toString()=="Docente"){
+     this.servicio.loadGrilla('materia',['iddocente', rol.id.toString()] ).subscribe(resultado => { this.materias = resultado;});
+    
+    }
+    else{
+      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado;});
+    }
+
   }
 
   ngOnInit() {

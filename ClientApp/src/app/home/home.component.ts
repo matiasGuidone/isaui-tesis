@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { Router } from '@angular/router';
 import { AuthLoginService } from '../services/authlogin.service';
+import { PeticionesService } from '../services/peticiones.service';
 
 
 @Component({
@@ -9,10 +10,11 @@ import { AuthLoginService } from '../services/authlogin.service';
   styleUrls: ['./autogestion.component.css']
 })
 export class HomeComponent {
-  constructor(private router: Router, private logservicio: AuthLoginService){
+  constructor(private router: Router, private logservicio: AuthLoginService, private servicio : PeticionesService){
 
   }
   rol : any;
+
     ngOnInit(){
       if (localStorage.getItem("Rol") != undefined && localStorage.getItem("Rol") != 'undefined' ){
         this.rol = JSON.parse(localStorage.getItem("Rol"));
@@ -30,6 +32,16 @@ export class HomeComponent {
     }
   }
 
+  ingresoCalificaciones()
+  {
+    if (this.rol.nombrerol.toString() == "Docente"){
+      this.logservicio.componenteGuard = "frm-carganotas";
+      this.router.navigate(['frm-carganotas']);
+    }
+    else if (this.rol.nombrerol.toString() == "Alumno"){
+
+    }
+  }
 
 }
 
