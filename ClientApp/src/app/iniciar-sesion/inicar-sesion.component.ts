@@ -57,6 +57,8 @@ export class IniciarSesionComponent implements OnInit {
       data =>{console.log(data);},
       error =>{console.log(error);} //pasa por error
     ); */
+   this.nClave='';
+   this.nCuenta='';
   }
   enterLogin(key) {
     if (key.keyCode === 13) {
@@ -73,16 +75,5 @@ export class IniciarSesionComponent implements OnInit {
     return modalRef.onResult();
   }
 
-  /* clearTxt(input: HTMLInputElement)
-  {
-    input.value='';
-  }
-*/
-  clearT(key) {
-    if (key.keyCode !== "" || key.keyCode !== null) {
-      this.nClave = '';
-      this.nCuenta = '';
-    }
-  }
 
 }

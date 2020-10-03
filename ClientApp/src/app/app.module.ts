@@ -47,6 +47,7 @@ import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-c
 import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
 import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
+import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
     FrmConsultaasistenciasComponent,
     AbmMensajeComponent,
     FrmMensajesComponent,
+    CarganotadocenteComponent,
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -129,6 +131,7 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
+     {path: 'carganotadocente', component: CarganotadocenteComponent, canActivate:[Guard]},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard],

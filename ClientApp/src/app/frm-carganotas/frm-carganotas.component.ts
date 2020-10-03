@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { abm } from '../clases/abm';
 import { examen } from '../clases/examen';
 import { ModalService } from '../modal/modal-service.service';
@@ -27,6 +27,8 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   alumnos: alumno[];
   examenes: examen[];
   notas: calificacionalumno[];
+  @Input() esRelacion: boolean = false;
+  @Output() emisorId = new EventEmitter<string[]>();
 
   constructor(protected location: Location,
     protected modalService: ModalService,
