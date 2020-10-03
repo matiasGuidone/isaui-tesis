@@ -48,7 +48,9 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
      if(rol.nombrerol.toString()=="Docente"){
       this.servicio.loadGrilla('materia',['iddocente',rol.id.toString()]).subscribe(resultado => { this.materias = resultado; });
      }
-    
+     else{
+     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; });
+    }
   }
 
   ngOnInit(): void {
