@@ -1,0 +1,39 @@
+<div [class]="this.servicio.classtable">
+    <h3>Calendario</h3>
+    <br />
+    <hr>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" (click)="cambiarMes(0)" class="btn btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <button type="button" style="min-width:110px;" class="btn btn-secondary">{{this.actual.getFullYear()}}</button>
+        <button type="button" style="min-width:110px;" class="btn btn-secondary">{{mes}}</button>
+        <button type="button" (click)="cambiarMes(1)" class="btn btn-secondary"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    <div class="lead"></div>
+    <table [class]="this.servicio.classtable2">
+        <thead>
+            <tr class="lead">
+                <th scope="col">Domingo&nbsp;&nbsp;</th> 
+                <th scope="col">Lunes&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col">Martes&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col">Miércoles</th>
+                <th scope="col">Jueves&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col">Viernes&nbsp;&nbsp;</th>
+                <th scope="col">Sábado&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="height: 80px;" *ngFor = "let n of dias">
+                
+                <!-- dias semanales -->
+                <td style="background-color: #49505a71;padding:0;"> <div id="0-{{n}}" >{{calculoDia(0,n)}}</div> </td>
+                <td style="background-color: #aeb6c271;padding:0;"> <div id="1-{{n}}" >{{calculoDia(01,n)}}</div> </td>
+                <td style="background-color: #aeb6c271;padding:0;"> <div id="2-{{n}}" >{{calculoDia(02,n)}}</div> </td>
+                <td style="background-color: #aeb6c271;padding:0;"> <div id="3-{{n}}" >{{calculoDia(03,n)}}</div> </td>
+                <td style="background-color: #aeb6c271;padding:0;"> <div id="4-{{n}}" >{{calculoDia(04,n)}}</div> </td>
+                <td style="background-color: #aeb6c271;padding:0;"> <div id="5-{{n}}" >{{calculoDia(05,n)}}</div> </td>
+                <td style="background-color: #49505a71;padding:0;"> <div id="6-{{n}}" >{{calculoDia(06,n)}}</div> </td>
+ 
+            </tr>
+        </tbody>
+    </table>
+</div>

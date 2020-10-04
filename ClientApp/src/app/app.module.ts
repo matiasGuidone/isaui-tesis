@@ -48,6 +48,11 @@ import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
 import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
 import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.component';
+import { FrmCalendarioComponent } from './frm-calendario/frm-calendario.component'; 
+import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
+import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
+import { GuardAutogestion } from './clases/guardautogestion';
+import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
 
 
 @NgModule({
@@ -90,6 +95,10 @@ import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.c
     AbmMensajeComponent,
     FrmMensajesComponent,
     CarganotadocenteComponent,
+    FrmCalendarioComponent, 
+    CmpHorariosComponent,
+    FrmAsistenciasalumnoComponent,
+    FrmCalendariocompComponent,
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -99,7 +108,8 @@ import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.c
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'autogestion', component: HomeComponent, canActivate: [Guard]},
+      { path: '', component: HomeComponent, canActivate: [GuardAutogestion]},
+      { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion]},
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },
@@ -128,13 +138,16 @@ import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.c
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] },
       { path: 'frm-carganotas', component: FrmCarganotasComponent, canActivate : [Guard] },
       { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent, canActivate : [Guard] },
+      { path: 'frm-asistenciasalumno', component: FrmAsistenciasalumnoComponent, canActivate : [Guard] },
+      { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
+      { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'carganotadocente', component: CarganotadocenteComponent, canActivate:[Guard]},
     ])
   ],
-  providers: [PeticionesService, ExcelService, AuthLoginService, Guard],
+  providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

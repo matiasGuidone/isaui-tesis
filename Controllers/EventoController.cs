@@ -53,7 +53,10 @@ public class EventoController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return EventoConexion<evento>.Instance.SearchAll(arrayfiltros);
+             if (arrayfiltros.Any(p => p == "idalumno"))
+            {return EventoConexion<evento>.Instance.SearchAlumno(Convert.ToInt32(arrayfiltros[1]));}
+                else{
+            return EventoConexion<evento>.Instance.SearchAll(arrayfiltros);}
         }
         else return null;
     }

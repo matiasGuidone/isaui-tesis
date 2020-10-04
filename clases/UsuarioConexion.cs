@@ -103,7 +103,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
             var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
             if (Tabla.Rows.Count == 1)
             {
-                rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" ";
+                rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\" ";
                 if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("DOCENTE"))
                 {
                     try
@@ -147,7 +147,8 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
             var rol = "";
 
             DataTable Tabla;
-            rol = $" \"nombrerol\" : \"{roles}\" ";
+            Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM roles WHERE roles.nombre LIKE '{roles}' ").Tables[0];
+            rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\" ";
             if (roles.ToUpper().Equals("DOCENTE"))
             {
                 try

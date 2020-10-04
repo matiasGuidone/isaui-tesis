@@ -57,11 +57,13 @@ public class AsistenciaRepoController : Controller
     {
        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
+            
         string nombreape = null;
         var fechad = default(DateTime);
         var fechah = default(DateTime); 
         var idcurso = default(Int32);
         var idmateria = default(Int32);
+        var idalumno = default(Int32);
         var totales = false;
         if(arrayfiltros.Length > 1){
             for (int i =0; i < arrayfiltros.Length;i++){
@@ -73,6 +75,9 @@ public class AsistenciaRepoController : Controller
                         break;
                     case "idcurso":
                         idcurso = Convert.ToInt32(arrayfiltros[i+1]);
+                        break;
+                    case "idalumno":
+                        idalumno = Convert.ToInt32(arrayfiltros[i+1]);
                         break;
                     case "idmateria":
                         idmateria = Convert.ToInt32(arrayfiltros[i+1]);
@@ -93,7 +98,7 @@ public class AsistenciaRepoController : Controller
                 }
                  
             }
-        return AsistenciaConexion<asistenciarepo>.Instance.ReporteAsistencias(fechad,fechah,idcurso,idmateria,nombreape, totales);
+        return AsistenciaConexion<asistenciarepo>.Instance.ReporteAsistencias(fechad,fechah,idcurso,idmateria,nombreape, totales, idalumno);
           }
         else return null;
     }

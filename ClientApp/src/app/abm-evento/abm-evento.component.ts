@@ -24,7 +24,7 @@ export class AbmEventoComponent extends abm<evento> implements OnInit {
     super(location,modalService,servicio, logservicio);
 
     this.nombre = 'evento';
-    this.objetoBlanco = new evento({'id':'0','nombre':'','fecha_inicio':'','fecha_fin':'','tipo':'','idcurso':''});
+    this.objetoBlanco = new evento({'id':'0','nombre':'','fechainicio':'','fechafin':'','tipo':'','idmateria':''});
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

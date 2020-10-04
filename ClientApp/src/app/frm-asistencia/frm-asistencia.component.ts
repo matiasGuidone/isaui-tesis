@@ -46,10 +46,10 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     }
     let rol = JSON.parse(localStorage.getItem("Rol"));
      if(rol.nombrerol.toString()=="Docente"){
-      this.servicio.loadGrilla('materia',['iddocente',rol.id.toString()]).subscribe(resultado => { this.materias = resultado; });
+      this.servicio.loadGrilla('materia',['iddocente',rol.id.toString()]).subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
      }
      else{
-     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; });
+     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
     }
   }
 
@@ -74,10 +74,14 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     else return (dia + '-' + mes);
   }
 
-  seleccionarMateria() {
+  seleccionarMateria(idin=null) {
     document.getElementById('aceptar').style.display='none';
     this.alumnos = new Array<alumno>();
+    
     let id = document.getElementById('materia')['value'];
+    if(id==""||id==null){
+      id=idin;
+    }
     this.servicio.loadGrilla('alumno', ['idmateria', id.toString()]).subscribe(alumnom => {
       if (alumnom != null && alumnom.length > 0) {
         this.alumnos = alumnom;

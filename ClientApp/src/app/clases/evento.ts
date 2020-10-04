@@ -6,7 +6,7 @@ export class evento
     fechainicio: Date;
     fechafin: Date;
     tipo: string;
-    idcurso:number;
+    idmateria:number;
 
     constructor(obj:any)
     {
@@ -15,6 +15,6 @@ export class evento
         this.fechainicio = new Date(obj.fechainicio);
         this.fechafin = new Date(obj.fechafin);
         this.tipo = obj.tipo;
-        this.idcurso = +obj.idcurso;
+        this.idmateria = +obj.idmateria;
     }
 }

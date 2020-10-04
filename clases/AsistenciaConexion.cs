@@ -32,7 +32,8 @@ using System.Collections.Generic;
                                                 Int32 idcurso = default(Int32), 
                                                  Int32 idmateria = default(Int32),
                                                 string nombreapellido = null,
-                                                Boolean totales = false){
+                                                Boolean totales = false,
+                                                Int32 idalumno = default(Int32)){
             var alumno = "";
             var consulta = "";
             if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-7); }
@@ -57,6 +58,7 @@ using System.Collections.Generic;
                 $"WHERE asistencia.fecha BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' and '{fechaHasta.ToString("yyyy-MM-dd")+" 23:59:59" }' ";
            
             if (nombreapellido != null){consulta += $" and concat(alumno.apellido,', ',alumno.nombre) LIKE '%{nombreapellido}%' "; }
+            if (idalumno !=  default(Int32)){consulta += $" and alumno.id = {idalumno} ";}
             if (idmateria !=  default(Int32)){consulta += $" and materia.Id = {idmateria} "; }
             if (idcurso != default(Int32)){consulta += $" and alumno.Id IN "+ 
                                                     $"(select alumno.Id from alumno where "+
