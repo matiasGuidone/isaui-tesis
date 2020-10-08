@@ -11,13 +11,18 @@
                 </option>
             </select>
         </div>
-        <div class="lead col-md-2">Desde: <input class="form-control" type="date" name="desde" id="desde"> </div>
-        <div class="lead col-md-2">Hasta: <input class="form-control" type="date" name="hasta" id="hasta"> </div>
+        <div class="lead col-md-2">Mes: <select class="form-control" id="mes" >
+            <option *ngFor="let mes of meses let i = index;"  [value]="i" >
+                 {{mes}}
+            </option>
+         </select> 
+        </div>
+        <!-- <div class="lead col-md-2">Hasta: <input class="form-control" type="date" name="hasta" id="hasta"> </div> -->
     </div>
     <button class="btn btn-info my-2" (click)="filtrar()">Filtrar</button>
     <div class="m-4">
         <div id="porc" class="porcentaje border">
-             <div id="porcentaje" class="display-4 align-items-center m-5 py-5"></div>
+             <div id="porcentaje" class="display-4 align-items-center  py-5"></div>
              
         </div>
 
