@@ -6,7 +6,7 @@ public class evento : oObjeto
     public DateTime Fechainicio{ get; set; }
     public DateTime Fechafin { get; set; }
     public string Tipo {get;set;}
-    public int Idcurso{get;set;} 
+    public int Idmateria{get;set;} 
     public evento() { }
     public evento(DataRow dr)
     {
@@ -15,7 +15,7 @@ public class evento : oObjeto
         this.Fechainicio = Convert.ToDateTime(dr["fechainicio"]);
         this.Fechafin= Convert.ToDateTime(dr["fechafin"]);
         this.Tipo= dr["tipo"].ToString();
-        this.Idcurso=Convert.ToInt32(dr["idcurso"]);
+        this.Idmateria=Convert.ToInt32(dr["idmateria"]);
     }
 
 }

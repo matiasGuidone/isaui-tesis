@@ -17,7 +17,7 @@ export class NavMenuComponent {
  num = 0;
   isExpanded = false;
   menus : menu[];
- componentes:any[];
+ componentes:any[]; 
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => this.menus = res);
@@ -95,5 +95,8 @@ export class NavMenuComponent {
   }
   IrHome(){
     this.logservicio.componenteGuard = "autogestion";this.router.navigate(['autogestion']);
+  }
+  getIdRol(){
+    return +JSON.parse(localStorage.getItem('Rol')).idroles;
   }
 }

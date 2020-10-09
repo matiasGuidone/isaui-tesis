@@ -1,0 +1,36 @@
+<div [class]="this.servicio.classtable" >
+    <h3>Horario de cursado</h3>
+        
+           <hr> 
+        </div>
+    <div id="horarios" [class]="this.servicio.classtable" >
+        <table [class]="this.servicio.classtable2">
+            <thead>
+                <tr class="lead">
+                    <th scope="col">#</th> 
+                    <th scope="col">Domingo&nbsp;&nbsp;</th> 
+                    <th scope="col">Lunes&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th scope="col">Martes&nbsp;&nbsp;&nbsp;</th>
+                    <th scope="col">Miércoles</th>
+                    <th scope="col">Jueves&nbsp;&nbsp;&nbsp;</th>
+                    <th scope="col">Viernes&nbsp;&nbsp;</th>
+                    <th scope="col">Sábado&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="height: 80px;" *ngFor = "let hora of horas">
+                    <td>{{hora.numorden}}</td>
+                    <!-- dias semanales -->
+                    <td style="background-color: #b0c4de71;"></td>
+                    <td id="celda{{hora.numorden}}-1" ><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small></td>
+                    <td id="celda{{hora.numorden}}-2" ><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small></td>
+                    <td id="celda{{hora.numorden}}-3" ><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small></td>
+                    <td id="celda{{hora.numorden}}-4" ><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small></td>
+                    <td id="celda{{hora.numorden}}-5" ><small>{{hora.hora}}/{{calcularmodulo(hora.hora)}}</small></td>
+                    <td style="background-color:  #b0c4de71;" ></td>
+                </tr>
+            </tbody>
+        </table>
+     </div>
+    
+     

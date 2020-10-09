@@ -31,7 +31,7 @@ export class IniciarSesionComponent implements OnInit {
             this.servicio.logueosegundo(Headers).subscribe(res => {
               let json = JSON.parse(res.toString());
               this.autS.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
-
+              this.autS.componenteGuard = "autogestion"; this.router.navigate(['autogestion']);
             });
           });
         }

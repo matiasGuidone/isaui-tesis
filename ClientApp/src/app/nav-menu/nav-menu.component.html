@@ -27,7 +27,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'abm' && componenteHabilitado(item.componente)" (click)="setGuardComponente(item.componente)" class="dropdown-item"
+                <a *ngIf="item.tipo == 'abm' && componenteHabilitado(item.componente) && item.idroles == getIdRol()" (click)="setGuardComponente(item.componente)" class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 
@@ -41,7 +41,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'rel' && componenteHabilitado(item.componente)" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
+                <a *ngIf="item.tipo == 'rel' && componenteHabilitado(item.componente) && item.idroles == getIdRol()" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 
@@ -54,7 +54,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <div *ngFor="let item of menus">
-                <a *ngIf="item.tipo == 'frm' && componenteHabilitado(item.componente)" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
+                <a *ngIf="item.tipo == 'frm' && componenteHabilitado(item.componente) && item.idroles == getIdRol()" (click)="setGuardComponente(item.componente)"  class="dropdown-item"
                   [routerLink]="['/'+item.componente]">{{item.nombre}}</a>
               </div>
 

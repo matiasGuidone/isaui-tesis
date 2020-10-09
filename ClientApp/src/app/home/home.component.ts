@@ -28,10 +28,16 @@ export class HomeComponent {
       this.router.navigate(['frm-asistencia']);
     }
     else if (this.rol.nombrerol.toString() == "Alumno"){
-
+      this.logservicio.componenteGuard = "frm-asistenciasalumno";
+      this.router.navigate(['frm-asistenciasalumno']);
     }
   }
-
+ingresoCalendario(){
+    if (this.rol.nombrerol.toString() == "Docente" || this.rol.nombrerol.toString() == "Alumno"){
+      this.logservicio.componenteGuard = "frm-calendariocomp";
+      this.router.navigate(['frm-calendariocomp']);
+    } 
+  }
   ingresoCalificaciones()
   {
     if (this.rol.nombrerol.toString() == "Docente"){

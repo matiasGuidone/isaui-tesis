@@ -6,7 +6,7 @@
        "usuario": ["activo", "inactivo"],
        "consultaasistencia": ["todos"],
        "modulo": ["40"],
-       "evento": ["materia","general"],
+       "evento": ["materia","general","feriado"],
        "filtroAsistencias": {"Nombre/Apellido alumno":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
 
     }
