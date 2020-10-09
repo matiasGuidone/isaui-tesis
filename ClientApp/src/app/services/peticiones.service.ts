@@ -2,11 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 // Observable: recoge informacion de la api rest (header / body)
 import {Observable, from} from 'rxjs';
-/* -log- */
-import {map} from 'rxjs/operators'
-import {isNullOrUndefined} from 'util'
-import { usuario } from '../clases/usuario';
-/* -- */
+
 
 @Injectable()
 export class PeticionesService {

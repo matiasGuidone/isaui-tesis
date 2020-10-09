@@ -27,8 +27,8 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   alumnos: alumno[]= new Array<alumno>();
   examenes: examen[] = new Array<examen>();
   notas: calificacionalumno[] ;
-  @Input() esRelacion: boolean = false;
-  @Output() emisorId = new EventEmitter<string[]>();
+/*   @Input() esRelacion: boolean = false;
+  @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
 
   constructor(protected location: Location,

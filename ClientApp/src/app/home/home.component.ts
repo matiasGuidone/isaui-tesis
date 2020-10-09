@@ -38,8 +38,9 @@ export class HomeComponent {
       this.logservicio.componenteGuard = "frm-carganotas";
       this.router.navigate(['frm-carganotas']);
     }
-    else if (this.rol.nombrerol.toString() == "Alumno"){
-
+    else if (this.rol.nombrerol.toString() == "Alumno"){  
+         this.logservicio.componenteGuard = "frm-consultanotas";
+        this.router.navigate(['frm-consultanotas']);  
     }
   }
 

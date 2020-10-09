@@ -1,0 +1,42 @@
+
+<div [class]="this.servicio.classtable">
+
+    <div class="container">
+        <h3>Consulta de evaluaciones</h3>
+        <hr>
+        <div class="row">
+           <h5 class="col-md-2 control-label">Materias: </h5>
+           <div class="col-md-6">
+              <select (change)="seleccionarMateria()" class="form-control" id="materia">
+                 <option *ngFor="let materia of materias" [value]="materia.id">
+                    {{materia.nombre}}
+                 </option>
+              </select>
+     
+           </div>
+        </div>
+           <br />
+        <table [class]="this.servicio.classtable2">
+            <thead>
+                <tr>
+                   <!--  <th scope="col"><small>Materia</small></th> -->
+                    
+                    <th scope="col" *ngFor="let r of repo"  >
+                        {{r.tipoexamen.toString()}}
+                     </th> <!-- las evaluaciones cargas con tipo -->
+                    
+                     <th scope="col">Promedio de parcial</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td style="width: 60px;" *ngFor="let r of repo">{{r.nota.toString()}} </td>
+                    <td style="width: 60px;">{{prom}}</td>
+                    
+                </tr>
+
+            </tbody>
+        </table>      
+    </div>
+
+</div>
