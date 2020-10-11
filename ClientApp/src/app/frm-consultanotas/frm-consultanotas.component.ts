@@ -17,18 +17,18 @@ import { notarepo } from '../clases/notarepo';
 export class ConsultanotasComponent implements OnInit {
 
   materias: materia[] = new Array<materia>();
-   prom: number=0;
+   prom: any;
    parciales: any[]= new Array<any>();
    finales: any[]= new Array<any>();
   
   constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService) { 
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if(rol.nombrerol.toString()=="Alumno"){
-     this.servicio.loadGrilla('materia',['idalumno', rol.id.toString()] ).subscribe(resultado => { this.materias = resultado;});
+     this.servicio.loadGrilla('materia',['idalumno', rol.id.toString()] ).subscribe(resultado => { this.materias = resultado; if(this.materias.length>0)this.seleccionarMateria(this.materias[0].id)});
     
     }
     else{
-      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado;});
+      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado;if(this.materias.length>0)this.seleccionarMateria(this.materias[0].id)});
     }
   }
   
@@ -36,40 +36,35 @@ export class ConsultanotasComponent implements OnInit {
   ngOnInit() {
   }
 
-  seleccionarMateria(){
+  seleccionarMateria(idinicial =0){
     let reporte = new Array<notarepo>();
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    let id = document.getElementById('materia')['value'];
+
+    let id = idinicial;
+    if(idinicial==0){
+    id = document.getElementById('materia')['value'];}
     const ids= {idalumno: rol.id , idmateria: id}
     this.servicio.loadGrilla('calificacionrepo', [ids.idalumno, ids.idmateria]).subscribe(calificacion => {
       this.parciales = new Array<any>();
       this.finales = new Array<any>();
       this.prom = 0;
       if (calificacion != null && calificacion.length > 0) 
-      {
-        // this.repo= calificacion;
-        //   var cant=0;
-        //   var sumnn=0;
+      { 
         for (let c of calificacion)
         {
           if(c.tipoexamen=='parcial')
           {
             this.parciales.push(c);
-            this.prom += c.nota
-            // cant+=1;
-            // sumnn+=r.nota;
+            this.prom += c.nota;
           }
           if(c.tipoexamen=='final')
           {
-            this.finales.push(c);
-            // cant+=1;
-            // sumnn+=r.nota;
+            this.finales.push(c); 
           }
         }
         this.prom = this.prom / this.parciales.length;
-        if(isNaN(this.prom)|| this.prom==undefined){this.prom = 0;}
-        // var calculo = (sumnn/cant).toString()
-        //this.parciales.forEach(function(par) { par.nota;});
+        if(isNaN(this.prom)|| this.prom==undefined){this.prom = 0;} 
+        else{this.prom = this.prom.toFixed(1);}
       }
     })
 
