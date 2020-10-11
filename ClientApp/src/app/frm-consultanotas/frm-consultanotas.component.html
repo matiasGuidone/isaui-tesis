@@ -21,18 +21,21 @@
                 <tr>
                    <!--  <th scope="col"><small>Materia</small></th> -->
                     
-                    <th scope="col" *ngFor="let r of repo"  >
-                        {{r.tipoexamen.toString()}}
+                    <th scope="col" *ngFor="let r of parciales">
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd-mm-yyyy'}}
                      </th> <!-- las evaluaciones cargas con tipo -->
-                    
-                     <th scope="col">Promedio de parcial</th>
+                     
+                     <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Promedio de parcial</th>
+                     <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" *ngFor="let r of finales"  >
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd/mm/yyyy'}} 
+                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 <tr >
-                    <td style="width: 60px;" *ngFor="let r of repo">{{r.nota.toString()}} </td>
-                    <td style="width: 60px;">{{prom}}</td>
-                    
+                    <td style="width: 60px;" *ngFor="let r of parciales">{{r.nota.toString()}} </td>
+                    <td style="width: 60px;background-color: rgba(43, 226, 202, 0.253);" >{{prom}}</td>
+                    <td style="width: 60px;background-color: rgba(137, 43, 226, 0.253);" *ngFor="let r of finales">{{r.nota.toString()}} </td>
                 </tr>
 
             </tbody>
