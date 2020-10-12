@@ -41,5 +41,7 @@
             </tbody>
         </table>      
     </div>
-
+    <button *ngIf="habilitada" (click)="inscribirfinal()" class="btn btn-success">Inscribirme al final</button>
+    <button *ngIf="this.estainscripto=='si'" (click)="inscribirfinal()" class="btn btn-info">Anular inscripcion</button>
+    
 </div>

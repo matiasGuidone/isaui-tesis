@@ -43,9 +43,9 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     if (rol.nombrerol.toString() == "Docente") {
       this.servicio.loadGrilla('materia', ['iddocente', rol.id.toString()]).subscribe(resultado => {
         this.materias = resultado;
-        if (this.materias.length > 0) 
-        {  
-         this.seleccionarMateria(this.materias[0].id); }
+        if (this.materias.length > 0) {
+          this.seleccionarMateria(this.materias[0].id);
+        }
       });
 
     }
@@ -75,10 +75,11 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   //evento para la selección de materias
   seleccionarMateria(ids = 0) {
     this.alumnos = new Array<alumno>();
-    let id = ids ;
-    if(ids ==0){
-    id = document.getElementById('materia')['value'];}
-    
+    let id = ids;
+    if (ids == 0) {
+      id = document.getElementById('materia')['value'];
+    }
+
     this.servicio.loadGrilla('alumno', ['idmateria', id.toString()]).subscribe(alumnom => {
       if (alumnom != null && alumnom.length > 0) {
         this.alumnos = alumnom;
@@ -90,18 +91,51 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
           for (let n of this.examenes) {
             filtro.push(n.id.toString());
           }
+          let finales = new Array<any>();
+          for (let e of this.examenes) {
+            if (e.tipo == 'final') {
+              finales.push(e);
+            }
+          }
           if (filtro.length > 1) {
             this.servicio.loadGrilla('calificacionalumno', filtro).subscribe(notas => {
               this.notas = notas;
               if (this.notas != null) {
                 for (let n of this.notas) {
+                  //celda de nota
                   let celda = document.getElementById(n.idalumno.toString() + "-" + n.idexamen.toString());
+                  //input de nota
                   let text = document.getElementById("in-" + n.idalumno.toString() + "-" + n.idexamen.toString());
+
                   text['value'] = n.nota.toString();
+
                   if (n.nota > 7) { celda.style.backgroundColor = '#b6b9bb93'; }
                   else if (n.nota > 4) { celda.style.backgroundColor = '#696a6b93'; }
                   else { celda.style.backgroundColor = '#3e3f4193'; }
+
                 }
+                //examenes finales
+                for (let fin of finales) {
+                  for (let alu of this.alumnos) {
+                    //celda de nota
+                    let celda = document.getElementById(alu.id.toString() + "-" + fin.id.toString());
+                    //input de nota
+                    let text = document.getElementById("in-" + alu.id.toString() + "-" + fin.id.toString());
+                    //boton de nota
+                    let btn = document.getElementById("btn-" + alu.id.toString() + "-" + fin.id.toString());
+                    if (text['value'] == 11) {
+                      text['value'] = '';
+                    }
+                    else if (text['value'] == 0 || text['value'] == '') {
+                      text.style.display = 'none';
+                      btn.style.display = 'none';
+                    }
+                    else {
+                      btn.style.display = 'none';
+                    }
+                  }
+                }
+
               }
             });
           }
@@ -196,7 +230,12 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
       for (let i of this.examenes) {
         let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
         if (no != undefined) {
-          alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          if (no.nota == 11) {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';
+          }
+          else {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          }
         }
         else {
           alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = '-';
@@ -223,7 +262,12 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
       for (let i of this.examenes) {
         let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
         if (no != undefined) {
-          alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          if (no.nota == 11) {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';
+          }
+          else {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          }
         }
         else {
           alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = '-';

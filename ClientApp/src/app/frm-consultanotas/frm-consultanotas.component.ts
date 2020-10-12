@@ -7,6 +7,7 @@ import { AuthLoginService } from '../services/authlogin.service';
 import { calificacionalumno } from '../clases/calificacionalumno';
 import { examen } from '../clases/examen';
 import { notarepo } from '../clases/notarepo';
+import { ModalService } from '../modal/modal-service.service';
 
 
 @Component({
@@ -17,57 +18,111 @@ import { notarepo } from '../clases/notarepo';
 export class ConsultanotasComponent implements OnInit {
 
   materias: materia[] = new Array<materia>();
-   prom: any;
-   parciales: any[]= new Array<any>();
-   finales: any[]= new Array<any>();
-  
-  constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService) { 
+  prom: any; 
+  parciales: any[] = new Array<any>();
+  finales: any[] = new Array<any>();
+  calificaciones: any[] = new Array<any>();
+  estainscripto: string = '';
+  idmateria = 0;
+  habilitada:boolean =false;
+
+  constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) {
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if(rol.nombrerol.toString()=="Alumno"){
-     this.servicio.loadGrilla('materia',['idalumno', rol.id.toString()] ).subscribe(resultado => { this.materias = resultado; if(this.materias.length>0)this.seleccionarMateria(this.materias[0].id)});
-    
-    }
-    else{
-      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado;if(this.materias.length>0)this.seleccionarMateria(this.materias[0].id)});
+    if (rol.nombrerol.toString() == "Alumno") {
+      this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+
     }
   }
-  
-  
+
+
   ngOnInit() {
   }
 
-  seleccionarMateria(idinicial =0){
+  seleccionarMateria(idinicial = 0) {
     let reporte = new Array<notarepo>();
     let rol = JSON.parse(localStorage.getItem("Rol"));
-
-    let id = idinicial;
-    if(idinicial==0){
-    id = document.getElementById('materia')['value'];}
-    const ids= {idalumno: rol.id , idmateria: id}
-    this.servicio.loadGrilla('calificacionrepo', [ids.idalumno, ids.idmateria]).subscribe(calificacion => {
+    this.idmateria = idinicial;
+    if (idinicial == 0) {
+      this.idmateria = document.getElementById('materia')['value'];
+    }
+    const ids = { idalumno: rol.id, idmateria: this.idmateria }
+    this.servicio.loadGrilla('calificacionrepo', [ids.idalumno.toString(), ids.idmateria.toString()]).subscribe(calificacion => {
+      this.calificaciones = calificacion;
       this.parciales = new Array<any>();
+      this.estainscripto = '';
       this.finales = new Array<any>();
       this.prom = 0;
-      if (calificacion != null && calificacion.length > 0) 
-      { 
-        for (let c of calificacion)
-        {
-          if(c.tipoexamen=='parcial')
-          {
+      if (calificacion != null && calificacion.length > 0) {
+        for (let c of calificacion) {
+          if (c.tipoexamen == 'parcial') {
             this.parciales.push(c);
             this.prom += c.nota;
+
           }
-          if(c.tipoexamen=='final')
-          {
-            this.finales.push(c); 
+          if (c.tipoexamen == 'final') {
+            if (c.nota != 0 && c.nota != 11) {
+              this.finales.push(c);
+            }
+            else if (c.nota == 0 && c.idcalificacion == 0) { this.estainscripto = 'no'; }
+            else if (c.nota == 0 && c.idcalificacion > 0) { this.estainscripto = 'estuvo'; }
+            else if (c.nota == 11 && c.idcalificacion > 0) { this.estainscripto = 'si'; }
           }
         }
         this.prom = this.prom / this.parciales.length;
-        if(isNaN(this.prom)|| this.prom==undefined){this.prom = 0;} 
-        else{this.prom = this.prom.toFixed(1);}
+        if (isNaN(this.prom) || this.prom == undefined) { this.prom = 0; }
+        else { this.prom = this.prom.toFixed(1); }
+        this.habilitadaInscripcion();
       }
     })
+  }
 
+  habilitadaInscripcion() {
+    //condicion de los días de habilitacion
+    if (this.calificaciones.length>0) {
+      this.modalservice.setCaseEstado('tiempoExamen');
+      let fecha = this.calificaciones.find(exam => exam.tipoexamen == 'final' && exam.nota == 0 );
+      if(fecha!=undefined){
+      let fechadesde = this.sumarDias( new Date(fecha.fecha), -(+this.modalservice.estados.DiasDesde));
+      let fechahasta = this.sumarDias( new Date(fecha.fecha), -(+this.modalservice.estados.DiasHasta));
+      if (new Date() > fechadesde && new Date() < fechahasta) {
+        if ((this.estainscripto == 'no' || this.estainscripto == 'estuvo') && this.parciales.length>=4) { this.habilitada= true; }
+        else if (this.estainscripto == 'si') { this.habilitada= false; }
+      }
+    }
+      else this.habilitada=  false;
+    } 
+  }
+  inscribirfinal() {
+    if (this.estainscripto == 'si') {
+      let rol = JSON.parse(localStorage.getItem("Rol"));
+      let final = this.calificaciones.find(final => final.nota == 11 && final.tipoexamen == 'final');
+      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '0', 'idexamen': final.idexamen, 'id': final.idcalificacion })
+      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+        this.seleccionarMateria();
+      });
+    }
+    else if (this.estainscripto == 'estuvo') {
+      let rol = JSON.parse(localStorage.getItem("Rol"));
+      let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
+      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': final.idcalificacion })
+      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+        this.seleccionarMateria();
+      });
+
+    }
+    else if (this.estainscripto == 'no') {
+      let rol = JSON.parse(localStorage.getItem("Rol"));
+      let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
+      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
+      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+        this.seleccionarMateria();
+      });
+    }
+  }
+
+  sumarDias(fecha, dias) {
+    fecha.setDate(fecha.getDate() + dias);
+    return fecha;
   }
 
 }
