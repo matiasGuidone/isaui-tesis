@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLoginService } from '../services/authlogin.service';
 import { PeticionesService } from '../services/peticiones.service';
@@ -36,7 +36,7 @@ ingresoCalendario(){
     if (this.rol.nombrerol.toString() == "Docente" || this.rol.nombrerol.toString() == "Alumno"){
       this.logservicio.componenteGuard = "frm-calendariocomp";
       this.router.navigate(['frm-calendariocomp']);
-    } 
+    }
   }
   ingresoCalificaciones()
   {
@@ -46,6 +46,13 @@ ingresoCalendario(){
     }
     else if (this.rol.nombrerol.toString() == "Alumno"){
 
+    }
+  }
+
+  ingresoMensajes()
+  {
+    if (this.rol.nombrerol.toString() == "Alumno"){
+      this.router.navigate(['mensajes']);
     }
   }
 

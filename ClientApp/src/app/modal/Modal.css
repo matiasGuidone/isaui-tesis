@@ -3,21 +3,38 @@ button {
     width: 110px;
   }
 
+
   p.p2 {
     background-color: white;
     border: 1px solid #707174;
     height: auto;
     padding: 20px;
     position: fixed;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
     top: -50px;
     text-align: center;
     z-index: 3000;
     opacity: 1;
     margin-top: 250px;
     min-inline-size: -webkit-fill-available;
-    
+  }
+  p.mensaje {
+    background-color: white;
+    border: 1px solid #707174;
+    height: auto;
+    padding: 20px;
+    position: fixed;
+    margin-left: 20%;
+    margin-right: 20%;
+    top: -50px;
+    z-index: 3000;
+    opacity: 1;
+    margin-top: 250px;
+    min-inline-size: -webkit-fill-available;
+    text-indent: 5px;
+    text-align: start;
+
   }
 
   p.p3 {
@@ -111,6 +128,24 @@ button {
       margin-right: 25%;
       z-index: 3000;
        opacity: 1;
+      min-inline-size: -webkit-fill-available;
+      backdrop-filter: blur(10px);
+      -webkit-transition: opacity 0.9s ease-in-out;
+      -moz-transition: opacity 0.9s ease-in-out;
+      transition: opacity 0.9s ease-in-out;
+    }
+    p.mensaje {
+      background-color: white;
+      border: 1px solid #707174;
+      height: auto;
+
+      position: fixed;
+      margin-left: 20%;
+      margin-right: 20%;
+      top: -50px;
+      z-index: 3000;
+      opacity: 1;
+      margin-top: 250px;
       min-inline-size: -webkit-fill-available;
       backdrop-filter: blur(10px);
       -webkit-transition: opacity 0.9s ease-in-out;

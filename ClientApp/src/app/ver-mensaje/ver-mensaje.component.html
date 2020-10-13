@@ -1,0 +1,22 @@
+
+<h4><div *ngIf="alumno['nombrerol'] == 'Alumno' ">
+<div [innerHTML]="alumno['nombreapellido']">
+</div>estos son tus mensajes:
+</div></h4>
+
+
+ <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Materia</th>
+                <th scope="col">Mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let mensaje of mensajes">
+                <td>{{mensaje.nombreMateria}}</td>
+                <td>{{mensaje.tituloMensaje}} <a [routerLink]="" (click)="abrirModal(mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
+            </tr>
+        </tbody>
+    </table>
+

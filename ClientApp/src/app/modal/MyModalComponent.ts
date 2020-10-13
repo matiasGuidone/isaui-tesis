@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Modal } from './models/modal.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import Nodo from '../clases/Nodo';
 import { AuthLoginService } from '../services/authlogin.service';
 
+
 @Component({
   templateUrl: './MyModalComponent.html',
   styleUrls: ['./Modal.css']
 })
-export class MyModalComponent extends Modal {
+export class MyModalComponent extends Modal implements OnInit {
   title: string;
   message: string;
   tipo: number;
@@ -23,6 +24,14 @@ export class MyModalComponent extends Modal {
     super();
     this.formGroup = new FormGroup({});
     this.modalService.setListaAbm();
+  }
+
+  ngOnInit(){
+    // Tipo 5 : Mensajes Vista
+   /*  if (this.tipo == 5){
+      let htmlvista = document.getElementById('htmlvista');
+      htmlvista.innerHTML = this.message;
+      } */
   }
   onInjectInputs(inputs): void {
     this.title = inputs.title;
@@ -64,6 +73,7 @@ export class MyModalComponent extends Modal {
       this.objetoIn = inputs.parametros;
 
     }
+
   }
 
 
@@ -166,7 +176,7 @@ export class MyModalComponent extends Modal {
       else return false;
     } catch (excep) { this.formGroup.get(campo).setValue(''); return true; }
   }
-  
+
   selectRol(item) {
     this.close(item);
     return true;

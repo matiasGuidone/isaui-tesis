@@ -48,11 +48,12 @@ import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
 import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
 import { CarganotadocenteComponent } from './carganotadocente/carganotadocente.component';
-import { FrmCalendarioComponent } from './frm-calendario/frm-calendario.component'; 
+import { FrmCalendarioComponent } from './frm-calendario/frm-calendario.component';
 import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
 import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
 import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
+import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
 
 
 @NgModule({
@@ -95,10 +96,11 @@ import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendarioc
     AbmMensajeComponent,
     FrmMensajesComponent,
     CarganotadocenteComponent,
-    FrmCalendarioComponent, 
+    FrmCalendarioComponent,
     CmpHorariosComponent,
     FrmAsistenciasalumnoComponent,
     FrmCalendariocompComponent,
+    VerMensajeComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -108,8 +110,10 @@ import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendarioc
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
+
       { path: '', component: HomeComponent, canActivate: [GuardAutogestion]},
       { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion]},
+      { path: 'mensajes', component: VerMensajeComponent},
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },

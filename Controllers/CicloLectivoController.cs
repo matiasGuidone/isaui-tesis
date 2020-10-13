@@ -52,11 +52,11 @@ public class CicloLectivoController : Controller
     [HttpGet]
     public IEnumerable<ciclolectivo> GetCicloLectivos([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
-         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
-        {
+        /*  if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        { */
         return CicloLectivoConexion<ciclolectivo>.Instance.SearchAll(arrayfiltros);
-        }
-        else return null;
+        /* }
+        else return null; */
     }
 
     // GET: api/ApiWithActions/5

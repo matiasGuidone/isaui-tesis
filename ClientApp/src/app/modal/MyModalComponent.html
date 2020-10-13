@@ -34,7 +34,7 @@
               <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
                 style="flex: none; width:20px;" (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}" />
               <input style="width:40%;flex: 20 1 110px;" disabled type="text" id="{{par.tipo}}-desc" />
-               
+
               <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info"
                 (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button>
             </div>
@@ -138,9 +138,20 @@
       <div class="list-group">
       <div class="select" *ngFor="let item of message">
         <a (click)="selectRol(item)" class="list-group-item list-group-item-action">{{item}}</a>
-        
+
       </div>
     </div>
-    </a> 
+    </a>
     <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button></p>
 </div>
+<div *ngIf="tipo == 5">
+  <p class="mensaje">
+    {{title}}<br /><br />
+    <a>
+      <div [innerHTML]="message">
+
+      </div>
+
+    </a>
+    <button type="button" class="btn btn-info "  (click)="cancel()">Aceptar</button></div>
+
