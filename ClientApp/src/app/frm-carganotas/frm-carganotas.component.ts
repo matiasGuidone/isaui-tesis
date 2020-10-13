@@ -24,11 +24,11 @@ import { datoadjunto } from '../clases/datoadjunto';
 export class FrmCarganotasComponent extends abm<examen> implements OnInit {
 
   materias: materia[] = new Array<materia>();
-  alumnos: alumno[]= new Array<alumno>();
+  alumnos: alumno[] = new Array<alumno>();
   examenes: examen[] = new Array<examen>();
-  notas: calificacionalumno[] ;
-  @Input() esRelacion: boolean = false;
-  @Output() emisorId = new EventEmitter<string[]>();
+  notas: calificacionalumno[];
+  /*   @Input() esRelacion: boolean = false;
+    @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
 
   constructor(protected location: Location,
@@ -40,12 +40,17 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     this.modalService.setCaseEstado('examen');
     //--
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if(rol.nombrerol.toString()=="Docente"){
-     this.servicio.loadGrilla('materia',['iddocente', rol.id.toString()] ).subscribe(resultado => { this.materias = resultado;});
-    
+    if (rol.nombrerol.toString() == "Docente") {
+      this.servicio.loadGrilla('materia', ['iddocente', rol.id.toString()]).subscribe(resultado => {
+        this.materias = resultado;
+        if (this.materias.length > 0) {
+          this.seleccionarMateria(this.materias[0].id);
+        }
+      });
+
     }
-    else{
-      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado;});
+    else {
+      this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) { this.seleccionarMateria(this.materias[0].id); } });
     }
 
   }
@@ -60,16 +65,21 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     if (+out > 10) { out = '10'; }
     if (+out < 1) { out = '1'; }
     document.getElementById(id)['value'] = out;
-    if (out != '1') { 
-      let n : any =document.getElementById(id);
-      n.select(); }
+    if (out != '1') {
+      let n: any = document.getElementById(id);
+      n.select();
+    }
   }
 
 
   //evento para la selección de materias
-  seleccionarMateria() {
+  seleccionarMateria(ids = 0) {
     this.alumnos = new Array<alumno>();
-    let id = document.getElementById('materia')['value'];
+    let id = ids;
+    if (ids == 0) {
+      id = document.getElementById('materia')['value'];
+    }
+
     this.servicio.loadGrilla('alumno', ['idmateria', id.toString()]).subscribe(alumnom => {
       if (alumnom != null && alumnom.length > 0) {
         this.alumnos = alumnom;
@@ -81,18 +91,51 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
           for (let n of this.examenes) {
             filtro.push(n.id.toString());
           }
+          let finales = new Array<any>();
+          for (let e of this.examenes) {
+            if (e.tipo == 'final') {
+              finales.push(e);
+            }
+          }
           if (filtro.length > 1) {
             this.servicio.loadGrilla('calificacionalumno', filtro).subscribe(notas => {
               this.notas = notas;
               if (this.notas != null) {
                 for (let n of this.notas) {
+                  //celda de nota
                   let celda = document.getElementById(n.idalumno.toString() + "-" + n.idexamen.toString());
+                  //input de nota
                   let text = document.getElementById("in-" + n.idalumno.toString() + "-" + n.idexamen.toString());
+
                   text['value'] = n.nota.toString();
+
                   if (n.nota > 7) { celda.style.backgroundColor = '#b6b9bb93'; }
                   else if (n.nota > 4) { celda.style.backgroundColor = '#696a6b93'; }
                   else { celda.style.backgroundColor = '#3e3f4193'; }
+
                 }
+                //examenes finales
+                for (let fin of finales) {
+                  for (let alu of this.alumnos) {
+                    //celda de nota
+                    let celda = document.getElementById(alu.id.toString() + "-" + fin.id.toString());
+                    //input de nota
+                    let text = document.getElementById("in-" + alu.id.toString() + "-" + fin.id.toString());
+                    //boton de nota
+                    let btn = document.getElementById("btn-" + alu.id.toString() + "-" + fin.id.toString());
+                    if (text['value'] == 11) {
+                      text['value'] = '';
+                    }
+                    else if (text['value'] == 0 || text['value'] == '') {
+                      text.style.display = 'none';
+                      btn.style.display = 'none';
+                    }
+                    else {
+                      btn.style.display = 'none';
+                    }
+                  }
+                }
+
               }
             });
           }
@@ -129,112 +172,123 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
 
   }
   //pone visible el componente para crear una nueva calificacion
-  nuevoexamen(){
+  nuevoexamen() {
     let not = document.getElementById("nota");
-    if(not.style.display == 'none' || not.style.display == '')
-      not.style.display="block";
+    if (not.style.display == 'none' || not.style.display == '')
+      not.style.display = "block";
     else
-      not.style.display="none";
+      not.style.display = "none";
   }
   //pone no visible el componente para crear una nueva calificacion
-  cerrarexamen(){
+  cerrarexamen() {
     let not = document.getElementById("nota");
-    not.style.display="none";
+    not.style.display = "none";
   }
   //almacena la nueva calificacion para la materia
-  guardarexamen(){ 
+  guardarexamen() {
     let fecha = document.getElementById("fecha")['value'];
     let tipo = document.getElementById("tipo")['value'];
     let descripcion = document.getElementById("descripcion")['value'];
     let idmateria = document.getElementById('materia')['value'];
-    let exam = new examen({'id':'0','fecha':fecha,'tipo':tipo,'observaciones': descripcion,'idmateria' : idmateria, 'idciclolectivo':'0'});
-    this.servicio.addSingleAbm(exam,'examen').subscribe(r =>{
+    let exam = new examen({ 'id': '0', 'fecha': fecha, 'tipo': tipo, 'observaciones': descripcion, 'idmateria': idmateria, 'idciclolectivo': '0' });
+    this.servicio.addSingleAbm(exam, 'examen').subscribe(r => {
       this.seleccionarMateria();
       let not = document.getElementById("nota");
-      not.style.display="none";
+      not.style.display = "none";
     });
-     
+
   }
   //pone visible el componente para editar calificacion
-  editarexamen(idexamen,num){
-    let not = document.getElementById("editar-"+idexamen.toString());
-    if(num==0)
-      not.style.display="block";
-      else
-      not.style.display="none";
+  editarexamen(idexamen, num) {
+    let not = document.getElementById("editar-" + idexamen.toString());
+    if (num == 0)
+      not.style.display = "block";
+    else
+      not.style.display = "none";
   }
-  
+
   //almacena el examen editado
-  guardarexameneditado(idexamen){ 
-    let fecha = document.getElementById("fecha-"+idexamen.toString())['value'];
-    let tipo = document.getElementById("tipo-"+idexamen.toString())['value'];
-    let descripcion = document.getElementById("descripcion-"+idexamen.toString())['value'];
-    let exame = this.examenes.find(exa => exa.id == idexamen); 
-    let exam = new examen({'id': exame.id,'fecha':fecha,'tipo':tipo,'observaciones': descripcion,'idmateria' : exame.idmateria, 'idciclolectivo':exame.idciclolectivo});
-    this.servicio.addSingleAbm(exam,'examen').subscribe(r =>{
+  guardarexameneditado(idexamen) {
+    let fecha = document.getElementById("fecha-" + idexamen.toString())['value'];
+    let tipo = document.getElementById("tipo-" + idexamen.toString())['value'];
+    let descripcion = document.getElementById("descripcion-" + idexamen.toString())['value'];
+    let exame = this.examenes.find(exa => exa.id == idexamen);
+    let exam = new examen({ 'id': exame.id, 'fecha': fecha, 'tipo': tipo, 'observaciones': descripcion, 'idmateria': exame.idmateria, 'idciclolectivo': exame.idciclolectivo });
+    this.servicio.addSingleAbm(exam, 'examen').subscribe(r => {
       this.seleccionarMateria();
-      let not = document.getElementById("editar-"+idexamen.toString());
-      not.style.display="none";
+      let not = document.getElementById("editar-" + idexamen.toString());
+      not.style.display = "none";
     });
-     
+
   }
   //exportar archivo de notas
-  excelNotas(){
-    let data : any[] = new Array<any>();
-    for (let n of this.alumnos){ 
-      let alu : any= new Object();
-      alu['Alumnos'] = n.apellido+", "+n.nombre;
-      for(let i of this.examenes){
-        let no = this.notas.find(m => m.idalumno==n.id && m.idexamen== i.id);
-        if(no != undefined){
-          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = no.nota;
+  excelNotas() {
+    let data: any[] = new Array<any>();
+    for (let n of this.alumnos) {
+      let alu: any = new Object();
+      alu['Alumnos'] = n.apellido + ", " + n.nombre;
+      for (let i of this.examenes) {
+        let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
+        if (no != undefined) {
+          if (no.nota == 11) {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';
+          }
+          else {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          }
         }
-        else{
-          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = '-';
+        else {
+          alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = '-';
         }
       }
       data.push(alu);
     }
-    this.excelservicio.exportAsExcelFile(data, 'Notas-'+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.xlsx');
+    this.excelservicio.exportAsExcelFile(data, 'Notas-' + this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.xlsx');
   }
-   //exportar archivo de notas
-   pdfNotas(){
+  //exportar archivo de notas
+  pdfNotas() {
     let fecha = this.stringFecha(new Date(), 'comp');
-      let fechafile = this.stringFecha(new Date(), '');
+    let fechafile = this.stringFecha(new Date(), '');
     let head = [[]];
     let body = new Array<any[]>();
     const doc = new jspdf.jsPDF();
     let descripcion: string;
     //obtengo la imagen base64
     let base64Img = logo64.image;
-    let data : any[] = new Array<any>();
-    for (let n of this.alumnos){ 
-      let alu : any= new Object();
-      alu['Alumnos'] = n.apellido+", "+n.nombre;
-      for(let i of this.examenes){
-        let no = this.notas.find(m => m.idalumno==n.id && m.idexamen== i.id);
-        if(no != undefined){
-          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = no.nota;
+    let data: any[] = new Array<any>();
+    for (let n of this.alumnos) {
+      let alu: any = new Object();
+      alu['Alumnos'] = n.apellido + ", " + n.nombre;
+      for (let i of this.examenes) {
+        let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
+        if (no != undefined) {
+          if (no.nota == 11) {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';
+          }
+          else {
+            alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = no.nota;
+          }
         }
-        else{
-          alu[i.tipo+"-"+i.fecha.toString().substring(0,10)] = '-';
+        else {
+          alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = '-';
         }
       }
       data.push(alu);
     }
     //this.excelservicio.exportAsExcelFile(data, "file.xlsx");
 
-    for (let m in data[0]) { 
-        head[0].push(m);
+    for (let m in data[0]) {
+      head[0].push(m);
     }
-  
+
     for (var i in data) {
       let ar: any[] = new Array<any>();
-      for (var j in  data[i]) {
-         ar.push( data[i][j]); }     
+      for (var j in data[i]) {
+        ar.push(data[i][j]);
+      }
       body.push(ar);
     }
-    let desc = 'Notas de la materia '+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre;
+    let desc = 'Notas de la materia ' + this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre;
     autoTable(doc, {
       head: head,
       body: body,
@@ -264,7 +318,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
       },
       margin: { top: 30 }
     });
-    doc.save( 'Notas-'+this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.pdf');
+    doc.save('Notas-' + this.materias.find(materia => materia.id == document.getElementById('materia')['value']).nombre + '.pdf');
 
   }
 

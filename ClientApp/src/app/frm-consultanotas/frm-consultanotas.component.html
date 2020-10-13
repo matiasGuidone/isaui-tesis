@@ -1,0 +1,47 @@
+
+<div [class]="this.servicio.classtable">
+
+    <div class="container">
+        <h3>Consulta de evaluaciones</h3>
+        <hr>
+        <div class="row">
+           <h5 class="col-md-2 control-label">Materias: </h5>
+           <div class="col-md-6">
+              <select (change)="seleccionarMateria()" class="form-control" id="materia">
+                 <option *ngFor="let materia of materias" [value]="materia.id">
+                    {{materia.nombre}}
+                 </option>
+              </select>
+     
+           </div>
+        </div>
+           <br />
+        <table [class]="this.servicio.classtable2">
+            <thead>
+                <tr>
+                   <!--  <th scope="col"><small>Materia</small></th> -->
+                    
+                    <th scope="col" *ngFor="let r of parciales">
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd-mm-yyyy'}}
+                     </th> <!-- las evaluaciones cargas con tipo -->
+                     
+                     <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Promedio de parcial</th>
+                     <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" *ngFor="let r of finales"  >
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd/mm/yyyy'}} 
+                     </th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr >
+                    <td style="width: 60px;" *ngFor="let r of parciales">{{r.nota.toString()}} </td>
+                    <td style="width: 60px;background-color: rgba(43, 226, 202, 0.253);" >{{prom}}</td>
+                    <td style="width: 60px;background-color: rgba(137, 43, 226, 0.253);" *ngFor="let r of finales">{{r.nota.toString()}} </td>
+                </tr>
+
+            </tbody>
+        </table>      
+    </div>
+    <button *ngIf="habilitada" (click)="inscribirfinal()" class="btn btn-success">Inscribirme al final</button>
+    <button *ngIf="this.estainscripto=='si'" (click)="inscribirfinal()" class="btn btn-info">Anular inscripcion</button>
+    
+</div>

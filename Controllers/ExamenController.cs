@@ -51,10 +51,11 @@ public class ExamenController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<examen> GetDomicilios([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<examen> GetExamen([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
+            //preguntar si los filtros tienen idalumno => alternativa 
             return ExamenConexion<examen>.Instance.SearchAll(arrayfiltros);
         }
         else return null;
@@ -62,7 +63,7 @@ public class ExamenController : Controller
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public examen GetDomicilio(int id, [FromHeader] string token)
+    public examen GetExamen(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {

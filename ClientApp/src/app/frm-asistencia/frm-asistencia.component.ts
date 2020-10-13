@@ -12,6 +12,8 @@ import { abm } from '../clases/abm';
 import { materia } from '../clases/materia';
 import { horasmateria } from '../clases/horasmateria';
 import { AuthLoginService } from '../services/authlogin.service';
+import { evento } from '../clases/evento';
+import { ThrowStmt } from '@angular/compiler';
 
 //ventanas modales
 
@@ -21,6 +23,8 @@ import { AuthLoginService } from '../services/authlogin.service';
   styleUrls: ['./frm-asistencia.component.css']
 })
 export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
+
+  //variables
   dias: any[] = new Array<any>();
   alumnos: alumno[] = new Array<alumno>();
   materias: materia[] = new Array<materia>();
@@ -28,7 +32,10 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
   hoyr = this.formatearFecha(new Date(), 'n');
   horamateria: horasmateria[] = new Array<horasmateria>();
   asistencias: asistencia[] = new Array<asistencia>();
+  feriados: any[]= new Array<any>();
   iddocente = null;
+
+
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
@@ -36,9 +43,30 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     super(location, modalService, servicio, logservicio);
     //**array de dias */
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 6;
-    //let dia = 1000 * 60 * 60 * 12;
-
+    //let dia = 1000 * 60 * 60 * 12; 
     let desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
+    this.servicio.loadGrilla('evento',['tipo','feriado','ano',this.hoy.getFullYear().toString()]).subscribe(resul=>{
+      desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
+      for(let f of resul){
+
+        let eve = new evento({ 'id': f.id, 'idmateria': f.idmateria, 'fechafin': f.fechafin, 'fechainicio': f.fechainicio, 'nombre': f.nombre, 'tipo': f.tipo });
+        if ( eve.fechainicio <= this.hoy && eve.fechainicio >= desde){
+          this.feriados.push(this.formatearFecha(eve.fechainicio,''));
+          if(this.formatearFecha(eve.fechainicio,'')!= this.formatearFecha(eve.fechafin,'')){
+            let daux = new Date();
+            daux.setDate(eve.fechainicio.getDate() + 1);
+            for(let n of this.dias){ 
+              this.feriados.push(this.formatearFecha(daux,''));
+              if(this.formatearFecha(daux,'') == this.formatearFecha(eve.fechafin,'')){
+                break;
+              } 
+              else{daux.setDate(daux.getDate() + 1);}
+            }
+          }
+        }
+      }
+    });
+    
     let semana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     for (var i = 0; i < 13; i++) {
         this.dias.push({ 'numero': this.formatearFecha(desde, ''), 'diasemana': desde.getUTCDay(), 'sem': semana[desde.getUTCDay()] });
@@ -110,7 +138,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
               });
 
               //filtro para días donde ya se tomaron asistencias
-              let filtro = new Array<string>();
+               let filtro = new Array<string>();
               for(let de of dias) {
                 if(this.asistencias.length>0){
                   if(this.asistencias.find(as => this.formatearFecha(as.fecha,'') == de.numero)){
@@ -132,7 +160,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
                     celda.style.backgroundColor = "#308bc893";
                   celda.style.border = "1px solid #308bc8";
                   }
-                  if ( f <= f2 && !filtro.find(c =>c == m.numero.toString())) {
+                  if ( f <= f2 && !filtro.find(c =>c == m.numero.toString()) && !this.feriados.find(c =>c == m.numero.toString())) {
                     const ass = document.createElement('input');
                     ass.type = "checkbox";
                     ass.style.width = "15px"
@@ -143,6 +171,14 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
                     // si existen registros para aprobar se habilita el botón aceptar
                     document.getElementById('aceptar').style.display='block';
                 
+                  }
+                  else if(filtro.find(c =>c == m.numero.toString())){
+                    celda.style.backgroundColor = "#22587c93";
+                    celda.style.border = "1px solid #308bc8";
+                  }
+                  else if(this.feriados.find(c =>c == m.numero.toString())){
+                    celda.style.backgroundColor = "#92430fc2";
+                    celda.style.border = "1px solid #d36014";
                   }
                 }
               }

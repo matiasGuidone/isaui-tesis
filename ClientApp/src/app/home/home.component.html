@@ -20,7 +20,7 @@
 <span class="btn btn-outline-light icon solid fa-file-signature"></span>
 <div class="content">
 <h3>Calificaciones</h3>
-
+<span *ngIf="inscripto" class="badge badge-info">Estas inscripto en {{finales}} final</span>
 </div>
 </article>
 <article (click)="ingresoCalendario()">
