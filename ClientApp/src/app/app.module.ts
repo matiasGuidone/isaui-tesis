@@ -51,7 +51,7 @@ import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
 import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
 import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
-import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
+import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component'; 
 
 
 
@@ -93,13 +93,13 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
     FrmCarganotasComponent,
     FrmConsultaasistenciasComponent,
     AbmMensajeComponent,
-    FrmMensajesComponent,
-    CarganotadocenteComponent,
+    FrmMensajesComponent, 
     FrmCalendarioComponent,
     CmpHorariosComponent,
     FrmAsistenciasalumnoComponent,
     FrmCalendariocompComponent,
-    VerMensajeComponent
+    VerMensajeComponent,
+    ConsultanotasComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
