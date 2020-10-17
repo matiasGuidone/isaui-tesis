@@ -51,7 +51,10 @@ import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
 import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
 import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
-import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component'; 
+import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
+import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria/rel-curriculumconvocatoria.component';
+import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component'; 
+import { curriculum } from './clases/curriculum';
 
 
 
@@ -99,7 +102,9 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
     FrmAsistenciasalumnoComponent,
     FrmCalendariocompComponent,
     VerMensajeComponent,
-    ConsultanotasComponent
+    ConsultanotasComponent,
+    RelCurriculumconvocatoriaComponent,
+    AbmCurriculumComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -148,6 +153,8 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},
+     {path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate:[Guard]},
+     {path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate:[Guard]},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],

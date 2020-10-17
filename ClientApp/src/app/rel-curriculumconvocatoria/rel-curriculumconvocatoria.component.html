@@ -1,0 +1,9 @@
+<app-abm-convocatoria [esRelacion]="true" (emisorId)="searchCurriculum($event)"></app-abm-convocatoria>
+<br />
+<br />
+<h4 [class]="this.servicio.classtable" >{{convocatoriaselecionada}}</h4>
+<br />
+<hr> 
+<br />
+<app-abm-curriculum [esRelacion]="true" [lista]="this.listaCV" ></app-abm-curriculum>
+<button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()" ><span ></span>Modificar curriculum</button>
