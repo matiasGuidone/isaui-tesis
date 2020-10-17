@@ -22,12 +22,12 @@
                    <!--  <th scope="col"><small>Materia</small></th> -->
                     
                     <th scope="col" *ngFor="let r of parciales">
-                        {{r.tipoexamen}}, {{r.fecha | date : 'dd-mm-yyyy'}}
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd-MM-yyyy'}}
                      </th> <!-- las evaluaciones cargas con tipo -->
                      
                      <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Promedio de parcial</th>
                      <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" *ngFor="let r of finales"  >
-                        {{r.tipoexamen}}, {{r.fecha | date : 'dd/mm/yyyy'}} 
+                        {{r.tipoexamen}}, {{r.fecha | date : 'dd-MM-yyyy'}} 
                      </th>
                 </tr>
             </thead>

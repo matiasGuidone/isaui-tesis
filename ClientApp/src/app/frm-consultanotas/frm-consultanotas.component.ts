@@ -54,13 +54,16 @@ export class ConsultanotasComponent implements OnInit {
       this.prom = 0;
       if (calificacion != null && calificacion.length > 0) {
         for (let c of calificacion) {
-          if (c.tipoexamen == 'parcial') {
+          if (c.tipoexamen == 'parcial' ) {
+            if(c.nota == 0){c.nota = 'sin calificación'}
+            c.fecha =  new Date(c.fecha) ;
             this.parciales.push(c);
             this.prom += c.nota;
 
           }
           if (c.tipoexamen == 'final') {
             if (c.nota != 0 && c.nota != 11) {
+              c.fecha =  new Date(c.fecha);
               this.finales.push(c);
             }
             else if (c.nota == 0 && c.idcalificacion == 0) { this.estainscripto = 'no'; }
@@ -123,6 +126,15 @@ export class ConsultanotasComponent implements OnInit {
   sumarDias(fecha, dias) {
     fecha.setDate(fecha.getDate() + dias);
     return fecha;
+  }
+
+  formatearFecha(f: any): string {
+    let fecha: Date = new Date(f);
+    let mes: string = (fecha.getMonth() + 1).toString();
+    let dia: string = (fecha.getDate()).toString();
+    if (mes.length < 2) { mes = '0' + mes; }
+    if (dia.length < 2) { dia = '0' + dia; }
+    return (dia + '-' + mes + '-' + fecha.getFullYear());
   }
 
 }

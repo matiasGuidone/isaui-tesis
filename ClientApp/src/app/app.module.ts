@@ -51,7 +51,8 @@ import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
 import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
 import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
-import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component'; 
+import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
+import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component'; 
 
 
 
@@ -99,7 +100,8 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
     FrmAsistenciasalumnoComponent,
     FrmCalendariocompComponent,
     VerMensajeComponent,
-    ConsultanotasComponent
+    ConsultanotasComponent,
+    FrmCurriculumComponent
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -112,7 +114,7 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
 
       { path: '', component: HomeComponent, canActivate: [GuardAutogestion]},
       { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion]},
-      { path: 'mensajes', component: VerMensajeComponent},
+      { path: 'frm-vermensajes', component: VerMensajeComponent, canActivate : [Guard] },
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },
@@ -145,6 +147,7 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
+      { path: 'frm-curriculum', component: FrmCurriculumComponent },
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},

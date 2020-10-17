@@ -1,29 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>isaui_tesis</title>
-    <base href="/" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+<head>
+  <meta charset="utf-8" />
+  <title>isaui_tesis</title>
+  <base href="/" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-  </head>
-    <body>
-    <app-root>
-      <div class="row align-items-center justifi-content-center vh-100">
-        <div class="col-sm-6 text-right">
-        <div class="spinner-border text-info" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+    integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+    crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+  <style>
+    .centro {
+      width: 80px;
+      height: 80px;
+      background: white;
+      background-clip: padding-box;
+      border-radius: 50%;
+    }
+
+    .caja {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 10px;
+      border: 10px solid transparent;
+    }
+
+    .estilo-2 {
+      background: white;
+      background-clip: padding-box;
+      border-radius: 1em;
+    }
+
+    .estilo-2:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      margin: -10px;
+      border-radius: inherit;
+      background: rgba(252, 93, 93, 1);
+      background: -moz-linear-gradient(top, rgba(252, 93, 93, 1) 0%, rgba(247, 102, 102, 1) 4%, rgba(245, 106, 106, 0.9) 6%, rgba(245, 106, 106, 0) 25%, rgba(245, 106, 106, 0) 100%);
+      background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(252, 93, 93, 1)), color-stop(4%, rgba(247, 102, 102, 1)), color-stop(6%, rgba(245, 106, 106, 0.9)), color-stop(25%, rgba(245, 106, 106, 0)), color-stop(100%, rgba(245, 106, 106, 0)));
+      background: -webkit-linear-gradient(top, rgba(252, 93, 93, 1) 0%, rgba(247, 102, 102, 1) 4%, rgba(245, 106, 106, 0.9) 6%, rgba(245, 106, 106, 0) 25%, rgba(245, 106, 106, 0) 100%);
+      background: -o-linear-gradient(top, rgba(252, 93, 93, 1) 0%, rgba(247, 102, 102, 1) 4%, rgba(245, 106, 106, 0.9) 6%, rgba(245, 106, 106, 0) 25%, rgba(245, 106, 106, 0) 100%);
+      background: -ms-linear-gradient(top, rgba(252, 93, 93, 1) 0%, rgba(247, 102, 102, 1) 4%, rgba(245, 106, 106, 0.9) 6%, rgba(245, 106, 106, 0) 25%, rgba(245, 106, 106, 0) 100%);
+      background: linear-gradient(to bottom, rgba(252, 93, 93, 1) 0%, rgba(247, 102, 102, 1) 4%, rgba(245, 106, 106, 0.9) 6%, rgba(245, 106, 106, 0) 25%, rgba(245, 106, 106, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fc5d5d', endColorstr='#f56a6a', GradientType=0);
+    }
+
+    .circulo {
+      border-radius: 50%;
+      animation-name: girar;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      display: block;
+      margin: auto;
+      margin-top: 40vh;
+    }
+
+
+    @keyframes girar {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <app-root>
+    <!-- <div class="align-items-center justify-content-center h-100">
+
+      <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
-      </div>
-    </app-root>
-  </body>
+
+    </div> -->
+
+    <!-- <div class="preloader caja estilo-2"></div> -->
+    <div class="caja estilo-2 circulo">
+      <div class="centro"></div>
+    </div>
+
+  </app-root>
+</body>
+
 </html>
