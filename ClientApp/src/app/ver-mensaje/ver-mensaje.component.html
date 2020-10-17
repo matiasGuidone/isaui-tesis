@@ -1,11 +1,11 @@
-
+<div [class]="this.servicio.classtable">
 <h4><div *ngIf="alumno['nombrerol'] == 'Alumno' ">
 <div [innerHTML]="alumno['nombreapellido']">
 </div>estos son tus mensajes:
 </div></h4>
 
 
- <table class="table">
+ <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
                 <th scope="col">Materia</th>
@@ -19,4 +19,4 @@
             </tr>
         </tbody>
     </table>
-
+</div>

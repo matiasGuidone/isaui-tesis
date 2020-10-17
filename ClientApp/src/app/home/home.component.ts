@@ -64,7 +64,12 @@ export class HomeComponent {
   ingresoMensajes()
   {
     if (this.rol.nombrerol.toString() == "Alumno"){
-      this.router.navigate(['mensajes']);
+      this.logservicio.componenteGuard = "frm-vermensajes";
+      this.router.navigate(['frm-vermensajes']);
+    }
+    else if (this.rol.nombrerol.toString() == "Docente") {
+      this.logservicio.componenteGuard = "frm-mensajes";
+      this.router.navigate(['frm-mensajes']);
     }
   }
 

@@ -55,6 +55,7 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
 import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria/rel-curriculumconvocatoria.component';
 import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component'; 
 import { curriculum } from './clases/curriculum';
+import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component'; 
 
 
 
@@ -104,7 +105,9 @@ import { curriculum } from './clases/curriculum';
     VerMensajeComponent,
     ConsultanotasComponent,
     RelCurriculumconvocatoriaComponent,
-    AbmCurriculumComponent
+    AbmCurriculumComponent,
+    FrmCurriculumComponent
+
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -117,7 +120,7 @@ import { curriculum } from './clases/curriculum';
 
       { path: '', component: HomeComponent, canActivate: [GuardAutogestion]},
       { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion]},
-      { path: 'mensajes', component: VerMensajeComponent},
+      { path: 'frm-vermensajes', component: VerMensajeComponent, canActivate : [Guard] },
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },
@@ -150,6 +153,7 @@ import { curriculum } from './clases/curriculum';
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
+      { path: 'frm-curriculum', component: FrmCurriculumComponent },
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},
