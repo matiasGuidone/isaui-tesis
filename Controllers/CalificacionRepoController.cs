@@ -43,10 +43,9 @@ public class CalificacionRepoController : Controller
     public IEnumerable<notarepo> Getnotas([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     // lista de "notarepo" trae lo q filtras y el token (verifica si esta logeado)
     {
-        //preguntar si los filtros tienen idalumno => alternativa 
         if (UsuarioConexion<usuario>.Instance.getUserToken(token)) // se fija si trae token
         {
-
+//preguntar si los filtros tienen idalumno => alternativa 
             var idalumno = "";
             var idmateria = "";
             if (arrayfiltros.Length > 1)

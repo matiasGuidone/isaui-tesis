@@ -55,7 +55,8 @@ import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
 import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria/rel-curriculumconvocatoria.component';
 import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component'; 
 import { curriculum } from './clases/curriculum';
-import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component'; 
+import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
+import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component'; 
 
 
 
@@ -106,7 +107,8 @@ import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.componen
     ConsultanotasComponent,
     RelCurriculumconvocatoriaComponent,
     AbmCurriculumComponent,
-    FrmCurriculumComponent
+    FrmCurriculumComponent,
+    OrdenmeritoComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -159,6 +161,7 @@ import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.componen
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},
      {path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate:[Guard]},
      {path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate:[Guard]},
+     {path: 'ordenmerito', component: OrdenmeritoComponent, canActivate:[Guard]},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],

@@ -51,3 +51,5 @@ ALTER TABLE `mensaje` ADD `Iddocente` INT(11) NOT NULL AFTER `Idmateria`;
 
 /* 17/10 */
 ALTER TABLE `curriculumconvocatoria` ADD `id` INT NULL AFTER `prioridad`;
+/* 19/10 */
+ALTER TABLE `curriculumconvocatoria` CHANGE `puntaje` `puntaje` DECIMAL(11) NULL DEFAULT NULL;

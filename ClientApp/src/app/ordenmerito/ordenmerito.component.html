@@ -1,0 +1,51 @@
+<div [class]="this.servicio.classtable">
+    <div class="container">
+        <h3>Consulta de evaluaciones</h3>
+        <hr>
+        <div class="row">
+           <h5 class="col-md-2 control-label">Convocatoria: </h5>
+           <div class="col-md-6">
+              <select (change)="selecionarconvocatoria()" class="form-control" id="convocatoria">
+                 <option *ngFor="let conv of convocatorias" [value]="conv.id">
+                    {{conv.descripcion}}
+                 </option>
+              </select>
+           </div>
+         </div>
+         <br />
+        <div class="row col border border-danger">
+            <div class="col-md-2">
+                <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>
+            </div>
+           <div class="col-md-5">
+            <samp *ngFor="let f of convocatorias"><h6>De: {{f.fechainicio | date : 'dd-MM-yyyy'}} Hasta: {{f.fechafin | date : 'dd-MM-yyyy'}}</h6></samp>
+         </div>
+          <div class="col-md-5">
+              <span *ngIf="materia!=null"><h6>Materia: {{materia}}</h6></span> 
+         </div> 
+        </div>
+           <br />
+           <table [class]="this.servicio.classtable2">
+            <thead>
+                <tr>
+                    
+                    <th >
+                        Apellido y nombre
+                     </th> <!-- las evaluaciones cargas con tipo -->
+                     
+                     <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Puntos</th>
+                     <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" >Prioridad</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr *ngFor="let cv of cvs">
+                    <td style="width: 60px;" >{{cv.postulante}} </td>
+                    <td style="width: 60px;background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
+                    <td style="width: 60px;background-color: rgba(137, 43, 226, 0.253);" >{{cv.prioridad}} </td>
+                </tr>
+
+            </tbody>
+        </table>  
+
+           </div>
+</div>
