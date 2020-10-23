@@ -48,3 +48,5 @@ ALTER TABLE `evento` CHANGE `tipo` `tipo` VARCHAR(11) NOT NULL;
 ALTER TABLE `mensaje` CHANGE `mensaje` `mensaje` VARCHAR(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
 ALTER TABLE `mensaje` CHANGE `Idcurso` `Idmateria` INT(11) NOT NULL;
 ALTER TABLE `mensaje` ADD `Iddocente` INT(11) NOT NULL AFTER `Idmateria`;
+
+ALTER TABLE `curriculum` ADD `Idusuario` INT NOT NULL AFTER `tipodoc`;

@@ -11,6 +11,7 @@ public int Puntajedocente{get;set;}
 public string Descripcion{get;set;}
 public string Titulo{get;set;}
 public int Tipotitulo{set;get;}
+public int Idcurriculum { get; set; }
 
 public antecedentetitulo(){}
 
@@ -25,6 +26,7 @@ this.Puntajedocente= Convert.ToInt32(dr["puntajedocente"]);
 this.Descripcion= dr["descripcion"].ToString();
 this.Titulo= dr["titulo"].ToString();
 this.Tipotitulo=Convert.ToInt32(dr["tipotitulo"]);
+this.Idcurriculum=Convert.ToInt32(dr["idcurriculum"]);
 }
 
 }

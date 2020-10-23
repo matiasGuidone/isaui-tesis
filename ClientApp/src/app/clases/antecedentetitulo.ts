@@ -8,20 +8,22 @@ export class antecedentetitulo{
     descripcion : string;
     titulo : string; 
     tipotitulo: number;
+    idcurriculum:number;
 
     
     
-    constructor(obj:any){
+    constructor(id,relaciondocente,idlugar,fechainicio,fechafin,puntajedocente,descripcion,titulo,tipotitulo,idcurriculum){
         //el orden de os parametros afecta la vista de los input en el modal
-        this.id = +obj.id;
-        this.relaciondocente =+ obj.relaciondocente;
-        this.idlugar =  +obj.idlugar;
-        this.fechainicio = new Date (obj.fechainicio);
-        this.fechafin = new Date(obj.fechafin);
-        this.puntajedocente=+ obj.puntajedocente;
-        this.descripcion = obj.descripcion;
-        this.titulo = obj.titulo; 
-        this.tipotitulo= +obj.tipotitulo;
+        this.id = +id;
+        this.relaciondocente =+relaciondocente;
+        this.idlugar =  +idlugar;
+        this.fechainicio = new Date (fechainicio);
+        this.fechafin = new Date(fechafin);
+        this.puntajedocente= +puntajedocente;
+        this.descripcion =  descripcion;
+        this.titulo =  titulo; 
+        this.tipotitulo= +tipotitulo;
+        this.idcurriculum= +idcurriculum;
          // formateo a number el string // parseInt(val
 
     }

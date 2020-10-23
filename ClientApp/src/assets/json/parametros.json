@@ -1,12 +1,15 @@
 
     {
        "convocatoria": ["activo","anulado"],
+       "formacion": ["secundario","terciario","universitario","postgrado"],
        "examen": ["parcial","otro","final"],
        "menu": ["abm","rel","frm","static"],
        "usuario": ["activo", "inactivo"],
        "consultaasistencia": ["todos"],
        "modulo": ["40"],
        "tiempoExamen": {"DiasDesde":"7","DiasHasta":"2"},
+       "tipoDoc": ["L.E / DNI","CARNET EXT.","RUC","PASAPORTE", "P. NAC.", "OTROS"],
+       "sexo": ["Femenino", "Masculino","Otro"],
        "evento": ["materia","general","feriado"],
        "filtroAsistencias": {"Nombre/Apellido alumno":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
 

@@ -1,5 +1,279 @@
-<div [class]="this.servicio.classtable" >
-    <div class="book">
-        <div class="display-4">Mi curriculum</div>
+<div [class]="this.servicio.classtable">
+    <form class="form-horizontal p-4" novalate [formGroup]="formCurriculum">
+        <div class="display-4">Curriculum</div>
+
+
+
+        <div id="carouselExampleInterval" class="carousel slide" data-interval="0" data-ride="carousel">
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="0">
+                    <div class="shadow p-3">
+                        <div class="row">
+                            <div class="col-md-3 lead">Datos personales <br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('nombre').valid, 'has-error': (formCurriculum.get('nombre').touched || formCurriculum.get('nombre').dirty) && !formCurriculum.get('nombre').valid }">
+
+                                    <input class="form-control" placeholder="Nombre" id="Nombre" type="text" required
+                                        maxlength="45" formControlName="nombre" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('nombre').touched || formCurriculum.get('nombre').dirty) && formCurriculum.get('nombre').errors">
+                                        <span *ngIf="formCurriculum.get('nombre').errors.required">
+                                            Debe completar el campo con su nombre
+                                        </span>
+                                    </span>
+
+                                </div>
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('apellido').valid, 'has-error': (formCurriculum.get('apellido').touched || formCurriculum.get('apellido').dirty) && !formCurriculum.get('apellido').valid }">
+
+                                    <input class="form-control" placeholder="Apellido" id="apellido" type="text"
+                                        required maxlength="45" formControlName="apellido" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('apellido').touched || formCurriculum.get('apellido').dirty) && formCurriculum.get('apellido').errors">
+                                        <span *ngIf="formCurriculum.get('apellido').errors.required">
+                                            Debe completar el campo con su apellido
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <select formControlName="tipodoc" id="tipoDoc" class="form-control custom-select">
+                                        <option value="">Tipo de documento...</option>
+                                        <option *ngFor="let tip of tiposDoc let i = index;" [value]="i">
+                                            {{tip}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('numerodoc').valid, 'has-error': (formCurriculum.get('numerodoc').touched || formCurriculum.get('numerodoc').dirty) && !formCurriculum.get('numerodoc').valid }">
+
+                                    <input class="form-control" placeholder="Número de documento" id="Numerodoc"
+                                        type="number" required maxlength="45" formControlName="numerodoc" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('numerodoc').touched || formCurriculum.get('numerodoc').dirty) && formCurriculum.get('numerodoc').errors">
+                                        <span *ngIf="formCurriculum.get('numerodoc').errors.required">
+                                            Debe completar el campo con su número de documento
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('fechanac').valid, 'has-error': (formCurriculum.get('fechanac').touched || formCurriculum.get('fechanac').dirty) && !formCurriculum.get('fechanac').valid }">
+                                    <input class="form-control" placeholder="Fecha de nacimiento" id="fechanac"
+                                        type="date" required maxlength="45" formControlName="fechanac" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('fechanac').touched || formCurriculum.get('fechanac').dirty) && formCurriculum.get('fechanac').errors">
+                                        <span *ngIf="formCurriculum.get('fechanac').errors.required">
+                                            Debe completar el campo con su fecha de nacimiento
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <select formControlName="sexo" id="sexo" class="form-control custom-select">
+                                        <option value="">Género...</option>
+                                        <option *ngFor="let sex of sexos let i = index;" [value]="i">
+                                            {{sex}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr class="linea">
+                        <div class="row">
+                            <div class="col-md-3 lead">Datos de contacto <br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }">
+
+                                    <input class="form-control" placeholder="Correo electrónico" id="correo" type="text"
+                                        required maxlength="45" formControlName="correo" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('correo').touched || formCurriculum.get('correo').dirty) && formCurriculum.get('correo').errors">
+                                        <span *ngIf="formCurriculum.get('correo').errors.required">
+                                            Debe completar el campo con su correo
+                                        </span>
+                                    </span>
+
+                                </div>
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }">
+
+                                    <input class="form-control" placeholder="Número de teléfono/celular" id="telefono"
+                                        type="number" required maxlength="45" formControlName="telefono" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && formCurriculum.get('telefono').errors">
+                                        <span *ngIf="formCurriculum.get('telefono').errors.required">
+                                            Debe completar el campo con un teléfono
+                                        </span>
+                                    </span>
+
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Número de teléfono/celular alternativo"
+                                        id="telefonodos" type="number" maxlength="45" formControlName="telefonodos" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-interval="0">
+                    <div class="shadow p-3">
+                        <div class="row">
+                            <div class="col-md-3 lead">Domicilio<br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <select (change)="onChangePais()" formControlName="pais" id="pais"
+                                        class="form-control custom-select">
+                                        <option value="0">Pais...</option>
+                                        <option *ngFor="let pais of paises" [value]="pais.id">
+                                            {{pais.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select (change)="onChangeProvincia()" formControlName="provincia" id="provincia"
+                                        class="form-control custom-select">
+                                        <option value="0">Provincia...</option>
+                                        <option *ngFor="let provincia of provincias" [value]="provincia.id">
+                                            {{provincia.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group mb-3">
+                                    <div class="form-group">
+                                        <select (change)="onChangeLocalidad()" formControlName="localidad" id="localidad"
+                                            class="form-control custom-select">
+                                            <option value="">Localidad...</option>
+                                            <option *ngFor="let local of localidades" [value]="local.id">
+                                                {{local.nombre}}
+                                            </option>
+                                            <option value="0">Otra localidad...</option>
+                                        </select>
+                                    </div>
+                                     
+                                    <input id="inputlocalidad" disabled placeholder="Otra localidad..." type="text" class="form-control" >
+                                  </div>
+                                
+
+                                <div class="form-group"
+                                    [ngClass]="{ 'has-success': formCurriculum.get('domicilio').valid, 'has-error': (formCurriculum.get('domicilio').touched || formCurriculum.get('domicilio').dirty) && !formCurriculum.get('telefono').valid }">
+
+                                    <input class="form-control" placeholder="Domicilio" id="correo" type="text" required
+                                        maxlength="45" formControlName="domicilio" />
+                                    <span class="help-block"
+                                        *ngIf="(formCurriculum.get('domicilio').touched || formCurriculum.get('domicilio').dirty) && formCurriculum.get('domicilio').errors">
+                                        <span *ngIf="formCurriculum.get('domicilio').errors.required">
+                                            Debe completar el campo con su domicilio
+                                        </span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-item" data-interval="0">
+                    <div class="shadow p-3">
+                        <div class="row">
+                            <div class="col-md-3 lead">Formación académica<br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <button (click)="nuevo(1)" class="btn btn-info">Nuevo</button>
+                                <div style="float:left;">
+                                    <label *ngFor="let tag of formaciones " class="btn-success m-1 p-1">
+                                      <span style="margin: 5px;" >
+                                      {{tag.Titulo}}
+                                      <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Titulo,1)" data-dismiss="toast" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <button type="button" (click)="nuevo(2,tag.Titulo,null,tag.Establecimiento)" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                        <span class="fa fa-edit fa-sm"></span>
+                                      </button>
+                                      </span>
+                                    </label>
+                                  
+                                  </div>
+                            </div>
+                        </div>
+                        <hr class="linea">
+                        <div class="row">
+                            <div class="col-md-3 lead">Experiencias laborales<br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <button (click)="nuevo(3)" class="btn btn-info">Nuevo</button>
+                                <div style="float:left;">
+                                    <label *ngFor="let tag of experiencias " class="btn-success m-1 p-1">
+                                      <span style="margin: 5px;" >
+                                      {{tag.Titulo}}
+                                      <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Titulo,1)" data-dismiss="toast" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <button type="button" (click)="nuevo(4,null,tag.Cargo,tag.Establecimiento)" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                        <span class="fa fa-edit fa-sm"></span>
+                                      </button>
+                                      </span>
+                                    </label>
+                                  
+                                  </div>
+                            </div>
+                        </div>
+                        <hr class="linea">
+
+                    </div> 
+                </div>
+                 
+                
+            </div>
+
+        </div>
+
+    </form>
+    <div class="navbar border fixed-bottom navbar-expand-sm navbar-dark bg-dark"
+        style=" min-height: 40px; position: relative;">
+        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+
+            <div class="lead">Anterior</div>
+        </a>
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleInterval" data-slide-to="0"></li>
+            <li data-target="#carouselExampleInterval" data-slide-to="1"></li>
+            <li data-target="#carouselExampleInterval" data-slide-to="2"></li>
+        </ol>
+        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+            <div class="lead">Siguiente</div>
+
+        </a>
     </div>
-</div>
+    <br> <br>
+    <!-- public string Nombre {get; set;}
+public string Apellido {set;get;}
+public string Numerodoc{set;get;}
+public string Telefonosdos{set;get;}
+public string Telefono{get;set;}
+public string Correro{get;set;}
+public string Observaciones{get;set;}
+public int Idadjunto{set;get;}
+public int Iddomicilio{get;set;}
+public int Tipodoc{get;set;} -->
