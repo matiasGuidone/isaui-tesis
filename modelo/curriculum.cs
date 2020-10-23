@@ -9,7 +9,9 @@ public string Numerodoc{set;get;}
 public string Telefonosdos{set;get;}
 public string Telefono{get;set;}
 public string Correo{get;set;}
+
 public string Observaciones{get;set;}
+
 public int Idadjunto{set;get;}
 public int Iddomicilio{get;set;}
 public int Tipodoc{get;set;}

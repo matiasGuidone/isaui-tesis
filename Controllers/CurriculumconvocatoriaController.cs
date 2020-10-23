@@ -28,7 +28,7 @@ public class CurriculumconvocatoriaController: Controller
     [HttpPut]
     public ActionResult<curriculumconvocatoria> Put([FromBody] curriculumconvocatoria Curriculumconvocatoria, [FromHeader] string token)
     {
-if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Update(Curriculumconvocatoria);
         return Json("Guardado exitoso");

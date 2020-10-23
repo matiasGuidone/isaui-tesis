@@ -49,4 +49,10 @@ ALTER TABLE `mensaje` CHANGE `mensaje` `mensaje` VARCHAR(2000) CHARACTER SET utf
 ALTER TABLE `mensaje` CHANGE `Idcurso` `Idmateria` INT(11) NOT NULL;
 ALTER TABLE `mensaje` ADD `Iddocente` INT(11) NOT NULL AFTER `Idmateria`;
 
+
 ALTER TABLE `curriculum` ADD `Idusuario` INT NOT NULL AFTER `tipodoc`;
+/* 17/10 */
+ALTER TABLE `curriculumconvocatoria` ADD `id` INT NULL AFTER `prioridad`;
+/* 19/10 */
+ALTER TABLE `curriculumconvocatoria` CHANGE `puntaje` `puntaje` DECIMAL(11) NULL DEFAULT NULL;
+>>>>>>> 409a1c870a1b33b7d87710e0bd4eee6ac2c7af5c
