@@ -32,16 +32,17 @@
                     <th >
                         Apellido y nombre
                      </th> <!-- las evaluaciones cargas con tipo -->
-                     
+                      <th>Documento</th> 
                      <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Puntos</th>
                      <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" >Prioridad</th>
                 </tr>
             </thead>
             <tbody> 
                 <tr *ngFor="let cv of cvs">
-                    <td style="width: 60px;" >{{cv.postulante}} </td>
-                    <td style="width: 60px;background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
-                    <td style="width: 60px;background-color: rgba(137, 43, 226, 0.253);" >{{cv.prioridad}} </td>
+                    <td>{{cv.postulante}} </td>
+                     <td >{{cv.dni}} </td> 
+                    <td style="background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
+                    <td style="background-color: rgba(137, 43, 226, 0.253);" >{{cv.prioridad}} </td>
                 </tr>
 
             </tbody>
