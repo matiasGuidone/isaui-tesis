@@ -58,7 +58,7 @@ import { curriculum } from './clases/curriculum';
 import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
 import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
 import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component';
-import { CmpHomecvComponent } from './cmp-homecv/cmp-homecv.component'; 
+  
 
 
 
@@ -112,7 +112,7 @@ import { CmpHomecvComponent } from './cmp-homecv/cmp-homecv.component';
     AbmCurriculumComponent,
     FrmCurriculumComponent,
     OrdenmeritoComponent, 
-    FrmConvocatoriasComponent, CmpHomecvComponent
+    FrmConvocatoriasComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -166,7 +166,7 @@ import { CmpHomecvComponent } from './cmp-homecv/cmp-homecv.component';
      {path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate:[Guard]},
      {path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate:[Guard]},
      {path: 'frm-convocatorias', component: FrmConvocatoriasComponent},
-     {path: 'ordenmerito', component: OrdenmeritoComponent},
+     {path: 'frm-ordenmerito', component: OrdenmeritoComponent},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],
