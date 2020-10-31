@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { horasdia } from '../clases/horasdia';
 import { PeticionesService } from '../services/peticiones.service';
 import { materia } from '../clases/materia';
@@ -14,6 +14,7 @@ export class CmpHorariosComponent implements OnInit {
   horas: horasdia[] = new Array<horasdia>();
   horasmaterias: any[] = new Array<any>();
   materias: materia[] = new Array<materia>();
+  @Input() idMateria = "";
 
   constructor(protected servicio: PeticionesService, protected modalService: ModalService) { }
 
@@ -36,6 +37,15 @@ export class CmpHorariosComponent implements OnInit {
         this.buscarHoras(this.materias, this.materias.length-1);
       }
   });
+}
+else if(rol.nombrerol.toString()=="Curriculum"){
+  this.servicio.getById(this.idMateria,'materia').subscribe(materia =>{
+    this.materias = new Array<materia>();
+    this.materias.push(materia);
+    if (this.materias.length > 0){
+      this.buscarHoras(this.materias, this.materias.length-1);
+    }
+});
 }
 }
 
