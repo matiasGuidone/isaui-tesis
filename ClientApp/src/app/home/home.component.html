@@ -1,4 +1,4 @@
-<div [class]="this.servicio.classtable2" >
+<div id="home" [class]="this.servicio.classtable2" >
 <section id="banner">
 <div class="content">
 <header>
@@ -42,3 +42,52 @@
 </section>
 
 </div>
+
+<div id="homecv" style="display: none;" [class]="this.servicio.classtable2" >
+    <section id="banner">
+    <div class="content">
+    <header>
+    
+        <h2>Bienvenido al portal Autogestión de Currículums de ISAUI</h2>
+    
+    </header>
+    <p></p>
+    </div>
+    <div class="features">
+        <article (click)="ingresoCv()">
+            <span class="btn btn-outline-light icon solid fa-user-edit"></span>
+            <div class="content">
+            <h3>Mi currículum</h3> 
+            </div>
+            </article>
+
+
+    <article (click)="ingresoCalificaciones()">
+    <span class="btn btn-outline-light icon solid fa-users"></span>
+    <div class="content">
+    <h3>Convocatorias</h3> 
+    </div>
+    </article>
+
+    <!-- <article (click)="ingresoCalendario()">
+    <span class="btn btn-outline-light icon solid fa-calendar-alt"></span>
+    <div class="content">
+    <h3>Calendario Academico</h3>
+    </div>
+    </article>
+
+    <article (click)="ingresoMensajes()">
+    <span class="btn btn-outline-light icon solid fa-paper-plane"></span>
+    <div class="content">
+    <h3>Mensajes</h3>
+    </div>
+    </article> -->
+
+
+    </div>
+    
+    </section>
+    
+    </div>
+
+

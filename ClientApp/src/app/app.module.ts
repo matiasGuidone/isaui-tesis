@@ -57,7 +57,8 @@ import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.componen
 import { curriculum } from './clases/curriculum';
 import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
 import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
-import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component'; 
+import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component';
+import { CmpHomecvComponent } from './cmp-homecv/cmp-homecv.component'; 
 
 
 
@@ -111,7 +112,7 @@ import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias
     AbmCurriculumComponent,
     FrmCurriculumComponent,
     OrdenmeritoComponent, 
-    FrmConvocatoriasComponent
+    FrmConvocatoriasComponent, CmpHomecvComponent
 
   ],
   entryComponents: [MyModalComponent],

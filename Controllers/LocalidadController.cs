@@ -18,8 +18,8 @@ public class LocalidadController : Controller
 
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            LocalidadConexion<localidad>.Instance.Insert(Localidad);
-            return Json("Guardado exitoso");
+            return Json(LocalidadConexion<localidad>.Instance.Insert(Localidad));
+             
         }
         else return null;
     }

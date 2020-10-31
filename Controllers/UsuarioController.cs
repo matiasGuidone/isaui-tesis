@@ -15,7 +15,18 @@ public class UsuarioController : Controller
     [HttpPost]
     public ActionResult<usuario> Index([FromBody] usuario usuario, [FromHeader] string token)
     {
-        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        if(token == null && usuario != null){
+           var auxusu = UsuarioConexion<usuario>.Instance.SearchAll(null,$" and nombre = '{usuario.Nombre}'");
+            if(auxusu.Count==1){
+                return Json("UsuarioExistente");
+            }
+            usuario.Codigoayuda="usuario-cv";
+            var id = UsuarioConexion<usuario>.Instance.Insert(usuario);
+            RolesusuarioConexion<rolesusuario>.Instance.addRolCv(id);
+            return Json("UsuarioCv");
+        }
+
+        else if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         UsuarioConexion<usuario>.Instance.Insert(usuario);
         return Json("Guardado exitoso");

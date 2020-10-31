@@ -31,6 +31,12 @@ export class HomeComponent {
             }
         });
       }
+      else if(this.rol.nombrerol == "Curriculum"){
+        let home = document.getElementById('home');
+        home.style.display='none';
+        let homecv = document.getElementById('homecv');
+        homecv.style.display='block';
+      }
     }
 
   }
@@ -70,6 +76,12 @@ export class HomeComponent {
     else if (this.rol.nombrerol.toString() == "Docente") {
       this.logservicio.componenteGuard = "frm-mensajes";
       this.router.navigate(['frm-mensajes']);
+    }
+  }
+  ingresoCv(){
+    if (this.rol.nombrerol.toString() == "Curriculum"){
+      this.logservicio.componenteGuard = "frm-curriculum";
+      this.router.navigate(['frm-curriculum']);
     }
   }
 

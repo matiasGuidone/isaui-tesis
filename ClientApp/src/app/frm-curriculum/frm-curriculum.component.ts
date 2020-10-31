@@ -282,13 +282,13 @@ export class FrmCurriculumComponent implements OnInit {
       for (let dato of this.localidades) {
         if (dato.nombre.toUpperCase() == nombre.toUpperCase()) {
           locali = dato.id;
-          break;
           ban = true;
-        }
+          break;
+         }
       }
       //se envía la nueva localidad al servidor
       if (!ban) {
-        let loc = new localidad({ 'idprovincia': document.getElementById('provincia')['value'], 'nombre': document.getElementById('inputlocalidad')['value'], 'id': '0' });
+        let loc = new localidad({ 'idprovincia': document.getElementById('provincia')['value'], 'nombre': document.getElementById('inputlocalidad')['value'], 'id': '0','codpostal':'0' });
         this.servicio.addSingleAbm(loc, 'localidad').subscribe(id => {
           this.guardarcv(id);
         });

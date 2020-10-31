@@ -62,7 +62,23 @@ export class IniciarSesionComponent implements OnInit {
 
   onSignup(){
     //control de valores de input
-    
+    let usu = new usuario({'id':'0',
+    'nombre':this.formUsuario.get('usuario').value, 
+    'codigo':this.formUsuario.get('contra').value,
+    'codigoayuda':'',
+    'correo':'',
+    'estado':'0'});
+    this.servicio.addSingleAbm(usu,'usuario').subscribe(res=>{
+      if(res == "UsuarioExistente"){
+        this.abrirModal("Usuario no válido","Ingrese un nombre de usuario alternativo",2,null)
+        .subscribe(ed=> console.log(".."));
+      }
+      else if (res == "UsuarioCv"){
+      this.nCuenta = this.formUsuario.get('usuario').value;
+      this.nClave = this.formUsuario.get('contra').value;
+      this.onLogin();
+    }
+    })
 
   }
 
