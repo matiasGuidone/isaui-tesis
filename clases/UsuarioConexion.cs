@@ -30,7 +30,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         var token = this.tok();
         if (tokens.Count < 100)
         { //parametrizar la variable de cantidad de sesiones para regular si se cortan mucho
-            tokens.Add(new token(token, System.DateTime.Now));
+            tokens.Add(new token(token, System.DateTime.Now, user.Id));
         }
         else
         {
@@ -40,7 +40,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
             {
                 if (tokens[i].fechahora < fe) { fe = tokens[i].fechahora; indice = i; }
             }
-            tokens[indice] = new token(token, System.DateTime.Now);
+            tokens[indice] = new token(token, System.DateTime.Now,user.Id);
         }
         //string consulta = $"update usuario set token = '{token}' where id = {user.Id} ";
         //Conexion.ConsultaParametros(consulta, null);
@@ -64,6 +64,16 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         }
         return false;
     }
+    public int getIdUserToken(string token)
+    {
+        foreach (var n in tokens)
+        {
+            if (n.tok.Equals(token))
+            { return n.idusuario; }
+        }
+        return 0;
+    }
+
 
     //Este metodo encripta / desencripta la cadena de claves para que no se vea en la base de datos
     private String enc_des(String clave, char tipo)

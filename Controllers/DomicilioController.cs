@@ -17,10 +17,7 @@ public class DomicilioController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            DomicilioConexion<domicilio>.Instance.Insert(Domicilio);
-            var id = DomicilioConexion<domicilio>.Instance.SearchAll().Max(x => x.Id);
-
-            return Json(id);
+            return Json(DomicilioConexion<domicilio>.Instance.Insert(Domicilio));
         }
         else return null;
     }

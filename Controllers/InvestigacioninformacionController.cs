@@ -13,23 +13,58 @@ public class InvestigacioninformacionController : Controller
 
     // POST
     [HttpPost]
-    public ActionResult<investigacioninformacion> Index([FromBody] investigacioninformacion Investigacioninformacion, [FromHeader] string token)
+    public ActionResult<investigacion> Index([FromBody] investigacion[] Investigacioninformacion, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            InvestigacioninformacionConexion<investigacioninformacion>.Instance.Insert(Investigacioninformacion);
+            var user = UsuarioConexion<usuario>.Instance.getIdUserToken(token);
+            string[] filtrouser = { "idusuario", user.ToString() };
+            var curr = CurriculumConexion<curriculum>.Instance.SearchAll(filtrouser);
+            string[] filtro = { "idcurriculum", curr[0].Id.ToString() };
+
+            var investigaciones = InvestigacioninformacionConexion<investigacion>.Instance.SearchAll(filtro);
+            List<investigacion> listaux = new List<investigacion>();
+            foreach (var m in Investigacioninformacion)
+            {
+                listaux.Add(m);
+            }
+
+            if (investigaciones.Count > 0)
+            {
+                foreach (var m in investigaciones)
+                {
+                    var aux = listaux.Find(p => p.Id == m.Id);
+                    if (aux == null)
+                    {
+                        InvestigacioninformacionConexion<investigacion>.Instance.Delete(m.Id);
+                    }
+                }
+            }
+            foreach (var item in Investigacioninformacion)
+            {
+                if (item.Id == 0)
+                {
+                    InvestigacioninformacionConexion<investigacion>.Instance.Insert(item);
+                }
+                else
+                {
+                    InvestigacioninformacionConexion<investigacion>.Instance.Update(item);
+                }
+            }
+
             return Json("Guardado exitoso");
+
         }
         else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<investigacioninformacion> Put([FromBody] investigacioninformacion Investigacioninformacion, [FromHeader] string token)
+    public ActionResult<investigacion> Put([FromBody] investigacion Investigacioninformacion, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            InvestigacioninformacionConexion<investigacioninformacion>.Instance.Update(Investigacioninformacion);
+            InvestigacioninformacionConexion<investigacion>.Instance.Update(Investigacioninformacion);
             return Json("Guardado exitoso");
         }
         else return null;
@@ -41,7 +76,7 @@ public class InvestigacioninformacionController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            InvestigacioninformacionConexion<investigacioninformacion>.Instance.Delete(Convert.ToInt32(id));
+            InvestigacioninformacionConexion<investigacion>.Instance.Delete(Convert.ToInt32(id));
             return Json("registro eliminado");
         }
         else return null;
@@ -49,22 +84,22 @@ public class InvestigacioninformacionController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<investigacioninformacion> Getinvestigacioninformacions([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<investigacion> Getinvestigacioninformacions([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return InvestigacioninformacionConexion<investigacioninformacion>.Instance.SearchAll(arrayfiltros);
+            return InvestigacioninformacionConexion<investigacion>.Instance.SearchAll(arrayfiltros);
         }
         else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public investigacioninformacion Getinvestigacioninformacion(int id, [FromHeader] string token)
+    public investigacion Getinvestigacioninformacion(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return InvestigacioninformacionConexion<investigacioninformacion>.Instance.SearchId(id);
+            return InvestigacioninformacionConexion<investigacion>.Instance.SearchId(id);
         }
         else return null;
     }

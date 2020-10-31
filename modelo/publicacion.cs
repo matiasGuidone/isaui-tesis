@@ -15,8 +15,6 @@ public publicacion (DataRow dr){
     this.Idcurriculum=Convert.ToInt32(dr["idcurriculum"]);
     this.Tipoautor=Convert.ToInt32(dr["tipoautor"]);
     this.Idlocalidad=Convert.ToInt32(dr["idlocalidad"]);
-    {
-        
-    }
+    
 }
 }

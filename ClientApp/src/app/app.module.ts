@@ -56,7 +56,8 @@ import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria
 import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component'; 
 import { curriculum } from './clases/curriculum';
 import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
-import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component'; 
+import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
+import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component'; 
 
 
 
@@ -109,7 +110,8 @@ import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
     RelCurriculumconvocatoriaComponent,
     AbmCurriculumComponent,
     FrmCurriculumComponent,
-    OrdenmeritoComponent
+    OrdenmeritoComponent, 
+    FrmConvocatoriasComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -156,13 +158,14 @@ import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
-      { path: 'frm-curriculum', component: FrmCurriculumComponent },
+      { path: 'frm-curriculum', component: FrmCurriculumComponent},
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},
      {path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate:[Guard]},
      {path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate:[Guard]},
-     {path: 'ordenmerito', component: OrdenmeritoComponent, canActivate:[Guard]},
+     {path: 'frm-convocatorias', component: FrmConvocatoriasComponent},
+     {path: 'ordenmerito', component: OrdenmeritoComponent},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],

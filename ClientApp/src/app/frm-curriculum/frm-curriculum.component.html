@@ -95,7 +95,7 @@
 
                             <div class="col-md-8">
                                 <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }">
+                                    [ngClass]="{ 'has-success': formCurriculum.get('correo').valid, 'has-error': (formCurriculum.get('correo').touched || formCurriculum.get('correo').dirty) && !formCurriculum.get('correo').valid }">
 
                                     <input class="form-control" placeholder="Correo electrónico" id="correo" type="text"
                                         required maxlength="45" formControlName="correo" />
@@ -138,7 +138,7 @@
 
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <select (change)="onChangePais()" formControlName="pais" id="pais"
+                                    <select (change)="onChangePais()"  id="pais"
                                         class="form-control custom-select">
                                         <option value="0">Pais...</option>
                                         <option *ngFor="let pais of paises" [value]="pais.id">
@@ -147,7 +147,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select (change)="onChangeProvincia()" formControlName="provincia" id="provincia"
+                                    <select (change)="onChangeProvincia()"  id="provincia"
                                         class="form-control custom-select">
                                         <option value="0">Provincia...</option>
                                         <option *ngFor="let provincia of provincias" [value]="provincia.id">
@@ -158,7 +158,7 @@
                                 
                                 <div class="input-group mb-3">
                                     <div class="form-group">
-                                        <select (change)="onChangeLocalidad()" formControlName="localidad" id="localidad"
+                                        <select (change)="onChangeLocalidad()" id="localidad"
                                             class="form-control custom-select">
                                             <option value="">Localidad...</option>
                                             <option *ngFor="let local of localidades" [value]="local.id">
@@ -172,17 +172,11 @@
                                   </div>
                                 
 
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('domicilio').valid, 'has-error': (formCurriculum.get('domicilio').touched || formCurriculum.get('domicilio').dirty) && !formCurriculum.get('telefono').valid }">
+                                <div class="form-group">
 
-                                    <input class="form-control" placeholder="Domicilio" id="correo" type="text" required
-                                        maxlength="45" formControlName="domicilio" />
-                                    <span class="help-block"
-                                        *ngIf="(formCurriculum.get('domicilio').touched || formCurriculum.get('domicilio').dirty) && formCurriculum.get('domicilio').errors">
-                                        <span *ngIf="formCurriculum.get('domicilio').errors.required">
-                                            Debe completar el campo con su domicilio
-                                        </span>
-                                    </span>
+                                    <input class="form-control" placeholder="Domicilio" id="domicilio" type="text" required
+                                        maxlength="45"  />
+                                    
 
                                 </div>
                             </div>
@@ -198,7 +192,7 @@
                             </div>
 
                             <div class="col-md-8">
-                                <button (click)="nuevo(1)" class="btn btn-info">Nuevo</button>
+                                <button (click)="nuevo(1)" class="btn btn-info">Agregar</button>
                                 <div style="float:left;">
                                     <label *ngFor="let tag of formaciones " class="btn-success m-1 p-1">
                                       <span style="margin: 5px;" >
@@ -222,12 +216,12 @@
                             </div>
 
                             <div class="col-md-8">
-                                <button (click)="nuevo(3)" class="btn btn-info">Nuevo</button>
+                                <button (click)="nuevo(3)" class="btn btn-info">Agregar</button>
                                 <div style="float:left;">
                                     <label *ngFor="let tag of experiencias " class="btn-success m-1 p-1">
                                       <span style="margin: 5px;" >
-                                      {{tag.Titulo}}
-                                      <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Titulo,1)" data-dismiss="toast" aria-label="Close">
+                                      {{tag.Cargo}}
+                                      <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Cargo,2)" data-dismiss="toast" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                       <button type="button" (click)="nuevo(4,null,tag.Cargo,tag.Establecimiento)" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -240,6 +234,30 @@
                             </div>
                         </div>
                         <hr class="linea">
+                        <div class="row">
+                            <div class="col-md-3 lead">Investigaciones y publicaciones<br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8">
+                                <button (click)="nuevo(5)" class="btn btn-info">Agregar</button>
+                                <div style="float:left;">
+                                    <label *ngFor="let tag of investigaciones " class="btn-success m-1 p-1">
+                                      <span style="margin: 5px;" >
+                                      {{tag.Lugar}}
+                                      <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Descripcion,3)" data-dismiss="toast" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <button type="button" (click)="nuevo(6,null,null,null,tag.Descripcion)" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                        <span class="fa fa-edit fa-sm"></span>
+                                      </button>
+                                      </span>
+                                    </label>
+                                  
+                                  </div>
+                            </div>
+                        </div>
+                        <button (click)="btnguardar()" [disabled]="!formCurriculum.valid" class="btn btn-success">Guardar currículum</button>
 
                     </div> 
                 </div>

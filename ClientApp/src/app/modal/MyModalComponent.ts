@@ -33,6 +33,7 @@ export class MyModalComponent extends Modal implements OnInit {
       htmlvista.innerHTML = this.message;
       } */
   }
+
   onInjectInputs(inputs): void {
     this.title = inputs.title;
     this.message = inputs.message;
@@ -49,7 +50,7 @@ export class MyModalComponent extends Modal implements OnInit {
         else if (inputs.parametros[i] instanceof Date) {
           tp = "date"
         }
-        if (i.toString().startsWith('fecha', 0)) {
+        if (i.toString().toUpperCase().startsWith('FECHA', 0)) {
           tp = "date";
           inputs.parametros[i] = this.formatearFecha(inputs.parametros[i]);
         }

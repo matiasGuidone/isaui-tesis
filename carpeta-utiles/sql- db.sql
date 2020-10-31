@@ -55,4 +55,33 @@ ALTER TABLE `curriculum` ADD `Idusuario` INT NOT NULL AFTER `tipodoc`;
 ALTER TABLE `curriculumconvocatoria` ADD `id` INT NULL AFTER `prioridad`;
 /* 19/10 */
 ALTER TABLE `curriculumconvocatoria` CHANGE `puntaje` `puntaje` DECIMAL(11) NULL DEFAULT NULL;
->>>>>>> 409a1c870a1b33b7d87710e0bd4eee6ac2c7af5c
+
+/**curriculums	**/
+
+ALTER TABLE test_isaui.investigacionformacion DROP FOREIGN KEY fk_Investigaciones_Instituciones_lugares1;
+
+ALTER TABLE `investigacionformacion` CHANGE `IdLugar` `Lugar` VARCHAR(150) NULL DEFAULT NULL;
+
+RENAME TABLE `test_isaui`.`investigacionformacion` TO `test_isaui`.`investigacion`;
+
+ALTER TABLE `curriculum` ADD `sexo` INT NOT NULL AFTER `Idusuario`;
+
+ALTER TABLE `curriculum` ADD `fechanac` DATE NOT NULL AFTER `sexo`;
+
+ALTER TABLE test_isaui.curriculum DROP FOREIGN KEY fk_Curriculums_Datos_adjuntos1`;
+
+ALTER TABLE `curriculum` DROP INDEX `fk_Curriculums_Datos_adjuntos1`;
+
+"ALTER TABLE `curriculum` DROP `Idadjunto`;
+
+ALTER TABLE `investigacion` ADD `Fecha` DATE NOT NULL AFTER `tipo`;
+
+ALTER TABLE `antecedentetitulo` DROP INDEX `fk_Antecedentes_Instituciones_lugares1`;
+
+ALTER TABLE `antecedentetitulo` CHANGE `Idlugar` `lugar` VARCHAR(150) NULL DEFAULT NULL;
+
+ALTER TABLE `investigacion` CHANGE `tipo` `tipo` VARCHAR(30) NULL DEFAULT NULL;
+
+TER TABLE `antecedentetitulo` CHANGE `tipotitulo` `tipotitulo` VARCHAR(50) NULL DEFAULT NULL;
+
+ALTER TABLE `antecedentetitulo` CHANGE `relaciondocencia` `relaciondocencia` VARCHAR(70) NULL DEFAULT NULL;

@@ -72,7 +72,7 @@ public class ObjetoConexion<T>
     }
 
 
-    public void Insert(oObjeto objeto)
+    public int Insert(oObjeto objeto)
     {
 
         // Lista de propiedades del objeto que recobe por parametro
@@ -105,9 +105,10 @@ public class ObjetoConexion<T>
         consulta = consulta + valores;
 
         Conexion.ConsultaParametros(consulta, param);
-
-
-
+        consulta = $"SELECT max(id) as id FROM {this.tipo.GetType()}";
+         
+        var id = Convert.ToInt32(Conexion.consultaDataTable(consulta).Tables[0].Rows[0].ItemArray[0]);
+        return id; 
     }
     public void Update(oObjeto objeto)
     {

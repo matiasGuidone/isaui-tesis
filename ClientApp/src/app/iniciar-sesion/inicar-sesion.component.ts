@@ -8,6 +8,7 @@ import { from, Observable } from 'rxjs';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
 import { HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -17,7 +18,16 @@ import { HttpHeaders } from '@angular/common/http';
 export class IniciarSesionComponent implements OnInit {
   nCuenta: string;
   nClave: string;
-  constructor(private servicio: PeticionesService, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { }
+
+  formUsuario: FormGroup = this.formbuilder.group({
+    usuario: '',
+    contra: '',
+    contra2: '', 
+  });
+
+  constructor(private servicio: PeticionesService, private formbuilder: FormBuilder, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { 
+   
+  }
 
   onLogin() {
     const user = { nombre: this.nCuenta, codigo: this.nClave };
@@ -46,19 +56,17 @@ export class IniciarSesionComponent implements OnInit {
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { console.log(n); });
       }
     );
-    /* console.log(user) */
-    /* this.autS.login(user).subscribe(res=>{
-      this.router.navigateByUrl(this.urls)
-    }); */
-
-
-
-    /* this.peticionesService.login(user, "prueba").subscribe(
-      data =>{console.log(data);},
-      error =>{console.log(error);} //pasa por error
-    ); */
+     
     this.LimpiarCampos();
   }
+
+  onSignup(){
+    //control de valores de input
+    
+
+  }
+
+
   enterLogin(key) {
     if (key.keyCode === 13) {
       this.onLogin();
@@ -79,5 +87,27 @@ export class IniciarSesionComponent implements OnInit {
     this.nClave='';
     this.nCuenta='';
   }
+  signupcv(){
+    // this.router.navigate(['sign-up-cv'])
+    let div = document.getElementById("formjs");
+    div.style.display = 'none';
+  let divs = document.getElementById("formjs2");
+    divs.style.display = 'block';
+  }
+  volver(){
+    // this.router.navigate(['sign-up-cv'])
+    let div = document.getElementById("formjs");
+    div.style.display = 'block';
+    let divs = document.getElementById("formjs2");
+    divs.style.display = 'none';
+  }
 
+  validar(){
+    if(this.formUsuario.get('usuario').value.length > 8 
+    && this.formUsuario.get('contra').value.length > 8
+    && this.formUsuario.get('contra').value == this.formUsuario.get('contra2').value
+    && this.formUsuario.valid )
+    {return false;}
+    return true;
+  }
 }

@@ -13,14 +13,45 @@ public class AntecedentetituloController : Controller
     
     // POST
     [HttpPost]
-    public ActionResult<antecedentetitulo> Index([FromBody] antecedentetitulo antecedentetitulo, [FromHeader] string token)
+    public ActionResult<antecedentetitulo> Index([FromBody] antecedentetitulo[] antecedentetitulo, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
-        {
-        AntecedentetituloConexion<antecedentetitulo>.Instance.Insert(antecedentetitulo);
-        return Json("Guardado exitoso");
+        { 
+            var user = UsuarioConexion<usuario>.Instance.getIdUserToken(token);
+            string[] filtrouser = { "idusuario", user.ToString() };
+            var curr = CurriculumConexion<curriculum>.Instance.SearchAll(filtrouser);
+            string[] filtro = { "idcurriculum", curr[0].Id.ToString() };
+
+            var antecedente = AntecedentetituloConexion<antecedentetitulo>.Instance.SearchAll(filtro);
+            List<antecedentetitulo> listaux = new List<antecedentetitulo>();
+            foreach (var m in antecedentetitulo)
+            {
+                listaux.Add(m);
+            }
+
+            if(antecedente.Count>0){
+            foreach (var m in antecedente)
+            {
+                var aux = listaux.Find(p => p.Id == m.Id);
+                if (aux == null){
+                    AntecedentetituloConexion<antecedentetitulo>.Instance.Delete(m.Id); 
+                }
+            }
+            }
+            foreach (var item in antecedentetitulo)
+            {
+                if(item.Id==0){
+                AntecedentetituloConexion<antecedentetitulo>.Instance.Insert(item); 
+                }
+                else{
+                    AntecedentetituloConexion<antecedentetitulo>.Instance.Update(item); 
+                }
+            }
+            
+            return Json("Guardado exitoso");
+             
         }
-        else return Json("...");
+        else return null;
 
     }
 

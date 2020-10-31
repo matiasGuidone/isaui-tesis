@@ -1,4 +1,4 @@
-public class InvestigacioninformacionConexion<T> : ObjetoConexion<investigacioninformacion>
+public class InvestigacioninformacionConexion<T> : ObjetoConexion<investigacion>
     {
        
         private static InvestigacioninformacionConexion<T> instance;
@@ -7,11 +7,11 @@ public class InvestigacioninformacionConexion<T> : ObjetoConexion<investigacioni
             get
             {
                 if (instance == null)
-                    instance = new InvestigacioninformacionConexion<T>(new investigacioninformacion());
+                    instance = new InvestigacioninformacionConexion<T>(new investigacion());
                 return instance;
             }
         } 
-        private InvestigacioninformacionConexion(investigacioninformacion aux): base(aux){ 
+        private InvestigacioninformacionConexion(investigacion aux): base(aux){ 
             
         }
         

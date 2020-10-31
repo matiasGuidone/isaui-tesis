@@ -1,18 +1,20 @@
 
-export class investigacioninformacion
+export class investigacion
 {
     id: number;
     descripcion: string;
     idcurriculum: number;
-    idlugar: number;
-    tipo: number;
+    lugar: string;
+    tipo: string;
+    fecha:Date;
 
     constructor(obj:any)
     {
         this.id= +obj.id;
         this.descripcion= obj.descripcion;
         this.idcurriculum=+ obj.idcurriculum;
-        this.idlugar=+obj.idlugar;
-        this.tipo= +obj.tipo;
+        this.lugar= obj.lugar;
+        this.tipo= obj.tipo;
+        this.fecha= new Date(obj.fecha);
     }
 }
