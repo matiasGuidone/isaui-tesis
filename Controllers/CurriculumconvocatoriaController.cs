@@ -17,8 +17,17 @@ public class CurriculumconvocatoriaController: Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Insert(Curriculumconvocatoria);
-        return Json("Guardado exitoso");
+            string[] filtroaux= {"idcurriculum",Curriculumconvocatoria.Idcurriculum.ToString(),"idconvocatoria",Curriculumconvocatoria.Idconvocatoria.ToString()};
+            var lista = CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.SearchAll(filtroaux);
+            if(lista.Count==0){
+                CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Insert(Curriculumconvocatoria);
+                return Json("Guardado exitoso");
+            }
+            else{
+                CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.actualizarConvocatoria(Curriculumconvocatoria);
+                return Json("Guardado exitoso");
+            }
+        
         }
         else return null;
 

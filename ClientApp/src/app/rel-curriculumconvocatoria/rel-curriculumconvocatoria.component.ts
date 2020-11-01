@@ -28,8 +28,8 @@ export class RelCurriculumconvocatoriaComponent {
   }     
 
   guardarRecursivo(res, i: number) {
-    let dat = new curriculumconvocatoria({"id":"0", 'idcurriculum' :this.servicio.idSeleccionado.toString(),'idconvocatoria': this.servicio.idsSeleccionados[i].toString(), 'puntaje':"", 'prioridad':""});
-    this.servicio.addSingleAbm(dat, "curriculimconvocatoria").subscribe(r => {
+    let dat = new curriculumconvocatoria({"id":"0", 'idcurriculum' : this.servicio.idsSeleccionados[i].toString(),'idconvocatoria':  this.servicio.idSeleccionado.toString(), 'puntaje':"0", 'prioridad':"0"});
+    this.servicio.addSingleAbm(dat, "curriculumconvocatoria").subscribe(r => {
         if (i > 0) { this.guardarRecursivo(this.servicio.idsSeleccionados, i - 1); }
         else if(i==0){ this.servicio.idSeleccionado = null; this.servicio.idsSeleccionados = null; }
 

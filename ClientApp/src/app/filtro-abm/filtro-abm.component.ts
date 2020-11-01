@@ -113,6 +113,7 @@ export class FiltroComponent {
       case "cursoalumno": { abm = "alumno"; break; }
       case "rolesusuario": { abm = "usuario"; break; }
       case "consultaasistencia": { abm = "asistenciarepo"; break; }
+      case "curriculumconvocatoria": { abm = "curriculum"; break; }
       default: { break; }
     }
 
@@ -133,7 +134,8 @@ export class FiltroComponent {
       case "docentemateria": { abm = "docente"; break; }
       case "cursoalumno": { abm = "alumno"; break; }
       case "rolesusuario": { abm = "usuario"; break; }
-      case "consultaasistencia": { abm = "asistenciarepo"; break; }
+      case "consultaasistencia": { abm = "asistenciarepo"; break; } 
+      case "curriculumconvocatoria": { abm = "curriculum"; break; }
       default: { break; }
     }
     this.servicio.loadGrilla(abm, this.arrayValores)
@@ -161,6 +163,7 @@ export class FiltroComponent {
         case "docentemateria": { abm = "docente"; break; }
         case "rolesusuario": { abm = "usuario"; break; }
         case "consultaasistencia": { abm = "Reporte de asistencias"; break; }
+        case "curriculumconvocatoria": { abm = "curriculum"; break; }
         default: { break; }
       }
 

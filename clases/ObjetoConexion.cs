@@ -105,9 +105,12 @@ public class ObjetoConexion<T>
         consulta = consulta + valores;
 
         Conexion.ConsultaParametros(consulta, param);
-        consulta = $"SELECT max(id) as id FROM {this.tipo.GetType()}";
-         
-        var id = Convert.ToInt32(Conexion.consultaDataTable(consulta).Tables[0].Rows[0].ItemArray[0]);
+        consulta = $"SELECT IFNULL(max(id),0) as id FROM {this.tipo.GetType()}";
+        var ds = Conexion.consultaDataTable(consulta);
+        var id = 0;
+        if(ds!= null){
+        id = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0]);}
+
         return id; 
     }
     public void Update(oObjeto objeto)

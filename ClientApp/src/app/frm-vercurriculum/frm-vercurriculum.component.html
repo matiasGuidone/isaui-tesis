@@ -1,0 +1,116 @@
+<div [class]="this.servicio.classtable">
+    <div class="display-4">{{curriculum.nombre}}, {{curriculum.apellido}}</div>
+    <br>
+    <hr>
+    <div class="lead">Datos personales</div>
+    <hr>
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Tipo de documento: </div>
+                          <div class="col-md-6"> {{tipodedoc(curriculum.tipodoc)}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Número de documento: </div>
+                          <div class="col-md-6"> {{curriculum.numerodoc}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Teléfono: </div>
+                          <div class="col-md-6"> {{curriculum.telefono}} </div></div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Teléfono alternativo: </div>
+                          <div class="col-md-6"> {{curriculum.telefonodos}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Correo: </div>
+                          <div class="col-md-6"> {{curriculum.correo}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Fecha de nacimiento: </div>
+                          <div class="col-md-6"> {{curriculum.fechanac | date : 'dd/MM/yyyy'}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Edad: </div>
+                          <div class="col-md-6"> {{edad(curriculum.fechanac)}} </div> </div>
+
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Género: </div>
+                          <div class="col-md-6"> {{genero(curriculum.sexo)}} </div> </div>
+ 
+    <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Domicilio: </div>
+                          <div class="col-md-6"> {{dom}}, {{loc}}, {{pro}}, {{pais}} </div> </div>
+                          <br>
+                          <hr>
+                          
+                          <div *ngIf="formaciones.length > 0" class="lead">Formación académica</div>
+                           
+                            <div *ngFor="let formacion of formaciones">
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Título</div>
+                                    <div class="col-md-6">{{formacion.titulo}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Nivel</div>
+                                    <div class="col-md-6">{{formacion.tipotitulo}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Establecimiento:</div>
+                                    <div class="col-md-6">{{formacion.Establecimiento}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Fecha de comienzo:</div>
+                                    <div class="col-md-6">{{formacion['Fecha inicio'] | date : 'dd/MM/yyyy'}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
+                                    <div class="col-md-6">{{formacion['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                </div> 
+                                 <hr>
+                            </div>
+                           
+                          <hr>
+                          <br>
+                          <div *ngIf="experiencias.length > 0" class="lead">Experiencias laborales</div>
+                           
+                            <div *ngFor="let experiencia of experiencias">
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Cargo</div>
+                                    <div class="col-md-6">{{experiencia.Cargo}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Establecimiento</div>
+                                    <div class="col-md-6">{{experiencia.Establecimiento}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Relación con docencia:</div>
+                                    <div class="col-md-6">{{experiencia['Relación con docencia']}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Fecha de comienzo:</div>
+                                    <div class="col-md-6">{{experiencia['Fecha inicio'] | date : 'dd/MM/yyyy'}}</div>
+                                </div>
+                                <div class="lead row m-3">
+                                    <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
+                                    <div class="col-md-6">{{experiencia['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                </div> 
+                                <hr>
+                            </div>
+                          
+                          <hr>
+                          <br>
+                          <div *ngIf="investigaciones.length > 0" class="lead">Investigaciones y/o Publicaciones</div>
+                          
+                          <div *ngFor="let investigacion of investigaciones">
+                            <div class="lead row m-3">
+                                <div class="col-md-5 font-weight-bold">Investigación/publicación: </div>
+                                <div class="col-md-6">{{investigacion.tipo}}</div>
+                            </div>
+                            <div class="lead row m-3">
+                                <div class="col-md-5 font-weight-bold">Descripción: </div>
+                                <div class="col-md-6">{{investigacion.Descripcion}}</div>
+                            </div>
+                            <div class="lead row m-3">
+                                <div class="col-md-5 font-weight-bold">Lugar:</div>
+                                <div class="col-md-6">{{investigacion.Lugar}}</div>
+                            </div>
+                            <div class="lead row m-3">
+                                <div class="col-md-5 font-weight-bold">Fecha:</div>
+                                <div class="col-md-6">{{investigacion['Fecha'] | date : 'dd/MM/yyyy'}}</div>
+                            </div>
+                            <hr>
+                        </div>
+                        <button (click)="volver()" class="btn btn-info">Volver</button>
+ 
+</div>
+ 

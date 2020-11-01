@@ -7,6 +7,7 @@ import * as jspdf from 'jspdf';
 import autoTable from 'jspdf-autotable'
 import { logo64 } from '../filtro-abm/logo-base64';
 import { curriculumconvocatoria } from '../clases/curriculumconvocatoria';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class OrdenmeritoComponent implements OnInit {
   materia: string;
 
   
-  constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) { 
+  constructor(private servicio: PeticionesService, private router:Router,protected logservicio: AuthLoginService, private modalservice: ModalService) { 
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if (rol.nombrerol.toString() == "Administrador") {
       this.servicio.loadGrilla('convocatoria').subscribe(resultado => { this.convocatorias = resultado; if (this.convocatorias.length > 0) { this.selecionarconvocatoria(this.convocatorias[0].id); } });
@@ -33,7 +34,7 @@ export class OrdenmeritoComponent implements OnInit {
   ngOnInit() {
   }
 
-  public selecionarconvocatoria(ids=0)
+  selecionarconvocatoria(ids=0)
   {
     this.cvs=new Array<any>();
     let id = ids;
@@ -51,7 +52,7 @@ export class OrdenmeritoComponent implements OnInit {
     })
   }
 
-    pdfNotas() {
+pdfNotas() {
     let fecha = this.stringFecha(new Date(), 'comp');
     let fechafile = this.stringFecha(new Date(), '');
     let head = [[]];
@@ -176,5 +177,23 @@ export class OrdenmeritoComponent implements OnInit {
       formatFecha += '/' +f.getFullYear().toString();
       return formatFecha;
     }
+  }
+  verCurriculum(id){
+    let cv = this.cvs.find(cuv => cuv.idcv == id);
+    this.servicio.getById(cv.idcv.toString(),'curriculum').subscribe(curr=>{
+      this.servicio.selectedcurriculum = curr;  
+      this.logservicio.componenteGuard = "frm-vercurriculum";
+      this.router.navigate(['frm-vercurriculum']);  });
+   
+  }
+  almacenarprioridad(id){
+    let prioridad = document.getElementById('prio-'+id)['value'];
+    let idconvocatoria = document.getElementById('convocatoria')['value'];
+    let aux = this.cvs.find(cv => cv.idcv == id);
+    let cvconvocatoria : curriculumconvocatoria= new curriculumconvocatoria({'id':'0','idcurriculum':id.toString(),'idconvocatoria':idconvocatoria.toString(),'puntaje': aux.puntaje,'prioridad':prioridad.toString()})
+    this.servicio.addSingleAbm(cvconvocatoria,'curriculumconvocatoria').subscribe(re=>{
+      this.selecionarconvocatoria(idconvocatoria);
+    });
+
   }
 }

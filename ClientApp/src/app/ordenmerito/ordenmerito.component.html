@@ -35,6 +35,7 @@
                       <th>Documento</th> 
                      <th scope="col" style="background-color: rgba(43, 226, 202, 0.253);" >Puntos</th>
                      <th style="background-color: rgba(137, 43, 226, 0.253);" scope="col" >Prioridad</th>
+                     <th style="background-color: rgba(24, 44, 156, 0.253);" scope="col" >Acciones</th>
                 </tr>
             </thead>
             <tbody> 
@@ -42,7 +43,8 @@
                     <td>{{cv.postulante}} </td>
                      <td >{{cv.dni}} </td> 
                     <td style="background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
-                    <td style="background-color: rgba(137, 43, 226, 0.253);" >{{cv.prioridad}} </td>
+                    <td style="background-color: rgba(137, 43, 226, 0.253);" > <input style="width:45px;" id="prio-{{cv.idcv}}" type="number" [value]="cv.prioridad"> <button (click)="almacenarprioridad(cv.idcv)" class="btn btn-success rounded-circle"><span class="fa fa-save"></span></button></td>
+                    <td> <button class="btn btn-info" (click)="verCurriculum(cv.idcv)" title="Ver currículum"><span class="fa fa-eye"></span></button></td>
                 </tr>
 
             </tbody>

@@ -11,8 +11,8 @@ export class curriculumconvocatoria{
         this.id = +obj.id;
         this.idcurriculum= +obj.idcurriculum;
         this.idconvocatoria= +obj.idconvocatoria;
-        this.puntaje=obj.puntaje;
-        this.prioridad=obj.prioridad;
+        this.puntaje= +obj.puntaje;
+        this.prioridad= +obj.prioridad;
          // formateo a number el string // parseInt(val
 
     }

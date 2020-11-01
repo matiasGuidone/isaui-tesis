@@ -1,4 +1,5 @@
- using System;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
     public class CurriculumconvocatoriaConexion<T> : ObjetoConexion<curriculumconvocatoria>
     {
@@ -27,4 +28,13 @@ using System.Collections.Generic;
             return (List<ordenmerito>)Conexion.consultaList<ordenmerito>(con);
         }
 
+        public void actualizarConvocatoria(curriculumconvocatoria cvcon){
+            var consulta = "UPDATE curriculumconvocatoria set puntaje = ?puntaje , prioridad = ?prioridad where idconvoctoria = ?idconvocatoria and idcurriculum = ?idcurriculum ";
+            List<MySqlParameter> param = new List<MySqlParameter>();
+            param.Add(new MySqlParameter ("puntaje" ,cvcon.Puntaje ));
+            param.Add(new MySqlParameter ("prioridad" ,cvcon.Prioridad ));
+            param.Add(new MySqlParameter ("idconvocatoria" ,cvcon.Idconvocatoria ));
+            param.Add(new MySqlParameter ("idcurriculum" ,cvcon.Idcurriculum ));
+            Conexion.ConsultaParametros(consulta, param);
+        }
     }

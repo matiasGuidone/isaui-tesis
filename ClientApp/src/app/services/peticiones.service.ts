@@ -2,6 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 // Observable: recoge informacion de la api rest (header / body)
 import {Observable, from} from 'rxjs';
+import { curriculum } from '../clases/curriculum';
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class PeticionesService {
 
    public idsSeleccionados : number[];
    public idSeleccionado : number;
+   public selectedcurriculum: curriculum;
    public url : string;
    public classbody : string  = "bodyclasswh";
    public classtable2 : string = "table table-hover";

@@ -58,6 +58,7 @@ import { curriculum } from './clases/curriculum';
 import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
 import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
 import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component';
+import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum.component';
   
 
 
@@ -112,7 +113,7 @@ import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias
     AbmCurriculumComponent,
     FrmCurriculumComponent,
     OrdenmeritoComponent, 
-    FrmConvocatoriasComponent
+    FrmConvocatoriasComponent, FrmVercurriculumComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -159,14 +160,15 @@ import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
-      { path: 'frm-curriculum', component: FrmCurriculumComponent},
+      { path: 'frm-curriculum', component: FrmCurriculumComponent, canActivate:[Guard]},
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},
      {path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate:[Guard]},
      {path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate:[Guard]},
      {path: 'frm-convocatorias', component: FrmConvocatoriasComponent},
-     {path: 'frm-ordenmerito', component: OrdenmeritoComponent},
+     {path: 'frm-ordenmerito', component: OrdenmeritoComponent, canActivate:[Guard]},
+     {path: 'frm-vercurriculum', component: FrmVercurriculumComponent, canActivate:[Guard]},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],
