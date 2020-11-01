@@ -29,7 +29,7 @@ using System.Collections.Generic;
         }
 
         public void actualizarConvocatoria(curriculumconvocatoria cvcon){
-            var consulta = "UPDATE curriculumconvocatoria set puntaje = ?puntaje , prioridad = ?prioridad where idconvoctoria = ?idconvocatoria and idcurriculum = ?idcurriculum ";
+            var consulta = "UPDATE curriculumconvocatoria set puntaje = ?puntaje , prioridad = ?prioridad where idconvocatoria = ?idconvocatoria and idcurriculum = ?idcurriculum ";
             List<MySqlParameter> param = new List<MySqlParameter>();
             param.Add(new MySqlParameter ("puntaje" ,cvcon.Puntaje ));
             param.Add(new MySqlParameter ("prioridad" ,cvcon.Prioridad ));
