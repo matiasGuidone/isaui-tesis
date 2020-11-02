@@ -13,6 +13,7 @@ import { PeticionesService } from '../services/peticiones.service';
 import * as jspdf from 'jspdf';  
 import { logo64 } from '../filtro-abm/logo-base64';
 import * as html2canvas from 'html2canvas';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-frm-vercurriculum',
@@ -31,7 +32,7 @@ export class FrmVercurriculumComponent implements OnInit {
   experiencias: any[]= new Array<any>();
   investigaciones: any[]= new Array<any>();
 
-  constructor(private servicio :PeticionesService,private router:Router, private modalservicio: ModalService,private logservicio:AuthLoginService) {
+  constructor(protected location: Location,private servicio :PeticionesService, private modalservicio: ModalService,private logservicio:AuthLoginService) {
      this.curriculum = servicio.selectedcurriculum;
      this.servicio.getById(this.curriculum.iddomicilio.toString(),'domicilio').subscribe((dom:domicilio)=>{
       this.dom = dom.direccion;
@@ -99,8 +100,8 @@ export class FrmVercurriculumComponent implements OnInit {
     return this.documentos[id];
   }
   volver(){
-    this.logservicio.componenteGuard = "frm-ordenmerito";
-    this.router.navigate(['frm-ordenmerito']);   
+    this.location.back();
+        this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
   }
   generarPdf(){
     let btnvolver = document.getElementById('btnvolver');

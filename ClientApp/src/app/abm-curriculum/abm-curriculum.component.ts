@@ -5,6 +5,7 @@ import { curriculum } from '../clases/curriculum';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
 import { AuthLoginService } from '../services/authlogin.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class AbmCurriculumComponent extends abm<curriculum> implements OnInit {
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
-    protected logservicio: AuthLoginService) 
+    protected logservicio: AuthLoginService,
+    private router:Router ) 
     { 
       super(location,modalService,servicio, logservicio);
 
@@ -65,6 +67,11 @@ export class AbmCurriculumComponent extends abm<curriculum> implements OnInit {
         .find(id => id === par) == null) { return false; }
       else
         return true;
+    }
+    ver(id){
+      this.servicio.selectedcurriculum = this.lista.find(cv => cv.id == id);  
+      this.logservicio.componenteGuard = "frm-vercurriculum";
+      this.router.navigate(['frm-vercurriculum']); 
     }
   
     //funcion para cambiar de estado un registro

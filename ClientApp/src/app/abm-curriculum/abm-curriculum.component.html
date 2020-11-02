@@ -20,13 +20,14 @@
                 <td>{{c.telefono}}</td>
                 <td>{{c.correo}}</td>
                 
-                <td><button *ngIf="!esRelacion" class="btn btn-outline-success" title="Editar" (click)="editar(c.id)" ><span class="fa fa-edit"></span></button>
-                    <button *ngIf="!esRelacion" class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(c.id)"><span class="fa fa-trash-alt"></span></button>
+                 <td><!--<button *ngIf="!esRelacion" class="btn btn-outline-success" title="Editar" (click)="editar(c.id)" ><span class="fa fa-edit"></span></button> -->
+                    <!-- <button *ngIf="!esRelacion" class="btn btn-outline-danger"  title="Eliminar" (click)="eliminar(c.id)"><span class="fa fa-trash-alt"></span></button> -->
+                    <button *ngIf="!esRelacion" class="btn btn-info"  title="Ver curriculum" (click)="ver(c.id)"><span class="fa fa-eye"></span></button>
                     <button *ngIf="!esRelacion && this.modalService.listAbm != null && this.modalService.listAbm != undefined" class="btn btn-outline-info" title="Seleccionar" (click)="seleccionar(c.id)"><span class="fa fa-check"></span></button></td>
             </tr>
         </tbody>
     </table>
    
 </div>
-<button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+<!-- <button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button> -->
 <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
