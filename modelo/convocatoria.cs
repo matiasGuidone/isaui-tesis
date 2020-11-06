@@ -8,6 +8,7 @@ public class convocatoria: oObjeto{
     public string Descripcion{get;set;}
     public int Idmateria{get;set;}
     public int Estado{get;set;}
+    public int Idcurriculum{get;set;}
 
     public convocatoria(){}
 
@@ -18,5 +19,6 @@ public class convocatoria: oObjeto{
         this.Descripcion=dr["descripcion"].ToString();
         this.Idmateria=Convert.ToInt32(dr["idmateria"]);
         this.Estado= Convert.ToInt32(dr["estado"]);
+        this.Idcurriculum=Convert.ToInt32(dr["idcurriculum"]);
     }
 }

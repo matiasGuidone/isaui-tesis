@@ -8,6 +8,8 @@ import autoTable from 'jspdf-autotable'
 import { logo64 } from '../filtro-abm/logo-base64';
 import { curriculumconvocatoria } from '../clases/curriculumconvocatoria';
 import { Router } from '@angular/router';
+import { MyModalComponent } from '../modal/MyModalComponent';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -195,5 +197,24 @@ pdfNotas() {
       this.selecionarconvocatoria(idconvocatoria);
     });
 
+  }
+  establecerCandidato(id){
+    this.abrirModal('Convocatorias','¿ Desea establecer este currículum como elegido para la convocatoria ?',2,null).subscribe(result=>{
+      if(result){
+        let conv = this.convocatorias.find(convocatoria => convocatoria.id == document.getElementById('convocatoria')['value']);
+        conv.idcurriculum = id;
+        this.servicio.addSingleAbm(conv,'convocatoria').subscribe(re=>{
+           this.selecionarconvocatoria();
+        });
+      }
+      else return;
+    })
+  }
+
+  abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
+    const modalRef = 
+    this.modalservice.open(MyModalComponent, 
+      { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
+    return modalRef.onResult();
   }
 }

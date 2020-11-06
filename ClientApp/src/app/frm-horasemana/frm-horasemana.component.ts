@@ -194,22 +194,54 @@ export class FrmHoraSemanaComponent extends abm<horasdia> implements OnInit {
 
   //genera el pdf de los horarios
   pdfhorarios(){
-      
+      let btnpdf = document.getElementById('pdf');
+      btnpdf.style.display='none';
       let base64Img = logo64.image;
       let fechafile = this.stringFecha(new Date(),'');
       let fecha = this.stringFecha(new Date(),'comp');
       let curso = this.cursos.find(curso => curso.id == document.getElementById('curso')['value']).nombre;
       const data = document.getElementById('horarios');
-      let opt = { scale: 2, letterRendering: false, useCORS: true};
+      let opt = { scale: 1.1, letterRendering: true, useCORS: true};
       html2canvas.default(data,opt).then(canvas => {
-        const contentDataURL = canvas.toDataURL('image/svg');
+               
+        const contentDataURL = canvas.toDataURL('image/jpeg');
         const pdf = new jspdf.jsPDF('p', 'mm', 'a4'); // A4 size page of PDF 
+        var numpag = 1;
+        var imgWidth = 210; 
+        var pageHeight = 295;  
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        //var doc = new jsPDF('p', 'mm');
+        var position = 0;
+
+        pdf.addImage(contentDataURL, 'JPEG', 10, position+17, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
         pdf.setFontSize(9);
         pdf.text("Hora y fecha de emisión: "+fecha, 113 , 14);
         pdf.text("ISAUI - Autogestión ", 168 , 10);
         pdf.addImage(base64Img, 'JPEG', 5, 5, 40, 12);
-        pdf.addImage(contentDataURL, 'SVG', 10, 17, 185, 270);
+        pdf.text("Página "+numpag.toString(), 168 ,  pageHeight - 8);
+
+        while (heightLeft >= 0) {
+          numpag++;
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(contentDataURL, 'PNG', 10, position+17, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+          pdf.text("Página "+numpag.toString(), 168 ,  pageHeight - 8);
+        }
+ 
+      // let opt = { scale: 2, letterRendering: false, useCORS: true};
+      // html2canvas.default(data,opt).then(canvas => {
+      //   const contentDataURL = canvas.toDataURL('image/svg');
+      //   const pdf = new jspdf.jsPDF('p', 'mm', 'a4'); // A4 size page of PDF 
+      //   pdf.setFontSize(9);
+      //   pdf.text("Hora y fecha de emisión: "+fecha, 113 , 14);
+      //   pdf.text("ISAUI - Autogestión ", 168 , 10);
+      //   pdf.addImage(base64Img, 'JPEG', 5, 5, 40, 12);
+      //   pdf.addImage(contentDataURL, 'SVG', 10, 17, 185, 270);
         pdf.save('Horarios '+curso+'.pdf'); // Generated PDF
+        btnpdf.style.display='block';
       });       
   }
 

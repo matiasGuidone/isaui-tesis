@@ -11,7 +11,7 @@ import { MyModalComponent } from '../modal/MyModalComponent';
 export class AuthLoginService {
 authSubject= new BehaviorSubject(false);
 private token: string;
-public componenteGuard:string ='';
+public componenteGuard:string =''; 
 public componentes : any[]=new Array<any>();
   constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 

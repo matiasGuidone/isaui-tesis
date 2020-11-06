@@ -1,8 +1,9 @@
-<div [class]="this.servicio.classtable">
+<div id="curriculum" [class]="this.servicio.classtable">
+
     <div class="display-4">{{curriculum.nombre}}, {{curriculum.apellido}}</div>
     <br>
     <hr>
-    <div class="lead">Datos personales</div>
+    <div class="lead">Datos personales <button id="btnpdf" title="generar pdf" (click)="generarPdf()" class="btn btn-danger float-right rounded-circle"><span class="fa fa-file-pdf"></span> </button> </div> 
     <hr>
     <div class="lead row m-3"><div class="col-md-5 font-weight-bold"> Tipo de documento: </div>
                           <div class="col-md-6"> {{tipodedoc(curriculum.tipodoc)}} </div> </div>
@@ -36,13 +37,14 @@
                           <div *ngIf="formaciones.length > 0" class="lead">Formación académica</div>
                            
                             <div *ngFor="let formacion of formaciones">
+                                <hr>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Título</div>
-                                    <div class="col-md-6">{{formacion.titulo}}</div>
+                                    <div class="col-md-6">{{formacion.Titulo}}</div>
                                 </div>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Nivel</div>
-                                    <div class="col-md-6">{{formacion.tipotitulo}}</div>
+                                    <div class="col-md-6">{{formacion.tipo}}</div>
                                 </div>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Establecimiento:</div>
@@ -56,14 +58,15 @@
                                     <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
                                     <div class="col-md-6">{{formacion['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
                                 </div> 
-                                 <hr>
+                                
                             </div>
                            
                           <hr>
                           <br>
                           <div *ngIf="experiencias.length > 0" class="lead">Experiencias laborales</div>
-                           
+                        
                             <div *ngFor="let experiencia of experiencias">
+                                <hr>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Cargo</div>
                                     <div class="col-md-6">{{experiencia.Cargo}}</div>
@@ -84,14 +87,15 @@
                                     <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
                                     <div class="col-md-6">{{experiencia['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
                                 </div> 
-                                <hr>
+                                 
                             </div>
                           
                           <hr>
                           <br>
                           <div *ngIf="investigaciones.length > 0" class="lead">Investigaciones y/o Publicaciones</div>
-                          
+                         
                           <div *ngFor="let investigacion of investigaciones">
+                            <hr>
                             <div class="lead row m-3">
                                 <div class="col-md-5 font-weight-bold">Investigación/publicación: </div>
                                 <div class="col-md-6">{{investigacion.tipo}}</div>
@@ -108,9 +112,10 @@
                                 <div class="col-md-5 font-weight-bold">Fecha:</div>
                                 <div class="col-md-6">{{investigacion['Fecha'] | date : 'dd/MM/yyyy'}}</div>
                             </div>
-                            <hr>
+                           
                         </div>
-                        <button (click)="volver()" class="btn btn-info">Volver</button>
+                         <hr>
+                        <button id="btnvolver" (click)="volver()" class="btn btn-info">Volver</button>
  
 </div>
  
