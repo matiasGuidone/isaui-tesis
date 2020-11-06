@@ -53,13 +53,13 @@ import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
 import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
 import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria/rel-curriculumconvocatoria.component';
-import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component'; 
+import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component';
 import { curriculum } from './clases/curriculum';
 import { FrmCurriculumComponent } from './frm-curriculum/frm-curriculum.component';
 import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
 import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component';
 import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum.component';
-  
+
 
 
 
@@ -102,7 +102,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     FrmCarganotasComponent,
     FrmConsultaasistenciasComponent,
     AbmMensajeComponent,
-    FrmMensajesComponent, 
+    FrmMensajesComponent,
     FrmCalendarioComponent,
     CmpHorariosComponent,
     FrmAsistenciasalumnoComponent,
@@ -112,7 +112,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     RelCurriculumconvocatoriaComponent,
     AbmCurriculumComponent,
     FrmCurriculumComponent,
-    OrdenmeritoComponent, 
+    OrdenmeritoComponent,
     FrmConvocatoriasComponent, FrmVercurriculumComponent
 
   ],
@@ -146,7 +146,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
       { path: 'rel-alumnomateria', component: RelAlumnoMateria, canActivate : [Guard]},
       { path: 'abm-roles', component: AbmRolesComponent, canActivate : [Guard]},
       { path: 'rel-docentemateria', component: RelDocenteMateria, canActivate : [Guard]},
-      { path: 'abm-convocatoria', component: AbmConvocatoriaComponent, canActivate : [Guard]},
+      { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'abm-examen', component: AbmExamenComponent, canActivate : [Guard]},
       { path: 'abm-evento', component: AbmEventoComponent, canActivate : [Guard]},
       { path: 'abm-horasdia', component: AbmHorasDiaComponent, canActivate : [Guard]},
@@ -160,7 +160,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },
-      { path: 'frm-curriculum', component: FrmCurriculumComponent, canActivate:[Guard]},
+      { path: 'frm-curriculum', component: FrmCurriculumComponent},
       {path: 'abm-mensaje', component: AbmMensajeComponent, canActivate:[Guard]},
      // { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
      {path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate:[Guard]},

@@ -104,8 +104,18 @@ public class ObjetoConexion<T>
 
         consulta = consulta + valores;
 
+       
         Conexion.ConsultaParametros(consulta, param);
+       
+        // Curriculum Convocatoria no tiene id devuelve = 0 para que termine correctamente la operacion
+        if(this.tipo.GetType().FullName == "curriculumconvocatoria") {
+           return 0;         
+        };
+       
+
+
         consulta = $"SELECT IFNULL(max(id),0) as id FROM {this.tipo.GetType()}";
+
         var ds = Conexion.consultaDataTable(consulta);
         var id = 0;
         if(ds!= null){
@@ -148,8 +158,15 @@ public class ObjetoConexion<T>
         Conexion.ConsultaParametros(consulta, param);
 
     }
-    public void Delete(int Id, oObjeto param = null, string filtro = null, string valor = null)
+    public void Delete(int Id, oObjeto param = null, string filtro = null, string valor = null, string valor2 = null)
     {
+
+        if (valor2 != null ){
+            String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE curriculumconvocatoria.Idcurriculum = {Id.ToString()} AND curriculumconvocatoria.Idconvocatoria = {valor2}";
+            Conexion.ConsultaParametros(consulta);
+    
+        }
+
         //si el objeto no es null se elimina ese objeto
         if (filtro != null && filtro != "" && valor != null && valor != "")
         {
@@ -173,6 +190,8 @@ public class ObjetoConexion<T>
             parametro.Add(new MySqlParameter("Id", Id));
             Conexion.ConsultaParametros(consulta, parametro);
         }
+
+        
 
     }
 

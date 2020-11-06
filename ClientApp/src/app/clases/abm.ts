@@ -12,7 +12,7 @@ export class abm<T>{
   @Input() lista: T[];
     objetoBlanco : T;
     nombre : string;
-    constructor(protected location: Location, 
+    constructor(protected location: Location,
                 protected modalService: ModalService,
                 protected servicio: PeticionesService,
                 protected logservicio: AuthLoginService
@@ -21,8 +21,8 @@ export class abm<T>{
     ngOnInit() {
       this.servicio.loadGrilla(this.nombre).subscribe(res => this.lista = res);
     }
-  
-      
+
+
     eliminar(id: number) {
       this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
         closed => {
@@ -31,15 +31,15 @@ export class abm<T>{
             .subscribe(res => this.lista = res))
         });
     }
-  
+
     abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
-      const modalRef = 
-      this.modalService.open(MyModalComponent, 
+      const modalRef =
+      this.modalService.open(MyModalComponent,
         { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
       return modalRef.onResult();
     }
- 
-  
+
+
 
     guardar(obj): Observable<T> {
       if (+obj.id != 0) {
@@ -52,7 +52,7 @@ export class abm<T>{
         return this.servicio.addSingleAbm(param, this.nombre);
       }
     }
-  
+
     seleccionar(id) {
         let nodo = this.modalService.listAbm;
         while (nodo.getData().name == this.nombre) {
@@ -100,7 +100,7 @@ export class abm<T>{
           else if (p instanceof Date || i.toString().startsWith('fecha', 0)){
             let d : any = new Date(obj[i]);
             objaux[i] = d;
-          } 
+          }
           else {
             objaux[i] = obj[i];
           }
@@ -108,7 +108,7 @@ export class abm<T>{
         return objaux;
       }
 
-      
 
-     
+
+
 }

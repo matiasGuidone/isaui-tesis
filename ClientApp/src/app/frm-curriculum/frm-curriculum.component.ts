@@ -123,7 +123,7 @@ export class FrmCurriculumComponent implements OnInit {
         this.domicilioaux= result;
         document.getElementById('domicilio')['value'] = result.direccion;
         document.getElementById('localidad')['value'] = result.idlocalidad;
-        
+
 
       });
     }
@@ -243,7 +243,7 @@ export class FrmCurriculumComponent implements OnInit {
           'id': experiencia.id, Establecimiento: experiencia.Establecimiento, 'Fecha inicio': new Date(fechai),
           'Fecha fin': new Date(fechaf), 'Cargo': experiencia.Cargo, 'Relación con docencia': experiencia['Relación con docencia']
         })
-        .subscribe(result => { 
+        .subscribe(result => {
           let ind = this.experiencias.findIndex(n => n == experiencia);
           this.experiencias.splice(ind,1,result);
          })
@@ -266,7 +266,7 @@ export class FrmCurriculumComponent implements OnInit {
           'id': investigacion.id, Descripcion: investigacion.Descripcion, 'Fecha': fecha,
           'Lugar': investigacion.Lugar, 'tipo': investigacion['tipo']
         })
-        .subscribe(result => { 
+        .subscribe(result => {
           let ind = this.investigaciones.findIndex(n => n == investigacion);
           this.investigaciones.splice(ind,1,result); })
     }
@@ -315,7 +315,7 @@ export class FrmCurriculumComponent implements OnInit {
         'correo': cv.correo, 'observaciones': cv.observaciones, 'tipodoc': cv.tipodoc, 'iddomicilio': iddomicilio, 'idusuario': cv.idusuario
       })
 
-       
+
       this.servicio.addSingleAbm(curr, 'curriculum').subscribe(idcurriculum => {
         if(!Number.isInteger(idcurriculum)){
           idcurriculum = cv.id;

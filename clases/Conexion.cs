@@ -84,7 +84,7 @@ public class Conexion
     }
 
     //para un insert o un update o un delete
-    public Boolean ConsultaParametros(String consulta, List<MySqlParameter> param)
+    public Boolean ConsultaParametros(String consulta, List<MySqlParameter> param =null)
     {
         try{
         MySqlCommand comando = new MySqlCommand();

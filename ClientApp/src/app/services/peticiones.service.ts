@@ -7,7 +7,7 @@ import { curriculum } from '../clases/curriculum';
 
 @Injectable()
 export class PeticionesService {
-  
+
   logueosegundo(Headers: HttpHeaders) : Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/logueo', { headers: Headers });
   }
@@ -23,9 +23,9 @@ export class PeticionesService {
    public classnav : string = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
 
     constructor( public _http: HttpClient, @Inject('BASE_URL') private baseUrl: string
-     
-   
-    ){ 
+
+
+    ){
     }
 
    //busca objetos por id
@@ -35,7 +35,7 @@ export class PeticionesService {
       const headers = new HttpHeaders({'token':token });
       return this._http.get<any>(this.baseUrl + 'api/'+tabla+'/'+id, { headers: headers });
     }
-    // llena el array de cada component para mostrar los datos en la tabla  
+    // llena el array de cada component para mostrar los datos en la tabla
     loadGrilla(abm: string ,filtro: string[] = null) : Observable<any[]>{
       if(filtro ==null){
         let token = localStorage.getItem("Access_Token");
@@ -49,8 +49,8 @@ export class PeticionesService {
           return this._http.get<any[]>(this.baseUrl+'api/'+ abm, {headers:headers});
         }
       }
-   
-    // POST o PUT para un registro recibe dos parametros obj : el tipo de objeto que estamos enviando 
+
+    // POST o PUT para un registro recibe dos parametros obj : el tipo de objeto que estamos enviando
     // desde el component y abm: la ruta del controler (ciclolectivo) -- en la condicion else leer "Documentacion"
     addSingleAbm(obj, abm:string ) : Observable<any>{
       if(Array.isArray(obj)){
@@ -84,14 +84,23 @@ export class PeticionesService {
           //nos retornara un mensaje de exito con la siguiente leyenda "Guardado Exitoso"
           //de los contrario nos figuara cual es el error por el cual no puede tomar la peticion
           return this._http.post<any>(this.baseUrl+'api/'+ abm, params, {headers:headers} );
-         
+
 ;        }
   }
 // Elimina el registro
-  eliminar(id: number, abm: string){
+  eliminar(id: number,  abm: string, idaux=null){
+
     let token = localStorage.getItem("Access_Token");
-        if (token == undefined || token == null){token ='';}
-    const headers = new HttpHeaders({'id' : id.toString(),'token' : token});
+      if (token == undefined || token == null){token ='';}
+    let headers= undefined;
+
+      if(idaux != null){
+       headers = new HttpHeaders({'id' : id.toString(), 'id2': idaux.toString(), 'token' : token});
+      }
+      else{
+        headers = new HttpHeaders({'id' : id.toString(),'token' : token});
+      }
+
     return this._http.delete(this.baseUrl+'api/'+ abm, { headers: headers });
   }
 

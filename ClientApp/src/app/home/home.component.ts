@@ -19,9 +19,9 @@ export class HomeComponent {
 
   ngOnInit() {
     if (localStorage.getItem("Rol") != undefined && localStorage.getItem("Rol") != 'undefined') {
-      this.rol = JSON.parse(localStorage.getItem("Rol")); 
+      this.rol = JSON.parse(localStorage.getItem("Rol"));
       if(this.rol.nombrerol == "Alumno"){
-        this.servicio.loadGrilla('calificacionalumno', 
+        this.servicio.loadGrilla('calificacionalumno',
           ['idalumno',this.rol.id.toString()]).subscribe(calif=>{
             for(let c of calif){
               if(c.nota ==11){
@@ -80,10 +80,17 @@ export class HomeComponent {
   }
   ingresoCv(){
     if (this.rol.nombrerol.toString() == "Curriculum"){
-      this.logservicio.componenteGuard = "frm-curriculum";
+      //this.logservicio.componenteGuard = "frm-curriculum";
       this.router.navigate(['frm-curriculum']);
     }
   }
+  ingresoConvocatorias(){
+    if (this.rol.nombrerol.toString() == "Curriculum"){
+      //this.logservicio.componenteGuard = "frm-curriculum";
+      this.router.navigate(['abm-convocatoria']);
+    }
+  }
+
 
 }
 

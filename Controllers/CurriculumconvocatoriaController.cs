@@ -47,11 +47,11 @@ public class CurriculumconvocatoriaController: Controller
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id, [FromHeader] string token)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string id2, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Delete(Convert.ToInt32(id));
+        CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Delete(Convert.ToInt32(id),null,null,null, id2);
         return Json("registro eliminado");
         }
         else return null;
