@@ -132,23 +132,13 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
 
     this.servicio.loadGrilla('Convocatoria').subscribe((cuco :any[]) => {
         if (cuco!= undefined ){
-            /* for(var i=0; i<cuco.length; i++){
-            if (this.convocatorias_anotadas[i].idconvocatoria == cuco[i].id){
-                es_verdadero=true;
-              }
-            if (this.convocatorias_anotadas[i].idconvocatoria != cuco[i].id){
-                 es_verdadero=false;
-                 } */
                 for (let n of cuco){
-                let indice= this.convocatorias_anotadas.find( c => c.id == n.id);
+                let indice= this.convocatorias_anotadas.find( c => c.idconvocatoria == n.id);
                 if (indice == undefined){
                   es_verdadero=false;
-                }
+                }}}})
 
-
-                }}})
-
-                this.todas_postuladas= es_verdadero;
+               ;
 
 }
 
