@@ -85,3 +85,7 @@ ALTER TABLE `investigacion` CHANGE `tipo` `tipo` VARCHAR(30) NULL DEFAULT NULL;
 TER TABLE `antecedentetitulo` CHANGE `tipotitulo` `tipotitulo` VARCHAR(50) NULL DEFAULT NULL;
 
 ALTER TABLE `antecedentetitulo` CHANGE `relaciondocencia` `relaciondocencia` VARCHAR(70) NULL DEFAULT NULL;
+
+ALTER TABLE `convocatoria` ADD `Idcurriculum` INT NOT NULL AFTER `estado`;
+
+ALTER TABLE `convocatoria` CHANGE `Idcurriculum` `Idcurriculum` INT(11) NULL;

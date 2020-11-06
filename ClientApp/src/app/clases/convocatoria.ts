@@ -7,6 +7,7 @@ export class convocatoria{
     descripcion: string;
     idmateria: number;
     estado: number;
+    idcurriculum: number;
 
     constructor(obj:any)
     {
@@ -16,6 +17,7 @@ export class convocatoria{
         this.descripcion = obj.descripcion;
         this.idmateria = +obj.idmateria;
         this.estado = +obj.estado;
+        this.idcurriculum = +obj.idcurriculum;
     }
     
 }

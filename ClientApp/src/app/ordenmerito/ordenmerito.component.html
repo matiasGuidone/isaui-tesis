@@ -44,7 +44,8 @@
                      <td >{{cv.dni}} </td> 
                     <td style="background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
                     <td style="background-color: rgba(137, 43, 226, 0.253);" > <input style="width:45px;" id="prio-{{cv.idcv}}" type="number" [value]="cv.prioridad"> <button (click)="almacenarprioridad(cv.idcv)" class="btn btn-success rounded-circle m-2"><span class="fa fa-save"></span></button></td>
-                    <td> <button class="btn btn-info" (click)="verCurriculum(cv.idcv)" title="Ver currículum"><span class="fa fa-eye"></span></button></td>
+                    <td> <button class="btn btn-info" (click)="verCurriculum(cv.idcv)" title="Ver currículum"><span class="fa fa-eye"></span></button>
+                         <button class="btn btn-success" (click)="establecerCandidato(cv.idcv)" title="establecer candidato"><span class="fa fa-check"></span></button></td>
                 </tr>
 
             </tbody>
