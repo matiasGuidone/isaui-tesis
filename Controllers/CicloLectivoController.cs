@@ -17,7 +17,8 @@ public class CicloLectivoController : Controller
     { 
          if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CicloLectivoConexion<ciclolectivo>.Instance.Insert(cicloLectivo);
+        var idciclo = CicloLectivoConexion<ciclolectivo>.Instance.Insert(cicloLectivo);
+        DocenteMateriaConexion<docentemateria>.Instance.IncrementarCiclo(idciclo);
         return Json("Guardado exitoso");
         }
         else return null;

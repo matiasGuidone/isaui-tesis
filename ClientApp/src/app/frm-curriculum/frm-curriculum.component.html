@@ -1,5 +1,5 @@
 <div [class]="this.servicio.classtable">
-    <form class="form-horizontal p-4" novalate [formGroup]="formCurriculum">
+    <form class="form-horizontal p-4 border" novalate [formGroup]="formCurriculum">
         <div class="display-4">Curriculum</div>
 
 
@@ -191,10 +191,10 @@
                                 <hr class="linea">
                             </div>
 
-                            <div class="col-md-8">
-                                <button (click)="nuevo(1)" class="btn btn-info">Agregar</button>
-                                <div style="float:left;">
-                                    <label *ngFor="let tag of formaciones " class="btn-success m-1 p-1">
+                            <div class="col-md-8 row">
+                                <div class="col-md-2"><button (click)="nuevo(1)" class="btn btn-info">Agregar</button></div>
+                                <div class="col-md-9 float-left">
+                                    <label *ngFor="let tag of formaciones " class="btn btn-outline-primary m-1 p-1">
                                       <span style="margin: 5px;" >
                                       {{tag.Titulo}}
                                       <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Titulo,1)" data-dismiss="toast" aria-label="Close">
@@ -215,10 +215,11 @@
                                 <hr class="linea">
                             </div>
 
-                            <div class="col-md-8">
-                                <button (click)="nuevo(3)" class="btn btn-info">Agregar</button>
-                                <div style="float:left;">
-                                    <label *ngFor="let tag of experiencias " class="btn-success m-1 p-1">
+                            <div class="col-md-8 row">
+                                <div class="col-md-2"><button (click)="nuevo(3)" class="btn btn-info">Agregar</button></div>
+                                
+                                <div class="col-md-9 float-left">
+                                    <label *ngFor="let tag of experiencias " class="btn btn-outline-secondary m-1 p-1">
                                       <span style="margin: 5px;" >
                                       {{tag.Cargo}}
                                       <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Cargo,2)" data-dismiss="toast" aria-label="Close">
@@ -239,10 +240,11 @@
                                 <hr class="linea">
                             </div>
 
-                            <div class="col-md-8">
-                                <button (click)="nuevo(5)" class="btn btn-info">Agregar</button>
-                                <div style="float:left;">
-                                    <label *ngFor="let tag of investigaciones " class="btn-success m-1 p-1">
+                            <div class="col-md-8 row">
+                                <div class="col-md-2">
+                                <button (click)="nuevo(5)" class="btn btn-info">Agregar</button></div>
+                                <div class="col-md-9 float-left">
+                                    <label *ngFor="let tag of investigaciones " class="btn btn-outline-success m-1 p-1">
                                       <span style="margin: 5px;" >
                                       {{tag.Lugar}}
                                       <button type="button" id="{{tag.id}}" style="margin-top: -2px;margin-right:3px; outline: none;" value="{{tag.id}}" class="ml-2 mb-1 close" (click)="borrar(tag.Descripcion,3)" data-dismiss="toast" aria-label="Close">
@@ -256,8 +258,43 @@
                                   
                                   </div>
                             </div>
+
+                            
                         </div>
-                        <button (click)="btnguardar()" [disabled]="!formCurriculum.valid" class="btn btn-success">Guardar currículum</button>
+                        <hr class="linea">
+                        <div class="row">
+                            <div class="col-md-3 lead">Archivos adjuntos<br>
+                                <hr class="linea">
+                            </div>
+
+                            <div class="col-md-8 row">
+                                <div class="col-md-2">
+                                <button (click)="file.click()" class="btn btn-info">Agregar</button>
+                                <input #file type="file" id="file1" style="display:none;" (change)="upload(file.files)" accept="application/pdf" lang="es">
+                                   
+                            </div>
+                                <div class="col-md-3 float-left">
+                                    Puede adjuntar archivos que acrediten su formación (*.pdf) <span class="fa fa-file-pdf"></span> <br>
+                                    Tamaño máximo 2mb
+                                </div>
+                                <div class="col-md-7 float-left">
+                                    <label *ngFor="let tag of adjuntos "  class="btn btn-outline-danger m-1 p-1 float-left">
+                                      <span style="margin: 5px;" (click)="verPdf(tag.direccion)" >
+                                      {{tag.direccion.split('/P_')[1]}}
+                                     </span>
+                                      <button style="outline: none;" value="{{tag.id}}" class="close m-2"  id="{{tag.direccion}}"  aria-label="Close">
+                                        <span (click)="borrarFile(tag.direccion)" data-dismiss="toast" aria-hidden="true">&times;</span>
+                                      </button>
+                                       
+                                     
+                                    </label>
+                                  
+                                  </div>
+                            </div>
+
+                            
+                        </div>
+                        <button (click)="btnguardar()" [disabled]="!formCurriculum.valid" class="btn btn-success float-right my-5"><span class="fa fa-save"></span> Guardar currículum</button>
 
                     </div> 
                 </div>
@@ -270,16 +307,16 @@
     </form>
     <div class="navbar border fixed-bottom navbar-expand-sm navbar-dark bg-dark"
         style=" min-height: 40px; position: relative;">
-        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+        <a *ngIf="indice > 1" (click)="anterior()" class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
 
             <div class="lead">Anterior</div>
         </a>
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleInterval" data-slide-to="0"></li>
-            <li data-target="#carouselExampleInterval" data-slide-to="1"></li>
-            <li data-target="#carouselExampleInterval" data-slide-to="2"></li>
+            <li id="paso1" (click)="paso(1)" class="active" data-target="#carouselExampleInterval" data-slide-to="0"></li>
+            <li id="paso2" (click)="paso(2)" data-target="#carouselExampleInterval" data-slide-to="1"></li>
+            <li id="paso3" (click)="paso(3)" data-target="#carouselExampleInterval" data-slide-to="2"></li>
         </ol>
-        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+        <a *ngIf="indice != 3" (click)="siguiente()" class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
             <div class="lead">Siguiente</div>
 
         </a>

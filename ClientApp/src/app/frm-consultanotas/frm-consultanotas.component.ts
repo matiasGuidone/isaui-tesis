@@ -8,6 +8,7 @@ import { calificacionalumno } from '../clases/calificacionalumno';
 import { examen } from '../clases/examen';
 import { notarepo } from '../clases/notarepo';
 import { ModalService } from '../modal/modal-service.service';
+import { ciclolectivo } from '../clases/ciclolectivo';
 
 
 @Component({
@@ -25,18 +26,30 @@ export class ConsultanotasComponent implements OnInit {
   estainscripto: string = '';
   idmateria = 0;
   habilitada:boolean =false;
+  ciclos: ciclolectivo[];
+  ciclolectivo: any;
 
   constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) {
+    this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
+      this.ciclos = ciclos;
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if (rol.nombrerol.toString() == "Alumno") {
       this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
 
-    }
+    }});
   }
 
 
   ngOnInit() {
   }
+  seleccionarCiclo(){
+    let ciclolectivo = document.getElementById('ciclolectivo')['value'];
+    let rol = JSON.parse(localStorage.getItem("Rol"));
+    if (rol.nombrerol.toString() == "Alumno") {
+      this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString(),'idciclolectivo',ciclolectivo.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+    }   
+  }
+
 
   seleccionarMateria(idinicial = 0) {
     let reporte = new Array<notarepo>();
@@ -46,7 +59,8 @@ export class ConsultanotasComponent implements OnInit {
       this.idmateria = document.getElementById('materia')['value'];
     }
     const ids = { idalumno: rol.id, idmateria: this.idmateria }
-    this.servicio.loadGrilla('calificacionrepo', [ids.idalumno.toString(), ids.idmateria.toString()]).subscribe(calificacion => {
+    let ciclolectivo = document.getElementById('ciclolectivo')['value'];
+    this.servicio.loadGrilla('calificacionrepo', [ids.idalumno.toString(), ids.idmateria.toString(), ciclolectivo.toString()]).subscribe(calificacion => {
       this.calificaciones = calificacion;
       this.parciales = new Array<any>();
       this.estainscripto = '';

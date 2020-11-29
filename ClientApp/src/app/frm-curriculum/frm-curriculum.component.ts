@@ -12,6 +12,7 @@ import { investigacion } from '../clases/investigacion';
 import { curriculum } from '../clases/curriculum';
 import { domicilio } from '../clases/domicilio';
 import { createAotUrlResolver } from '@angular/compiler';
+import { datoadjunto } from '../clases/datoadjunto';
 
 @Component({
   selector: 'app-frm-curriculum',
@@ -19,6 +20,7 @@ import { createAotUrlResolver } from '@angular/compiler';
   styleUrls: ['./frm-curriculum.component.css']
 })
 export class FrmCurriculumComponent implements OnInit {
+  indice=1;
 
   formCurriculum: FormGroup = this.formbuilder.group({
     id: 0,
@@ -44,6 +46,7 @@ export class FrmCurriculumComponent implements OnInit {
   formaciones: any[] = new Array<antecedentetitulo>();
   experiencias: any[] = new Array<antecedentetitulo>();
   investigaciones: any[] = new Array<investigacion>();
+  adjuntos: datoadjunto[] = new Array<datoadjunto>();
   domicilioaux: domicilio;
 
 
@@ -112,6 +115,9 @@ export class FrmCurriculumComponent implements OnInit {
                 'id': inv.id, Descripcion: inv.descripcion, 'Fecha': inv.fecha,
                 'Lugar': inv.lugar, 'tipo': inv.tipo
               });
+              this.servicio.loadGrilla('datoadjunto',['idcurriculum', curr[0].id.toString()]).subscribe(list =>{
+                this.adjuntos = list;
+              });
             }
 
           });
@@ -178,6 +184,7 @@ export class FrmCurriculumComponent implements OnInit {
   }
 
   borrar(Titulo, tipo) {
+    this.abrirModal('Confirmar','¿Desea eliminar el registro?',1,null).subscribe(r=>{
     if (tipo == 1) {
       let ind = this.formaciones.findIndex(val => val.Titulo == Titulo);
       this.formaciones.splice(ind, 1);
@@ -190,6 +197,7 @@ export class FrmCurriculumComponent implements OnInit {
       let ind = this.investigaciones.findIndex(val => val.Descripcion == Titulo);
       this.investigaciones.splice(ind, 1);
     }
+  });
   }
 
   nuevo(tipo, titulo, cargo, establecimiento, descripcion) {
@@ -334,10 +342,16 @@ export class FrmCurriculumComponent implements OnInit {
           let auxinv = new investigacion({ 'id': i.id, 'descripcion': i.Descripcion, 'lugar': i.Lugar, 'tipo': i['tipo'], 'idcurriculum': idcurriculum ,'fecha':i.Fecha });
           invpub.push(auxinv);
         }
+         
+        for (let i = 0;i<this.adjuntos.length;i++) {
+          this.adjuntos[i].idcurriculum = idcurriculum; //utilizo esa columnna para el id de cv
+        }
 
         this.servicio.addSingleAbm(antecedentes, 'antecedentetitulo').subscribe(n => {
           this.servicio.addSingleAbm(invpub, 'investigacioninformacion').subscribe(n => {
+            this.servicio.addSingleAbm(this.adjuntos, 'datoadjunto').subscribe(n => {
             this.abrirModal('ISAUI- curriculums', 'Las modificaciones se almacenaron exitosamente', 2, null);
+            });
           });
 
         });
@@ -354,6 +368,70 @@ export class FrmCurriculumComponent implements OnInit {
     return modalRef.onResult();
   }
 
+  anterior(){
+    if(this.indice >1){this.indice--;}
+    else{}
+    document.getElementById('paso1').classList.remove('active');
+    document.getElementById('paso2').classList.remove('active');
+    document.getElementById('paso3').classList.remove('active');
+    document.getElementById('paso'+this.indice.toString()).className = 'active';
+  }
+  siguiente(){
+    if(this.indice < 3){this.indice++;}
+    else{}
+    document.getElementById('paso1').classList.remove('active');
+    document.getElementById('paso2').classList.remove('active');
+    document.getElementById('paso3').classList.remove('active');
+    document.getElementById('paso'+this.indice.toString()).className = 'active';
+  }
+  paso(num){
+    this.indice = num;
+    document.getElementById('paso1').classList.remove('active');
+    document.getElementById('paso2').classList.remove('active');
+    document.getElementById('paso3').classList.remove('active');
+    document.getElementById('paso'+this.indice.toString()).className = 'active';
 
+  }
+
+  upload(files:File[]) {
+    
+    if (files.length === 0 )
+      return;
+    
+    const formData = new FormData();
+    
+    if ( files[0].size<(2048*1024)) {
+   
+          formData.append('P_'+files[0].name, files[0]);
+  
+        }
+    
+
+      this.servicio.subirArchivo(formData).subscribe(event => {
+        if(event.status == 200 
+          && event.statusText=="OK" 
+          && event.body != undefined){
+            let archivo : datoadjunto = new datoadjunto({'direccion':JSON.parse(event.body).path,'id':'0','idcurriculum':'0'});
+            this.adjuntos.push(archivo);
+        } 
+      });
+  }
+  borrarFile(p){
+    this.abrirModal('Confirmar','¿Desea eliminar el archivo?',1,null).subscribe(r=>{
+      let ind = this.adjuntos.findIndex(n => n.direccion == p);
+    this.adjuntos.splice(ind,1);
+    });
+    
+  }
+  verPdf(path){
+    this.servicio.obtenerArchivo(path)
+      .subscribe(data => {
+        const byteArray = new Uint8Array(atob(data).split('').map(char => char.charCodeAt(0)));
+        const file = new Blob([byteArray], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+
+      });
+  }
 
 }

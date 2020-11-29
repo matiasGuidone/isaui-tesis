@@ -13,11 +13,41 @@ public class DatoadjuntoController : Controller
 
     // POST
     [HttpPost]
-    public ActionResult<datoadjunto> Index([FromBody] datoadjunto datoadjunto, [FromHeader] string token)
+    public ActionResult<datoadjunto> Index([FromBody] datoadjunto[] datoadjunto, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            DatoadjuntoConexion<datoadjunto>.Instance.Insert(datoadjunto);
+            var user = UsuarioConexion<usuario>.Instance.getIdUserToken(token);
+            string[] filtrouser = { "idusuario", user.ToString() };
+            var curr = CurriculumConexion<curriculum>.Instance.SearchAll(filtrouser);
+            string[] filtro = { "idcurriculum", curr[0].Id.ToString() };
+
+            var datoadj = DatoadjuntoConexion<datoadjunto>.Instance.SearchAll(filtro);
+            List<datoadjunto> listaux = new List<datoadjunto>();
+            foreach (var m in datoadjunto)
+            {
+                listaux.Add(m);
+            }
+
+            if(datoadj.Count>0){
+            foreach (var m in datoadj)
+            {
+                var aux = listaux.Find(p => p.Id == m.Id);
+                if (aux == null){
+                     DatoadjuntoConexion<datoadjunto>.Instance.DeleteFile(m.Id); 
+                }
+            }
+            }
+            foreach (var item in datoadjunto)
+            {
+                if(item.Id==0){
+                    DatoadjuntoConexion<datoadjunto>.Instance.Insert(item); 
+                }
+                else{
+                   // DatoadjuntoConexion<datoadjunto>.Instance.Update(item); 
+                }
+            }
+            //(datoadjunto);
             return Json("Guardado exitoso");
         }
         else return null;

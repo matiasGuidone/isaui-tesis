@@ -41,16 +41,16 @@ public class AlumnoMateriaController : Controller
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id,[FromHeader]string filtro,[FromHeader]string valor, [FromHeader] string token)
+    public ActionResult Delete([FromHeader] string id,[FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        if (filtro == "idcurso"){
-             AlumnoMateriaConexion<alumnomateria>.Instance.DeleteByCurso(Convert.ToInt32(valor));
+        if (arrayfiltros.Any(p => p == "idcurso")){
+             AlumnoMateriaConexion<alumnomateria>.Instance.DeleteByCurso(Convert.ToInt32(arrayfiltros[1]));
             return Json("registro eliminado");
         }
         else{
-            AlumnoMateriaConexion<alumnomateria>.Instance.Delete(Convert.ToInt32(id), null, filtro, valor);
+            AlumnoMateriaConexion<alumnomateria>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
             return Json("registro eliminado");}
             }
         else return Json("...");

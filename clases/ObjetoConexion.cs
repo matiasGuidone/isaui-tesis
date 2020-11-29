@@ -158,21 +158,31 @@ public class ObjetoConexion<T>
         Conexion.ConsultaParametros(consulta, param);
 
     }
-    public void Delete(int Id, oObjeto param = null, string filtro = null, string valor = null, string valor2 = null)
+    public void Delete(int Id, oObjeto param = null, string[] filtros = null)
     {
 
-        if (valor2 != null ){
-            String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE curriculumconvocatoria.Idcurriculum = {Id.ToString()} AND curriculumconvocatoria.Idconvocatoria = {valor2}";
-            Conexion.ConsultaParametros(consulta);
+        // if (valor2 != null ){
+        //     String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE curriculumconvocatoria.Idcurriculum = {Id.ToString()} AND curriculumconvocatoria.Idconvocatoria = {valor2}";
+        //     Conexion.ConsultaParametros(consulta);
     
-        }
+        // }
 
         //si el objeto no es null se elimina ese objeto
-        if (filtro != null && filtro != "" && valor != null && valor != "")
-        {
-            String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE {filtro} = ?{filtro}";
+        if (filtros != null)
+        {   String where = $"WHERE 1 ";
             List<MySqlParameter> parametro = new List<MySqlParameter>();
-            parametro.Add(new MySqlParameter(filtro, valor));
+                for(var f =0; f< filtros.Length;f++){
+                    if(f%2==0){
+                        where += $"AND {filtros[f]} = ?{filtros[f]} ";
+                         parametro.Add(new MySqlParameter(filtros[f], filtros[f+1]));
+                    }
+                    
+                     
+                }
+               
+            String consulta = $"DELETE FROM {this.tipo.GetType()} "+where;
+            
+            
             Conexion.ConsultaParametros(consulta, parametro);
         }
         else if (param != null)

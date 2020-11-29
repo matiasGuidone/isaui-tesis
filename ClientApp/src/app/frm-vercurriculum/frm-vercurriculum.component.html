@@ -114,6 +114,22 @@
                             </div>
                            
                         </div>
+                        <hr>
+                        <br>
+                        <div *ngIf="datosadjuntos.length > 0" class="lead">Archivos adjuntos
+                       
+                        <div >
+                          <hr>
+                          <div class="lead row m-3">
+                              <div class="col-md-5 font-weight-bold">Archivos: </div>
+                              <div class="col-md-6">
+                                  <button class="btn btn-outline-danger" *ngFor="let archivo of datosadjuntos" (click)="verPdf(archivo.direccion)" > <span class="fa fa-file-pdf"></span> {{archivo.direccion.split('/P_')[1]}}</button>
+                              </div>
+                          </div>
+                           </div>
+                         
+                      </div>
+
                          <hr>
                         <button id="btnvolver" (click)="volver()" class="btn btn-info">Volver</button>
  

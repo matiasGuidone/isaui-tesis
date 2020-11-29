@@ -67,7 +67,7 @@ export class RelRolesUsuario {
             this.servicio.idsSeleccionados.push(this.listaroles[i].id);
         }
         this.servicio.eliminarConFiltro
-            ("idusuario", this.servicio.idSeleccionado.toString(), "rolesusuario")
+            (["idusuario", this.servicio.idSeleccionado.toString()], "rolesusuario")
             .subscribe(res => { this.logservicio.componenteGuard="abm-roles";  this.router.navigate(["abm-roles"]); })
 
     }

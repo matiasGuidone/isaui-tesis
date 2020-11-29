@@ -15,6 +15,18 @@
      
            </div>
         </div>
+        
+        <div class="row my-2">
+         <h5 class="col-md-2 control-label">Ciclo lectivo: </h5>
+         <div class="col-md-6">
+            <select (change)="seleccionarCiclo()" class="form-control" id="ciclolectivo">
+               <option *ngFor="let ciclo of ciclos" selected [value]="ciclo.id">
+                  {{ciclo.nombre}}
+               </option>
+            </select>
+   
+         </div>
+      </div>
            <br />
         <table [class]="this.servicio.classtable2">
             <thead>

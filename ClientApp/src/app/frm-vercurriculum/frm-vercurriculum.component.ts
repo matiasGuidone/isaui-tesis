@@ -14,6 +14,7 @@ import * as jspdf from 'jspdf';
 import { logo64 } from '../filtro-abm/logo-base64';
 import * as html2canvas from 'html2canvas';
 import { Location } from '@angular/common';
+import { datoadjunto } from '../clases/datoadjunto';
 
 @Component({
   selector: 'app-frm-vercurriculum',
@@ -31,6 +32,7 @@ export class FrmVercurriculumComponent implements OnInit {
   formaciones: any[]= new Array<any>();
   experiencias: any[]= new Array<any>();
   investigaciones: any[]= new Array<any>();
+  datosadjuntos: datoadjunto[];
 
   constructor(protected location: Location,private servicio :PeticionesService, private modalservicio: ModalService,private logservicio:AuthLoginService) {
      this.curriculum = servicio.selectedcurriculum;
@@ -69,6 +71,11 @@ export class FrmVercurriculumComponent implements OnInit {
             'Lugar': inv.lugar, 'tipo': inv.tipo
           });
         }
+
+        //archivos adjuntos
+        this.servicio.loadGrilla('datoadjunto',['idcurriculum',this.curriculum.id.toString()]).subscribe(dadj=>{
+          this.datosadjuntos = dadj;
+        });
 
       });
     });
@@ -175,5 +182,16 @@ export class FrmVercurriculumComponent implements OnInit {
       formatFecha += '-' + fecha.getFullYear().toString();
       return formatFecha;
     }
+  }
+
+  verPdf(path){
+    this.servicio.obtenerArchivo(path)
+      .subscribe(data => {
+        const byteArray = new Uint8Array(atob(data).split('').map(char => char.charCodeAt(0)));
+        const file = new Blob([byteArray], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+
+      });
   }
 }

@@ -30,9 +30,12 @@ public class CalificacionalumnoConexion<T> : ObjetoConexion<calificacionalumno>
         return (List<calificacionalumno>)Conexion.consultaList<calificacionalumno>(consulta);
     }
 
-    public List<notarepo> SerchNotaAlumnos(int idalumno, int idmateria)
+    public List<notarepo> SerchNotaAlumnos(int idalumno, int idmateria, int ciclolectivo=0)
     {
         var consultaSql = "";
+        if (ciclolectivo==0){
+            ciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+        }
 
           consultaSql = "SELECT " +
                         "materia.nombre, " +
@@ -48,7 +51,7 @@ public class CalificacionalumnoConexion<T> : ObjetoConexion<calificacionalumno>
                         $"AND calificacionalumno.Idalumno = {idalumno}  " +
                         "WHERE " +
                         $"examen.idmateria = {idmateria} " +
-                        $"and examen.idciclolectivo = {CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id} ";
+                        $"and examen.idciclolectivo = {ciclolectivo} ";
 
         return (List<notarepo>)Conexion.consultaList<notarepo>(consultaSql);
     }

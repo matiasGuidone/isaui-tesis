@@ -47,11 +47,11 @@ public class CurriculumconvocatoriaController: Controller
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id, [FromHeader] string id2, [FromHeader] string token)
+    public ActionResult Delete([FromHeader] string id, [FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Delete(Convert.ToInt32(id),null,null,null, id2);
+        CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Delete(Convert.ToInt32(id),null,arrayfiltros);
         return Json("registro eliminado");
         }
         else return null;
@@ -60,11 +60,18 @@ public class CurriculumconvocatoriaController: Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<curriculumconvocatoria> Getcurriculumconvocatorias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<Object> Getcurriculumconvocatorias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.SearchAll(arrayfiltros);
+            if (arrayfiltros.Any(p => p == "usuariocurriculum")){
+
+                string[] filtro = { "idusuario", UsuarioConexion<usuario>.Instance.getIdUserToken(token).ToString() };
+                var idcv = CurriculumConexion<curriculum>.Instance.SearchAll(filtro)[0].Id;
+                return CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.getDatosConvocatoriasCv(idcv);
+            }
+            else{
+                return CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.SearchAll(arrayfiltros);}
         }
         else return null;
     }

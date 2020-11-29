@@ -4,6 +4,7 @@ import { alumnomateria } from '../clases/alumnomateria';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { AuthLoginService } from '../services/authlogin.service';
+import { ciclolectivo } from '../clases/ciclolectivo';
 
 @Component({
     selector: 'app-alumnomateria',
@@ -14,8 +15,11 @@ export class RelAlumnoMateria {
 
     alumnoSeleccionado = "No hay alumno seleccionado";
     listaMaterias: materia[] = new Array<materia>();
+    ciclos: ciclolectivo[];
 
     constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
+        this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
+            this.ciclos = ciclos;});
         if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {
             this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;
@@ -38,16 +42,20 @@ export class RelAlumnoMateria {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() {let filt = document.getElementById('filtros');
+    filt.style.marginTop = '-98px';}
 
     searchMaterias(alumno) {
         if (alumno != null) {
             this.servicio.idSeleccionado = +alumno[0];
             this.alumnoSeleccionado = alumno[1];
             let fil = new Array<string>();
+            let idCiclolectivo = document.getElementById('ciclolectivo')['value'];
             this.listaMaterias = new Array<materia>();
             fil.push("idalumno");
             fil.push(alumno[0]);
+            fil.push("idciclolectivo");
+            fil.push(idCiclolectivo);
             this.servicio.loadGrilla("alumnomateria", fil).subscribe(res => {
                 if (res != null && res.length > 0) {
                     let i = res.length;
@@ -70,8 +78,9 @@ export class RelAlumnoMateria {
         for (let i = 0; i < this.listaMaterias.length; i++) {
             this.servicio.idsSeleccionados.push(this.listaMaterias[i].id);
         }
+        let idCiclolectivo = document.getElementById('ciclolectivo')['value'];
         this.servicio.eliminarConFiltro
-            ("idalumno", this.servicio.idSeleccionado.toString(), "alumnomateria")
+            (["idalumno", this.servicio.idSeleccionado.toString(),"idciclolectivo",idCiclolectivo], "alumnomateria")
             .subscribe(res => { this.logservicio.componenteGuard="abm-materia";  this.router.navigate(["abm-materia"]); })
 
     }

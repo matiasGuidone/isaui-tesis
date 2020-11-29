@@ -75,7 +75,7 @@ export class RelCurriculumconvocatoriaComponent {
       this.servicio.idsSeleccionados.push(this.listaCV[i].id);
     }
     this.servicio.eliminarConFiltro
-    ("idconvocatoria", this.servicio.idSeleccionado.toString(),"curriculumconvocatoria")
+    (["idconvocatoria", this.servicio.idSeleccionado.toString()],"curriculumconvocatoria")
     .subscribe(res=>{this.logservicio.componenteGuard="abm-curriculum"; this.router.navigate(["abm-curriculum"]);})
   }
 

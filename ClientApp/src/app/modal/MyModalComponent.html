@@ -17,27 +17,33 @@
     <p class="p3" style="max-height: 100%; overflow-y: auto;">
       <button type="button" style="width:17px;" class="close" (click)="cancel()" aria-label="Cerrar">
         <span aria-hidden="true">&times;</span>
-      </button><br />{{title}} <br /><br />
+      </button><br /><a class="lead">{{title}} </a> <br /><br />
       <a *ngFor="let par of parametros">
         <!--campos con foráneas-->
         <div *ngIf="par.tipo.startsWith('iddomicilio',0) ">
-          <app-abm-domicilio (emisorId)="this.formGroup.get('iddomicilio').setValue($event)"  [id]="+par.valor"></app-abm-domicilio>
+          <app-abm-domicilio (emisorId)="this.formGroup.get('iddomicilio').setValue($event)" [id]="+par.valor">
+          </app-abm-domicilio>
         </div>
         <div *ngIf="par.tipo.length > 2 && par.tipo.startsWith('id',0) && !par.tipo.startsWith('iddomicilio',0) ">
           <div class="form-group"
             [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span style="width:100px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}"
-                  class="input-group-text" id="basic-addon1">{{par.tipo.substr(2)}}</span>
+            <div class="row">
+              <div class="col-12">
+                <div class="float-left text-capitalize" title="{{par.tipo}}" >{{par.tipo.substr(2)}}</div>
               </div>
-              <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
-                style="flex: none; width:20px;" (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}" />
-              <input style="width:40%;flex: 20 1 110px;" disabled type="text" id="{{par.tipo}}-desc" />
-
-              <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info"
-                (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button>
             </div>
+            <div class="row">
+              <div class="col-12">
+                 <input formControlName="{{par.tipo}}" style="width: 20px;" id="in-{{par.tipo}}" class="form-control float-left" type="{{par.tipoCampo}}"
+                (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}" /> 
+                
+               <input class="form-control float-left desccampo"  disabled type="text" id="{{par.tipo}}-desc" />
+               <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info float-left"
+                (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button>
+              </div>
+
+            </div>
+             
             <span style="margin:2px;" class="help-block"
               *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors ">
               <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
@@ -50,14 +56,22 @@
         <div *ngIf="par.tipo != 'id' && !par.tipo.startsWith('id',0) && par.tipo != 'estado' && par.tipo != 'tipo'  ">
           <div class="form-group"
             [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span style="width:110px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}"
-                  class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
+            
+                <div class="row">
+                  <div class="col-12">
+                <div class="float-left text-capitalize" title="{{par.tipo}}" >{{par.tipo}}</div>
+               
               </div>
-              <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
-                value="{{par.valor}}" />
-            </div>
+              <!-- </div> -->
+              <div class="col-12">
+                <select *ngIf="par.tipoCampo == 'sino' " formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control">
+                  <option value="si" >si</option>
+                  <option value="no" >no</option>
+                </select>
+              <input *ngIf="par.tipoCampo != 'sino' " formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
+                value="{{par.valor}}" /></div>
+              </div>
+            <!-- </div> -->
             <span class="help-block"
               *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
               <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
@@ -69,51 +83,51 @@
         <div *ngIf="par.tipo == 'estado'">
           <div class="form-group"
             [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span style="width:110px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}"
-                  class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
-              </div>
-              <!-- <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
-                value="{{par.valor}}" /> -->
+            <div class="row">
+              <div class="col-12">
+            <div class="float-left text-capitalize" title="{{par.tipo}}" >{{par.tipo}}</div>
+          </div>
+          <div class="col-12">
               <select formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control">
                 <option *ngFor="let obj of this.modalService.estados let i = index;" [value]="i">
                   {{obj}}
                 </option>
               </select>
             </div>
-                <span class="help-block"
-                  *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
-                  <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
-                    Campo erróneo
-                  </span>
-                </span>
-              </div>
             </div>
-            <div *ngIf="par.tipo == 'tipo'">
-              <div class="form-group"
-                [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span style="width:110px;text-align: right;text-transform:capitalize;" title="{{par.tipo}}"
-                      class="input-group-text" id="basic-addon1">{{par.tipo}}</span>
-                  </div>
-                  <!-- <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
+            <span class="help-block"
+              *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
+              <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
+                Campo erróneo
+              </span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="par.tipo == 'tipo'">
+          <div class="form-group"
+            [ngClass]="{ 'has-success': formGroup.get(par.tipo).valid, 'has-error': (formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && !formGroup.get(par.tipo).valid }">
+            <div class="row">
+              <div class="col-12">
+            <div class="float-left text-capitalize" title="{{par.tipo}}" >{{par.tipo}}</div>
+              </div>
+              <!-- <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control" type="{{par.tipoCampo}}"
                     value="{{par.valor}}" /> -->
-                  <select formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control">
-                    <option *ngFor="let obj of this.modalService.estados  " [value]="obj">
-                      {{obj}}
-                    </option>
-                  </select>
-                </div>
-                <span class="help-block"
-                  *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
-                  <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
-                    Campo erróneo
-                  </span>
-                </span>
-              </div>
+                    <div class="col-12">
+              <select formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control">
+                <option *ngFor="let obj of this.modalService.estados  " [value]="obj">
+                  {{obj}}
+                </option>
+              </select>
             </div>
+            </div>
+            <span class="help-block"
+              *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors">
+              <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">
+                Campo erróneo
+              </span>
+            </span>
+          </div>
+        </div>
 
       </a>
       <button type="button" class="btn btn-outline-danger" (click)="cancel()"><span
@@ -133,14 +147,14 @@
 <div *ngIf="tipo == 4">
   <p class="p2">
     {{title}}<br /><br />
-     <br /><br />
-    <a >
+    <br /><br />
+    <a>
       <div class="list-group">
-      <div class="select" *ngFor="let item of message">
-        <a (click)="selectRol(item)" class="list-group-item list-group-item-action">{{item}}</a>
+        <div class="select" *ngFor="let item of message">
+          <a (click)="selectRol(item)" class="list-group-item list-group-item-action">{{item}}</a>
 
+        </div>
       </div>
-    </div>
     </a>
     <button type="button" class="btn btn-info" (click)="cancel()">Cancelar</button></p>
 </div>
@@ -153,5 +167,5 @@
       </div>
 
     </a>
-    <button type="button" class="btn btn-info "  (click)="cancel()">Aceptar</button></div>
-
+    <button type="button" class="btn btn-info " (click)="cancel()">Aceptar</button>
+</div>

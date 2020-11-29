@@ -23,6 +23,7 @@ export class OrdenmeritoComponent implements OnInit {
   cvs: any[] = new Array<any>();
   curriculumconvocatoria: curriculumconvocatoria[];
   materia: string;
+  convoca:convocatoria;
 
   
   constructor(private servicio: PeticionesService, private router:Router,protected logservicio: AuthLoginService, private modalservice: ModalService) { 
@@ -42,7 +43,9 @@ export class OrdenmeritoComponent implements OnInit {
     let id = ids;
     if (ids == 0) {
       id = document.getElementById('convocatoria')['value'];
+      
     }
+    this.convoca = this.convocatorias.find(c => c.id == id);
     this.servicio.loadGrilla('curriculumrepo', [ id.toString()]).subscribe(res=>
      { 
       if (res != null && res.length > 0) 

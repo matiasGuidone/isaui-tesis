@@ -3,14 +3,14 @@ using System;
     public class datoadjunto : oObjeto
     {
          public string Direccion{ get; set; }
-        public int Tamano { get; set; }
+        public int Idcurriculum { get; set; }
         
         public datoadjunto(){}
         public datoadjunto(DataRow dr)
     {
         this.Id = Convert.ToInt32(dr["id"]);
         this.Direccion = dr["direccion"].ToString();
-        this.Tamano = Convert.ToInt32(dr["tamano"]);
+        this.Idcurriculum = Convert.ToInt32(dr["idcurriculum"]);
     }
 
     }

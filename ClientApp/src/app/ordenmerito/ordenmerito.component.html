@@ -15,10 +15,10 @@
          <br />
         <div class="row col border border-danger">
             <div class="col-md-2">
-                <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>
+                <button title="Pdf" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>
             </div>
            <div class="col-md-5">
-            <samp *ngFor="let f of convocatorias"><h6>De: {{f.fechainicio | date : 'dd-MM-yyyy'}} Hasta: {{f.fechafin | date : 'dd-MM-yyyy'}}</h6></samp>
+            <samp ><h6>Desde: {{convoca.fechainicio | date : 'dd-MM-yyyy'}} Hasta: {{convoca.fechafin | date : 'dd-MM-yyyy'}}</h6></samp>
          </div>
           <div class="col-md-5">
               <span *ngIf="materia!=null"><h6>Materia: {{materia}}</h6></span> 

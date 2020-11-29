@@ -13,7 +13,7 @@ import { MyModalComponent } from '../modal/MyModalComponent';
   styleUrls: ['./filtro-abm.component.css']
 })
 export class FiltroComponent {
-
+  visiblefiltro=false;
   arrayValores: string[] = new Array<string>();
 
   @Input() resultados: any[] = new Array<any>();
@@ -40,13 +40,16 @@ export class FiltroComponent {
   }
   //abrir y cerrar la ventana de filtros
   showFiltros() {
-    document.getElementById('filtros')['style'].opacity = "1";
-    document.getElementById('mostrar')['style'].display = "none";
+    
+    //document.getElementById('filtros')['style'].opacity = "1";
+    // document.getElementById('mostrar')['style'].display = "none";
+    this.visiblefiltro= true;
     //document.getElementById('pdf')['style'].display = "none";
   }
   cerrarFiltros() {
-    document.getElementById('filtros')['style'].opacity = "0";
-    document.getElementById('mostrar')['style'].display = "initial";
+    //document.getElementById('filtros')['style'].opacity = "0";
+    //document.getElementById('mostrar')['style'].display = "initial";
+    this.visiblefiltro= false;
     //document.getElementById('pdf')['style'].display = "initial";
   }
   //obtiene el tipo de input para el filtro seleccionado

@@ -2,7 +2,9 @@ button {
     margin: 7px;
     width: 110px;
   }
-
+  .desccampo{
+    width: 75%;
+  }
 
   p.p2 {
     background-color: white;
@@ -96,6 +98,9 @@ button {
       -moz-transition: opacity 0.9s ease-in-out;
       transition: opacity 0.9s ease-in-out;
     }
+    .desccampo{
+      width: 80%;
+    }
   }
 
   @media (min-width: 1000px) {
@@ -151,6 +156,9 @@ button {
       -webkit-transition: opacity 0.9s ease-in-out;
       -moz-transition: opacity 0.9s ease-in-out;
       transition: opacity 0.9s ease-in-out;
+    }
+    .desccampo{
+      width: 88%;
     }
   }
 

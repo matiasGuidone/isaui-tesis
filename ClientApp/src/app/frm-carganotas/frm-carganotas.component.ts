@@ -15,6 +15,7 @@ import autoTable from 'jspdf-autotable'
 import { logo64 } from '../filtro-abm/logo-base64';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { datoadjunto } from '../clases/datoadjunto';
+import { ciclolectivo } from '../clases/ciclolectivo';
 
 @Component({
   selector: 'app-frm-carganotas',
@@ -22,7 +23,7 @@ import { datoadjunto } from '../clases/datoadjunto';
   styleUrls: ['./frm-carganotas.component.css']
 })
 export class FrmCarganotasComponent extends abm<examen> implements OnInit {
-
+  idciclo = 0;
   materias: materia[] = new Array<materia>();
   alumnos: alumno[] = new Array<alumno>();
   examenes: examen[] = new Array<examen>();
@@ -30,6 +31,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   /*   @Input() esRelacion: boolean = false;
     @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
+  ciclos: ciclolectivo[];
 
   constructor(protected location: Location,
     protected modalService: ModalService,
@@ -40,6 +42,8 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     this.modalService.setCaseEstado('examen');
     //--
     let rol = JSON.parse(localStorage.getItem("Rol"));
+    this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
+      this.ciclos = ciclos;
     if (rol.nombrerol.toString() == "Docente") {
       this.servicio.loadGrilla('materia', ['iddocente', rol.id.toString()]).subscribe(resultado => {
         this.materias = resultado;
@@ -52,6 +56,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     else {
       this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) { this.seleccionarMateria(this.materias[0].id); } });
     }
+  });
 
   }
 
@@ -71,7 +76,10 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     }
   }
 
-
+  seleccionarCiclo(){
+    this.idciclo = document.getElementById('ciclolectivo')['value'];
+    this.seleccionarMateria();
+  }
   //evento para la selección de materias
   seleccionarMateria(ids = 0) {
     this.alumnos = new Array<alumno>();
@@ -79,12 +87,20 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     if (ids == 0) {
       id = document.getElementById('materia')['value'];
     }
-
-    this.servicio.loadGrilla('alumno', ['idmateria', id.toString()]).subscribe(alumnom => {
+    let filtros ;
+    if (this.idciclo==0){
+      for(let c of this.ciclos){if(c.id>this.idciclo){this.idciclo=c.id;}}
+    }
+     
+    filtros=  ['idmateria', id.toString(),'idciclolectivo',this.idciclo];
+    this.servicio.loadGrilla('alumno',filtros).subscribe(alumnom => {
       if (alumnom != null && alumnom.length > 0) {
         this.alumnos = alumnom;
         //busco las notas y examenes de esa materia
-        this.servicio.loadGrilla('examen', ['idmateria', id.toString()]).subscribe(exa => {
+        let filtroEx;
+        if (this.idciclo!=0){filtroEx =  ['idmateria', id.toString(),'idciclolectivo',this.idciclo.toString()];}
+        else{filtroEx =  ['idmateria', id.toString()];}
+        this.servicio.loadGrilla('examen', filtroEx).subscribe(exa => {
           this.examenes = exa;
           let filtro = new Array<string>();
           filtro.push("ids-examenes");

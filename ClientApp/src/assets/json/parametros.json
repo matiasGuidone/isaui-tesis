@@ -5,6 +5,7 @@
        "examen": ["parcial","otro","final"],
        "menu": ["abm","rel","frm","static"],
        "usuario": ["activo", "inactivo"],
+       "formula": ["inactivo","activo"],
        "investigacion": ["investigación", "publicación"],
        "consultaasistencia": ["todos"],
        "modulo": ["40"],

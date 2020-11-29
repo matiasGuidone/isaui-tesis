@@ -89,3 +89,9 @@ ALTER TABLE `antecedentetitulo` CHANGE `relaciondocencia` `relaciondocencia` VAR
 ALTER TABLE `convocatoria` ADD `Idcurriculum` INT NOT NULL AFTER `estado`;
 
 ALTER TABLE `convocatoria` CHANGE `Idcurriculum` `Idcurriculum` INT(11) NULL;
+
+ALTER TABLE `datoadjunto` CHANGE `tamano` `idcurriculum` INT(11) NULL DEFAULT NULL;
+
+CREATE TABLE `test_isaui`.`formula` ( `id` INT NOT NULL AUTO_INCREMENT , `script` VARCHAR(2000) NULL , `estado` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `formula` ADD `titulo` VARCHAR(30) NULL AFTER `estado`;

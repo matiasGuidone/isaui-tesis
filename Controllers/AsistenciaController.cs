@@ -68,14 +68,14 @@ public class AsistenciaController : Controller
     }
 
     // GET: api/ApiWithActions/5
-    [HttpGet("{id}")]
-    public asistencia Getasistencia(int id, [FromHeader] string token)
-    { 
-        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
-        {
-        return AsistenciaConexion<asistencia>.Instance.SearchId(id);
-         }
-        else return null;
-    }
+    // [HttpGet("{id}")]
+    // public asistencia Getasistencia(int id, [FromHeader] string token)
+    // { 
+    //     if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+    //     {
+    //     return AsistenciaConexion<asistencia>.Instance.SearchId(id);
+    //      }
+    //     else return null;
+    // }
 }
 

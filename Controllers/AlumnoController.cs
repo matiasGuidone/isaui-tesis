@@ -64,14 +64,18 @@ public class AlumnoController : Controller
             }
             else if (arrayfiltros.Any(p => p == "idmateria"))
             {
-                return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]));
+               // return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]));
+                if (arrayfiltros.Length==2)
+                return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1])); 
+                if (arrayfiltros.Length==4)
+                return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]));
             }
             else
             {
                 return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);
             }
         }
-        else return null;// default(List<alumno>);
+        return null;// default(List<alumno>);
     }
 
     // GET: api/ApiWithActions/5

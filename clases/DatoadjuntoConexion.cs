@@ -1,4 +1,6 @@
  
+ using System;
+using System.IO;
     public class DatoadjuntoConexion<T> : ObjetoConexion<datoadjunto>
     {
        
@@ -14,6 +16,11 @@
         } 
         private DatoadjuntoConexion(datoadjunto aux): base(aux){ 
             
+        }
+        public void DeleteFile(int id){
+            var path = this.SearchId(id).Direccion;
+            File.Delete(path);
+            this.Delete(id);
         }
         
     }

@@ -1,9 +1,31 @@
-<app-abm-alumno [esRelacion]="true" (emisorId)="searchMaterias($event)"></app-abm-alumno>
-<br />
-<br />
-<h4 [class]="this.servicio.classtable" >{{alumnoSeleccionado}}</h4>
-<br />
+<div [class]="this.servicio.classtable2">
+   <div class="row my-2">
+      <h5 class="col-md-2 control-label">Ciclo lectivo: </h5>
+      <div class="col-md-6">
+         <select (change)="seleccionarCiclo()" class="form-control" id="ciclolectivo">
+            <option *ngFor="let ciclo of ciclos" selected [value]="ciclo.id">
+               {{ciclo.nombre}}
+            </option>
+         </select>
+
+      </div>
+   </div>
+</div>
+
+<div class="row">
+   <div class="float-left col-md-7">
+      <app-abm-alumno [esRelacion]="true" (emisorId)="searchMaterias($event)"></app-abm-alumno>
+      <!-- <br />
+<br /> -->
+   </div>
+   <div class="float-left col-md-5">
+      <h4 [class]="this.servicio.classtable">{{alumnoSeleccionado}}</h4>
+      <hr> 
+      <!-- <br />
 <hr> 
-<br />
-<app-abm-materia [esRelacion]="true" [lista]="this.listaMaterias" ></app-abm-materia>
-<button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()" ><span ></span>Modificar materias</button>
+<br /> -->
+      <app-abm-materia [esRelacion]="true" [lista]="this.listaMaterias"></app-abm-materia>
+      <button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()"><span></span>Modificar
+         materias</button>
+   </div>
+</div>

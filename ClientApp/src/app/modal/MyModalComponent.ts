@@ -60,6 +60,9 @@ export class MyModalComponent extends Modal implements OnInit {
         else if (i.toString().startsWith('hora', 0)) {
           tp = "time";
         }
+        else if(i.toString().startsWith('Relación', 0)){
+          tp= "sino";
+        }
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
         this.parametros.push(obj);
         this.formGroup.addControl(obj.tipo, new FormControl(obj.valor.toString(), Validators.required));

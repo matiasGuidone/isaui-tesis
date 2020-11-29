@@ -16,32 +16,35 @@ public class ConvocatoriaGuardadosController : Controller
     [HttpGet]
     public JsonResult conovocataroriasGuardadas([FromHeader]string arrayfiltros, [FromHeader] string token)
     {
-       /*  if (UsuarioConexion<usuario>.Instance.getUserToken(token))
-        { */
-          Conexion con = new Conexion();
-          DataTable Tabla = new DataTable();
-          var mensajes = con.consultaDataTable($"SELECT convocatoria.descripcion, convocatoria.fechafin, curriculumconvocatoria.Idcurriculum, curriculumconvocatoria.Idconvocatoria FROM ((convocatoria INNER JOIN curriculumconvocatoria ON convocatoria.Id = curriculumconvocatoria.Idconvocatoria ) INNER JOIN curriculum ON curriculum.Id = curriculumconvocatoria.Idcurriculum) WHERE curriculumconvocatoria.Idconvocatoria <> 0 and curriculum.Id={arrayfiltros}");
-          Tabla = mensajes.Tables[0];
-          List<currcov> mensajes_e = new List<currcov>();
+          if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {  
+         
+          // Conexion con = new Conexion();
+          // DataTable Tabla = new DataTable();
+          // var mensajes = con.consultaDataTable();
+          // Tabla = mensajes.Tables[0];
+          // List<currcov> mensajes_e = new List<currcov>();
           
-          if (Tabla.Rows.Count >= 1){
-            foreach(DataRow row in Tabla.Rows){
+          // if (Tabla.Rows.Count >= 1){
+          //   foreach(DataRow row in Tabla.Rows){
     
-               mensajes_e.Add(new currcov {  
-               Descripcion=row["descripcion"].ToString(),
-               Fecha=row["fechafin"].ToString(),
-               Idconvocatoria=row["Idconvocatoria"].ToString(),
-               Idcurriculum=row["Idcurriculum"].ToString()
-                });
+          //      mensajes_e.Add(new currcov {  
+          //      Descripcion=row["descripcion"].ToString(),
+          //      Fecha=row["fechafin"].ToString(),
+          //      Idconvocatoria=row["Idconvocatoria"].ToString(),
+          //      Idcurriculum=row["Idcurriculum"].ToString()
+          //       });
           
 
-            }
+            // }
             
-         // } 
-          return Json(mensajes_e);
+          return Json("");
         }
         else { return Json("no tienes los permisos suficientes"); }
     }
+    
+  }
+    
 
-}
+
 

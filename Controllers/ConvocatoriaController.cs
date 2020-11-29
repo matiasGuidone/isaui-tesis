@@ -54,6 +54,9 @@ public class ConvocatoriaController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
+            if(arrayfiltros.Any(p => p == "convocatoriascv")){
+                return ConvocatoriaConexion<convocatoria>.Instance.SearchActivas();
+            } 
         return ConvocatoriaConexion<convocatoria>.Instance.SearchAll(arrayfiltros);
         }
         else return null;

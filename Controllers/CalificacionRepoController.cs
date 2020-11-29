@@ -48,15 +48,25 @@ public class CalificacionRepoController : Controller
 //preguntar si los filtros tienen idalumno => alternativa 
             var idalumno = "";
             var idmateria = "";
+            var idciclolectivo=0;
             if (arrayfiltros.Length > 1)
             {
                 /* for (int i =0; i < arrayfiltros.Length;i++){ */
                 idalumno = arrayfiltros[0];
                 idmateria = arrayfiltros[1];
+                try
+                {
+                    idciclolectivo = Convert.ToInt32(arrayfiltros[2]);
+                }
+                catch (System.Exception)
+                {
+                     idciclolectivo = 0;
+                }
+                
                 /* } */
             }
 
-            return CalificacionalumnoConexion<notarepo>.Instance.SerchNotaAlumnos(Convert.ToInt32(idalumno), Convert.ToInt32(idmateria));
+            return CalificacionalumnoConexion<notarepo>.Instance.SerchNotaAlumnos(Convert.ToInt32(idalumno), Convert.ToInt32(idmateria), idciclolectivo);
 
         }
         else return null;

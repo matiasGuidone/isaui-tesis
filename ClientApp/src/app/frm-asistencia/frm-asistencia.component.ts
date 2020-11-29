@@ -48,7 +48,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     this.servicio.loadGrilla('evento',['tipo','feriado','ano',this.hoy.getFullYear().toString()]).subscribe(resul=>{
       desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
       for(let f of resul){
-
+  //carga de feriados
         let eve = new evento({ 'id': f.id, 'idmateria': f.idmateria, 'fechafin': f.fechafin, 'fechainicio': f.fechainicio, 'nombre': f.nombre, 'tipo': f.tipo });
         if ( eve.fechainicio <= this.hoy && eve.fechainicio >= desde){
           this.feriados.push(this.formatearFecha(eve.fechainicio,''));
@@ -102,7 +102,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     else return (dia + '-' + mes);
   }
 
-  seleccionarMateria(idin=null) {
+  seleccionarMateria(idin = null) {
     document.getElementById('aceptar').style.display='none';
     this.alumnos = new Array<alumno>();
     

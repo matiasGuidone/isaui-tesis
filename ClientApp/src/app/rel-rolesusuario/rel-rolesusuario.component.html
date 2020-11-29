@@ -1,9 +1,16 @@
-<app-abm-usuario [esRelacion]="true" (emisorId)="searchRoles($event)"></app-abm-usuario>
-<br />
-<br />
+<div class="row">
+    <div class="float-left col-md-6">
+        <app-abm-usuario [esRelacion]="true" (emisorId)="searchRoles($event)"></app-abm-usuario>
+    </div>
+<!-- <br />
+<br /> -->
+<div class="float-left col-md-6">
 <h4 [class]="this.servicio.classtable">{{usuarioSeleccionado}}</h4>
-<br />
 <hr> 
-<br />
+<!-- <br />
+<hr> 
+<br /> -->
 <app-abm-roles [esRelacion]="true" [lista]="this.listaroles" ></app-abm-roles>
 <button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()" ><span ></span>Modificar roles</button>
+</div>
+</div>

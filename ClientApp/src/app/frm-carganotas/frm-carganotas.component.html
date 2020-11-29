@@ -2,6 +2,17 @@
 
    <h3>Carga de notas</h3>
    <hr>
+   <div class="row my-2">
+      <h5 class="col-md-2 control-label">Ciclo lectivo: </h5>
+      <div class="col-md-6">
+         <select (change)="seleccionarCiclo()" class="form-control" id="ciclolectivo">
+            <option *ngFor="let ciclo of ciclos" selected [value]="ciclo.id">
+               {{ciclo.nombre}}
+            </option>
+         </select>
+
+      </div>
+   </div>
    <div class="row">
       <h5 class="col-md-2 control-label">Materias: </h5>
       <div class="col-md-6">
@@ -13,6 +24,7 @@
 
       </div>
    </div>
+
       <br />
       <table [class]="this.servicio.classtable2">
          <thead>

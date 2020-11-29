@@ -28,7 +28,7 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
     {
 
         var token = this.tok();
-        if (tokens.Count < 100)
+        if (tokens.Count < 100)// cantidad de usuarios al mismo tiempo
         { //parametrizar la variable de cantidad de sesiones para regular si se cortan mucho
             tokens.Add(new token(token, System.DateTime.Now, user.Id));
         }

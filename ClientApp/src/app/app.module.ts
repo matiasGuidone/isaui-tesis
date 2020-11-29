@@ -44,6 +44,7 @@ import { ExcelService } from './services/excel.service';
 import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
 import { Guard } from './clases/guard';
 import { AbmMensajeComponent } from './abm-mensaje/abm-mensaje.component';
+import { AbmformulaComponent } from './abm-formula/abm-formula.component';
 import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
 import { ConsultanotasComponent } from './frm-consultanotas/frm-consultanotas.component';
 import { FrmCalendarioComponent } from './frm-calendario/frm-calendario.component';
@@ -113,7 +114,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     AbmCurriculumComponent,
     FrmCurriculumComponent,
     OrdenmeritoComponent,
-    FrmConvocatoriasComponent, FrmVercurriculumComponent
+    FrmConvocatoriasComponent, FrmVercurriculumComponent,AbmformulaComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -169,6 +170,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
      {path: 'frm-convocatorias', component: FrmConvocatoriasComponent},
      {path: 'frm-ordenmerito', component: OrdenmeritoComponent, canActivate:[Guard]},
      {path: 'frm-vercurriculum', component: FrmVercurriculumComponent, canActivate:[Guard]},
+     {path: 'abm-formula', component: AbmformulaComponent, canActivate:[Guard]},
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],

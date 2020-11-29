@@ -8,8 +8,9 @@ import { convocatoria } from '../clases/convocatoria';
 import { abm } from '../clases/abm';
 import { PeticionesService } from '../services/peticiones.service';
 import { AuthLoginService } from '../services/authlogin.service';
-import {curriculumconvocatoria} from '../clases/curriculumconvocatoria';
+import { curriculumconvocatoria } from '../clases/curriculumconvocatoria';
 import { MyModalComponent } from '../modal/MyModalComponent';
+import { materia } from '../clases/materia';
 //ventanas modales
 
 @Component({
@@ -19,54 +20,83 @@ import { MyModalComponent } from '../modal/MyModalComponent';
 })
 export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnInit {
 
-  administrador : any;
-  curcom : curriculumconvocatoria;
-  curriculum : any;
-  todas_postuladas : boolean;
+  administrador: any;
+  curcom: curriculumconvocatoria;
+  curriculum: any;
+  todas_postuladas: boolean = true;
   convocatorias_anotadas: any;
+  materia:materia;
 
 
-  @Input() esRelacion: boolean=false;
+  @Input() esRelacion: boolean = false;
   @Output() emisorId = new EventEmitter<string[]>();
+  materiaid: number = 0;
 
-  constructor( protected location: Location,
-               protected modalService: ModalService,
-               protected servicio: PeticionesService,
-               protected logservicio: AuthLoginService){
-    super(location,modalService,servicio, logservicio);
-
+  constructor(protected location: Location,
+    protected modalService: ModalService,
+    protected servicio: PeticionesService,
+    protected logservicio: AuthLoginService) {
+    super(location, modalService, servicio, logservicio);
+    this.administrador = JSON.parse(localStorage.getItem("Rol"));
     this.nombre = 'convocatoria';
-    this.objetoBlanco = new convocatoria({'id':'0','nombre':'','fechainicio':'','fechafin':'','descripcion':'','idmateria':'','estado':''});
+    this.objetoBlanco = new convocatoria({ 'id': '0', 'nombre': '', 'fechainicio': '', 'fechafin': '', 'descripcion': '', 'idmateria': '', 'estado': '' });
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {
         this.editar(this.modalService.listAbm.getData().id,
-        this.modalService.listAbm.getData());
+          this.modalService.listAbm.getData());
       }
     }
-    this.servicio.loadGrilla('Curriculum', ['idusuario']).subscribe(curr => {
-      this.curriculum=curr;
-      this.curriculum=this.curriculum[0].id.toString();
-      if(this.curriculum != undefined){
-        this.servicio.loadGrilla('ConvocatoriaGuardados', this.curriculum).subscribe(cogu => {
-          this.convocatorias_anotadas= cogu;
-          this.todas_selecciondas();
-          console.log(this.convocatorias_anotadas);
-            });
-      }
-     console.log(this.curriculum);
-    });
 
-    this.administrador = JSON.parse(localStorage.getItem("Rol"));
 
   }
 
+  //método para hacer recarga del usuario cv
+  inicioCv() {
+
+    this.servicio.loadGrilla('Curriculum', ['idusuario']).subscribe(curr => {
+      this.curriculum = curr;
+      this.curriculum = this.curriculum[0].id.toString();
+      if (this.curriculum != undefined) {
+        this.servicio.loadGrilla('curriculumconvocatoria', ['usuariocurriculum']).subscribe(cogu => {
+          this.convocatorias_anotadas = cogu.filter(element => {
+             let b = false;
+              this.lista.forEach(conv => {
+                if( element.idconvocatoria == conv.id){b = true;}
+              });
+              return b;
+           });
+          
+          this.todas_selecciondas();
+
+
+
+        });
+      }
+
+
+    });
+
+  }
+  ngOnInit() {
+    if (this.administrador.nombrerol == 'Curriculum') {
+      this.servicio.loadGrilla('convocatoria', ['convocatoriascv']).subscribe(l => {
+        this.lista = l;
+        this.inicioCv();
+
+      });
+    }
+    else {
+      this.servicio.loadGrilla(this.nombre).subscribe(res => this.lista = res);
+    }
+
+  }
 
   seleccionar(id) {
     if (this.esRelacion) {
       let datos = new Array<string>();
       datos.push(id);
-      datos.push(this.lista.find(convocatoria=> convocatoria.id === id).descripcion );
+      datos.push(this.lista.find(convocatoria => convocatoria.id === id).descripcion);
       this.emisorId.emit(datos);
     }
     else {
@@ -77,7 +107,7 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
       }
       this.modalService.listAbm.getData().idconvocatoria = id;
       this.location.back();
-      this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
+      this.location.subscribe(r => { this.logservicio.componenteGuard = r.url.toString().substring(1); });
     }
   }
 
@@ -89,59 +119,81 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
       return true;
   }
 
-   AsignarCuraConvocatoria(ids){
-    this.curcom =new curriculumconvocatoria({'idcurriculum': this.curriculum , 'idconvocatoria': ids, 'puntaje': 0, 'prioridad': 0});
-    console.log(this.curcom)
-    this.servicio.addSingleAbm(this.curcom, 'Curriculumconvocatoria').subscribe(x => {
-    this.abrirModal(x, 'Muchas gracias por tu Postulacion',2,3);
+  AsignarCuraConvocatoria(ids) {
+    this.abrirModal('Confirmar', 'Desea postularse en esta convocatoria', 1, null).subscribe(r => {
 
-    this.servicio.loadGrilla('Curriculumconvocatoria').subscribe(cuco => {
-      this.servicio.loadGrilla('ConvocatoriaGuardados', cuco[0].idcurriculum.toString()).subscribe(cogu => {
-        this.convocatorias_anotadas= cogu;
+      this.curcom = new curriculumconvocatoria({ 'idcurriculum': this.curriculum, 'idconvocatoria': ids, 'puntaje': 0, 'prioridad': 0 });
+      console.log(this.curcom)
+      this.servicio.addSingleAbm(this.curcom, 'Curriculumconvocatoria').subscribe(x => {
+        this.abrirModal(x, 'Muchas gracias por tu Postulacion', 2, 3).subscribe(n => {
+          this.inicioCv();
+        });
 
-        console.log(this.convocatorias_anotadas);
-      });
+
+        // this.servicio.loadGrilla('Curriculumconvocatoria').subscribe(cuco => {
+        //   this.servicio.loadGrilla('ConvocatoriaGuardados', cuco[0].idcurriculum.toString()).subscribe(cogu => {
+        //     this.convocatorias_anotadas = cogu;
+
+        //   });
+        // });
+
+      },
+        err => console.error('Observer got an error: ' + err)
+
+      );
     });
 
-  },
-  err => console.error('Observer got an error: ' + err)
-
-    );
   }
 
   abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
     const modalRef =
-    this.modalService.open(MyModalComponent,
-      { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
+      this.modalService.open(MyModalComponent,
+        { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
     return modalRef.onResult();
   }
 
   eliminar_relacion(id, id2) {
     this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
       closed => {
-        return this.servicio.eliminar(id, 'Curriculumconvocatoria', id2)
-          .subscribe(json => this.servicio.loadGrilla(this.nombre)
-          .subscribe(res => this.lista = res))
+        return this.servicio.eliminarConFiltro(['idcurriculum', id, 'idconvocatoria', id2], 'Curriculumconvocatoria')
+          .subscribe(json => this.inicioCv());
       });
   }
 
 
+  todas_selecciondas() {
+    this.todas_postuladas = true;
 
-  todas_selecciondas(){
-    let es_verdadero=true;
+    this.servicio.loadGrilla('Convocatoria').subscribe((cuco: any[]) => {
+      if (cuco != undefined) {
+        for (let n of cuco) {
+          if (Array.isArray(this.convocatorias_anotadas)) {
+            let indice = this.convocatorias_anotadas.find(c => c.idconvocatoria == n.id);
+            if (indice == undefined) {
+              this.todas_postuladas = false;
+            }
+          }
+          else { this.todas_postuladas = false; }
+        }
+      }
+    })
 
-    this.servicio.loadGrilla('Convocatoria').subscribe((cuco :any[]) => {
-        if (cuco!= undefined ){
-                for (let n of cuco){
-                let indice= this.convocatorias_anotadas.find( c => c.idconvocatoria == n.id);
-                if (indice == undefined){
-                  es_verdadero=false;
-                }}}})
+      ;
 
-               ;
+  }
+  verHorarios(idconvocatoria) {
+    let convoc = this.lista.find(c => c.id == idconvocatoria);
+    this.materiaid = convoc.idmateria;
+    this.servicio.getById(this.materiaid.toString(),'materia').subscribe(mat=>{
+      this.materia = mat;
+    });
+  }
 
-}
-
+  //recibe el id de la convocatoria y garantiza que el postulante está o no este potulado
+  estaconvocado(id) {
+    let d = this.convocatorias_anotadas.find(c => c.idconvocatoria == id)
+    if (d == undefined) { return true; } else { return false; }
+  }
 
 }
 

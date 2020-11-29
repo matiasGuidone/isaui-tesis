@@ -17,8 +17,9 @@ public class DocenteMateriaController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            docenteMateria.Idciclolectivo =
-               CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            if(docenteMateria.Idciclolectivo==0){
+                docenteMateria.Idciclolectivo =
+                CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;}
             DocenteMateriaConexion<docentemateria>.Instance.Insert(docenteMateria);
             return Json("Guardado exitoso");
         }
@@ -41,11 +42,11 @@ public class DocenteMateriaController : Controller
 
     // DELETE
     [HttpDelete]
-    public ActionResult Delete([FromHeader] string id, [FromHeader] string filtro, [FromHeader] string valor, [FromHeader] string token)
+    public ActionResult Delete([FromHeader] string id,[FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            DocenteMateriaConexion<docentemateria>.Instance.Delete(Convert.ToInt32(id), null, filtro, valor);
+            DocenteMateriaConexion<docentemateria>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
             return Json("registro eliminado");
         }
         else return null;

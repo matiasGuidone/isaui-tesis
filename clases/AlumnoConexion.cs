@@ -34,11 +34,14 @@ using System.Collections.Generic;
             
             return (List<alumno>)Conexion.consultaList<alumno>(consulta);
         }
-         public List<alumno> SearchAlumnosMateria( Int32 idmateria )
+         public List<alumno> SearchAlumnosMateria( Int32 idmateria  ,Int32 idciclolectivo = default(Int32))
         {  
+             if(idciclolectivo == default(Int32)){
+                idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            }
             string consulta =   $"select alumno.* from alumno where "+
                                 $"alumno.id in (select idalumno from"+
-                                $" alumnomateria where idmateria = {idmateria})";
+                                $" alumnomateria where idmateria = {idmateria} and idciclolectivo = {idciclolectivo})";
             
             return (List<alumno>)Conexion.consultaList<alumno>(consulta);
         }
