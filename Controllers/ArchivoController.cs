@@ -30,7 +30,7 @@ using System.Net.Http.Headers;
                    
                     if (file.Name.Contains("P_"))
                     {
-                        string folderName = "Pdf_Cv";
+                        string folderName = "Pdf_Cv"+UsuarioConexion<usuario>.Instance.getIdUserToken(token).ToString();
                        // string webRootPath = _hostingEnvironment.WebRootPath;
                         //string newPath = Path.Combine(webRootPath, folderName);
                         if (!Directory.Exists(folderName))
@@ -51,7 +51,7 @@ using System.Net.Http.Headers;
 
                     }
 
-                    return Json("{\"path\":\""+fullPath+"\"}");
+                    return Json("{\"path\":\""+fullPath.Replace ("\\","/")+"\"}");
                 }
                 catch (System.Exception ex)
                 {

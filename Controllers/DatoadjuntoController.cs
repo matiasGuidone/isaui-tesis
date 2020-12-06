@@ -32,14 +32,19 @@ public class DatoadjuntoController : Controller
             if(datoadj.Count>0){
             foreach (var m in datoadj)
             {
-                var aux = listaux.Find(p => p.Id == m.Id);
-                if (aux == null){
+                var aux = listaux.Find(p => p.Direccion == m.Direccion);
+                if (aux == null){ 
                      DatoadjuntoConexion<datoadjunto>.Instance.DeleteFile(m.Id); 
                 }
+                else{
+                    var ind = listaux.FindIndex (p => p.Direccion == m.Direccion);
+                    listaux.RemoveAt(ind); 
+                }
+                
             }
             }
-            foreach (var item in datoadjunto)
-            {
+            foreach (var item in listaux )
+            { 
                 if(item.Id==0){
                     DatoadjuntoConexion<datoadjunto>.Instance.Insert(item); 
                 }

@@ -119,8 +119,8 @@ export class IniciarSesionComponent implements OnInit {
   }
 
   validar(){
-    if(this.formUsuario.get('usuario').value.length > 8 
-    && this.formUsuario.get('contra').value.length > 8
+    if(this.formUsuario.get('usuario').value.length >= 8 
+    && this.formUsuario.get('contra').value.length >= 8
     && this.formUsuario.get('contra').value == this.formUsuario.get('contra2').value
     && this.formUsuario.valid )
     {return false;}
