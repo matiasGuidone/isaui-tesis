@@ -145,6 +145,32 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
 
   }
 
+  guardar(obj): Observable<convocatoria> {
+    if (+obj.id != 0) {
+      //let param =  this.castObjeto(obj);
+      // this.id =+ obj.id;
+      // this.fechainicio = new Date(obj.fechainicio);
+      // this.fechafin = new Date(obj.fechafin);
+      // this.descripcion = obj.descripcion;
+      // this.idmateria = +obj.idmateria;
+      // this.estado = +obj.estado;
+      // this.idcurriculum = +obj.idcurriculum;
+      let param : convocatoria;
+      if(obj.idcurriculum!= undefined && obj.idcurriculum != null){
+        param = new convocatoria({"id":obj.id, "fechainicio":obj.fechainicio, "fechafin": obj.fechafin ,"descripcion": obj.descripcion, "idmateria": obj.idmateria,"estado":obj.estado,"idcurriculum":obj.idcurriculum});
+      }
+      else{
+        param = new convocatoria({"id":obj.id, "fechainicio":obj.fechainicio, "fechafin": obj.fechafin ,"descripcion": obj.descripcion, "idmateria": obj.idmateria,"estado":obj.estado,"idcurriculum":"0"});
+      }
+      return this.servicio.addSingleAbm(param, this.nombre);
+    }
+    else {
+      let param : convocatoria;
+      param = new convocatoria({"id":obj.id, "fechainicio":obj.fechainicio, "fechafin": obj.fechafin ,"descripcion": obj.descripcion, "idmateria": obj.idmateria,"estado":obj.estado,"idcurriculum":"0"});
+      return this.servicio.addSingleAbm(param, this.nombre);
+    }
+  }
+
   abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
     const modalRef =
       this.modalService.open(MyModalComponent,

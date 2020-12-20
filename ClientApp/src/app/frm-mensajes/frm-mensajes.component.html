@@ -2,28 +2,34 @@
 <div [class]="this.servicio.classtable">
     <h3>Editor de mensajes</h3>
      
-    <div>
+    <div class="row my-2">
+        <h5 class="col-md-2 control-label">Materias: </h5>
+        <div class="col-md-6">
         <select (change)="seleccionarMateria()" class="form-control my-2 col-md-9 col-12" id="materia" >
            <option *ngFor="let materia of materias"  [value]="materia.id" >
                 {{materia.nombre}}
            </option>
         </select>
-    </div>
-    <div >
+    </div></div>
+    <div class="row my-2">
+        <h5 class="col-md-2 control-label">Mensajes: </h5>
+        <div class="col-md-6">
         <select  class="form-control my-2 col-md-9 col-12" id="mensaje" >
            <option *ngFor="let mensaje of mensajes"  [value]="mensaje.id" >
                 {{mensaje.titulo}}
            </option>
         </select>
-        <button title="editar" (click)="seleccionarMensaje()" class="btn btn-info"><span class="fa fa-edit"></span>Editar mensaje</button>
-    </div>
+        <button *ngIf="mensajes" title="editar" (click)="seleccionarMensaje()" class="btn btn-info"><span class="fa fa-edit"></span>Editar mensaje</button>
+    </div></div>
 
     <div class="my-2">
+        Título
         <input class="form-control col-md-9 col-12 my-2" type="text" id="titulo" placeholder="Título">
     </div>
     
     <!-- <textarea id="texto" (keyup)="setEditor()" class="editor col-md-9 border col-12 p-2 my-2"></textarea> -->
     <div>
+        Editor <br>
         <div class="btn-group" role="group" >
             <button type="button" title="texto pequeño" (click)="textChiquite()" class="btn border btn-light"><span class="fa fa-font"></span></button>
             <button type="button" title="texto negrita" (click)="textBold()" class="btn border btn-light"><span class="fa fa-bold"></span></button>
@@ -37,10 +43,13 @@
           <div id="visualiza" (keyup)="countsize()" contenteditable="true" class="editor col-md-9 border col-12 p-2 my-2"></div>
     </div>
     <div>
+        Fecha de publicación
         <input class="form-control col-md-9 col-12 my-2" id="fechad" type="date" placeholder="Fecha de publicado">
     </div>
     <div>
+        Fecha de expirado
         <input class="form-control col-md-9 col-12" type="date" id="fechah" placeholder="Fecha de expiración">
     </div>
      <button (click)="guardarMensaje()" class="btn btn-info my-2">Publicar mensaje</button>
+     <button *ngIf="mensajeSeleccionado" (click)="cancelarEdicion()" class="btn btn-danger my-2">Cancelar edición</button>
 </div>

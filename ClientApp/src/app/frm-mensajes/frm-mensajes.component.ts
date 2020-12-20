@@ -106,7 +106,10 @@ export class FrmMensajesComponent implements OnInit {
     }
   }
 
-
+ cancelarEdicion(){
+  this.mensajeSeleccionado = null;
+  this.limpiarCampos();
+ }
   formatearFecha(f: any): string {
     if (f instanceof Date) {
       f.setDate(f.getDate() + 1);

@@ -75,14 +75,15 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
   }
   //evento botón aceptar
   aceptarSeleccion() {
-    this.servicio.idsSeleccionados = new Array<number>();
-    for (let i = 0; i < this.lista.length; i++) {
-      //si está marcado el elemento
-      var n = <HTMLInputElement>document.getElementById("chk-" + this.lista[i].id);
-      if (n.checked == true) {
-        this.servicio.idsSeleccionados.push(this.lista[i].id);
-      }
-    }
+    
+    // this.servicio.idsSeleccionados = new Array<number>();
+    // for (let i = 0; i < this.lista.length; i++) {
+    //   //si está marcado el elemento
+    //   var n = <HTMLInputElement>document.getElementById("chk-" + this.lista[i].id);
+    //   if (n.checked == true) {
+    //     this.servicio.idsSeleccionados.push(this.lista[i].id);
+    //   }
+    // }
     this.location.back();
     this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
   }

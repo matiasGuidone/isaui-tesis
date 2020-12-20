@@ -8,6 +8,7 @@ using System.Collections;
 using System.Data;
 using System.Reflection;
 using MySql.Data.MySqlClient;
+using System.Xml;
 
 public class ObjetoConexion<T>
 {
@@ -21,12 +22,27 @@ public class ObjetoConexion<T>
     }
     //['columna','valor','columna','valor','columna','valor']
     //concatenar = concatenar una condición mas " AND Columna = 1 AND Columna2 = 2 OR Columna3 = 3"
+    private static string limit()
+    {
+        XmlTextReader reader = new XmlTextReader("./config.xml");
+        while (reader.Read())
+        {
+            if (reader.NodeType == XmlNodeType.Element && reader.Name == "limiteregistros")
+            {
+                reader.Read();
+                return reader.Value;
+            }
+
+        }
+        return "";
+        //return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
+    }
     public List<T> SearchAll(string[] parametros = null, string concatenar = null)
     {
 
         if ((parametros == null || parametros.Length < 2) && concatenar == null)
         {
-            string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC";
+            string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC LIMIT 0, " + limit();
 
             return (List<T>)Conexion.consultaList<T>(consulta);
         }
@@ -37,7 +53,7 @@ public class ObjetoConexion<T>
             {
                 IList<PropertyInfo> props = new List<PropertyInfo>(this.tipo.GetType().GetProperties());
                 List<MySqlParameter> param = new List<MySqlParameter>();
-                
+
                 var i = 0;
 
                 foreach (PropertyInfo prop in props)
@@ -104,24 +120,20 @@ public class ObjetoConexion<T>
 
         consulta = consulta + valores;
 
-       
+
         Conexion.ConsultaParametros(consulta, param);
-       
-        // Curriculum Convocatoria no tiene id devuelve = 0 para que termine correctamente la operacion
-        if(this.tipo.GetType().FullName == "curriculumconvocatoria") {
-           return 0;         
-        };
-       
 
 
         consulta = $"SELECT IFNULL(max(id),0) as id FROM {this.tipo.GetType()}";
 
         var ds = Conexion.consultaDataTable(consulta);
         var id = 0;
-        if(ds!= null){
-        id = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0]);}
+        if (ds != null)
+        {
+            id = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0]);
+        }
 
-        return id; 
+        return id;
     }
     public void Update(oObjeto objeto)
     {
@@ -130,10 +142,9 @@ public class ObjetoConexion<T>
         IList<PropertyInfo> props = new List<PropertyInfo>(objeto.GetType().GetProperties());
         // inicilizar la lista de parametros para la consutla de insercion
         List<MySqlParameter> param = new List<MySqlParameter>();
-        //cadenas de consulta 
+
         String consulta = $"UPDATE {objeto.GetType()}  SET ";
-        //String valores = " SET ";
-        // recorre las propiedades del objeto
+
         foreach (PropertyInfo prop in props)
         {
             if (prop.Name != "Id")
@@ -142,18 +153,13 @@ public class ObjetoConexion<T>
                 param.Add(new MySqlParameter(prop.Name, propValue));
 
                 consulta += $" {prop.Name} = ?{prop.Name},";
-                //valores += $" ?{prop.Name} ,";
-                // Do something with propValue
+
             }
 
         }
         // cada vez que finalize hacemos un substring de la ultima coma para cerrar la consulta
         consulta = consulta.Substring(0, consulta.Length - 1) + " WHERE ID = " + objeto.Id;
-        // valores = valores.Substring(0,valores.Length-1) +" )";
 
-        // Unimos consulta y valores
-
-        //consulta = consulta + valores;
 
         Conexion.ConsultaParametros(consulta, param);
 
@@ -161,28 +167,25 @@ public class ObjetoConexion<T>
     public void Delete(int Id, oObjeto param = null, string[] filtros = null)
     {
 
-        // if (valor2 != null ){
-        //     String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE curriculumconvocatoria.Idcurriculum = {Id.ToString()} AND curriculumconvocatoria.Idconvocatoria = {valor2}";
-        //     Conexion.ConsultaParametros(consulta);
-    
-        // }
-
         //si el objeto no es null se elimina ese objeto
         if (filtros != null)
-        {   String where = $"WHERE 1 ";
+        {
+            String where = $"WHERE 1 ";
             List<MySqlParameter> parametro = new List<MySqlParameter>();
-                for(var f =0; f< filtros.Length;f++){
-                    if(f%2==0){
-                        where += $"AND {filtros[f]} = ?{filtros[f]} ";
-                         parametro.Add(new MySqlParameter(filtros[f], filtros[f+1]));
-                    }
-                    
-                     
+            for (var f = 0; f < filtros.Length; f++)
+            {
+                if (f % 2 == 0)
+                {
+                    where += $"AND {filtros[f]} = ?{filtros[f]} ";
+                    parametro.Add(new MySqlParameter(filtros[f], filtros[f + 1]));
                 }
-               
-            String consulta = $"DELETE FROM {this.tipo.GetType()} "+where;
-            
-            
+
+
+            }
+
+            String consulta = $"DELETE FROM {this.tipo.GetType()} " + where;
+
+
             Conexion.ConsultaParametros(consulta, parametro);
         }
         else if (param != null)
@@ -201,7 +204,7 @@ public class ObjetoConexion<T>
             Conexion.ConsultaParametros(consulta, parametro);
         }
 
-        
+
 
     }
 

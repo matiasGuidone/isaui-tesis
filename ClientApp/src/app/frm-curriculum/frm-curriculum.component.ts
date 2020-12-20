@@ -48,10 +48,38 @@ export class FrmCurriculumComponent implements OnInit {
   investigaciones: any[] = new Array<investigacion>();
   adjuntos: datoadjunto[] = new Array<datoadjunto>();
   domicilioaux: domicilio;
+  idpais: number = 0;
 
 
 
   constructor(private servicio: PeticionesService, private formbuilder: FormBuilder, private modalService: ModalService) {
+    
+  }
+  teclaenter(key) {
+    if (key.keyCode === 13) {
+      console.log(key);
+    }
+  }
+  cargaInicial() {
+    this.servicio.loadGrilla('localidad').subscribe(l => {
+      this.localidades = l;
+      this.servicio.loadGrilla('provincia').subscribe(p => {
+        this.provincias = p;
+        this.servicio.loadGrilla('pais').subscribe(pa => {
+          this.paises = pa;
+          console.log('carga inicial finalizada***')
+          let idpro = this.localidades.find(loc => loc.id ==  this.domicilioaux.idlocalidad ).idprovincia;
+          this.idpais = this.provincias.find(pro => pro.id == idpro ).idpais;
+          //document.getElementById('pais')['value'] = idpais;
+          document.getElementById('provincia')['value'] = idpro;
+          document.getElementById('domicilio')['value'] = this.domicilioaux.direccion;
+         document.getElementById('localidad')['value'] = this.domicilioaux.idlocalidad;
+        })
+      })
+    });
+  }
+
+  ngOnInit() {
     this.servicio.loadGrilla('pais')
       .subscribe
       (resultado => { this.paises = resultado; });
@@ -74,7 +102,6 @@ export class FrmCurriculumComponent implements OnInit {
       }
       else {
 
-        this.cargaInicial();
 
         this.formCurriculum = this.formbuilder.group({
           id: curr[0].id,
@@ -127,34 +154,13 @@ export class FrmCurriculumComponent implements OnInit {
       }
       this.servicio.getById(curr[0].iddomicilio, 'domicilio').subscribe((result: domicilio) => {
         this.domicilioaux= result;
-        document.getElementById('domicilio')['value'] = result.direccion;
-        document.getElementById('localidad')['value'] = result.idlocalidad;
+        
 
+        this.cargaInicial();
 
       });
     }
     );
-
-
-  }
-  cargaInicial() {
-    this.servicio.loadGrilla('localidad').subscribe(l => {
-      this.localidades = l;
-      this.servicio.loadGrilla('provincia').subscribe(p => {
-        this.provincias = p;
-        this.servicio.loadGrilla('pais').subscribe(pa => {
-          this.paises = pa;
-          console.log('carga inicial finalizada***')
-          let idpro = this.localidades.find(loc => loc.id ==  this.domicilioaux.idlocalidad ).idprovincia;
-          let idpais = this.provincias.find(pro => pro.id == idpro ).idpais;
-          document.getElementById('provincia')['value'] = idpro;
-          document.getElementById('pais')['value'] = idpais;
-        })
-      })
-    });
-  }
-
-  ngOnInit() {
 
 
   }

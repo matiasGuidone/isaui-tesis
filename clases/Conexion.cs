@@ -25,18 +25,18 @@ public class Conexion
 
     private static string cadena()
     {
-        /*  XmlTextReader reader = new XmlTextReader("./config_.xml");
+        XmlTextReader reader = new XmlTextReader("./config.xml");
          while (reader.Read())
          {
-             if (reader.NodeType == XmlNodeType.Element && reader.Name == "postgresql")
+             if (reader.NodeType == XmlNodeType.Element && reader.Name == "mariadb")
              {
                  reader.Read();
                  return reader.Value;
              }
 
          }
-         return ""; */
-        return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
+         return "";  
+        //return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
     }
 
     public Conexion()

@@ -134,4 +134,11 @@ obtenerArchivo(fileDir: string) : Observable<any> {
     const headers = new HttpHeaders({ 'id': '0', 'arrayfiltros': filtros, 'token': token });
     return this._http.delete(this.baseUrl + 'api/' + abm, { headers: headers });
   }
+  adddoc(idcv, idmateria, abm){
+    let token = localStorage.getItem("Access_Token");
+    let params ={};
+        if (token == undefined || token == null) { token = ''; }
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'token': token ,'idcv':idcv.toString(),'idmateria':idmateria.toString()});//.set('Content-Type', 'application/json');
+        return this._http.post<any>(this.baseUrl + 'api/' + abm, params, { headers: headers });
+  }
 }

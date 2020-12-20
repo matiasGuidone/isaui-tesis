@@ -54,7 +54,7 @@ export class OrdenmeritoComponent implements OnInit {
         this.materia=res[0]["materia"];
         this.cvs = res;
       }
-    })
+    });
   }
 
 pdfNotas() {
@@ -202,7 +202,7 @@ pdfNotas() {
 
   }
   establecerCandidato(id){
-    this.abrirModal('Convocatorias','¿ Desea establecer este currículum como elegido para la convocatoria ?',2,null).subscribe(result=>{
+    this.abrirModal('Convocatorias','¿ Desea establecer este currículum como elegido para la convocatoria ?',1,null).subscribe(result=>{
       if(result){
         let conv = this.convocatorias.find(convocatoria => convocatoria.id == document.getElementById('convocatoria')['value']);
         conv.idcurriculum = id;
@@ -219,5 +219,15 @@ pdfNotas() {
     this.modalservice.open(MyModalComponent, 
       { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
     return modalRef.onResult();
+  }
+  aprobarConvocado(){
+    let cv = this.convoca.idcurriculum;
+    let materia = this.convoca.idmateria;
+    this.servicio.adddoc(cv,materia,"altadocente").subscribe(r =>{
+      this.abrirModal("Tarea completada","la selección se registro con éxito, el docente está dado de alta",2,null).subscribe(e=>{
+         this.selecionarconvocatoria();
+      });
+     
+    });
   }
 }

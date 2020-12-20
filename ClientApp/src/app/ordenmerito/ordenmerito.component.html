@@ -1,6 +1,6 @@
 <div [class]="this.servicio.classtable">
     <div class="container">
-        <h3>Consulta de evaluaciones</h3>
+        <h3>Consulta de convocatorias</h3>
         <hr>
         <div class="row">
            <h5 class="col-md-2 control-label">Convocatoria: </h5>
@@ -21,6 +21,7 @@
             <samp ><h6>Desde: {{convoca.fechainicio | date : 'dd-MM-yyyy'}} Hasta: {{convoca.fechafin | date : 'dd-MM-yyyy'}}</h6></samp>
          </div>
           <div class="col-md-5">
+              <div *ngIf="this.convoca.estado !=0">Convocatoria cerrada</div>
               <span *ngIf="materia!=null"><h6>Materia: {{materia}}</h6></span> 
          </div> 
         </div>
@@ -44,12 +45,16 @@
                      <td >{{cv.dni}} </td> 
                     <td style="background-color: rgba(43, 226, 202, 0.253);" >{{cv.puntaje}}</td>
                     <td style="background-color: rgba(137, 43, 226, 0.253);" > <input style="width:45px;" id="prio-{{cv.idcv}}" type="number" [value]="cv.prioridad"> <button (click)="almacenarprioridad(cv.idcv)" class="btn btn-success rounded-circle m-2"><span class="fa fa-save"></span></button></td>
-                    <td> <button class="btn btn-info" (click)="verCurriculum(cv.idcv)" title="Ver currículum"><span class="fa fa-eye"></span></button>
-                         <button class="btn btn-success" (click)="establecerCandidato(cv.idcv)" title="establecer candidato"><span class="fa fa-check"></span></button></td>
+                    <td> <button class="btn btn-info" *ngIf="this.convoca.estado ==0" (click)="verCurriculum(cv.idcv)" title="Ver currículum"><span class="fa fa-eye"></span></button>
+                         <button *ngIf="cv.idcv != this.convoca.idcurriculum && this.convoca.estado ==0" class="btn btn-success" (click)="establecerCandidato(cv.idcv)" title="establecer candidato"><span class="fa fa-check"></span></button>
+                        <div class="lead" *ngIf="cv.idcv == this.convoca.idcurriculum" >Elegido</div> </td>
                 </tr>
 
             </tbody>
         </table>  
-
-           </div>
+        <div class="lead" *ngIf="this.convoca.idcurriculum" >
+            
+        <button *ngIf="this.convoca.estado ==0" (click)="aprobarConvocado()" title="Usted aprueba la/el convocada/o y se enlaza con la materia correspondiente" class="btn btn-danger">Aprobar y enlazar</button>
+    </div>
+      </div>
 </div>
