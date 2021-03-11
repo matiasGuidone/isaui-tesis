@@ -55,7 +55,7 @@ public class ExamenController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            //preguntar si los filtros tienen idalumno => alternativa 
+            //preguntar si los filtros tienen idestudiante => alternativa 
             return ExamenConexion<examen>.Instance.SearchAll(arrayfiltros);
         }
         else return null;

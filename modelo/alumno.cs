@@ -1,6 +1,6 @@
 using System.Data;
 using System;
-public class alumno : oObjeto
+public class estudiante : oObjeto
 {
     public string Nombre { get; set; }
     public string Apellido { get; set; }
@@ -11,8 +11,8 @@ public class alumno : oObjeto
     public DateTime Fechanac { get; set; }
     public int Iddomicilio { get; set; } 
     public int Idusuario { get; set; }
-    public alumno() { }
-    public alumno(DataRow dr)
+    public estudiante() { }
+    public estudiante(DataRow dr)
     {
         this.Id = Convert.ToInt32(dr["id"]);
         this.Nombre = dr["nombre"].ToString();

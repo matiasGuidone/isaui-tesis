@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {mensajeAlumno} from '../clases/mensajeAlumno';
+import { mensajeestudiante } from '../clases/mensajeestudiante';
 import { PeticionesService } from '../services/peticiones.service';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class VerMensajeComponent implements OnInit {
 
-  mensaje: mensajeAlumno;
-  mensajes: Array <mensajeAlumno>;
-  alumno : Array<any>;
+  mensaje: mensajeestudiante;
+  mensajes: Array <mensajeestudiante>;
+  estudiante : Array<any>;
 
   constructor(protected servicio: PeticionesService,
               protected modalService: ModalService) {
@@ -23,11 +23,11 @@ export class VerMensajeComponent implements OnInit {
 
     if (!this.mensajes){
 
-      this.alumno =  JSON.parse(localStorage.getItem("Rol"));
-      console.log(this.alumno)
+      this.estudiante =  JSON.parse(localStorage.getItem("Rol"));
+      console.log(this.estudiante)
 
     }
-    this.servicio.loadGrilla("Materiaalumnomensaje", this.alumno['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});
+    this.servicio.loadGrilla("Materiaestudiantemensaje", this.estudiante['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});
 
       }
         abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {

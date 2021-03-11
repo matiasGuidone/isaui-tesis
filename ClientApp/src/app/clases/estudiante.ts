@@ -1,4 +1,4 @@
-export class alumno{
+export class estudiante{
     id : number;
     nombre : string;
     apellido : string;

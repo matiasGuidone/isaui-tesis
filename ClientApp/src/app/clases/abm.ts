@@ -27,8 +27,20 @@ export class abm<T>{
       this.abrirModal('Confirmación', '¿ Desea eliminar el registro ?', 1, null).subscribe(
         closed => {
           return this.servicio.eliminar(id, this.nombre)
-            .subscribe(json => this.servicio.loadGrilla(this.nombre)
-            .subscribe(res => this.lista = res))
+            .subscribe(json => {
+              let notificacion = document.getElementById("notificacion");
+              let textnotificacion = document.getElementById("textnotificacion");
+              if (json != null && json != undefined){
+                notificacion.className = "alert alert-success alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = ""+json;}
+              else{
+                notificacion.className = "alert alert-danger alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = "error durante el proceso de almacenado"
+              }
+              this.servicio.loadGrilla(this.nombre)
+            .subscribe(res => {this.lista = res;});})
         });
     }
 
@@ -70,21 +82,57 @@ export class abm<T>{
             let doc = this.castObjeto(obj);
           this.abrirModal('Nuevo '+this.nombre, this.nombre, 3, doc)
           .subscribe(obj => this.guardar(obj)
-          .subscribe(json => this.servicio.loadGrilla(this.nombre)
-          .subscribe(res => this.lista = res)));
+          .subscribe(json => {
+            let notificacion = document.getElementById("notificacion");
+            let textnotificacion = document.getElementById("textnotificacion");
+            if (json != null && json != undefined){
+              notificacion.className = "alert alert-success alert-dismissible fade show";
+              notificacion.style.display = "block";
+              textnotificacion.innerText = ""+json;}
+            else{
+              notificacion.className = "alert alert-danger alert-dismissible fade show";
+              notificacion.style.display = "block";
+              textnotificacion.innerText = "error durante el proceso de almacenado"
+            }
+            this.servicio.loadGrilla(this.nombre)
+          .subscribe(res => this.lista = res);}));
         }
         else if (id != 0) {
           this.abrirModal('Editar '+this.nombre, this.nombre, 3, this.lista
           .find(T => T['id'] === id)).subscribe(
             obj => this.guardar(obj)
-            .subscribe(json => this.servicio.loadGrilla(this.nombre)
-            .subscribe(res => this.lista = res)));
+            .subscribe(json => {
+              let notificacion = document.getElementById("notificacion");
+              let textnotificacion = document.getElementById("textnotificacion");
+              if (json != null && json != undefined){
+                notificacion.className = "alert alert-success alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = ""+json;}
+              else{
+                notificacion.className = "alert alert-danger alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = "error durante el proceso de almacenado"
+              }
+              this.servicio.loadGrilla(this.nombre)
+            .subscribe(res => this.lista = res);}));
         }
         else {
           this.abrirModal('Nuevo '+this.nombre, this.nombre, 3, this.objetoBlanco)
           .subscribe(obj => this.guardar(obj)
-            .subscribe(json => this.servicio.loadGrilla(this.nombre)
-              .subscribe(res => this.lista = res)));
+            .subscribe(json => {
+              let notificacion = document.getElementById("notificacion");
+              let textnotificacion = document.getElementById("textnotificacion");
+              if (json != null && json != undefined){
+                notificacion.className = "alert alert-success alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = ""+json;}
+              else{
+                notificacion.className = "alert alert-danger alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = "error durante el proceso de almacenado"
+              }
+              this.servicio.loadGrilla(this.nombre)
+              .subscribe(res => this.lista = res);}));
         }
       }
 

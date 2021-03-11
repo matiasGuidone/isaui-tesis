@@ -65,7 +65,7 @@ public class AntecedentetituloController : Controller
         AntecedentetituloConexion<antecedentetitulo>.Instance.Update(antecedentetitulo);
         return Json("Guardado exitoso");
         }
-        else return Json("...");
+        else return null;
     }
 
     // DELETE
@@ -77,7 +77,7 @@ public class AntecedentetituloController : Controller
         AntecedentetituloConexion<antecedentetitulo>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
         }
-        else return Json("...");
+        else return null;
 
     }
 

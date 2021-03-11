@@ -33,19 +33,19 @@ using System.Collections.Generic;
                                                  Int32 idmateria = default(Int32),
                                                 string nombreapellido = null,
                                                 Boolean totales = false,
-                                                Int32 idalumno = default(Int32)){
-            var alumno = "";
+                                                Int32 idestudiante = default(Int32)){
+            var estudiante = "";
             var consulta = "";
             if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-8); }
             if(fechaHasta == default(DateTime)){fechaHasta = System.DateTime.Now; }
-            if(totales){alumno = "alumno.Id,"; 
-                        consulta += "SELECT T3.Alumno, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos from ( ";}
+            if(totales){estudiante = "estudiante.Id,"; 
+                        consulta += "SELECT T3.estudiante, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos from ( ";}
 
-            consulta += $"select {alumno} concat(alumno.apellido,', ',alumno.nombre) as Alumno,"+
+            consulta += $"select {estudiante} concat(estudiante.apellido,', ',estudiante.nombre) as estudiante,"+
                 $"materia.nombre as Materia, count(asistencia.Id) as ModulosPresente , "+
                 $"modulos as CantidadModulos from asistencia "+
                 $"join horasmateria on asistencia.idhoramateria = horasmateria.id "+
-                $"JOIN alumno on asistencia.idalumno = alumno.id "+
+                $"JOIN estudiante on asistencia.idestudiante = estudiante.id "+
                 $"join materia on horasmateria.idmateria = materia.Id "+
                 $"JOIN ( SELECT idmateria, Sum(modulos) as modulos from ( SELECT horasmateria.idmateria, COUNT(horasmateria.id)*Cnt AS modulos "+
                 $"FROM horasmateria,(SELECT DAYOFWEEK(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY))-1 as DIA, " +
@@ -62,24 +62,24 @@ using System.Collections.Generic;
                 $"ON materia.Id = T2.idmateria "+
                 $"WHERE asistencia.fecha BETWEEN '{fechaDesde.ToString("yyyy-MM-dd")}' and '{fechaHasta.ToString("yyyy-MM-dd")+" 23:59:59" }' ";
            
-            if (nombreapellido != null){consulta += $" and concat(alumno.apellido,', ',alumno.nombre) LIKE '%{nombreapellido}%' "; }
-            if (idalumno !=  default(Int32)){consulta += $" and alumno.id = {idalumno} ";}
+            if (nombreapellido != null){consulta += $" and concat(estudiante.apellido,', ',estudiante.nombre) LIKE '%{nombreapellido}%' "; }
+            if (idestudiante !=  default(Int32)){consulta += $" and estudiante.id = {idestudiante} ";}
             if (idmateria !=  default(Int32)){consulta += $" and materia.Id = {idmateria} "; }
-            if (idcurso != default(Int32)){consulta += $" and alumno.Id IN "+ 
-                                                    $"(select alumno.Id from alumno where "+
-                                                    $"alumno.id in (select idalumno from"+
+            if (idcurso != default(Int32)){consulta += $" and estudiante.Id IN "+ 
+                                                    $"(select estudiante.Id from estudiante where "+
+                                                    $"estudiante.id in (select idestudiante from"+
                                                     $" (select count(id) as materias fro"+
                                                     $"m materia where idcurso = {idcurso}"+
-                                                    $") as T1 CROSS JOIN (select idalumno"+
-                                                    $", count(idmateria) as materias_alumno"+
-                                                    $" from alumnomateria join materia on "+
-                                                    $"alumnomateria.Idmateria = materia.id "+
+                                                    $") as T1 CROSS JOIN (select idestudiante"+
+                                                    $", count(idmateria) as materias_estudiante"+
+                                                    $" from estudiantemateria join materia on "+
+                                                    $"estudiantemateria.Idmateria = materia.id "+
                                                     $"where idciclolectivo = (select max(id) "+
                                                     $"from ciclolectivo) and idcurso = {idcurso}"+
-                                                    $" group by idalumno) as T2 where T1.materias"+
-                                                    " = T2.materias_alumno))";}
+                                                    $" group by idestudiante) as T2 where T1.materias"+
+                                                    " = T2.materias_estudiante))";}
                   
-            consulta +=" group by asistencia.idalumno, materia.Id ";
+            consulta +=" group by asistencia.idestudiante, materia.Id ";
             if(totales){consulta += ") T3 group by T3.Id ";}
             return (List<asistenciarepo>)Conexion.consultaList<asistenciarepo>(consulta);
         }

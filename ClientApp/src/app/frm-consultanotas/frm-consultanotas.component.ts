@@ -4,7 +4,7 @@ import { docentemateria } from '../clases/docentemateria';
 import { PeticionesService } from '../services/peticiones.service';
 import { Router } from '@angular/router';
 import { AuthLoginService } from '../services/authlogin.service';
-import { calificacionalumno } from '../clases/calificacionalumno';
+import { calificacionestudiante } from '../clases/calificacionestudiante';
 import { examen } from '../clases/examen';
 import { notarepo } from '../clases/notarepo';
 import { ModalService } from '../modal/modal-service.service';
@@ -33,8 +33,8 @@ export class ConsultanotasComponent implements OnInit {
     this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
       this.ciclos = ciclos;
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if (rol.nombrerol.toString() == "Alumno") {
-      this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+    if (rol.nombrerol.toString() == "Estudiante") {
+      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
 
     }});
   }
@@ -45,8 +45,8 @@ export class ConsultanotasComponent implements OnInit {
   seleccionarCiclo(){
     let ciclolectivo = document.getElementById('ciclolectivo')['value'];
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if (rol.nombrerol.toString() == "Alumno") {
-      this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString(),'idciclolectivo',ciclolectivo.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+    if (rol.nombrerol.toString() == "Estudiante") {
+      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString(),'idciclolectivo',ciclolectivo.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
     }   
   }
 
@@ -58,9 +58,9 @@ export class ConsultanotasComponent implements OnInit {
     if (idinicial == 0) {
       this.idmateria = document.getElementById('materia')['value'];
     }
-    const ids = { idalumno: rol.id, idmateria: this.idmateria }
+    const ids = { idestudiante: rol.id, idmateria: this.idmateria }
     let ciclolectivo = document.getElementById('ciclolectivo')['value'];
-    this.servicio.loadGrilla('calificacionrepo', [ids.idalumno.toString(), ids.idmateria.toString(), ciclolectivo.toString()]).subscribe(calificacion => {
+    this.servicio.loadGrilla('calificacionrepo', [ids.idestudiante.toString(), ids.idmateria.toString(), ciclolectivo.toString()]).subscribe(calificacion => {
       this.calificaciones = calificacion;
       this.parciales = new Array<any>();
       this.estainscripto = '';
@@ -113,16 +113,16 @@ export class ConsultanotasComponent implements OnInit {
     if (this.estainscripto == 'si') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
       let final = this.calificaciones.find(final => final.nota == 11 && final.tipoexamen == 'final');
-      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '0', 'idexamen': final.idexamen, 'id': final.idcalificacion })
-      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+      let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '0', 'idexamen': final.idexamen, 'id': final.idcalificacion })
+      this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         this.seleccionarMateria();
       });
     }
     else if (this.estainscripto == 'estuvo') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
       let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
-      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': final.idcalificacion })
-      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+      let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': final.idcalificacion })
+      this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         this.seleccionarMateria();
       });
 
@@ -130,8 +130,8 @@ export class ConsultanotasComponent implements OnInit {
     else if (this.estainscripto == 'no') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
       let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
-      let obj: calificacionalumno = new calificacionalumno({ 'idalumno': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
-      this.servicio.addSingleAbm(obj, 'calificacionalumno').subscribe(r => {
+      let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
+      this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         this.seleccionarMateria();
       });
     }

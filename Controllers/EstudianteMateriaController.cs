@@ -8,35 +8,35 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class AlumnoMateriaController : Controller
+public class estudianteMateriaController : Controller
 {
     
     // POST
     [HttpPost]
-    public ActionResult<alumnomateria> Index([FromBody] alumnomateria AlumnoMateria, [FromHeader] string token)
+    public ActionResult<estudiantemateria> Index([FromBody] estudiantemateria estudianteMateria, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        AlumnoMateria.Idciclolectivo = 
+        estudianteMateria.Idciclolectivo = 
         CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
-        AlumnoMateriaConexion<alumnomateria>.Instance.Insert(AlumnoMateria);
+        estudianteMateriaConexion<estudiantemateria>.Instance.Insert(estudianteMateria);
         return Json("Guardado exitoso");
         }
-        else return Json("...");
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<alumnomateria> Put([FromBody] alumnomateria AlumnoMateria, [FromHeader] string token)
+    public ActionResult<estudiantemateria> Put([FromBody] estudiantemateria estudianteMateria, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        AlumnoMateria.Idciclolectivo = 
+        estudianteMateria.Idciclolectivo = 
             CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
-        AlumnoMateriaConexion<alumnomateria>.Instance.Update(AlumnoMateria);
+        estudianteMateriaConexion<estudiantemateria>.Instance.Update(estudianteMateria);
         return Json("Guardado exitoso");
         }
-        else return Json("...");
+        else return null;
     }
 
     // DELETE
@@ -46,34 +46,34 @@ public class AlumnoMateriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         if (arrayfiltros.Any(p => p == "idcurso")){
-             AlumnoMateriaConexion<alumnomateria>.Instance.DeleteByCurso(Convert.ToInt32(arrayfiltros[1]));
+             estudianteMateriaConexion<estudiantemateria>.Instance.DeleteByCurso(Convert.ToInt32(arrayfiltros[1]));
             return Json("registro eliminado");
         }
         else{
-            AlumnoMateriaConexion<alumnomateria>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
+            estudianteMateriaConexion<estudiantemateria>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
             return Json("registro eliminado");}
             }
-        else return Json("...");
+        else return null;
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<alumnomateria> GetAlumnoMaterias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<estudiantemateria> GetestudianteMaterias([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return AlumnoMateriaConexion<alumnomateria>.Instance.SearchAll(arrayfiltros);
+        return estudianteMateriaConexion<estudiantemateria>.Instance.SearchAll(arrayfiltros);
         }
         else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public alumnomateria GetAlumnoMateria(int id, [FromHeader] string token)
+    public estudiantemateria GetestudianteMateria(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return AlumnoMateriaConexion<alumnomateria>.Instance.SearchId(id);
+        return estudianteMateriaConexion<estudiantemateria>.Instance.SearchId(id);
         }
         else return null;
     }

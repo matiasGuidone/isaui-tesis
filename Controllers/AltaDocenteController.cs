@@ -80,7 +80,7 @@ public class AltadocenteController : Controller
             }
             
 
-        //CalificacionalumnoConexion<calificacionalumno>.Instance.Insert(Calificacionalumno);
+        //CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
         return Json("Guardado exitoso");
         }
         else return null;

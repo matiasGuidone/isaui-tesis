@@ -1,0 +1,15 @@
+<div class="row">
+    <div  class="float-left col-md-6">
+<app-abm-curso [esRelacion]="true" (emisorId)="searchestudiantes($event)"></app-abm-curso>
+<!-- <br />
+<br /> -->
+</div>
+<div  class="float-left col-md-6">
+<h4 [class]="this.servicio.classtable" >{{cursoSeleccionado}}</h4>
+<hr> 
+<!-- <br />
+<hr> 
+<br /> -->
+<app-abm-estudiante [esRelacionCurso]="true" [estudiantes]="this.listaestudiantes" [lista]="this.listaestudiantes" ></app-abm-estudiante>
+<button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()" ><span ></span>Modificar estudiantes</button>
+</div></div>

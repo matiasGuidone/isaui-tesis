@@ -17,14 +17,14 @@
             </thead>
             <tbody>
                 <tr *ngFor = "let registro of lista">
-                    <td><small>{{registro.alumno}}</small></td>
+                    <td><small>{{registro.estudiante}}</small></td>
                     <td><small>{{registro.materia}}</small></td>
                     <td><small>{{registro.modulosPresente}}</small></td>
                     <td><small>{{registro.cantidadModulos-registro.modulosPresente}}</small></td> 
                     <td><small>{{registro.cantidadModulos}}</small></td> 
                     <td><small>{{ (registro.modulosPresente/registro.cantidadModulos*100).toString().substring(0,5) }} %</small></td> 
                 </tr>
-                <!-- Alumno Materia ModulosPresente CantidadModulos -->
+                <!-- estudiante Materia ModulosPresente CantidadModulos -->
             </tbody>
         </table>      
     </div>

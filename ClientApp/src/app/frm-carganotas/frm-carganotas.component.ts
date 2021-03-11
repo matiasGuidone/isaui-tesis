@@ -5,8 +5,8 @@ import { ModalService } from '../modal/modal-service.service';
 import { PeticionesService } from '../services/peticiones.service';
 import { Location } from '@angular/common';
 import { materia } from '../clases/materia';
-import { alumno } from '../clases/alumno';
-import { calificacionalumno } from '../clases/calificacionalumno';
+import { estudiante } from '../clases/estudiante';
+import { calificacionestudiante } from '../clases/calificacionestudiante';
 import { ExcelService } from '../services/excel.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { AuthLoginService } from '../services/authlogin.service';
@@ -25,9 +25,9 @@ import { ciclolectivo } from '../clases/ciclolectivo';
 export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   idciclo = 0;
   materias: materia[] = new Array<materia>();
-  alumnos: alumno[] = new Array<alumno>();
+  estudiantes: estudiante[] = new Array<estudiante>();
   examenes: examen[] = new Array<examen>();
-  notas: calificacionalumno[];
+  notas: calificacionestudiante[];
   /*   @Input() esRelacion: boolean = false;
     @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
@@ -82,7 +82,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   }
   //evento para la selección de materias
   seleccionarMateria(ids = 0) {
-    this.alumnos = new Array<alumno>();
+    this.estudiantes = new Array<estudiante>();
     let id = ids;
     if (ids == 0) {
       id = document.getElementById('materia')['value'];
@@ -93,9 +93,9 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     }
      
     filtros=  ['idmateria', id.toString(),'idciclolectivo',this.idciclo];
-    this.servicio.loadGrilla('alumno',filtros).subscribe(alumnom => {
-      if (alumnom != null && alumnom.length > 0) {
-        this.alumnos = alumnom;
+    this.servicio.loadGrilla('estudiante',filtros).subscribe(estudiantem => {
+      if (estudiantem != null && estudiantem.length > 0) {
+        this.estudiantes = estudiantem;
         //busco las notas y examenes de esa materia
         let filtroEx;
         if (this.idciclo!=0){filtroEx =  ['idmateria', id.toString(),'idciclolectivo',this.idciclo.toString()];}
@@ -114,14 +114,14 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
             }
           }
           if (filtro.length > 1) {
-            this.servicio.loadGrilla('calificacionalumno', filtro).subscribe(notas => {
+            this.servicio.loadGrilla('calificacionestudiante', filtro).subscribe(notas => {
               this.notas = notas;
               if (this.notas != null) {
                 for (let n of this.notas) {
                   //celda de nota
-                  let celda = document.getElementById(n.idalumno.toString() + "-" + n.idexamen.toString());
+                  let celda = document.getElementById(n.idestudiante.toString() + "-" + n.idexamen.toString());
                   //input de nota
-                  let text = document.getElementById("in-" + n.idalumno.toString() + "-" + n.idexamen.toString());
+                  let text = document.getElementById("in-" + n.idestudiante.toString() + "-" + n.idexamen.toString());
 
                   text['value'] = n.nota.toString();
 
@@ -132,7 +132,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
                 }
                 //examenes finales
                 for (let fin of finales) {
-                  for (let alu of this.alumnos) {
+                  for (let alu of this.estudiantes) {
                     //celda de nota
                     let celda = document.getElementById(alu.id.toString() + "-" + fin.id.toString());
                     //input de nota
@@ -162,15 +162,15 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   }
 
   //evento boton de guardado de nota
-  guardarNota(idalumno, idexamen) {
-    let obj = this.notas.find(nota => nota.idalumno == idalumno && nota.idexamen == idexamen);
+  guardarNota(idestudiante, idexamen) {
+    let obj = this.notas.find(nota => nota.idestudiante == idestudiante && nota.idexamen == idexamen);
     let idnota;
     if (obj == undefined || obj == null) { idnota = 0; }
     else { idnota = obj.id; }
-    var nota = document.getElementById('in-' + idalumno.toString() + '-' + idexamen.toString())['value'];
-    let calificacion = new calificacionalumno({ 'idalumno': idalumno.toString(), 'idexamen': idexamen.toString(), 'nota': nota, 'id': idnota.toString() })
-    this.servicio.addSingleAbm(calificacion, 'calificacionalumno').subscribe(l => {
-      let celda = document.getElementById(idalumno.toString() + '-' + idexamen.toString());
+    var nota = document.getElementById('in-' + idestudiante.toString() + '-' + idexamen.toString())['value'];
+    let calificacion = new calificacionestudiante({ 'idestudiante': idestudiante.toString(), 'idexamen': idexamen.toString(), 'nota': nota, 'id': idnota.toString() })
+    this.servicio.addSingleAbm(calificacion, 'calificacionestudiante').subscribe(l => {
+      let celda = document.getElementById(idestudiante.toString() + '-' + idexamen.toString());
       if (+nota > 7) { celda.style.backgroundColor = '#ffe44c93'; }
       else if (+nota > 4) { celda.style.backgroundColor = '#d1b61a93'; }
       else { celda.style.backgroundColor = '#947f0793'; }
@@ -180,7 +180,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
         filtro.push(n.id.toString());
       }
       if (filtro.length > 1) {
-        this.servicio.loadGrilla('calificacionalumno', filtro).subscribe(notas => {
+        this.servicio.loadGrilla('calificacionestudiante', filtro).subscribe(notas => {
           this.notas = notas;
         });
       }
@@ -240,11 +240,11 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   //exportar archivo de notas
   excelNotas() {
     let data: any[] = new Array<any>();
-    for (let n of this.alumnos) {
+    for (let n of this.estudiantes) {
       let alu: any = new Object();
-      alu['Alumnos'] = n.apellido + ", " + n.nombre;
+      alu['estudiantes'] = n.apellido + ", " + n.nombre;
       for (let i of this.examenes) {
-        let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
+        let no = this.notas.find(m => m.idestudiante == n.id && m.idexamen == i.id);
         if (no != undefined) {
           if (no.nota == 11) {
             alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';
@@ -272,11 +272,11 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     //obtengo la imagen base64
     let base64Img = logo64.image;
     let data: any[] = new Array<any>();
-    for (let n of this.alumnos) {
+    for (let n of this.estudiantes) {
       let alu: any = new Object();
-      alu['Alumnos'] = n.apellido + ", " + n.nombre;
+      alu['estudiantes'] = n.apellido + ", " + n.nombre;
       for (let i of this.examenes) {
-        let no = this.notas.find(m => m.idalumno == n.id && m.idexamen == i.id);
+        let no = this.notas.find(m => m.idestudiante == n.id && m.idexamen == i.id);
         if (no != undefined) {
           if (no.nota == 11) {
             alu[i.tipo + "-" + i.fecha.toString().substring(0, 10)] = 'inscripto';

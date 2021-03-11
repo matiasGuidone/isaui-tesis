@@ -1,18 +1,18 @@
  
-    public class MateriaalumnomensajeConexion<T> : ObjetoConexion<materiaalumnomensaje>
+    public class MateriaestudiantemensajeConexion<T> : ObjetoConexion<materiaestudiantemensaje>
     {
        
-        private static MateriaalumnomensajeConexion<T> instance;
-         public static MateriaalumnomensajeConexion<T> Instance
+        private static MateriaestudiantemensajeConexion<T> instance;
+         public static MateriaestudiantemensajeConexion<T> Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new MateriaalumnomensajeConexion<T>(new materiaalumnomensaje());
+                    instance = new MateriaestudiantemensajeConexion<T>(new materiaestudiantemensaje());
                 return instance;
             }
         } 
-        private MateriaalumnomensajeConexion(materiaalumnomensaje aux): base(aux){ 
+        private MateriaestudiantemensajeConexion(materiaestudiantemensaje aux): base(aux){ 
             
         }
         

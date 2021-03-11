@@ -1,20 +1,20 @@
 using System.Data;
 using System;
 
-public class calificacionalumno : oObjeto
+public class calificacionestudiante : oObjeto
 {
 
-    public int Idalumno { get; set; }
+    public int Idestudiante { get; set; }
 
     public int nota { set; get; }
     public int Idexamen { set; get; }
 
-    public calificacionalumno() { }
+    public calificacionestudiante() { }
 
-    public calificacionalumno(DataRow dr)
+    public calificacionestudiante(DataRow dr)
     {
         this.Id = Convert.ToInt32(dr["id"]);
-        this.Idalumno = Convert.ToInt32(dr["idalumno"]);
+        this.Idestudiante = Convert.ToInt32(dr["idestudiante"]);
         this.nota = Convert.ToInt32(dr["nota"]);
         this.Idexamen = Convert.ToInt32(dr["idexamen"]);
     }

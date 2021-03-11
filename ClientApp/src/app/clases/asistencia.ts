@@ -5,14 +5,14 @@ id: number;
 fecha: Date;
 idhoramateria: number;
 iddocente: number;
-idalumno: number;
+idestudiante: number;
 
 constructor(obj:any)
 {
 this.id=+obj.id;
 this.fecha=new Date(obj.fecha);
 this.idhoramateria=+obj.idhoramateria;
-this.idalumno=+obj.idalumno;
+this.idestudiante=+obj.idestudiante;
 }
 
 }
@@ -20,5 +20,5 @@ this.idalumno=+obj.idalumno;
 // this.Id = Convert.ToInt32(dr["id"]);
 //         this.Fecha = Convert.ToDateTime(dr["fecha"]);
 //         this.Iddocente=Convert.ToInt32(dr["iddocente"]);
-//         this.Idalumno = Convert.ToInt32(dr["idalumno"]);
+//         this.Idestudiante = Convert.ToInt32(dr["idestudiante"]);
 //         this.Idhoramateria = Convert.ToInt32(dr["idhoramateria"]);

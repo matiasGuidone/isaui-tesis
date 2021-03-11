@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class CursoAlumnoController : Controller
+public class CursoestudianteController : Controller
 {
 
     // POST
     [HttpPost]
-    public ActionResult<cursoalumno> Index([FromBody] cursoalumno CurAlu, [FromHeader] string token)
+    public ActionResult<cursoestudiante> Index([FromBody] cursoestudiante CurAlu, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             CurAlu.Idciclolectivo =
                CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
-            CursoAlumnoConexion<cursoalumno>.Instance.Insert(CurAlu);
+            CursoestudianteConexion<cursoestudiante>.Instance.Insert(CurAlu);
             return Json("Guardado exitoso");
         }
         else return null;
@@ -27,13 +27,13 @@ public class CursoAlumnoController : Controller
 
     // PUT
     [HttpPut]
-    public ActionResult<cursoalumno> Put([FromBody] cursoalumno CurAlu, [FromHeader] string token)
+    public ActionResult<cursoestudiante> Put([FromBody] cursoestudiante CurAlu, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             CurAlu.Idciclolectivo =
                 CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
-            CursoAlumnoConexion<cursoalumno>.Instance.Update(CurAlu);
+            CursoestudianteConexion<cursoestudiante>.Instance.Update(CurAlu);
             return Json("Guardado exitoso");
         }
         else return null;
@@ -45,7 +45,7 @@ public class CursoAlumnoController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            CursoAlumnoConexion<cursoalumno>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
+            CursoestudianteConexion<cursoestudiante>.Instance.Delete(Convert.ToInt32(id), null, arrayfiltros);
             return Json("registro eliminado");
         }
         else return null;
@@ -53,22 +53,22 @@ public class CursoAlumnoController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<cursoalumno> GetdocenteMaterias([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<cursoestudiante> GetdocenteMaterias([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return CursoAlumnoConexion<cursoalumno>.Instance.SearchAll(arrayfiltros);
+            return CursoestudianteConexion<cursoestudiante>.Instance.SearchAll(arrayfiltros);
         }
         else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public cursoalumno GetdocenteMateria(int id, [FromHeader] string token)
+    public cursoestudiante GetdocenteMateria(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return CursoAlumnoConexion<cursoalumno>.Instance.SearchId(id);
+            return CursoestudianteConexion<cursoestudiante>.Instance.SearchId(id);
         }
         else return null;
     }

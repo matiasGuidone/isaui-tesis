@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
 import { Observable } from 'rxjs';
-import { alumno } from '../clases/alumno';
+import { estudiante } from '../clases/estudiante';
 import { PeticionesService } from '../services/peticiones.service';
 import { abm } from '../clases/abm';
 import { AuthLoginService } from '../services/authlogin.service';
@@ -13,13 +13,13 @@ import { AuthLoginService } from '../services/authlogin.service';
 //ventanas modales
 
 @Component({
-  selector: 'app-abm-alumno',
-  templateUrl: './abm-alumno.component.html',
-  styleUrls: ['./abm-alumno.component.css']
+  selector: 'app-abm-estudiante',
+  templateUrl: './abm-estudiante.component.html',
+  styleUrls: ['./abm-estudiante.component.css']
 })
-export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
+export class AbmestudianteComponent extends abm<estudiante> implements OnInit {
   // estilo: string = "table-responsive";
-  @Input() alumnos: alumno[] = new Array<alumno>();
+  @Input() estudiantes: estudiante[] = new Array<estudiante>();
 
   //se agregan parámetros para el nuevo formulario de relación
   @Input() esRelacion: boolean = false;
@@ -31,8 +31,8 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
     protected servicio: PeticionesService,
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
-    this.nombre = 'alumno';
-    this.objetoBlanco = new alumno("0", "", "", "", "", "", "", "", "", "");
+    this.nombre = 'estudiante';
+    this.objetoBlanco = new estudiante("0", "", "", "", "", "", "", "", "", "");
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {
@@ -46,7 +46,7 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
 
     if (!this.esRelacionCurso) {
       this.modalService.setFiltro(this.objetoBlanco);
-      this.servicio.loadGrilla('alumno').subscribe(res => {
+      this.servicio.loadGrilla('estudiante').subscribe(res => {
         this.lista = res;
       });
     }
@@ -58,17 +58,17 @@ export class AbmAlumnoComponent extends abm<alumno> implements OnInit {
     if (this.esRelacion) {
       let datos = new Array<string>();
       datos.push(id);
-      datos.push(this.lista.find(alumno => alumno.id === id).nombre + ", " +
-      this.lista.find(alumno => alumno.id === id).apellido);
+      datos.push(this.lista.find(estudiante => estudiante.id === id).nombre + ", " +
+      this.lista.find(estudiante => estudiante.id === id).apellido);
       this.emisorId.emit(datos);
     }
     else {
       let nodo = this.modalService.listAbm;
-      while (nodo.getData().name == "alumno") {
+      while (nodo.getData().name == "estudiante") {
         this.modalService.listAbm = nodo.getNext();
         nodo = nodo.getNext();
       }
-      this.modalService.listAbm.getData().idalumno = id;
+      this.modalService.listAbm.getData().idestudiante = id;
       this.location.back();
       this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
     }

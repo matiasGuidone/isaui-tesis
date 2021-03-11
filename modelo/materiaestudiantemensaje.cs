@@ -1,8 +1,8 @@
 using System.Data;
 using System;
-    public class materiaalumnomensaje : oObjeto
+    public class materiaestudiantemensaje : oObjeto
     {
-        public string Idalumno{ get; set; }
+        public string Idestudiante{ get; set; }
         public string NombreMateria { get; set; }
         public string mensaje{set;get;}
         public string tituloMensaje {set; get;}

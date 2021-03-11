@@ -20,9 +20,9 @@ export class HomeComponent {
   ngOnInit() {
     if (localStorage.getItem("Rol") != undefined && localStorage.getItem("Rol") != 'undefined') {
       this.rol = JSON.parse(localStorage.getItem("Rol"));
-      if(this.rol.nombrerol == "Alumno"){
-        this.servicio.loadGrilla('calificacionalumno',
-          ['idalumno',this.rol.id.toString()]).subscribe(calif=>{
+      if(this.rol.nombrerol == "Estudiante"){
+        this.servicio.loadGrilla('calificacionestudiante',
+          ['idestudiante',this.rol.id.toString()]).subscribe(calif=>{
             for(let c of calif){
               if(c.nota ==11){
                 this.finales++;
@@ -45,13 +45,13 @@ export class HomeComponent {
       this.logservicio.componenteGuard = "frm-asistencia";
       this.router.navigate(['frm-asistencia']);
     }
-    else if (this.rol.nombrerol.toString() == "Alumno") {
-      this.logservicio.componenteGuard = "frm-asistenciasalumno";
-      this.router.navigate(['frm-asistenciasalumno']);
+    else if (this.rol.nombrerol.toString() == "Estudiante") {
+      this.logservicio.componenteGuard = "frm-asistenciasestudiante";
+      this.router.navigate(['frm-asistenciasestudiante']);
     }
   }
   ingresoCalendario() {
-    if (this.rol.nombrerol.toString() == "Docente" || this.rol.nombrerol.toString() == "Alumno") {
+    if (this.rol.nombrerol.toString() == "Docente" || this.rol.nombrerol.toString() == "Estudiante") {
       this.logservicio.componenteGuard = "frm-calendariocomp";
       this.router.navigate(['frm-calendariocomp']);
     }
@@ -61,7 +61,7 @@ export class HomeComponent {
       this.logservicio.componenteGuard = "frm-carganotas";
       this.router.navigate(['frm-carganotas']);
     }
-    else if (this.rol.nombrerol.toString() == "Alumno") {
+    else if (this.rol.nombrerol.toString() == "Estudiante") {
       this.logservicio.componenteGuard = "frm-consultanotas";
       this.router.navigate(['frm-consultanotas']);
     }
@@ -69,7 +69,7 @@ export class HomeComponent {
 
   ingresoMensajes()
   {
-    if (this.rol.nombrerol.toString() == "Alumno"){
+    if (this.rol.nombrerol.toString() == "Estudiante"){
       this.logservicio.componenteGuard = "frm-vermensajes";
       this.router.navigate(['frm-vermensajes']);
     }

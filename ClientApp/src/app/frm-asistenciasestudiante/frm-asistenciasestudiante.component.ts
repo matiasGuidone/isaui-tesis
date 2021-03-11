@@ -6,30 +6,30 @@ import { MyModalComponent } from '../modal/MyModalComponent';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-frm-asistenciasalumno',
-  templateUrl: './frm-asistenciasalumno.component.html',
-  styleUrls: ['./frm-asistenciasalumno.component.css']
+  selector: 'app-frm-asistenciasestudiante',
+  templateUrl: './frm-asistenciasestudiante.component.html',
+  styleUrls: ['./frm-asistenciasestudiante.component.css']
 })
-export class FrmAsistenciasalumnoComponent implements OnInit {
+export class FrmAsistenciasestudianteComponent implements OnInit {
   materias: materia[];
   asistencia: any;
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   constructor(private servicio: PeticionesService, private modalService: ModalService) {
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if (rol.nombrerol.toString() == "Alumno") {
-      this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString()]).subscribe(resultado => {
+    if (rol.nombrerol.toString() == "Estudiante") {
+      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(resultado => {
 
         this.materias = resultado;
         this.materias.push(new materia({ 'id': '0', 'nombre': 'Todas', 'idcurso': '0' }));
         let d = new Date();
-        let fechad = new Date(d.getFullYear(), d.getMonth(), 1);//document.getElementById('desde')['value'];
-        let fechah = new Date(d.getFullYear(), d.getMonth(), this.diasEnUnMes(d.getFullYear(), d.getMonth()));
-        this.servicio.loadGrilla('asistenciarepo', ['idalumno', rol.id.toString(), 'totales', 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(fechah)]).subscribe(resultad => {
+        let fechad = new Date(d.getFullYear(), 1, 1);//document.getElementById('desde')['value'];
+        //let fechah = new Date(d.getFullYear(), d.getMonth(), this.diasEnUnMes(d.getFullYear(), d.getMonth()));
+        this.servicio.loadGrilla('asistenciarepo', ['idestudiante', rol.id.toString(), 'totales', 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(d)]).subscribe(resultad => {
           if (resultad.length != 0) {
             this.asistencia = resultad[0];
             let porcentaje = (this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100).toString().substring(0, 5) + " %";
             let div = document.getElementById('porcentaje');
-            div.innerHTML = '<div class="lead">Todas<br/>'+this.meses[d.getMonth()]+'</div><br>' + porcentaje;
+            div.innerHTML = '<div class="lead">Todas<br/>'+this.asistencia['modulosPresente'] +'/'+ this.asistencia['cantidadModulos']+'</div><br>' + porcentaje;
             div = document.getElementById('porc');
             this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
           }
@@ -55,15 +55,15 @@ export class FrmAsistenciasalumnoComponent implements OnInit {
     let mater = this.materias.find(mater => mater.id == document.getElementById('materia')['value']);
     let mes = document.getElementById('mes')['value'];
     let d = new Date();
-    let fechad = new Date(d.getFullYear(), +mes, 1);//document.getElementById('desde')['value'];
-    let fechah = new Date(d.getFullYear(), +mes, this.diasEnUnMes(d.getFullYear(), +mes + 1));//document.getElementById('hasta')['value']; 
+    let fechad = new Date(d.getFullYear(), 1, 1);//document.getElementById('desde')['value'];
+    //let fechah = new Date(d.getFullYear(), +mes, this.diasEnUnMes(d.getFullYear(), +mes + 1));//document.getElementById('hasta')['value']; 
     if (mater.id == 0) {
-      this.servicio.loadGrilla('asistenciarepo', ['idalumno', rol.id.toString(), 'totales', 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(fechah)]).subscribe(resultad => {
+      this.servicio.loadGrilla('asistenciarepo', ['idestudiante', rol.id.toString(), 'totales', 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(d)]).subscribe(resultad => {
         if (resultad.length != 0) {
           this.asistencia = resultad[0];
           let porcentaje = (this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100).toString().substring(0, 5) + " %";
           let div = document.getElementById('porcentaje');
-          div.innerHTML = '<div class="lead">' + mater.nombre +'<br/>'+this.meses[+mes]+'</div><br>' + porcentaje;
+          div.innerHTML = '<div class="lead">' + mater.nombre +'<br/>'+this.asistencia['modulosPresente'] +'/'+ this.asistencia['cantidadModulos']+'</div><br>' + porcentaje;
           div = document.getElementById('porc');
           this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
         }
@@ -74,12 +74,12 @@ export class FrmAsistenciasalumnoComponent implements OnInit {
       });
     }
     else {
-      this.servicio.loadGrilla('asistenciarepo', ['idalumno', rol.id.toString(), 'idmateria', mater.id.toString(), 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(fechah)]).subscribe(resultad => {
+      this.servicio.loadGrilla('asistenciarepo', ['idestudiante', rol.id.toString(), 'idmateria', mater.id.toString(), 'fecha desde', this.formatearFecha(fechad), 'fecha hasta', this.formatearFecha(d)]).subscribe(resultad => {
         if (resultad.length != 0) {
           this.asistencia = resultad[0];
           let porcentaje = (this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100).toString().substring(0, 5) + " %";
           let div = document.getElementById('porcentaje');
-          div.innerHTML = '<div class="lead">' + mater.nombre +'<br/>'+this.meses[+mes]+'</div><br>' + porcentaje;
+          div.innerHTML = '<div class="lead">' + mater.nombre +'<br/>'+this.asistencia['modulosPresente'] +'/'+ this.asistencia['cantidadModulos']+'</div><br>' + porcentaje;
           div = document.getElementById('porc');
           this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
         }

@@ -18,7 +18,7 @@ using System.Collections.Generic;
         private MateriaConexion(materia aux): base(aux){ 
             
         }
-         public List<materia> SearchByAlumno( Int32 idalumno ,Int32 idciclolectivo = default(Int32))
+         public List<materia> SearchByestudiante( Int32 idestudiante ,Int32 idciclolectivo = default(Int32))
         {  
             if(idciclolectivo == default(Int32)){
                 idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
@@ -26,7 +26,7 @@ using System.Collections.Generic;
             
             string consulta =   $"select materia.* from materia where "+
                                 $"materia.id in (select idmateria from"+
-                                $" alumnomateria where idalumno = {idalumno} and idciclolectivo = {idciclolectivo}) ";
+                                $" estudiantemateria where idestudiante = {idestudiante} and idciclolectivo = {idciclolectivo}) ";
             
             return (List<materia>)Conexion.consultaList<materia>(consulta);
         }

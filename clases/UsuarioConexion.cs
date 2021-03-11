@@ -126,11 +126,11 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                     }
                     catch (Exception e) { }
                 }
-                else if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("ALUMNO"))
+                else if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("ESTUDIANTE"))
                 {
                     try
                     {
-                        Tabla = this.Conexion.consultaDataTable($"SELECT alumno.* FROM alumno where alumno.idusuario = {id} ").Tables[0];
+                        Tabla = this.Conexion.consultaDataTable($"SELECT estudiante.* FROM estudiante where estudiante.idusuario = {id} ").Tables[0];
                         if (Tabla.Rows.Count > 0)
                         {
                             rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";
@@ -171,11 +171,11 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
                 }
                 catch (Exception e) { }
             }
-            else if (roles.ToUpper().Equals("ALUMNO"))
+            else if (roles.ToUpper().Equals("ESTUDIANTE"))
             {
                 try
                 {
-                    Tabla = this.Conexion.consultaDataTable($"SELECT alumno.* FROM alumno where alumno.idusuario = {id} ").Tables[0];
+                    Tabla = this.Conexion.consultaDataTable($"SELECT estudiante.* FROM estudiante where estudiante.idusuario = {id} ").Tables[0];
                     if (Tabla.Rows.Count > 0)
                     {
                         rol += $", \"nombreapellido\" : \" {Tabla.Rows[0]["nombre"]}, {Tabla.Rows[0]["apellido"]}  \", \"id\": {Tabla.Rows[0]["id"]}, \"legajo\" : {Tabla.Rows[0]["legajo"]}";

@@ -27,8 +27,8 @@ export class FrmCalendarioComponent implements OnInit {
     this.cantidad = this.diasEnUnMes(this.actual.getMonth() + 1, this.actual.getFullYear());
     this.mes = this.meses[this.actual.getMonth()];
     let rol = JSON.parse(localStorage.getItem("Rol"));
-    if(rol.nombrerol.toString()=="Alumno"){
-      this.servicio.loadGrilla('evento',['idalumno',rol.id.toString()]).subscribe(res => { this.eventos = res; this.completarCalendario(); });
+    if(rol.nombrerol.toString()=="Estudiante"){
+      this.servicio.loadGrilla('evento',['idestudiante',rol.id.toString()]).subscribe(res => { this.eventos = res; this.completarCalendario(); });
     }
     else{
     this.servicio.loadGrilla('evento').subscribe(res => { this.eventos = res; this.completarCalendario(); });

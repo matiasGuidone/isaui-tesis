@@ -13,7 +13,7 @@
        "tipoDoc": ["L.E / DNI","CARNET EXT.","RUC","PASAPORTE", "P. NAC.", "OTROS"],
        "sexo": ["Femenino", "Masculino","Otro"],
        "evento": ["materia","general","feriado"],
-       "filtroAsistencias": {"Nombre/Apellido alumno":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
+       "filtroAsistencias": {"Nombre/Apellido estudiante":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
 
     }
 

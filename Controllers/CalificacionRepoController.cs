@@ -19,18 +19,18 @@ public class CalificacionRepoController : Controller
             var nombre="";
             var nota="";
             var tipoexamen="";
-            var idalumno="";
+            var idestudiante="";
              var idmateria="";
              if(arrayfiltros.Length > 1){
-                idalumno=arrayfiltros[0];
+                idestudiante=arrayfiltros[0];
                 idmateria=arrayfiltros[1];
                 }
-            //preguntar si los filtros tienen idalumno => alternativa 
+            //preguntar si los filtros tienen idestudiante => alternativa 
              if (UsuarioConexion<usuario>.Instance.getUserToken(token)) // se fija si trae token
             { 
-                nombre= CalificacionalumnoConexion<alumno>.Instance.SerchMateriaAlumnos(Convert.ToInt32(idalumno),Convert.ToInt32(idmateria)).ToString(); 
-                nota= CalificacionalumnoConexion<alumno>.Instance.SerchNotaAlumnos2(Convert.ToInt32(idalumno),Convert.ToInt32(idmateria)).ToString(); 
-                 tipoexamen= CalificacionalumnoConexion<alumno>.Instance.SerchTipoEvaAlumnos(Convert.ToInt32(idalumno),Convert.ToInt32(idmateria)).ToString(); 
+                nombre= CalificacionestudianteConexion<estudiante>.Instance.SerchMateriaestudiantes(Convert.ToInt32(idestudiante),Convert.ToInt32(idmateria)).ToString(); 
+                nota= CalificacionestudianteConexion<estudiante>.Instance.SerchNotaestudiantes2(Convert.ToInt32(idestudiante),Convert.ToInt32(idmateria)).ToString(); 
+                 tipoexamen= CalificacionestudianteConexion<estudiante>.Instance.SerchTipoEvaestudiantes(Convert.ToInt32(idestudiante),Convert.ToInt32(idmateria)).ToString(); 
                 var consulta=Json("{ \"nombre\":\""+nombre+"\", \"tipoexamen\": \""+tipoexamen+"\":\"nota\": "+nota+"}");
                  return Json(consulta);   
              }
@@ -45,14 +45,14 @@ public class CalificacionRepoController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token)) // se fija si trae token
         {
-//preguntar si los filtros tienen idalumno => alternativa 
-            var idalumno = "";
+//preguntar si los filtros tienen idestudiante => alternativa 
+            var idestudiante = "";
             var idmateria = "";
             var idciclolectivo=0;
             if (arrayfiltros.Length > 1)
             {
                 /* for (int i =0; i < arrayfiltros.Length;i++){ */
-                idalumno = arrayfiltros[0];
+                idestudiante = arrayfiltros[0];
                 idmateria = arrayfiltros[1];
                 try
                 {
@@ -66,7 +66,7 @@ public class CalificacionRepoController : Controller
                 /* } */
             }
 
-            return CalificacionalumnoConexion<notarepo>.Instance.SerchNotaAlumnos(Convert.ToInt32(idalumno), Convert.ToInt32(idmateria), idciclolectivo);
+            return CalificacionestudianteConexion<notarepo>.Instance.SerchNotaestudiantes(Convert.ToInt32(idestudiante), Convert.ToInt32(idmateria), idciclolectivo);
 
         }
         else return null;
@@ -78,11 +78,11 @@ public class CalificacionRepoController : Controller
 
 
     [HttpGet("{id}")]
-    public calificacionalumno GetNotarepo(int id, [FromHeader] string token)
+    public calificacionestudiante GetNotarepo(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchId(id);
+            return CalificacionestudianteConexion<calificacionestudiante>.Instance.SearchId(id);
         }
         else return null;
     }

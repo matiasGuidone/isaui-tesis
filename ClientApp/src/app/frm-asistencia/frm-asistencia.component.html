@@ -14,12 +14,12 @@
 <hr>
 <table [class]="this.servicio.classtable2" >
     <thead>
-        <th scope="col">Alumnos</th> 
+        <th scope="col">estudiantes</th> 
         <th scope="col" *ngFor="let dia of dias" id="d{{dia.numero}}" ><a *ngIf="dia.diasemana != 0 && dia.diasemana!=6" class="lead">{{dia.numero}}</a></th>
     </thead>
     <tbody>
-        <tr *ngFor="let alumno of alumnos let i = index;">
-            <td>{{alumno.apellido}},&nbsp;{{alumno.nombre}} </td>
+        <tr *ngFor="let estudiante of estudiantes let i = index;">
+            <td>{{estudiante.apellido}},&nbsp;{{estudiante.nombre}} </td>
             
         <th scope="col" *ngFor="let dia of dias"  id="celda{{dia.numero}}-{{i}}" >
             <small *ngIf="dia.diasemana != 0 && dia.diasemana!=6"  (click)="cambiarCheck(dia,i)" style="margin-left:0px;padding:7px;">{{dia.sem}}</small>

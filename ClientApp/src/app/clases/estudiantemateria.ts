@@ -1,14 +1,14 @@
-export class alumnomateria{
+export class estudiantemateria{
     id : number;
      
-    idalumno : number;
+    idestudiante : number;
     idmateria : number;
     idciclolectivo : number;
     
-    constructor(id:string,idalumno:string,idmateria:string,idciclolectivo:string){
+    constructor(id:string,idestudiante:string,idmateria:string,idciclolectivo:string){
         //el orden de os parametros afecta la vista de los input en el modal
         this.id = +id;
-        this.idalumno = +idalumno;
+        this.idestudiante = +idestudiante;
         this.idmateria =  +idmateria;
         this.idciclolectivo = +idciclolectivo;
        

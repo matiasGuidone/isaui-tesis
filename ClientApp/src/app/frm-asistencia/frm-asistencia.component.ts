@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { ModalService } from '../modal/modal-service.service';
 import { Observable } from 'rxjs';
-import { alumno } from '../clases/alumno';
+import { estudiante } from '../clases/estudiante';
 import { PeticionesService } from '../services/peticiones.service';
 import { asistencia } from '../clases/asistencia';
 import { abm } from '../clases/abm';
@@ -26,7 +26,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
 
   //variables
   dias: any[] = new Array<any>();
-  alumnos: alumno[] = new Array<alumno>();
+  estudiantes: estudiante[] = new Array<estudiante>();
   materias: materia[] = new Array<materia>();
   hoy = new Date();
   hoyr = this.formatearFecha(new Date(), 'n');
@@ -104,15 +104,15 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
 
   seleccionarMateria(idin = null) {
     document.getElementById('aceptar').style.display='none';
-    this.alumnos = new Array<alumno>();
+    this.estudiantes = new Array<estudiante>();
     
     let id = document.getElementById('materia')['value'];
     if(id==""||id==null){
       id=idin;
     }
-    this.servicio.loadGrilla('alumno', ['idmateria', id.toString()]).subscribe(alumnom => {
-      if (alumnom != null && alumnom.length > 0) {
-        this.alumnos = alumnom;
+    this.servicio.loadGrilla('estudiante', ['idmateria', id.toString()]).subscribe(estudiantem => {
+      if (estudiantem != null && estudiantem.length > 0) {
+        this.estudiantes = estudiantem;
         this.cargarGrilla();
       }
     });
@@ -148,7 +148,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
               }
 
               for (let m of dias) {
-                for (var i = 0; i < this.alumnos.length; i++) {
+                for (var i = 0; i < this.estudiantes.length; i++) {
                   let celda = document.getElementById('celda' + m.numero.toString() + '-' + i.toString());
                   
                   let f = new Date("2020-"+m.numero.toString().substring(3,5)+"-"+m.numero.toString().substring(0,2));
@@ -166,7 +166,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
                     ass.style.width = "15px"
                     ass.className = "btn-info";
                     ass.checked = true;
-                    ass.id = this.alumnos[i].id.toString() + '-' + n.id.toString();
+                    ass.id = this.estudiantes[i].id.toString() + '-' + n.id.toString();
                     celda.appendChild(ass);
                     // si existen registros para aprobar se habilita el botón aceptar
                     document.getElementById('aceptar').style.display='block';
@@ -191,12 +191,12 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
               }
             }
             for (let m of findes) {
-              for (var i = 0; i < this.alumnos.length; i++) {
+              for (var i = 0; i < this.estudiantes.length; i++) {
                 let celda = document.getElementById('celda' + m.numero.toString() + '-' + i.toString());
                 celda.style.backgroundColor = "#68708ac5";
               }
             }
-            for (var i = 0; i < this.alumnos.length; i++) {
+            for (var i = 0; i < this.estudiantes.length; i++) {
               let celda = document.getElementById('celda' + this.hoyr + '-' + i.toString());
               celda.style.backgroundColor = "#17a8958a";
             }
@@ -215,14 +215,14 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     let asistencias = new Array<asistencia>();
 
     for (let m of this.horamateria) {
-      for (var i = 0; i < this.alumnos.length; i++) {
+      for (var i = 0; i < this.estudiantes.length; i++) {
 
-        let ass = document.getElementById(this.alumnos[i].id.toString() + '-' + m.id.toString());
+        let ass = document.getElementById(this.estudiantes[i].id.toString() + '-' + m.id.toString());
         if(ass!= null){
         if (ass['checked'] == true) {
               let d = this.dias.find(dia => dia.diasemana == m.numsemana);
               let date = new Date().getFullYear()+'-'+d.numero.substring(3,5)+'-'+d.numero.substring(0,2);
-              asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idalumno': this.alumnos[i].id.toString() }));
+              asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idestudiante': this.estudiantes[i].id.toString() }));
             
           }
 
@@ -245,7 +245,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
       }
     }
     for(let g of r) {
-      let nn = document.getElementById(this.alumnos[ind].id.toString()+'-'+g);
+      let nn = document.getElementById(this.estudiantes[ind].id.toString()+'-'+g);
       if(nn['checked']== true){nn['checked']=false;}
       else{nn['checked']=true;}
     }

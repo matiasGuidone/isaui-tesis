@@ -8,33 +8,33 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class AlumnoController : Controller
+public class estudianteController : Controller
 {
 
     // POST
     [HttpPost]
-    public ActionResult<alumno> Index([FromBody] alumno alumno, [FromHeader] string token)
+    public ActionResult<estudiante> Index([FromBody] estudiante estudiante, [FromHeader] string token)
     { 
         
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            AlumnoConexion<alumno>.Instance.Insert(alumno);
+            estudianteConexion<estudiante>.Instance.Insert(estudiante);
             return Json("Guardado exitoso");
         }
-        else return Json("...");
+        else return null;
     }
 
     // PUT
     [HttpPut]
-    public ActionResult<alumno> Put([FromBody] alumno alumno, [FromHeader] string token)
+    public ActionResult<estudiante> Put([FromBody] estudiante estudiante, [FromHeader] string token)
     {
          
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            AlumnoConexion<alumno>.Instance.Update(alumno);
+            estudianteConexion<estudiante>.Instance.Update(estudiante);
             return Json("Guardado exitoso");
         }
-        else return Json("...");
+        else return null;
     }
 
     // DELETE
@@ -44,48 +44,48 @@ public class AlumnoController : Controller
          
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            AlumnoConexion<alumno>.Instance.Delete(Convert.ToInt32(id));
+            estudianteConexion<estudiante>.Instance.Delete(Convert.ToInt32(id));
             return Json("registro eliminado");
         }
-        else return Json("...");
+        else return null;
 
     }
 
     //GET
     [HttpGet]
-    public IEnumerable<alumno> Getalumnos([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<estudiante> Getestudiantes([FromHeader] string[] arrayfiltros, [FromHeader] string token)
     { 
         
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             if (arrayfiltros.Any(p => p == "idcurso"))
             {
-                return AlumnoConexion<alumno>.Instance.SearchAlumnosCurso(Convert.ToInt32(arrayfiltros[1]));
+                return estudianteConexion<estudiante>.Instance.SearchestudiantesCurso(Convert.ToInt32(arrayfiltros[1]));
             }
             else if (arrayfiltros.Any(p => p == "idmateria"))
             {
-               // return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]));
+               // return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1]));
                 if (arrayfiltros.Length==2)
-                return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1])); 
+                return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1])); 
                 if (arrayfiltros.Length==4)
-                return AlumnoConexion<alumno>.Instance.SearchAlumnosMateria(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]));
+                return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]));
             }
             else
             {
-                return AlumnoConexion<alumno>.Instance.SearchAll(arrayfiltros);
+                return estudianteConexion<estudiante>.Instance.SearchAll(arrayfiltros);
             }
         }
-        return null;// default(List<alumno>);
+        return null;// default(List<estudiante>);
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public alumno Getalumno(int id, [FromHeader] string token)
+    public estudiante Getestudiante(int id, [FromHeader] string token)
     { 
         
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return AlumnoConexion<alumno>.Instance.SearchId(id);
+            return estudianteConexion<estudiante>.Instance.SearchId(id);
         }
         else return null;
     }

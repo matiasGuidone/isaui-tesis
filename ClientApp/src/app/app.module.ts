@@ -11,7 +11,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AbmDocenteComponent } from './abm-docente/abm-docente.component';
 import { MyModalComponent } from './modal/MyModalComponent';
 import { ModalServiceModule } from './modal/modal-service.module';
-import { AbmAlumnoComponent } from './abm-alumno/abm-alumno.component';
+import { AbmestudianteComponent } from './abm-estudiante/abm-estudiante.component';
 import { AbmDomicilioComponent } from './abm-domicilio/abm-domicilio.component';
 import { AbmDireccionComponent } from './abm-direccion/abm-direccion.component';
 import { AbmPaisComponent } from './abm-pais/abm-pais.component';
@@ -24,9 +24,9 @@ import { AbmMenuComponent } from './abm-menu/abm-menu.component';
 import {AbmCiclolectivoComponent} from './abm-ciclolectivo/abm-ciclolectivo.component';
 import {AbmMateriaComponent} from './abm-materia/abm-materia.component';
 import {FiltroComponent} from './filtro-abm/filtro-abm.component'
-import {RelAlumnoMateria} from './rel-alumnomateria/rel-alumnomateria.component';
+import {RelestudianteMateria} from './rel-estudiantemateria/rel-estudiantemateria.component';
 import {RelDocenteMateria} from './rel-docentemateria/rel-docentemateria.component';
-import {RelCursoAlumno} from './rel-cursoalumno/rel-cursoalumno.component';
+import {RelCursoestudiante} from './rel-cursoestudiante/rel-cursoestudiante.component';
 import { PeticionesService } from './services/peticiones.service';
 import { AbmRolesComponent } from './abm-roles/abm-roles.component';
 import { AbmExamenComponent } from './abm-examen/abm-examen.component';
@@ -36,9 +36,9 @@ import { AbmEventoComponent } from './abm-evento/abm-evento.component';
 import { FooterComponent } from './footer/footer.component';
 import {RelRolesUsuario} from './rel-rolesusuario/rel-rolesusuario.component';
 import {FrmAsistenciaComponent} from './frm-asistencia/frm-asistencia.component';
-import {FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
+import { FrmHoraSemanaComponent} from './frm-horasemana/frm-horasemana.component';
 import { IniciarSesionComponent } from './iniciar-sesion/inicar-sesion.component';
-import{AuthLoginService} from './services/authlogin.service';
+import { AuthLoginService } from './services/authlogin.service';
 import { FrmCarganotasComponent } from './frm-carganotas/frm-carganotas.component';
 import { ExcelService } from './services/excel.service';
 import { FrmConsultaasistenciasComponent } from './frm-consultaasistencias/frm-consultaasistencias.component';
@@ -49,10 +49,10 @@ import { FrmMensajesComponent } from './frm-mensajes/frm-mensajes.component';
 import { ConsultanotasComponent } from './frm-consultanotas/frm-consultanotas.component';
 import { FrmCalendarioComponent } from './frm-calendario/frm-calendario.component';
 import { CmpHorariosComponent } from './cmp-horarios/cmp-horarios.component';
-import { FrmAsistenciasalumnoComponent } from './frm-asistenciasalumno/frm-asistenciasalumno.component';
+import { FrmAsistenciasestudianteComponent } from './frm-asistenciasestudiante/frm-asistenciasestudiante.component';
 import { GuardAutogestion } from './clases/guardautogestion';
 import { FrmCalendariocompComponent } from './frm-calendariocomp/frm-calendariocomp.component';
-import {VerMensajeComponent} from './ver-mensaje/ver-mensaje.component';
+import { VerMensajeComponent } from './ver-mensaje/ver-mensaje.component';
 import { RelCurriculumconvocatoriaComponent } from './rel-curriculumconvocatoria/rel-curriculumconvocatoria.component';
 import { AbmCurriculumComponent } from './abm-curriculum/abm-curriculum.component';
 import { curriculum } from './clases/curriculum';
@@ -73,7 +73,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     CounterComponent,
     FetchDataComponent,
     AbmDocenteComponent,
-    AbmAlumnoComponent,
+    AbmestudianteComponent,
     AbmPaisComponent,
     AbmDomicilioComponent,
     AbmProvinciaComponent,
@@ -86,13 +86,13 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     AbmCiclolectivoComponent,
     FiltroComponent,
     AbmMateriaComponent,
-    RelAlumnoMateria,
+    RelestudianteMateria,
     AbmRolesComponent,
     RelDocenteMateria,
     AbmExamenComponent,
     AbmConvocatoriaComponent,
     AbmEventoComponent,
-    RelCursoAlumno,
+    RelCursoestudiante,
     FooterComponent,
     RelRolesUsuario,
     AbmDireccionComponent,
@@ -106,7 +106,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
     FrmMensajesComponent,
     FrmCalendarioComponent,
     CmpHorariosComponent,
-    FrmAsistenciasalumnoComponent,
+    FrmAsistenciasestudianteComponent,
     FrmCalendariocompComponent,
     VerMensajeComponent,
     ConsultanotasComponent,
@@ -132,7 +132,7 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
       { path: 'counter', component: CounterComponent, canActivate : [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate : [Guard] },
       { path: 'abm-docente', component: AbmDocenteComponent, canActivate : [Guard] },
-      { path: 'abm-alumno', component: AbmAlumnoComponent, canActivate : [Guard] },
+      { path: 'abm-estudiante', component: AbmestudianteComponent, canActivate : [Guard] },
       { path: 'abm-domicilio', component: AbmDomicilioComponent, canActivate : [Guard] },
       { path: 'abm-direccion', component: AbmDireccionComponent, canActivate : [Guard] },
       { path: 'abm-pais', component: AbmPaisComponent, canActivate : [Guard] },
@@ -144,20 +144,20 @@ import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum
       { path: 'abm-menu', component: AbmMenuComponent, canActivate : [Guard] },
       { path: 'abm-ciclolectivo', component: AbmCiclolectivoComponent, canActivate : [Guard]},
       { path: 'abm-materia', component: AbmMateriaComponent, canActivate : [Guard]},
-      { path: 'rel-alumnomateria', component: RelAlumnoMateria, canActivate : [Guard]},
+      { path: 'rel-estudiantemateria', component: RelestudianteMateria, canActivate : [Guard]},
       { path: 'abm-roles', component: AbmRolesComponent, canActivate : [Guard]},
       { path: 'rel-docentemateria', component: RelDocenteMateria, canActivate : [Guard]},
       { path: 'abm-convocatoria', component: AbmConvocatoriaComponent},
       { path: 'abm-examen', component: AbmExamenComponent, canActivate : [Guard]},
       { path: 'abm-evento', component: AbmEventoComponent, canActivate : [Guard]},
       { path: 'abm-horasdia', component: AbmHorasDiaComponent, canActivate : [Guard]},
-      { path: 'rel-cursoalumno', component: RelCursoAlumno, canActivate : [Guard] },
+      { path: 'rel-cursoestudiante', component: RelCursoestudiante, canActivate : [Guard] },
       { path: 'rel-rolesusuario', component: RelRolesUsuario, canActivate : [Guard] },
       { path: 'frm-asistencia', component: FrmAsistenciaComponent, canActivate : [Guard] },
       { path: 'frm-horasemana', component: FrmHoraSemanaComponent, canActivate : [Guard] },
       { path: 'frm-carganotas', component: FrmCarganotasComponent, canActivate : [Guard] },
       { path: 'frm-consultaasistencia', component: FrmConsultaasistenciasComponent, canActivate : [Guard] },
-      { path: 'frm-asistenciasalumno', component: FrmAsistenciasalumnoComponent, canActivate : [Guard] },
+      { path: 'frm-asistenciasestudiante', component: FrmAsistenciasestudianteComponent, canActivate : [Guard] },
       { path: 'frm-calendariocomp', component: FrmCalendariocompComponent, canActivate : [Guard] },
       { path: 'frm-mensajes', component: FrmMensajesComponent, canActivate : [Guard] },
       { path: 'frm-calendario', component: FrmCalendarioComponent, canActivate : [Guard] },

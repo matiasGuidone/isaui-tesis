@@ -17,10 +17,10 @@ public class EventoConexion<T> : ObjetoConexion<evento>
         private EventoConexion(evento aux): base(aux){ 
             
         }
-        public List<evento> SearchAlumno(int idalumno){
-            var consulta = $"SELECT evento.* FROM evento join alumnomateria on "+
-            $"evento.Idmateria = alumnomateria.Idmateria where evento.tipo = 'materia' "+
-            $"and alumnomateria.Idalumno = {idalumno} and YEAR(fechainicio) = YEAR(NOW())"+
+        public List<evento> Searchestudiante(int idestudiante){
+            var consulta = $"SELECT evento.* FROM evento join estudiantemateria on "+
+            $"evento.Idmateria = estudiantemateria.Idmateria where evento.tipo = 'materia' "+
+            $"and estudiantemateria.Idestudiante = {idestudiante} and YEAR(fechainicio) = YEAR(NOW())"+
             $" UNION SELECT evento.* FROM evento "+
             $"where evento.tipo <> 'materia' and YEAR(fechainicio) = YEAR(NOW())";
 

@@ -111,9 +111,9 @@ export class FiltroComponent {
     //para el filtrado en los abm relacionales
 
     switch (abm) {
-      case "alumnomateria": { abm = "alumno"; break; }
+      case "estudiantemateria": { abm = "estudiante"; break; }
       case "docentemateria": { abm = "docente"; break; }
-      case "cursoalumno": { abm = "alumno"; break; }
+      case "cursoestudiante": { abm = "estudiante"; break; }
       case "rolesusuario": { abm = "usuario"; break; }
       case "consultaasistencia": { abm = "asistenciarepo"; break; }
       case "curriculumconvocatoria": { abm = "curriculum"; break; }
@@ -133,9 +133,9 @@ export class FiltroComponent {
     let abm = this.router.url.substring(5);
 
     switch (abm) {
-      case "alumnomateria": { abm = "alumno"; break; }
+      case "estudiantemateria": { abm = "estudiante"; break; }
       case "docentemateria": { abm = "docente"; break; }
-      case "cursoalumno": { abm = "alumno"; break; }
+      case "cursoestudiante": { abm = "estudiante"; break; }
       case "rolesusuario": { abm = "usuario"; break; }
       case "consultaasistencia": { abm = "asistenciarepo"; break; } 
       case "curriculumconvocatoria": { abm = "curriculum"; break; }
@@ -162,7 +162,7 @@ export class FiltroComponent {
       //obtengo el nombre de la tabla filtrada
       let abm = this.router.url.substring(5);
       switch (abm) {
-        case "alumnomateria": { abm = "alumno"; break; }
+        case "estudiantemateria": { abm = "estudiante"; break; }
         case "docentemateria": { abm = "docente"; break; }
         case "rolesusuario": { abm = "usuario"; break; }
         case "consultaasistencia": { abm = "Reporte de asistencias"; break; }
@@ -204,7 +204,7 @@ export class FiltroComponent {
       if (abm == "Reporte de asistencias") {
         for (let m in this.resultados[0]) {
           switch (m) {
-            case "alumno":
+            case "estudiante":
               head[0].push("Apellido y nombre");
               break;
             case "materia":

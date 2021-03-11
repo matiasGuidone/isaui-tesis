@@ -9,17 +9,17 @@ using System.Data;
 
 [Route("api/[controller]")]
 
-public class MateriaalumnomensajeController : Controller
+public class MateriaestudiantemensajeController : Controller
 {
 
     // POST
     [HttpPost]
-    public ActionResult<materiaalumnomensaje> Index([FromBody] materiaalumnomensaje Materiaalumnomensaje, [FromHeader] string token)
+    public ActionResult<materiaestudiantemensaje> Index([FromBody] materiaestudiantemensaje Materiaestudiantemensaje, [FromHeader] string token)
     {
 
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Insert(Materiaalumnomensaje);
+            MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.Insert(Materiaestudiantemensaje);
             return Json("Guardado exitoso");
         }
         else return null;
@@ -28,12 +28,12 @@ public class MateriaalumnomensajeController : Controller
 
     // PUT
     [HttpPut]
-    public ActionResult<materiaalumnomensaje> Put([FromBody] materiaalumnomensaje Materiaalumnomensaje, [FromHeader] string token)
+    public ActionResult<materiaestudiantemensaje> Put([FromBody] materiaestudiantemensaje Materiaestudiantemensaje, [FromHeader] string token)
     {
 
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Update(Materiaalumnomensaje);
+            MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.Update(Materiaestudiantemensaje);
             return Json("Guardado exitoso");
         }
         else return null;
@@ -45,7 +45,7 @@ public class MateriaalumnomensajeController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.Delete(Convert.ToInt32(id));
+            MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.Delete(Convert.ToInt32(id));
             return Json("registro eliminado");
         }
         else return null;
@@ -62,15 +62,15 @@ public class MateriaalumnomensajeController : Controller
         {
           Conexion con = new Conexion();
           DataTable Tabla = new DataTable();
-          var mensajes = con.consultaDataTable($"SELECT mensaje.mensaje, materia.nombre, mensaje.titulo FROM(((alumno INNER JOIN alumnomateria ON alumno.Id = alumnomateria.Idalumno) INNER JOIN mensaje on mensaje.Idmateria =alumnomateria.Idmateria)INNER JOIN materia on materia.Id =alumnomateria.Idmateria) WHERE alumno.id ={arrayfiltros} AND NOW() <= mensaje.fechafin and NOW() >= mensaje.fechainicio");
+          var mensajes = con.consultaDataTable($"SELECT mensaje.mensaje, materia.nombre, mensaje.titulo FROM(((estudiante INNER JOIN estudiantemateria ON estudiante.Id = estudiantemateria.Idestudiante) INNER JOIN mensaje on mensaje.Idmateria =estudiantemateria.Idmateria)INNER JOIN materia on materia.Id =estudiantemateria.Idmateria) WHERE estudiante.id ={arrayfiltros} AND NOW() <= mensaje.fechafin and NOW() >= mensaje.fechainicio");
           Tabla = mensajes.Tables[0];
-          List<materiaalumnomensaje> mensajes_e = new List<materiaalumnomensaje>();
+          List<materiaestudiantemensaje> mensajes_e = new List<materiaestudiantemensaje>();
           
           if (Tabla.Rows.Count >= 1){
             foreach(DataRow row in Tabla.Rows){
     
-               mensajes_e.Add(new materiaalumnomensaje { 
-               Idalumno= arrayfiltros, 
+               mensajes_e.Add(new materiaestudiantemensaje { 
+               Idestudiante= arrayfiltros, 
                tituloMensaje=row["titulo"].ToString(),
                NombreMateria=row["nombre"].ToString(),
                mensaje=row["mensaje"].ToString()
@@ -88,11 +88,11 @@ public class MateriaalumnomensajeController : Controller
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public materiaalumnomensaje Getmateriaalumnomensaje(int id, [FromHeader] string token)
+    public materiaestudiantemensaje Getmateriaestudiantemensaje(int id, [FromHeader] string token)
     {
      /*    if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         { */
-            return MateriaalumnomensajeConexion<materiaalumnomensaje>.Instance.SearchId(id);
+            return MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.SearchId(id);
      /*    }
         else return null; */
     }

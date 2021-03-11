@@ -11,7 +11,7 @@
                 </option>
             </select>
         </div>
-        <div class="lead col-md-2">Mes: <select class="form-control" id="mes" >
+        <div style="display:none;" class="lead col-md-2">Mes: <select class="form-control" id="mes" >
             <option *ngFor="let mes of meses let i = index;"  [value]="i" >
                  {{mes}}
             </option>

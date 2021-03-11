@@ -30,7 +30,7 @@
          <thead>
             <tr>
                <th scope="col"><button title="Excel de notas" (click)="excelNotas()" id="excel"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-success"><span class="fas fa-file-excel fa-md"></span></button>
-                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>Alumnos</th>
+                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>estudiantes</th>
                <th scope="col" *ngFor="let examen of examenes"  >
                   <span class="lead" (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
                   <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
@@ -65,13 +65,13 @@
             </tr>
          </thead>
          <tbody>
-            <tr *ngFor="let alumno of alumnos">
-               <td class="col-2">{{alumno.apellido}},&nbsp;{{alumno.nombre}}</td>
-               <td style="width: 60px;" *ngFor="let examen of examenes" id="{{alumno.id}}-{{examen.id}}">
-                  <input style="width: 45px;" type="number" id="in-{{alumno.id}}-{{examen.id}}"
-                     (keyup)="Numeros('in-'+alumno.id.toString()+'-'+examen.id.toString())"
-                     (change)="Numeros('in-'+alumno.id.toString()+'-'+examen.id.toString())" />
-                  <a title="registrar" id="btn-{{alumno.id}}-{{examen.id}}" (click)="guardarNota(alumno.id,examen.id)"
+            <tr *ngFor="let estudiante of estudiantes">
+               <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
+               <td style="width: 75px;" *ngFor="let examen of examenes" id="{{estudiante.id}}-{{examen.id}}">
+                  <input style="width: 60px;" type="number" id="in-{{estudiante.id}}-{{examen.id}}"
+                     (keyup)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())"
+                     (change)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())" />
+                  <a title="registrar" id="btn-{{estudiante.id}}-{{examen.id}}" (click)="guardarNota(estudiante.id,examen.id)"
                      class="fa fa-check bg-success border m-2 p-1"></a></td>
                <!-- <td *ngFor="let nota of notas">{{nota.nota}}</th> -->
             </tr>

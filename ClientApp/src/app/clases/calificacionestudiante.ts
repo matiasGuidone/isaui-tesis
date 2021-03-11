@@ -1,14 +1,14 @@
 
-export class calificacionalumno
+export class calificacionestudiante
 { 
-idalumno: number; 
+idestudiante: number; 
 nota: number;
 idexamen: number; 
 id: number;
 
 constructor(obj:any)
 { 
-this.idalumno=+obj.idalumno; 
+this.idestudiante=+obj.idestudiante; 
 this.nota=+obj.nota;
 this.idexamen=+obj.idexamen; 
 this.id = +obj.id;

@@ -33,8 +33,8 @@ export class CmpHorariosComponent implements OnInit {
         }
     });
      }
-     else if(rol.nombrerol.toString()=="Alumno"){
-    this.servicio.loadGrilla('materia', ['idalumno', rol.id.toString()]).subscribe(materias =>{
+     else if(rol.nombrerol.toString()=="Estudiante"){
+    this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(materias =>{
       this.materias = materias;
       if (this.materias.length > 0){
         this.buscarHoras(this.materias, this.materias.length-1);

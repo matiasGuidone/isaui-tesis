@@ -1,6 +1,6 @@
-export class mensajeAlumno{
+export class mensajeestudiante{
     id : number;
-    idAlumno : string;
+    idestudiante : string;
     titulo: string;
     nombreMateria : string;
     mensaje: string;
@@ -8,7 +8,7 @@ export class mensajeAlumno{
 
     constructor(obj:any){
         this.id = +obj.id;
-        this.idAlumno = obj.idAlumno;
+        this.idestudiante = obj.idestudiante;
         this.titulo = obj.titulo;
         this.nombreMateria = obj.nombreMateria;
         this.mensaje = obj.mensaje;

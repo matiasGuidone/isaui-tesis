@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 
-public class CalificacionalumnoController : Controller
+public class CalificacionestudianteController : Controller
 {
     
     // POST
     [HttpPost]
-    public ActionResult<calificacionalumno> Index([FromBody] calificacionalumno Calificacionalumno, [FromHeader] string token)
+    public ActionResult<calificacionestudiante> Index([FromBody] calificacionestudiante Calificacionestudiante, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CalificacionalumnoConexion<calificacionalumno>.Instance.Insert(Calificacionalumno);
+        CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
         return Json("Guardado exitoso");
         }
         else return null;
@@ -26,11 +26,11 @@ public class CalificacionalumnoController : Controller
 
     // PUT
     [HttpPut]
-    public ActionResult<calificacionalumno> Put([FromBody] calificacionalumno Calificacionalumno, [FromHeader] string token)
+    public ActionResult<calificacionestudiante> Put([FromBody] calificacionestudiante Calificacionestudiante, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CalificacionalumnoConexion<calificacionalumno>.Instance.Update(Calificacionalumno);
+        CalificacionestudianteConexion<calificacionestudiante>.Instance.Update(Calificacionestudiante);
         return Json("Guardado exitoso");
         }
         else return null;
@@ -42,7 +42,7 @@ public class CalificacionalumnoController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CalificacionalumnoConexion<calificacionalumno>.Instance.Delete(Convert.ToInt32(id));
+        CalificacionestudianteConexion<calificacionestudiante>.Instance.Delete(Convert.ToInt32(id));
         return Json("registro eliminado");
         // ControlTablasAvisos.Instance.Delete(id);
         }
@@ -52,25 +52,25 @@ public class CalificacionalumnoController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<calificacionalumno> Getcalificacionalumnos([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<calificacionestudiante> Getcalificacionestudiantes([FromHeader]string[] arrayfiltros, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
          if(arrayfiltros.Any(p => p == "ids-examenes")){
-             return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchExamenes(arrayfiltros);
+             return CalificacionestudianteConexion<calificacionestudiante>.Instance.SearchExamenes(arrayfiltros);
          }
-         else{ return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchAll(arrayfiltros);}
+         else{ return CalificacionestudianteConexion<calificacionestudiante>.Instance.SearchAll(arrayfiltros);}
          }
         else return null;
     }
 
     // GET: api/ApiWithActions/5
     [HttpGet("{id}")]
-    public calificacionalumno Getcalificacionalumno(int id, [FromHeader] string token)
+    public calificacionestudiante Getcalificacionestudiante(int id, [FromHeader] string token)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return CalificacionalumnoConexion<calificacionalumno>.Instance.SearchId(id);
+        return CalificacionestudianteConexion<calificacionestudiante>.Instance.SearchId(id);
         }
         else return null;
     }
