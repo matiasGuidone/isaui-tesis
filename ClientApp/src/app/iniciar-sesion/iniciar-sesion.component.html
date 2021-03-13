@@ -24,7 +24,10 @@
       <label for="inputLegajo"  class="sr-only">Usuario</label>
       <input required [ngClass]="{ 'has-success': formUsuario.get('usuario').value.length >= 8 }"
          type="text"  formControlName="usuario"  class="form-control mb-3" placeholder="Usuario - mínimo 8 caracteres" required autofocus>
-      <label for="inputPassword" class="sr-only">Contraseña</label>
+         <label for="inputLegajo"  class="sr-only">Correo electrónico</label>
+         <input required
+            type="mail"  id="correo"  class="form-control mb-3" placeholder="Correo personal" required autofocus>
+         <label for="inputPassword" class="sr-only">Contraseña</label>
       <input required [ngClass]="{ 'has-success': formUsuario.get('contra').value.length >= 8 }" type="password" formControlName="contra" class="form-control" placeholder="Contraseña - mínimo 8 caracteres" >
       <label for="inputPassword" class="sr-only">Contraseña</label>
       <input required [ngClass]="{ 'has-success': formUsuario.get('contra').value == formUsuario.get('contra2').value }" type="password"  formControlName="contra2" class="form-control" placeholder="Repetir contraseña">

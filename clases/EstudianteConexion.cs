@@ -1,6 +1,7 @@
  
 using System;
 using System.Collections.Generic;
+using System.Data;
     public class estudianteConexion<T> : ObjetoConexion<estudiante>
     {
        
@@ -44,6 +45,43 @@ using System.Collections.Generic;
                                 $" estudiantemateria where idmateria = {idmateria} and idciclolectivo = {idciclolectivo})";
             
             return (List<estudiante>)Conexion.consultaList<estudiante>(consulta);
+        }
+        
+        public bool RegistrarRol( estudiante stdnt )
+        {  
+            var n = false;
+            var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {stdnt.Idusuario} ").Tables[0];
+            foreach (DataRow r in Tabla.Rows)
+                {
+                    if(r["nombre"].ToString().ToUpper().Equals("ESTUDIANTE")){
+                        n = true; break;
+                    } 
+                }
+            if (n == false){
+                var rolestudiante = RolesConexion<roles>.Instance.SearchAll(null," and roles.nombre like 'Estudiante'");
+                if(rolestudiante.Count> 0){
+                    rolesusuario rul = new rolesusuario();
+                    rul.Idusuario = stdnt.Idusuario;
+                    rul.Idroles = rolestudiante[0].Id;
+                    rul.Descripcion = "Alta de estudiante";
+                    RolesusuarioConexion<rolesusuario>.Instance.Insert(rul);
+                    n = true;
+                }
+                else{
+                    roles rol = new roles();
+                    rol.Nombre = "Estudiante";
+                    RolesConexion<roles>.Instance.Insert(rol);
+                    rolestudiante = RolesConexion<roles>.Instance.SearchAll(null," and roles.nombre like 'Estudiante'");
+                    rolesusuario rul = new rolesusuario();
+                    rul.Idusuario = stdnt.Idusuario;
+                    rul.Idroles = rolestudiante[0].Id;
+                    rul.Descripcion = "Alta de estudiante";
+                    RolesusuarioConexion<rolesusuario>.Instance.Insert(rul);
+                    n = true;
+                }
+            }
+
+            return n;
         }
     }
  

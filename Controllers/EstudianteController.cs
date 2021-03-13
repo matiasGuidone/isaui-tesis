@@ -19,6 +19,11 @@ public class estudianteController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             estudianteConexion<estudiante>.Instance.Insert(estudiante);
+            estudianteConexion<estudiante>.Instance.RegistrarRol(estudiante);
+            EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
+            gestor.EnviarCorreo(estudiante.Correo,
+                                "Acceso concedido",
+                                "Bienvenido !!!, usted posee acceso al portal de estudiantes de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder.","Autogestión ISAUI", true);
             return Json("Guardado exitoso");
         }
         else return null;

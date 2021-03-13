@@ -9,9 +9,9 @@
     <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
-                <th scope="col">Envento</th>
-                <th scope="col">Fecha inicio</th>
-                <th scope="col">Fecha fin</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Evento</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('fechainicio')">Fecha inicio</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('fechafin')">Fecha fin</a></th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>

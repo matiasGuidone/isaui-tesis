@@ -21,7 +21,14 @@ public class estudiante : oObjeto
         this.Condicion = dr["condicion"].ToString();
         this.Correo = dr["correo"].ToString();
         this.Fechanac = Convert.ToDateTime(dr["fechanac"]);
-        this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]); 
+        try
+        {
+            this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]);
+        }
+        catch (System.Exception)
+        {
+            this.Iddomicilio = 0;
+        }
         this.Idusuario = Convert.ToInt32(dr["idusuario"]);
         this.Legajo = Convert.ToInt32(dr["legajo"]);
     }

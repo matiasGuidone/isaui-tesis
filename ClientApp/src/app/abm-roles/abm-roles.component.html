@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th *ngIf="this.servicio.idSeleccionado != null && !esRelacion" >Seleccionar</th>
-                <th scope="col">Nombre</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Nombre</a></th>
                 <th *ngIf="!esRelacion" scope="col">Acciones</th>
             </tr>
         </thead>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <host>smtp.gmail.com</host>
+  <port>587</port>
+  <user>*****</user>
+  <password>****</password>
+  <enableSsl>true</enableSsl>
+  <msjhtml>&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Autogestion ISAUI&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;font: 13px arial, helvetica, tahoma;&quot;&gt;
+    &lt;div class=&quot;email-container&quot; style=&quot;width: 650px; border: 1px solid #eee;&quot;&gt;
+        &lt;div id=&quot;header&quot; style=&quot;background-color: #e4edf1; border-bottom: 4px solid #1a2186;
+                height: 45px; padding: 10px 15px;&quot;&gt;
+               &lt;strong id=&quot;logo&quot; style=&quot;color: rgb(11, 79, 124); font-size: 20px;
+               text-shadow: 1px 1px 1px #8F8888; margin-top: 10px; display: inline-block&quot;&gt;
+               ISAUI - Instituto Superior Arturo Umberto Illia&lt;/strong&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;content&quot; style=&quot;padding: 10px 15px;&quot;&gt;
+
+            &lt;h2&gt;Autogestión ISAUI&lt;/h2&gt;
+
+            &lt;h2&gt;#titulo&lt;/h2&gt;
+
+            &lt;p&gt;#mensaje&lt;/p&gt;
+
+        &lt;/div&gt;
+
+        &lt;div id=&quot;footer&quot; style=&quot;padding: 10px; text-align: center; margin-top: 10px;
+                border-top: 1px solid #EEE; background: #FAFAFA;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</msjhtml>
+</configuration>

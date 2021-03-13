@@ -53,4 +53,11 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <None Update="configuracion.xml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
+
+
 </Project>

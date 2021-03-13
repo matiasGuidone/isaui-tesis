@@ -40,7 +40,7 @@ obtenerArchivo(fileDir: string) : Observable<any> {
   public url: string;
   public classbody: string = "bodyclasswh";
   public classtable2: string = "table table-hover";
-  public classtable: string = "table-responsive";
+  public classtable: string = "table-responsive card-body";
   public classimg: string = "custom-logo-link";
   public classnav: string = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
 
@@ -140,5 +140,11 @@ obtenerArchivo(fileDir: string) : Observable<any> {
         if (token == undefined || token == null) { token = ''; }
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'token': token ,'idcv':idcv.toString(),'idmateria':idmateria.toString()});//.set('Content-Type', 'application/json');
         return this._http.post<any>(this.baseUrl + 'api/' + abm, params, { headers: headers });
+  }
+
+  public enviarcorreo(msj, asunto, destino){
+    let token = localStorage.getItem("Access_Token");
+    let headers = new HttpHeaders({ 'mensaje': msj, 'asunto': asunto ,'destino':destino,'plantilla':'si','token':token});
+    return this._http.post<any>(this.baseUrl + 'api/Correo', {}, { headers: headers });
   }
 }

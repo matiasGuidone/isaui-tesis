@@ -8,9 +8,9 @@
       <table [class]="this.servicio.classtable2" >
         <thead>
             <tr>
-                <th scope="col">Fecha de inicio</th>
-                <th scope="col">Fecha de fin</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('fechainicio')">Fecha de inicio</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('fechafin')">Fecha de fin</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Descripcion</a></th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>

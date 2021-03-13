@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion" >Seleccionar</th>
-                <th scope="col">Legajo</th>
-                <th scope="col">Nombre y apellido</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('legajo')">Legajo</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Nombre y apellido</a></th>
                 <!-- <th scope="col">Documento</th> -->
                 <th *ngIf="!esRelacionCurso" scope="col">Acciones</th>
             </tr>

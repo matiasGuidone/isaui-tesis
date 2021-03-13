@@ -11,6 +11,7 @@ export class abm<T>{
 
   @Input() lista: T[];
     objetoBlanco : T;
+    banord = true;
     nombre : string;
     constructor(protected location: Location,
                 protected modalService: ModalService,
@@ -154,6 +155,34 @@ export class abm<T>{
           }
         }
         return objaux;
+      }
+
+      ordenar(col){ 
+        if(this.banord){
+        this.lista = this.lista.sort(function (a, b) {
+          if (a[col] > b[col]) {
+            return 1;
+          }
+          if (a[col] < b[col]) {
+            return -1;
+          }
+          // a must be equal to b
+          
+          return 0;
+        }); this.banord = false;}
+        else{
+          this.lista = this.lista.sort(function (a, b) {
+            if (a[col] < b[col]) {
+              return 1;
+            }
+            if (a[col] > b[col]) {
+              return -1;
+            }
+            
+            // a must be equal to b
+            return 0;
+          });this.banord = true;
+        }
       }
 
 

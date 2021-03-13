@@ -1,4 +1,5 @@
-<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro><div id="notificacion" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
+<abm-filtro *ngIf="!this.esRelacion"  (emisorFiltro)="lista = $event" ></abm-filtro>
+<div id="notificacion" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
      <div id="textnotificacion" class="lead"></div>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -10,7 +11,7 @@
         <thead>
             <tr>
                 <th *ngIf="this.servicio.idSeleccionado != null && !esRelacion" >Seleccionar</th>
-                <th scope="col">Nombre</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Nombre</a></th>
                 <th *ngIf="!esRelacion" scope="col">Acciones</th>
             </tr>
         </thead>

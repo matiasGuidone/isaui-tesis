@@ -66,7 +66,7 @@ export class IniciarSesionComponent implements OnInit {
     'nombre':this.formUsuario.get('usuario').value, 
     'codigo':this.formUsuario.get('contra').value,
     'codigoayuda':'',
-    'correo':'',
+    'correo': document.getElementById("correo")['value'],
     'estado':'0'});
     this.servicio.addSingleAbm(usu,'usuario').subscribe(res=>{
       if(res == "UsuarioExistente"){

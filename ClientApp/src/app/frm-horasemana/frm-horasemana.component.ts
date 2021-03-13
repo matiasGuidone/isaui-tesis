@@ -72,7 +72,7 @@ export class FrmHoraSemanaComponent extends abm<horasdia> implements OnInit {
           for (let modulo of this.horasmaterias){
               let h = this.horas.find(hora => hora.id == modulo.idhoradia);
               let celda = document.getElementById('celda'+h.numorden.toString()+'-'+modulo.numsemana.toString());
-              celda.style.backgroundColor = this.getColor(modulo.idmateria);
+              celda.style.backgroundColor = this.getColor(this.materias.find(m => m.id == modulo.idmateria).nombre.length);
               let mat = this.materias.find(materia => materia.id == modulo.idmateria).nombre;
               const desc = document.createElement('div');
               const small = document.createElement('small');
@@ -155,11 +155,11 @@ export class FrmHoraSemanaComponent extends abm<horasdia> implements OnInit {
   seleccionarCarrera(){
       let id = document.getElementById('carrera')['value'];
       this.servicio.loadGrilla('curso', ['idcarrera', id.toString()])
-          .subscribe(res =>{this.cursos = res;});
+          .subscribe(res =>{this.cursos = res;   this.seleccionarCurso(this.cursos[0].id);});
     }
 
-  seleccionarCurso(){
-    let id = document.getElementById('curso')['value'];
+  seleccionarCurso(id = null){
+    if(id == null){id = document.getElementById('curso')['value'];}
     this.servicio.loadGrilla('materia',['idcurso',id.toString()]).subscribe(materias =>{
       this.materias = materias;
       this.refrescarTabla();

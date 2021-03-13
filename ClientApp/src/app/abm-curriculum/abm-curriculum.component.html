@@ -10,10 +10,10 @@
         <thead>
             <tr>
                 <th *ngIf="this.servicio.idSeleccionado != null && !esRelacion" >Seleccionar</th>
-                <th scope="col">Nombre y apellido</th>
-                <th scope="col">DNI</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Correo</th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Nombre y apellido</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('numerodoc')">DNI</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('telefono')">Telefono</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('correo')">Correo</a></th>
             </tr>
         </thead>
         <tbody>
