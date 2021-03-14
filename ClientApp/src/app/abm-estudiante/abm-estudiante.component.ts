@@ -32,7 +32,7 @@ export class AbmestudianteComponent extends abm<estudiante> implements OnInit {
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
     this.nombre = 'estudiante';
-    this.objetoBlanco = new estudiante("0", "", "", "", "", "", "", "", "", "");
+    this.objetoBlanco = new estudiante("0", "", "", "", "", "", "", "", "", "","");
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {
@@ -43,13 +43,14 @@ export class AbmestudianteComponent extends abm<estudiante> implements OnInit {
   }
 
   ngOnInit() {
-
+    this.servicio.getCantidad(this.nombre).subscribe(cantidad =>{
+      this.cantidad = cantidad;
     if (!this.esRelacionCurso) {
       this.modalService.setFiltro(this.objetoBlanco);
-      this.servicio.loadGrilla('estudiante').subscribe(res => {
+      this.servicio.loadGrilla('estudiante',null,'20','0').subscribe(res => {
         this.lista = res;
       });
-    }
+    }});
 
   }
 

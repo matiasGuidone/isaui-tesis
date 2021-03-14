@@ -29,3 +29,17 @@
    
 </div>
 <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
+<nav class="float-right" aria-label="Navegación">
+    
+    <ul class="pagination">
+        <li class="page-item"><select (change)="paginar('limite')" class="form-select page-link" id="limite" aria-label=".limite">
+            <option value="20">20</option>
+            <option value="40">40</option>
+            <option value="60">60</option>
+            <option value="100">100</option>
+          </select></li>
+          <li class="page-item"></li>
+      <li class="page-item" *ngFor="let dummy of ' '.repeat((cantidad/registrosvistos)+1).split(''), let x = index" ><a class="page-link" href="javascript:void(0);" (click)="paginar(x)">{{x}}</a></li> 
+    </ul>
+  </nav>
+

@@ -11,6 +11,7 @@ public class estudiante : oObjeto
     public DateTime Fechanac { get; set; }
     public int Iddomicilio { get; set; } 
     public int Idusuario { get; set; }
+    public string Telefono { get; set; }
     public estudiante() { }
     public estudiante(DataRow dr)
     {
@@ -20,17 +21,11 @@ public class estudiante : oObjeto
         this.Numerodoc = dr["numerodoc"].ToString();
         this.Condicion = dr["condicion"].ToString();
         this.Correo = dr["correo"].ToString();
-        this.Fechanac = Convert.ToDateTime(dr["fechanac"]);
-        try
-        {
-            this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]);
-        }
-        catch (System.Exception)
-        {
-            this.Iddomicilio = 0;
-        }
+        if(dr["fechanac"] != DBNull.Value){this.Fechanac = Convert.ToDateTime(dr["fechanac"]); }
+        if(dr["iddomicilio"] != DBNull.Value) {this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]);}
         this.Idusuario = Convert.ToInt32(dr["idusuario"]);
         this.Legajo = Convert.ToInt32(dr["legajo"]);
+        this.Telefono = dr["telefono"].ToString();
     }
 
 }

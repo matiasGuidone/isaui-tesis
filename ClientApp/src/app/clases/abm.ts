@@ -11,6 +11,8 @@ export class abm<T>{
 
   @Input() lista: T[];
     objetoBlanco : T;
+    cantidad : number = 0;
+    registrosvistos : number = 20;
     banord = true;
     nombre : string;
     constructor(protected location: Location,
@@ -20,7 +22,12 @@ export class abm<T>{
                 ) {}
 
     ngOnInit() {
-      this.servicio.loadGrilla(this.nombre).subscribe(res => this.lista = res);
+      this.servicio.getCantidad(this.nombre).subscribe(cantidad =>{
+        this.cantidad = cantidad;
+        if(cantidad >0){this.servicio.loadGrilla(this.nombre,null,'20','0').subscribe(res => this.lista = res);}
+        else{ this.servicio.loadGrilla(this.nombre).subscribe(res => this.lista = res);}
+      });
+      
     }
 
 
@@ -185,7 +192,17 @@ export class abm<T>{
         }
       }
 
-
+      paginar(dat){
+        switch (dat) { 
+          case "limite":
+            this.registrosvistos = +document.getElementById("limite")['value'];
+            this.servicio.loadGrilla(this.nombre,null,this.registrosvistos.toString(),'0').subscribe(res => {this.lista = res;});
+            break; 
+          default: 
+            this.servicio.loadGrilla(this.nombre,null,this.registrosvistos.toString(),(dat*this.registrosvistos).toString()).subscribe(res => {this.lista = res;});
+            break;
+        }
+      }
 
 
 }

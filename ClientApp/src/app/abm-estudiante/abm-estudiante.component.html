@@ -6,12 +6,12 @@
     </button>
   </div>
 <div [class]="this.servicio.classtable">
-    <h3>estudiantes</h3>
+    <h3>Estudiantes</h3>
     <table [class]="this.servicio.classtable2">
         <thead>
             <tr>
                 <th *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion" >Seleccionar</th>
-                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('legajo')">Legajo</a></th>
+                <th scope="col"><a href="javascript:void(0);" (click)="ordenar('id')">#ID</a></th>
                 <th scope="col"><a href="javascript:void(0);" (click)="ordenar('nombre')">Nombre y apellido</a></th>
                 <!-- <th scope="col">Documento</th> -->
                 <th *ngIf="!esRelacionCurso" scope="col">Acciones</th>
@@ -22,7 +22,7 @@
                 <td *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion">
                     <input  (click)="cambiarEstado(estudiante.id)"  *ngIf="esSeleccionado(estudiante.id)" type="checkbox" checked id="chk-{{estudiante.id}}" />
                     <input   (click)="cambiarEstado(estudiante.id)" *ngIf="!esSeleccionado(estudiante.id)" type="checkbox" id="chk-{{estudiante.id}}" /></td>
-                <td>{{estudiante.legajo}}</td>
+                <td>{{estudiante.id}}</td>
                 <td>{{estudiante.nombre}},&nbsp;{{estudiante.apellido}}</td>
                 <!-- <td>{{estudiante.numerodoc}}</td> -->
                 <td><button *ngIf="!esRelacionCurso" class="btn btn-outline-success" title="Editar" (click)="editar(estudiante.id)" ><span class="fa fa-edit"></span></button>
@@ -35,3 +35,16 @@
 </div>
 <button *ngIf="!esRelacionCurso" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
 <button *ngIf="this.servicio.idSeleccionado != null && this.servicio.idsSeleccionados != null  && !esRelacionCurso && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
+<nav class="float-right" aria-label="Navegación">
+    
+    <ul class="pagination">
+        <li class="page-item"><select (change)="paginar('limite')" class="form-select page-link" id="limite" aria-label=".limite">
+            <option value="20">20</option>
+            <option value="40">40</option>
+            <option value="60">60</option>
+            <option value="100">100</option>
+          </select></li>
+          <li class="page-item"></li>
+      <li class="page-item" *ngFor="let dummy of ' '.repeat((cantidad/registrosvistos)+1).split(''), let x = index" ><a class="page-link" href="javascript:void(0);" (click)="paginar(x)">{{x}}</a></li> 
+    </ul>
+  </nav>

@@ -12,37 +12,43 @@ using System.Xml;
 
 public class ObjetoConexion<T>
 {
-
+    public int cantidadRegistros { get; set; }
     internal Conexion Conexion { get; set; }
     public oObjeto tipo;
     public ObjetoConexion(oObjeto t)
     {
         this.tipo = t;
         this.Conexion = new Conexion();
+        string consulta = $"SELECT COUNT(*) as 'cantidad' FROM {tipo.GetType()} ";
+        var ds = Conexion.consultaDataTable(consulta);
+        if(ds.Tables[0].Rows.Count > 0){this.cantidadRegistros = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0]);}
+        
     }
     //['columna','valor','columna','valor','columna','valor']
     //concatenar = concatenar una condición mas " AND Columna = 1 AND Columna2 = 2 OR Columna3 = 3"
-    private static string limit()
-    {
-        XmlTextReader reader = new XmlTextReader("./config.xml");
-        while (reader.Read())
-        {
-            if (reader.NodeType == XmlNodeType.Element && reader.Name == "limiteregistros")
-            {
-                reader.Read();
-                return reader.Value;
-            }
+    // private static string limit()
+    // {
+    //     XmlTextReader reader = new XmlTextReader("./config.xml");
+    //     while (reader.Read())
+    //     {
+    //         if (reader.NodeType == XmlNodeType.Element && reader.Name == "limiteregistros")
+    //         {
+    //             reader.Read();
+    //             return reader.Value;
+    //         }
 
-        }
-        return "";
-        //return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
-    }
-    public List<T> SearchAll(string[] parametros = null, string concatenar = null)
+    //     }
+    //     return "";
+    //     //return "datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;";
+    // }
+    public List<T> SearchAll(string[] parametros = null, string concatenar = null, string limit = null, string offset = null)
     {
 
         if ((parametros == null || parametros.Length < 2) && concatenar == null)
         {
-            string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC LIMIT 0, " + limit();
+            string consulta = $"SELECT * FROM {tipo.GetType()} ORDER BY 1 ASC ";
+            if(limit != null){consulta += $"LIMIT {limit} ";}
+            if(offset != null){consulta += $"OFFSET {offset} ";}
 
             return (List<T>)Conexion.consultaList<T>(consulta);
         }
@@ -81,6 +87,9 @@ public class ObjetoConexion<T>
 
                 consulta += concatenar;
             }
+
+            if(limit != null){consulta += $" LIMIT {limit} ";}
+            if(offset != null){consulta += $" OFFSET {offset} ";}
 
             return (List<T>)Conexion.consultaList<T>(consulta);
         }

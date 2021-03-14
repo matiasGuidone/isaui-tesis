@@ -66,11 +66,11 @@ public class UsuarioController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<usuario> Getusuarios([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<usuario> Getusuarios([FromHeader]string[] arrayfiltros, [FromHeader] string token, [FromHeader] string limit = null, [FromHeader] string offset = null)
     {
     if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            return UsuarioConexion<usuario>.Instance.SearchAll(arrayfiltros);
+            return UsuarioConexion<usuario>.Instance.SearchAll(arrayfiltros,null,limit,offset);
             }
         else return null;
     }
@@ -85,6 +85,16 @@ public class UsuarioController : Controller
             }
         else return null;
         
+    }
+    [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return UsuarioConexion<usuario>.Instance.cantidadRegistros;
+        }
+        else return 0;
     }
 }
 

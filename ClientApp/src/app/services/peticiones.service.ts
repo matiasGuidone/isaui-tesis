@@ -58,17 +58,29 @@ obtenerArchivo(fileDir: string) : Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/' + tabla + '/' + id, { headers: headers });
   }
   // llena el array de cada component para mostrar los datos en la tabla
-  loadGrilla(abm: string, filtro: string[] = null): Observable<any[]> {
-    if (filtro == null) {
+  loadGrilla(abm: string, filtro: string[] = null, limit : string = null, offset :string = null): Observable<any[]> {
+    if (filtro == null && limit == null && offset == null) {
       let token = localStorage.getItem("Access_Token");
       if (token == undefined || token == null) { token = ''; }
       const headers = new HttpHeaders({ 'token': token });
       return this._http.get<any[]>(this.baseUrl + 'api/' + abm, { headers: headers });
     }
-    else {
+    else if (limit == null && offset == null){
       let token = localStorage.getItem("Access_Token");
       if (token == undefined || token == null) { token = ''; }
       let headers: HttpHeaders = new HttpHeaders({ 'arrayfiltros': filtro, 'token': token });
+      return this._http.get<any[]>(this.baseUrl + 'api/' + abm, { headers: headers });
+    }
+    else if (filtro == null ){
+      let token = localStorage.getItem("Access_Token");
+      if (token == undefined || token == null) { token = ''; }
+      let headers: HttpHeaders = new HttpHeaders({ 'token': token, 'limit': limit, 'offset' : offset });
+      return this._http.get<any[]>(this.baseUrl + 'api/' + abm, { headers: headers });
+    }
+    else{
+      let token = localStorage.getItem("Access_Token");
+      if (token == undefined || token == null) { token = ''; }
+      let headers: HttpHeaders = new HttpHeaders({ 'arrayfiltros': filtro, 'token': token, 'limit': limit, 'offset' : offset });
       return this._http.get<any[]>(this.baseUrl + 'api/' + abm, { headers: headers });
     }
   }
@@ -147,4 +159,11 @@ obtenerArchivo(fileDir: string) : Observable<any> {
     let headers = new HttpHeaders({ 'mensaje': msj, 'asunto': asunto ,'destino':destino,'plantilla':'si','token':token});
     return this._http.post<any>(this.baseUrl + 'api/Correo', {}, { headers: headers });
   }
+  
+  public getCantidad(entidad){
+    let token = localStorage.getItem("Access_Token");
+    let headers = new HttpHeaders({'token':token});
+    return this._http.get<any>(this.baseUrl + 'api/'+entidad+'/registros', { headers: headers });
+  }
+
 }

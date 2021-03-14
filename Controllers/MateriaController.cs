@@ -49,7 +49,7 @@ public class MateriaController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<materia> GetMaterias([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<materia> GetMaterias([FromHeader] string[] arrayfiltros, [FromHeader] string token, [FromHeader] string limit = null, [FromHeader] string offset = null)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
@@ -63,7 +63,7 @@ public class MateriaController : Controller
                 return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1])); 
                 if (arrayfiltros.Length==4)
                 return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3])); }
-            return MateriaConexion<materia>.Instance.SearchAll(arrayfiltros);
+            return MateriaConexion<materia>.Instance.SearchAll(arrayfiltros,null,limit,offset);
 
         }
         else return null;
@@ -78,6 +78,17 @@ public class MateriaController : Controller
             return MateriaConexion<materia>.Instance.SearchId(id);
         }
         else return null;
+    }
+
+     [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return MateriaConexion<materia>.Instance.cantidadRegistros;
+        }
+        else return 0;
     }
 }
 

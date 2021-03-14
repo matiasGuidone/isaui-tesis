@@ -45,13 +45,14 @@ export class AbmMateriaComponent extends abm<materia> implements OnInit {
   }
 
   ngOnInit() {
-
+    this.servicio.getCantidad(this.nombre).subscribe(cantidad =>{
+      this.cantidad = cantidad;
     if (!this.esRelacion) {
       this.modalService.setFiltro(this.objetoBlanco);
-      this.servicio.loadGrilla('materia').subscribe(res => {
+      this.servicio.loadGrilla('materia',null,'20','0').subscribe(res => {
         this.lista = res;
       });
-    }
+    }});
 
   }
   //evento botón aceptar

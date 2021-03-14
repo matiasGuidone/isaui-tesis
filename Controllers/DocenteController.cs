@@ -60,11 +60,11 @@ public class DocenteController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<docente> Getdocentes([FromHeader]string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<docente> Getdocentes([FromHeader]string[] arrayfiltros, [FromHeader] string token, [FromHeader] string limit = null, [FromHeader] string offset = null)
     {
      if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return DocenteConexion<docente>.Instance.SearchAll(arrayfiltros);
+        return DocenteConexion<docente>.Instance.SearchAll(arrayfiltros,null,limit,offset);
         }
         else return null;
     
@@ -81,6 +81,16 @@ public class DocenteController : Controller
         else return null;
     }
 
+    [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return DocenteConexion<docente>.Instance.cantidadRegistros;
+        }
+        else return 0;
+    }
 
   
 }

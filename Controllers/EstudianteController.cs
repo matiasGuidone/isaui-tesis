@@ -58,7 +58,7 @@ public class estudianteController : Controller
 
     //GET
     [HttpGet]
-    public IEnumerable<estudiante> Getestudiantes([FromHeader] string[] arrayfiltros, [FromHeader] string token)
+    public IEnumerable<estudiante> Getestudiantes([FromHeader] string[] arrayfiltros, [FromHeader] string token, [FromHeader] string limit = null, [FromHeader] string offset = null)
     { 
         
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
@@ -77,7 +77,7 @@ public class estudianteController : Controller
             }
             else
             {
-                return estudianteConexion<estudiante>.Instance.SearchAll(arrayfiltros);
+                return estudianteConexion<estudiante>.Instance.SearchAll(arrayfiltros, null, limit, offset);
             }
         }
         return null;// default(List<estudiante>);
@@ -93,6 +93,16 @@ public class estudianteController : Controller
             return estudianteConexion<estudiante>.Instance.SearchId(id);
         }
         else return null;
+    }
+     [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return estudianteConexion<estudiante>.Instance.cantidadRegistros;
+        }
+        else return 0;
     }
 }
 
