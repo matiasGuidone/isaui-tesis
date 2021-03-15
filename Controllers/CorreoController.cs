@@ -1,41 +1,32 @@
-
-using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Net.Http.Headers;
 
-
-[Produces("application/json")]
 [Route("api/[controller]")]
 public class CorreoController : Controller
 {
-    private IWebHostEnvironment _hostingEnvironment;
-
-    public CorreoController(IWebHostEnvironment hostingEnvironment)
-    {
-        _hostingEnvironment = hostingEnvironment;
-    }
-
-    [HttpPost, DisableRequestSizeLimit]
-    public ActionResult EnvioCorreo([FromHeader] string destino, [FromHeader] string token, [FromHeader] string asunto, [FromHeader] string mensaje, [FromHeader] string plantilla = null)
+   
+    [HttpPost]
+    public ActionResult EnvioCorreo([FromHeader] string token, [FromBody] datoscorreo data)
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
-            if(plantilla != null){
+            if(data.plantilla != null){
 
-                    gestor.EnviarCorreo(destino,
-                                    asunto,
-                                    mensaje,asunto, true);
+                    gestor.EnviarCorreo(data.destino,
+                                    data.asunto,
+                                    data.mensaje,data.asunto, true);
                     return Json("envío efectuado");
 
             }
             else{  
-                gestor.EnviarCorreo(destino,
-                                    asunto,
-                                    mensaje,asunto);
+                gestor.EnviarCorreo(data.destino,
+                                    data.asunto,
+                                    data.mensaje,data.asunto);
                                     return Json("envío efectuado");
             }
 
@@ -47,6 +38,7 @@ public class CorreoController : Controller
 
 
 }
+
 
 
                 

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 // Observable: recoge informacion de la api rest (header / body)
 import { Observable, from } from 'rxjs';
 import { curriculum } from '../clases/curriculum';
-import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
 
 
 @Injectable()
@@ -154,10 +153,11 @@ obtenerArchivo(fileDir: string) : Observable<any> {
         return this._http.post<any>(this.baseUrl + 'api/' + abm, params, { headers: headers });
   }
 
-  public enviarcorreo(msj, asunto, destino){
+  public enviarcorreo(mensaje, asunto, destino){
     let token = localStorage.getItem("Access_Token");
-    let headers = new HttpHeaders({ 'mensaje': msj, 'asunto': asunto ,'destino':destino,'plantilla':'si','token':token});
-    return this._http.post<any>(this.baseUrl + 'api/Correo', {}, { headers: headers });
+    const headers = new HttpHeaders({ "token":token });//"asunto": asunto });// , });//, });
+    let data = {"destino":destino, "mensaje": mensaje ,"asunto": asunto ,"plantilla":"si" };
+    return this._http.post<any>(this.baseUrl + 'api/correo', data,  { headers: headers });
   }
   
   public getCantidad(entidad){

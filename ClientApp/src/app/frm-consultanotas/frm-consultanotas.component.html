@@ -57,5 +57,13 @@
     </div>
     <button *ngIf="habilitada" (click)="inscribirfinal()" class="btn btn-success">Inscribirme al final</button>
     <button *ngIf="this.estainscripto=='si'" (click)="inscribirfinal()" class="btn btn-info">Anular inscripcion</button>
+    <br>
     
+    <div id="notificacion" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
+      <div id="textnotificacion" class="lead"></div>
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+
 </div>

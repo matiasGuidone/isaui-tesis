@@ -9,6 +9,7 @@ import { examen } from '../clases/examen';
 import { notarepo } from '../clases/notarepo';
 import { ModalService } from '../modal/modal-service.service';
 import { ciclolectivo } from '../clases/ciclolectivo';
+import { estudiante } from '../clases/estudiante';
 
 
 @Component({
@@ -132,7 +133,20 @@ export class ConsultanotasComponent implements OnInit {
       let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
       let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
       this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
-        this.seleccionarMateria();
+        let idestudiante = JSON.parse(localStorage.getItem("Rol")).id;
+        this.servicio.getById(idestudiante, "estudiante").subscribe((est:estudiante) =>{
+          this.servicio.enviarcorreo('Te inscribiste al final de <strong>'+this.materias.find(m => m.id == this.idmateria).nombre+'</strong>, el Horario del exámen es: '+final.fecha.toString(),'Inscripción a exámen Final', est.correo).subscribe(r=>{
+            let notificacion = document.getElementById("notificacion");
+              let textnotificacion = document.getElementById("textnotificacion");
+              
+                notificacion.className = "alert alert-success alert-dismissible fade show";
+                notificacion.style.display = "block";
+                textnotificacion.innerText = "Estás inscripto en el final de "+this.materias.find(m => m.id == this.idmateria).nombre+'. Verificá tu buzón de correo.';
+               
+            this.seleccionarMateria();
+          })
+        })
+         
       });
     }
   }

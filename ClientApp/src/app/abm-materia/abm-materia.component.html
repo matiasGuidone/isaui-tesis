@@ -31,7 +31,7 @@
 <button *ngIf="!esRelacion" class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
     <button *ngIf="this.servicio.idSeleccionado != null && !esRelacion" class="btn btn-info" (click)="aceptarSeleccion()" >Aceptar selección</button>
     
-    <nav class="float-right" aria-label="Navegación">
+    <nav *ngIf="!esRelacion" class="float-right" aria-label="Navegación">
     
         <ul class="pagination">
             <li class="page-item"><select (change)="paginar('limite')" class="form-select page-link" id="limite" aria-label=".limite">

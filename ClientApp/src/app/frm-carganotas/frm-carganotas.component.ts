@@ -32,7 +32,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
   ciclos: ciclolectivo[];
-
+  es_firefox:any;
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
@@ -42,6 +42,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     this.modalService.setCaseEstado('examen');
     //--
     let rol = JSON.parse(localStorage.getItem("Rol"));
+    this.es_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
       this.ciclos = ciclos;
     if (rol.nombrerol.toString() == "Docente") {

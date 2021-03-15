@@ -36,7 +36,8 @@
                   <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
                      <span class="lead my-auto">Editar lista de notas</span>
                      <hr />
-                     <input class="form-control my-3" id='fecha-{{examen.id}}' [value]='examen.fecha.substring(0,10)' type="date" />
+                     <input *ngIf="es_firefox" class="form-control my-3" id='fecha-{{examen.id}}' [value]='examen.fecha.substring(0,10)' type="date" />
+                     <input *ngIf="!es_firefox" class="form-control my-3" id='fecha-{{examen.id}}' [value]='examen.fecha.substring(0,10)' type="datetime-local" />
                      <select id="tipo-{{examen.id}}" class="form-control" [value]="examen.tipo" >
                         <option *ngFor="let obj of this.modalService.estados " [value]="obj">
                            {{obj}}
@@ -51,7 +52,8 @@
                   <div id="nota" class="p-4 m-2 border bg-secondary">
                      <span class="lead my-auto">Nueva lista de notas</span>
                      <hr />
-                     <input class="form-control my-3" id='fecha' type="date" />
+                     <input *ngIf="es_firefox" class="form-control my-3" id='fecha' type="date" />
+                     <input *ngIf="!es_firefox" class="form-control my-3" id='fecha' type="datetime-local" />
                      <select id="tipo" class="form-control">
                         <option *ngFor="let obj of this.modalService.estados " [value]="obj">
                            {{obj}}
