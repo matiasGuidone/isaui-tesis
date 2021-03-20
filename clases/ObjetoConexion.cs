@@ -173,7 +173,7 @@ public class ObjetoConexion<T>
         Conexion.ConsultaParametros(consulta, param);
 
     }
-    public void Delete(int Id, oObjeto param = null, string[] filtros = null)
+    public bool Delete(int Id, oObjeto param = null, string[] filtros = null)
     {
 
         //si el objeto no es null se elimina ese objeto
@@ -195,14 +195,14 @@ public class ObjetoConexion<T>
             String consulta = $"DELETE FROM {this.tipo.GetType()} " + where;
 
 
-            Conexion.ConsultaParametros(consulta, parametro);
+            return Conexion.ConsultaParametros(consulta, parametro);
         }
         else if (param != null)
         {
             String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE Id = ?Id";
             List<MySqlParameter> parametro = new List<MySqlParameter>();
             parametro.Add(new MySqlParameter("Id", param.Id));
-            Conexion.ConsultaParametros(consulta, parametro);
+            return Conexion.ConsultaParametros(consulta, parametro);
         }
         else
         {
@@ -210,9 +210,9 @@ public class ObjetoConexion<T>
             String consulta = $"DELETE FROM {this.tipo.GetType()} WHERE Id = ?Id";
             List<MySqlParameter> parametro = new List<MySqlParameter>();
             parametro.Add(new MySqlParameter("Id", Id));
-            Conexion.ConsultaParametros(consulta, parametro);
+            return Conexion.ConsultaParametros(consulta, parametro);
         }
-
+        return false;
 
 
     }

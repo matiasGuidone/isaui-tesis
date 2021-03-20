@@ -32,7 +32,7 @@ public class LocalidadController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             LocalidadConexion<localidad>.Instance.Update(Localidad);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

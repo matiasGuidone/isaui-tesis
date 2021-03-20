@@ -21,7 +21,7 @@ public class DocenteMateriaController : Controller
                 docenteMateria.Idciclolectivo =
                 CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;}
             DocenteMateriaConexion<docentemateria>.Instance.Insert(docenteMateria);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -35,7 +35,7 @@ public class DocenteMateriaController : Controller
             docenteMateria.Idciclolectivo =
                 CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
             DocenteMateriaConexion<docentemateria>.Instance.Update(docenteMateria);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

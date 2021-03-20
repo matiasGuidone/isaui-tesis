@@ -18,7 +18,7 @@ public class ProvinciaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             ProvinciaConexion<provincia>.Instance.Insert(Provincia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -31,7 +31,7 @@ public class ProvinciaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             ProvinciaConexion<provincia>.Instance.Update(Provincia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -43,10 +43,10 @@ public class ProvinciaController : Controller
 
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            ProvinciaConexion<provincia>.Instance.Delete(Convert.ToInt32(id));
-            return Json("registro eliminado");
+            var r = ProvinciaConexion<provincia>.Instance.Delete(Convert.ToInt32(id));
+            if(r) {return Json("registro eliminado");}else return Json("error");
         }
-        else return null;
+        else return Json("error");
     }
 
     //GET

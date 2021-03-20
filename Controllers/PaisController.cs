@@ -18,7 +18,7 @@ public class PaisController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         PaisConexion<pais>.Instance.Insert(Pais);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class PaisController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         PaisConexion<pais>.Instance.Update(Pais);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -41,10 +41,10 @@ public class PaisController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        PaisConexion<pais>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+        var r = PaisConexion<pais>.Instance.Delete(Convert.ToInt32(id));
+        if (r){return Json("registro eliminado");} else return Json("error");
         }
-        else return null;
+        else return Json("error");
     }
 
     //GET

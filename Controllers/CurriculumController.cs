@@ -20,7 +20,7 @@ public class CurriculumController : Controller
         {
             Curriculum.Idusuario = user;
             return Json(CurriculumConexion<curriculum>.Instance.Insert(Curriculum));
-            //return Json("Guardado exitoso");
+            //return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -35,7 +35,7 @@ public class CurriculumController : Controller
         {
             Curriculum.Idusuario = user;
             CurriculumConexion<curriculum>.Instance.Update(Curriculum);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

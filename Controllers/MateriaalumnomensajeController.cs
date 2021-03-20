@@ -20,7 +20,7 @@ public class MateriaestudiantemensajeController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.Insert(Materiaestudiantemensaje);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -34,7 +34,7 @@ public class MateriaestudiantemensajeController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             MateriaestudiantemensajeConexion<materiaestudiantemensaje>.Instance.Update(Materiaestudiantemensaje);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

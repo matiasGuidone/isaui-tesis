@@ -38,17 +38,18 @@ export class abm<T>{
             .subscribe(json => {
               let notificacion = document.getElementById("notificacion");
               let textnotificacion = document.getElementById("textnotificacion");
-              if (json != null && json != undefined){
+              if (json != null && json != undefined && json.toString() != "error"){
                 notificacion.className = "alert alert-success alert-dismissible fade show";
                 notificacion.style.display = "block";
-                textnotificacion.innerText = ""+json;}
+                textnotificacion.innerText = ""+json;
+                this.servicio.loadGrilla(this.nombre)
+                .subscribe(res => {this.lista = res;});}
               else{
                 notificacion.className = "alert alert-danger alert-dismissible fade show";
                 notificacion.style.display = "block";
-                textnotificacion.innerText = "error durante el proceso de almacenado"
+                textnotificacion.innerText = "error durante el proceso de eliminacion, no se pudo completar"
               }
-              this.servicio.loadGrilla(this.nombre)
-            .subscribe(res => {this.lista = res;});})
+              })
         });
     }
 
@@ -93,7 +94,7 @@ export class abm<T>{
           .subscribe(json => {
             let notificacion = document.getElementById("notificacion");
             let textnotificacion = document.getElementById("textnotificacion");
-            if (json != null && json != undefined){
+            if (json != null && json != undefined ){
               notificacion.className = "alert alert-success alert-dismissible fade show";
               notificacion.style.display = "block";
               textnotificacion.innerText = ""+json;}

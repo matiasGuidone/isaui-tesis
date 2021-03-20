@@ -18,7 +18,7 @@ public class ConvocatoriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         ConvocatoriaConexion<convocatoria>.Instance.Insert(Convocatoria);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class ConvocatoriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         ConvocatoriaConexion<convocatoria>.Instance.Update(Convocatoria);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

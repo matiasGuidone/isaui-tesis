@@ -24,7 +24,7 @@ public class estudianteController : Controller
             gestor.EnviarCorreo(estudiante.Correo,
                                 "Acceso concedido",
                                 "Bienvenido !!!, usted posee acceso al portal de estudiantes de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder.","Autogestión ISAUI", true);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -37,7 +37,7 @@ public class estudianteController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             estudianteConexion<estudiante>.Instance.Update(estudiante);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -49,10 +49,11 @@ public class estudianteController : Controller
          
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            estudianteConexion<estudiante>.Instance.Delete(Convert.ToInt32(id));
-            return Json("registro eliminado");
+            var r = estudianteConexion<estudiante>.Instance.Delete(Convert.ToInt32(id));
+            if(r){return Json("registro eliminado");}
+            else return Json("error");
         }
-        else return null;
+        else return Json("error");
 
     }
 

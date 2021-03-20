@@ -18,7 +18,7 @@ public class FormulaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             FormulaConexion<formula>.Instance.Insert(formula);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class FormulaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             FormulaConexion<formula>.Instance.Update(formula);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

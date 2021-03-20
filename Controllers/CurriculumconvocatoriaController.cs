@@ -21,11 +21,11 @@ public class CurriculumconvocatoriaController: Controller
             var lista = CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.SearchAll(filtroaux);
             if(lista.Count==0){
                 CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Insert(Curriculumconvocatoria);
-                return Json("Guardado exitoso");
+                return Json("El proceso de almacenado se realizó con éxito.");
             }
             else{
                 CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.actualizarConvocatoria(Curriculumconvocatoria);
-                return Json("Guardado exitoso");
+                return Json("El proceso de almacenado se realizó con éxito.");
             }
         
         }
@@ -40,7 +40,7 @@ public class CurriculumconvocatoriaController: Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CurriculumconvocatoriaConexion<curriculumconvocatoria>.Instance.Update(Curriculumconvocatoria);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

@@ -115,7 +115,7 @@ obtenerArchivo(fileDir: string) : Observable<any> {
         if (token == undefined || token == null) { token = ''; }
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'token': token });//.set('Content-Type', 'application/json');
         //mandamos la peticion post para insertar el objeto dentro de nuestra base de datos
-        //nos retornara un mensaje de exito con la siguiente leyenda "Guardado Exitoso"
+        //nos retornara un mensaje de exito con la siguiente leyenda "El proceso de almacenado se realizó con éxito."
         //de los contrario nos figuara cual es el error por el cual no puede tomar la peticion
         return this._http.post<any>(this.baseUrl + 'api/' + abm, params, { headers: headers });
 

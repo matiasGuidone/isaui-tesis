@@ -18,7 +18,7 @@ public class LugarController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             LugarConexion<lugar>.Instance.Insert(Lugar);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class LugarController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             LugarConexion<lugar>.Instance.Update(Lugar);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

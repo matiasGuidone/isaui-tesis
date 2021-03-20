@@ -18,7 +18,7 @@ public class HorasMateriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             HorasMateriaConexion<horasmateria>.Instance.InsertHoramateria(HorasMateria);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -31,7 +31,7 @@ public class HorasMateriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             HorasMateriaConexion<horasmateria>.Instance.Update(HorasMateria);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

@@ -18,7 +18,7 @@ public class HorasDiaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             HorasDiaConexion.Instance.Insert(HorasDia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -31,7 +31,7 @@ public class HorasDiaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             HorasDiaConexion.Instance.Update(HorasDia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

@@ -18,7 +18,7 @@ public class CarreraController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CarreraConexion<carrera>.Instance.Insert(carrera);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -32,7 +32,7 @@ public class CarreraController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CarreraConexion<carrera>.Instance.Update(carrera);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 

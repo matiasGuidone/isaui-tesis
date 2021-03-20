@@ -52,7 +52,7 @@ public class InvestigacioninformacionController : Controller
                 }
             }
 
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
 
         }
         else return null;
@@ -65,7 +65,7 @@ public class InvestigacioninformacionController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             InvestigacioninformacionConexion<investigacion>.Instance.Update(Investigacioninformacion);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

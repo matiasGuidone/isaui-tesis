@@ -81,7 +81,7 @@ public class AltadocenteController : Controller
             
 
         //CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 

@@ -18,7 +18,7 @@ public class CalificacionestudianteController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -31,7 +31,7 @@ public class CalificacionestudianteController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CalificacionestudianteConexion<calificacionestudiante>.Instance.Update(Calificacionestudiante);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

@@ -53,7 +53,7 @@ public class DatoadjuntoController : Controller
                 }
             }
             //(datoadjunto);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -67,7 +67,7 @@ public class DatoadjuntoController : Controller
         {
 
             DatoadjuntoConexion<datoadjunto>.Instance.Update(datoadjunto);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

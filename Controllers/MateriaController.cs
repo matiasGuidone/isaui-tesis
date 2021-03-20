@@ -18,7 +18,7 @@ public class MateriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             MateriaConexion<materia>.Instance.Insert(Materia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class MateriaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             MateriaConexion<materia>.Instance.Update(Materia);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -41,10 +41,11 @@ public class MateriaController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-            MateriaConexion<materia>.Instance.Delete(Convert.ToInt32(id));
-            return Json("registro eliminado");
+            var r = MateriaConexion<materia>.Instance.Delete(Convert.ToInt32(id));
+            if (r){ return Json("registro eliminado");}
+            else return Json("error");
         }
-        else return null;
+        else return Json("error");
     }
 
     //GET

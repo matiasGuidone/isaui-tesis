@@ -18,7 +18,7 @@ public class MenuController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         MenuConexion<menu>.Instance.Insert(Menu);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
          }
         else return null;
     }
@@ -30,7 +30,7 @@ public class MenuController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         MenuConexion<menu>.Instance.Update(Menu);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
          }
         else return null;
     }
@@ -41,10 +41,10 @@ public class MenuController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        MenuConexion<menu>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+        var r = MenuConexion<menu>.Instance.Delete(Convert.ToInt32(id));
+        if (r){return Json("registro eliminado");} else return Json("error");
          }
-        else return null;
+        else return Json("error");
     }
 
     //GET

@@ -19,7 +19,7 @@ public class CicloLectivoController : Controller
         {
         var idciclo = CicloLectivoConexion<ciclolectivo>.Instance.Insert(cicloLectivo);
         DocenteMateriaConexion<docentemateria>.Instance.IncrementarCiclo(idciclo);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -32,7 +32,7 @@ public class CicloLectivoController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         CicloLectivoConexion<ciclolectivo>.Instance.Update(cicloLectivo);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

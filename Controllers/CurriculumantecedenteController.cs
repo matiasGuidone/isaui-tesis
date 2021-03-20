@@ -18,7 +18,7 @@ public class CurriculumantecedenteController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             CurriculumantecedenteConexion<curriculumantecedente>.Instance.Insert(Curriculumantecedente);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
@@ -32,7 +32,7 @@ public class CurriculumantecedenteController : Controller
         {
 
             CurriculumantecedenteConexion<curriculumantecedente>.Instance.Update(Curriculumantecedente);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

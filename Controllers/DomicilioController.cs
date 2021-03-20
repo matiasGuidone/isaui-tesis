@@ -29,7 +29,7 @@ public class DomicilioController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             DomicilioConexion<domicilio>.Instance.Update(Domicilio);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

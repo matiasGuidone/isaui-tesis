@@ -18,7 +18,7 @@ public class RolesusuarioController: Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         RolesusuarioConexion<rolesusuario>.Instance.Insert(Rolesusuario);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
 }
         else return null;
     }
@@ -30,7 +30,7 @@ public class RolesusuarioController: Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         RolesusuarioConexion<rolesusuario>.Instance.Update(Rolesusuario);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -42,10 +42,10 @@ public class RolesusuarioController: Controller
         
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        RolesusuarioConexion<rolesusuario>.Instance.Delete(Convert.ToInt32(id));
-        return Json("registro eliminado");
+        var r = RolesusuarioConexion<rolesusuario>.Instance.Delete(Convert.ToInt32(id));
+        if (r){return Json("registro eliminado");} else return Json("error");
         }
-        else return null;
+        else return Json("error");
 
     }
 

@@ -20,7 +20,7 @@ public class AsistenciaController : Controller
         foreach(var asisten in Asistencia ){
             AsistenciaConexion<asistencia>.Instance.Insert(asisten);
         }
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
          }
         else return null;
 
@@ -33,7 +33,7 @@ public class AsistenciaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         AsistenciaConexion<asistencia>.Instance.Update(Asistencia);
-        return Json("Guardado exitoso");
+        return Json("El proceso de almacenado se realizó con éxito.");
          }
         else return null;
     }

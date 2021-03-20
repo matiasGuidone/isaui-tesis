@@ -18,7 +18,7 @@ public class EventoController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             EventoConexion<evento>.Instance.Insert(Evento);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -30,7 +30,7 @@ public class EventoController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             EventoConexion<evento>.Instance.Update(Evento);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }

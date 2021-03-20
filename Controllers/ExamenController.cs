@@ -19,7 +19,7 @@ public class ExamenController : Controller
         {
             Examen.Idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
             ExamenConexion<examen>.Instance.Insert(Examen);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
@@ -31,7 +31,7 @@ public class ExamenController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
             ExamenConexion<examen>.Instance.Update(Examen);
-            return Json("Guardado exitoso");
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
     }
