@@ -167,7 +167,8 @@ public class ObjetoConexion<T>
 
         }
         // cada vez que finalize hacemos un substring de la ultima coma para cerrar la consulta
-        consulta = consulta.Substring(0, consulta.Length - 1) + " WHERE ID = " + objeto.Id;
+
+        consulta = "SET FOREIGN_KEY_CHECKS = 0; "+consulta.Substring(0, consulta.Length - 1) + " WHERE Id = " + objeto.Id;
 
 
         Conexion.ConsultaParametros(consulta, param);
