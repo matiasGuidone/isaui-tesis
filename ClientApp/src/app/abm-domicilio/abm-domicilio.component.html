@@ -1,8 +1,19 @@
 
- <div class="cuadro-editar">
-<h5 style="float:left;">Domicilio</h5>
-<button style="float:right;border-radius: 50px;margin: 5px;width:30px;height:30px;" class="btn btn-outline-success"   title="Editar" (click)="colapsar()" ><span style="margin-left: -5px;"class="fa fa-edit fa-md"></span></button>
-<div style="display:none;" id="editor" >
+ <!-- <div class="cuadro-editar"> -->
+   <div class="row">
+
+    <div class="col-12">
+      <h5 >Domicilio</h5>
+    </div>
+    <!-- <div class="col-1">
+      <button class="btn btn-outline-success float-right" title="Editar" (click)="colapsar()" ><span class="fa fa-edit fa-md"></span></button>
+    </div> -->
+   </div>
+
+
+<!-- <div id="editor" >
+  <br>
+  <br> -->
 <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span style="width:110px;text-align: right;" title="pais"
@@ -32,7 +43,7 @@
       <span style="width:110px;text-align: right;" title="pais"
         class="input-group-text" id="basic-addon1">Localidad</span>
     </div>
-  <select  id="localidad" class="form-control">
+  <select  id="localidad" (change)="guardarDomicilio()" class="form-control">
     <option *ngFor="let localidad of listalocalidad " [value]="localidad.id">
       {{localidad.nombre}}
     </option>
@@ -45,11 +56,11 @@
       <span style="width:110px;text-align: right;" title="pais"
         class="input-group-text" id="basic-addon1">Domicilio</span>
     </div>
-  <input class="form-control" id="direccion" type="text" placeholder="calle-altura-depto.-piso">
+  <input class="form-control" id="direccion" (change)="guardarDomicilio()" type="text" placeholder="calle-altura-depto.-piso">
 </div>
-<button class="btn btn-info" (click)="guardarDomicilio()" ><span ></span>Aceptar</button>
-</div>
-</div>
+<!-- <button class="btn btn-info" (click)="guardarDomicilio()" ><span ></span>Aceptar</button> -->
+<!-- </div> -->
+<!-- </div> -->
 
 
  

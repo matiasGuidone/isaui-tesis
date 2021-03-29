@@ -1,0 +1,45 @@
+<div [class]="this.servicio.classtable">
+
+    <h3>Control de regularidades</h3>
+    <hr>
+    <div class="row my-2">
+       <h5 class="col-md-2 control-label">Ciclo lectivo: </h5>
+       <div class="col-md-6">
+          <select (change)="seleccionarCiclo()" class="form-control" id="ciclolectivo">
+             <option *ngFor="let ciclo of ciclos" selected [value]="ciclo.id">
+                {{ciclo.nombre}}
+             </option>
+          </select>
+ 
+       </div>
+    </div>
+    <div class="row">
+       <h5 class="col-md-2 control-label">Materias: </h5>
+       <div class="col-md-6">
+          <select (change)="seleccionarMateria()" class="form-control" id="materia">
+             <option *ngFor="let materia of materias" [value]="materia.id">
+                {{materia.nombre}}
+             </option>
+          </select>
+ 
+       </div>
+    </div>
+ 
+       <br />
+       <table [class]="this.servicio.classtable2">
+          <thead>
+             <tr>
+                 <th>Estudiantes</th>
+                 <th>Condición notas</th>
+                 <th>Condición asistencias</th>
+            </tr>
+        </thead>
+        <tbody>
+           <tr *ngFor="let estudiante of estudiantes">
+            <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
+            <td><select value="{{estudiante.condicion}}" (change)="modificar('n',estudiante.id)" name="" id="nota-{{estudiante.id}}"><option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option></select></td>
+            <td><select value="{{estudiante.condiciona}}" (change)="modificar('a',estudiante.id)" name="" id="asis-{{estudiante.id}}"><option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option></select></td>
+           </tr>
+        </tbody>
+     </table>
+  </div>

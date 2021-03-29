@@ -20,7 +20,7 @@ export class NavMenuComponent {
  componentes:any[]; 
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
-    .subscribe( res => this.menus = res);
+    .subscribe( res => {this.menus = res; this.ordenar();});
 
   }
 
@@ -99,4 +99,18 @@ export class NavMenuComponent {
   getIdRol(){
     return +JSON.parse(localStorage.getItem('Rol')).idroles;
   }
+
+  ordenar(){ 
+    this.menus = this.menus.sort(function (a, b) {
+      if (a['nombre'].toLowerCase() > b['nombre'].toLowerCase()) {
+        return 1;
+      }
+      if (a['nombre'].toLowerCase() < b['nombre'].toLowerCase()) {
+        return -1;
+      }
+      // a must be equal to b
+      
+      return 0;
+    });}
+    
 }

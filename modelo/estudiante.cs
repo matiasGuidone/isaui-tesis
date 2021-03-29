@@ -7,6 +7,7 @@ public class estudiante : oObjeto
     public string Numerodoc { get; set; }
     public int Legajo { get; set; }
     public string Condicion { get; set; }
+     public string Condiciona { get; set; }
     public string Correo { get; set; }
     public DateTime Fechanac { get; set; }
     public int Iddomicilio { get; set; } 
@@ -20,6 +21,7 @@ public class estudiante : oObjeto
         this.Apellido = dr["apellido"].ToString();
         this.Numerodoc = dr["numerodoc"].ToString();
         this.Condicion = dr["condicion"].ToString();
+        this.Condiciona = dr["condiciona"].ToString();
         this.Correo = dr["correo"].ToString();
         if(dr["fechanac"] != DBNull.Value){this.Fechanac = Convert.ToDateTime(dr["fechanac"]); }
         if(dr["iddomicilio"] != DBNull.Value) {this.Iddomicilio = Convert.ToInt32(dr["iddomicilio"]);}

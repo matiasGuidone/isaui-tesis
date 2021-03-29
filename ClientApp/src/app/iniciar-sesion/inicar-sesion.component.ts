@@ -32,7 +32,7 @@ export class IniciarSesionComponent implements OnInit {
   onLogin() {
     const user = { nombre: this.nCuenta, codigo: this.nClave };
     this.autS.login(user).subscribe(res => {
-      console.log(res);
+      //console.log(res);
       if (res != "404") {
         let json = JSON.parse(res.toString());
         if (Array.isArray(json.rol.nombrerol)) {
@@ -52,7 +52,7 @@ export class IniciarSesionComponent implements OnInit {
       }
     },
       er => {
-        console.log(er);
+        //console.log(er);
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { console.log(n); });
       }
     );

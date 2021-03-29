@@ -62,7 +62,17 @@ public class estudianteMateriaController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        return estudianteMateriaConexion<estudiantemateria>.Instance.SearchAll(arrayfiltros);
+            if(arrayfiltros.Any(p => p == "estadonotas_i")){
+
+                estudianteMateriaConexion<estudiantemateria>.Instance.SetEstadoNotas(arrayfiltros[0],arrayfiltros[1],arrayfiltros[2],arrayfiltros[4]);
+                return null;
+            }
+            else if(arrayfiltros.Any(p => p == "estadoasistencias_i")){
+
+                estudianteMateriaConexion<estudiantemateria>.Instance.SetEstadoAsistencias(arrayfiltros[0],arrayfiltros[1],arrayfiltros[2],arrayfiltros[4]);
+                return null;
+            }
+            else{ return estudianteMateriaConexion<estudiantemateria>.Instance.SearchAll(arrayfiltros);}
         }
         else return null;
     }

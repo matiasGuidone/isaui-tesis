@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Modal } from './models/modal.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from './modal-service.service';
@@ -18,6 +18,10 @@ export class MyModalComponent extends Modal implements OnInit {
   parametros: any[];
   formGroup: FormGroup;
   objetoIn: any;
+  sugerencia = new Array<any>();
+  parametrosugerencia="";
+  campo = "";
+  nombre: string;
 
 
   constructor(private modalService: ModalService, private router: Router, private logservicio: AuthLoginService) {
@@ -26,12 +30,12 @@ export class MyModalComponent extends Modal implements OnInit {
     this.modalService.setListaAbm();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     // Tipo 5 : Mensajes Vista
-   /*  if (this.tipo == 5){
-      let htmlvista = document.getElementById('htmlvista');
-      htmlvista.innerHTML = this.message;
-      } */
+    /*  if (this.tipo == 5){
+       let htmlvista = document.getElementById('htmlvista');
+       htmlvista.innerHTML = this.message;
+       } */
   }
 
   onInjectInputs(inputs): void {
@@ -60,8 +64,8 @@ export class MyModalComponent extends Modal implements OnInit {
         else if (i.toString().startsWith('hora', 0)) {
           tp = "time";
         }
-        else if(i.toString().startsWith('Relación', 0)){
-          tp= "sino";
+        else if (i.toString().startsWith('Relación', 0)) {
+          tp = "sino";
         }
         let obj = new ObjetoValor(i.toString(), inputs.parametros[i].toString(), tp);
         this.parametros.push(obj);
@@ -153,6 +157,45 @@ export class MyModalComponent extends Modal implements OnInit {
     if (dia.length < 2) { dia = '0' + dia; }
     return (fecha.getFullYear() + '-' + mes + '-' + dia);
   }
+
+  buscarCampo(cmp) {
+    let tabla = cmp.tipo.substr(2);
+    
+    let cadena: string = document.getElementById(cmp.tipo + "-desc")['value'];
+    if (cadena.length == 1 ) {
+      this.modalService.getDescripcion("1", tabla)
+        .subscribe(
+          res => {
+            for (var i in res) {
+              this.campo = i;
+              break;
+            }
+            this.modalService.getlistasugerencia(this.campo, cadena, tabla).subscribe(list => {
+              this.parametrosugerencia = tabla;
+              this.sugerencia = list;
+              //console.log(this.sugerencia)
+            });
+          });
+
+    }
+  }
+
+  sugerencias(cmp) {
+    // if (this.modalService.provincias != null && this.caLocProService.provincias != undefined) {
+    //   let cadena: string = this.formGroup.get('proNac').value;
+    //   cadena = cadena.toUpperCase();
+    let par = cmp.tipo.substr(2);
+      if (this.sugerencia.length > 0 && par == this.parametrosugerencia) {
+        let cadena: string = document.getElementById(cmp.tipo + "-desc")['value'];
+        this.sugerencia.filter(c => c.nombre.startsWith(cadena))
+          .slice(0, 5);
+
+      }
+    // }
+
+  }
+
+
   buscarDescripcion(desc: string, val: string) {
     let par = desc.substr(2);
     let valor = "0";
@@ -168,11 +211,13 @@ export class MyModalComponent extends Modal implements OnInit {
 
   }
   cargarCampo(res: any, desc: string) {
+    if(desc != 'iddomicilio'){
     for (var i in res) {
       this.formGroup.get(desc).setValue(res['id']);
       document.getElementById(desc + '-desc')['value'] = res[i];
       break;
     }
+  }
   }
   isValidDesc(campo): boolean {
     try {
@@ -186,6 +231,12 @@ export class MyModalComponent extends Modal implements OnInit {
     return true;
 
   }
+  seleccionadatalist(parametro){
+    let inpt = document.getElementById("in-"+parametro)
+    let vl = this.sugerencia.find( d => d[this.campo] == document.getElementById(parametro+'-desc')['value']);
+    inpt['value'] = vl.id;
+  }
+
 }
 
 class ObjetoValor {

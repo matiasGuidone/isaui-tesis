@@ -57,7 +57,7 @@ export class FrmCurriculumComponent implements OnInit {
   }
   teclaenter(key) {
     if (key.keyCode === 13) {
-      console.log(key);
+      //console.log(key);
     }
   }
   cargaInicial() {
@@ -67,7 +67,7 @@ export class FrmCurriculumComponent implements OnInit {
         this.provincias = p;
         this.servicio.loadGrilla('pais').subscribe(pa => {
           this.paises = pa;
-          console.log('carga inicial finalizada***')
+          //console.log('carga inicial finalizada***')
           let idpro = this.localidades.find(loc => loc.id ==  this.domicilioaux.idlocalidad ).idprovincia;
           this.idpais = this.provincias.find(pro => pro.id == idpro ).idpais;
           //document.getElementById('pais')['value'] = idpais;

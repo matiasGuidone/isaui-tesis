@@ -20,10 +20,11 @@ public class DocenteController : Controller
         DocenteConexion<docente>.Instance.Insert(docente);
         DocenteConexion<docente>.Instance.RegistrarRol(docente);
         EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
+        var usuario = UsuarioConexion<usuario>.Instance.SearchId(docente.Idusuario);
 
             gestor.EnviarCorreo(docente.Correo,
                                 "Acceso concedido",
-                                "Bienvenido !!!, usted posee acceso al portal de docente de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder.","Autogestión ISAUI", true);
+                                $"Bienvenido !!!, usted posee acceso al portal de Docentes de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder. <br> <p>Usuario: '{usuario.Nombre}' </p> <p> Contraseña: '{usuario.Codigo}' </p>","Acceso concedido", true);
 
         return Json("El proceso de almacenado se realizó con éxito.");
         }

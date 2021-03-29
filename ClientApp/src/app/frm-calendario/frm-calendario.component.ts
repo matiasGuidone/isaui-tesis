@@ -21,7 +21,7 @@ export class FrmCalendarioComponent implements OnInit {
 
   constructor(private servicio: PeticionesService) {
     for (let i = 0; i < 13; i++) {
-      console.log(i.toString() + ": " + this.diasEnUnMes(i, 2020));
+      //console.log(i.toString() + ": " + this.diasEnUnMes(i, 2020));
     }
     this.primero = new Date(this.actual.getFullYear(), this.actual.getMonth(), 1);
     this.cantidad = this.diasEnUnMes(this.actual.getMonth() + 1, this.actual.getFullYear());

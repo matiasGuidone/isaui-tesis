@@ -123,7 +123,7 @@ export class AbmConvocatoriaComponent extends abm<convocatoria> implements OnIni
     this.abrirModal('Confirmar', 'Desea postularse en esta convocatoria', 1, null).subscribe(r => {
 
       this.curcom = new curriculumconvocatoria({ 'idcurriculum': this.curriculum, 'idconvocatoria': ids, 'puntaje': 0, 'prioridad': 0 });
-      console.log(this.curcom)
+      //console.log(this.curcom)
       this.servicio.addSingleAbm(this.curcom, 'Curriculumconvocatoria').subscribe(x => {
         this.abrirModal(x, 'Muchas gracias por tu Postulacion', 2, 3).subscribe(n => {
           this.inicioCv();

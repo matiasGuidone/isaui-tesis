@@ -24,7 +24,7 @@ export class VerMensajeComponent implements OnInit {
     if (!this.mensajes){
 
       this.estudiante =  JSON.parse(localStorage.getItem("Rol"));
-      console.log(this.estudiante)
+      //console.log(this.estudiante)
 
     }
     this.servicio.loadGrilla("Materiaestudiantemensaje", this.estudiante['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});

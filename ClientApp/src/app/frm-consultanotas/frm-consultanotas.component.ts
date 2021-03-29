@@ -20,35 +20,42 @@ import { estudiante } from '../clases/estudiante';
 export class ConsultanotasComponent implements OnInit {
 
   materias: materia[] = new Array<materia>();
-  prom: any; 
+  prom: any;
   parciales: any[] = new Array<any>();
   finales: any[] = new Array<any>();
   calificaciones: any[] = new Array<any>();
   estainscripto: string = '';
   idmateria = 0;
-  habilitada:boolean =false;
+  habilitada: boolean = false;
   ciclos: ciclolectivo[];
   ciclolectivo: any;
+  condicionnotas: string;
+  condicionasistencias: string;
 
   constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) {
     this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
       this.ciclos = ciclos;
-    let rol = JSON.parse(localStorage.getItem("Rol"));
-    if (rol.nombrerol.toString() == "Estudiante") {
-      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+      let rol = JSON.parse(localStorage.getItem("Rol"));
+      if (rol.nombrerol.toString() == "Estudiante") {
+        this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(
+          resultado => {
+            this.materias = resultado;
+            if (this.materias.length > 0) { this.seleccionarMateria(this.materias[0].id); }
+          });
 
-    }});
+      }
+    });
   }
 
 
   ngOnInit() {
   }
-  seleccionarCiclo(){
+  seleccionarCiclo() {
     let ciclolectivo = document.getElementById('ciclolectivo')['value'];
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if (rol.nombrerol.toString() == "Estudiante") {
-      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString(),'idciclolectivo',ciclolectivo.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
-    }   
+      this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString(), 'idciclolectivo', ciclolectivo.toString()]).subscribe(resultado => { this.materias = resultado; if (this.materias.length > 0) this.seleccionarMateria(this.materias[0].id) });
+    }
   }
 
 
@@ -63,22 +70,23 @@ export class ConsultanotasComponent implements OnInit {
     let ciclolectivo = document.getElementById('ciclolectivo')['value'];
     this.servicio.loadGrilla('calificacionrepo', [ids.idestudiante.toString(), ids.idmateria.toString(), ciclolectivo.toString()]).subscribe(calificacion => {
       this.calificaciones = calificacion;
+      //console.log( this.calificaciones);
       this.parciales = new Array<any>();
       this.estainscripto = '';
       this.finales = new Array<any>();
       this.prom = 0;
       if (calificacion != null && calificacion.length > 0) {
         for (let c of calificacion) {
-          if (c.tipoexamen == 'parcial' ) {
-            if(c.nota == 0){c.nota = 'sin calificación'}
-            c.fecha =  new Date(c.fecha) ;
+          if (c.tipoexamen == 'parcial') {
+            if (c.nota == 0) { c.nota = 'sin calificación' }
+            c.fecha = new Date(c.fecha);
             this.parciales.push(c);
             this.prom += c.nota;
 
           }
           if (c.tipoexamen == 'final') {
             if (c.nota != 0 && c.nota != 11) {
-              c.fecha =  new Date(c.fecha);
+              c.fecha = new Date(c.fecha);
               this.finales.push(c);
             }
             else if (c.nota == 0 && c.idcalificacion == 0) { this.estainscripto = 'no'; }
@@ -91,24 +99,31 @@ export class ConsultanotasComponent implements OnInit {
         else { this.prom = this.prom.toFixed(1); }
         this.habilitadaInscripcion();
       }
+
+      //buscar condiciones
+      let filtros = ['idmateria',this.idmateria , 'idciclolectivo', ciclolectivo,'idestudiante',rol.id];
+       this.servicio.loadGrilla("estudiante",filtros).subscribe(r =>{
+         this.condicionasistencias = r[0].condiciona;
+         this.condicionnotas = r[0].condicion;
+       });
     })
   }
 
   habilitadaInscripcion() {
     //condicion de los días de habilitacion
-    if (this.calificaciones.length>0) {
+    if (this.calificaciones.length > 0) {
       this.modalservice.setCaseEstado('tiempoExamen');
-      let fecha = this.calificaciones.find(exam => exam.tipoexamen == 'final' && exam.nota == 0 );
-      if(fecha!=undefined){
-      let fechadesde = this.sumarDias( new Date(fecha.fecha), -(+this.modalservice.estados.DiasDesde));
-      let fechahasta = this.sumarDias( new Date(fecha.fecha), -(+this.modalservice.estados.DiasHasta));
-      if (new Date() > fechadesde && new Date() < fechahasta) {
-        if ((this.estainscripto == 'no' || this.estainscripto == 'estuvo') && this.parciales.length>=4) { this.habilitada= true; }
-        else if (this.estainscripto == 'si') { this.habilitada= false; }
+      let fecha = this.calificaciones.find(exam => exam.tipoexamen == 'final' && exam.nota == 0);
+      if (fecha != undefined) {
+        let fechadesde = this.sumarDias(new Date(fecha.fecha), -(+this.modalservice.estados.DiasDesde));
+        let fechahasta = this.sumarDias(new Date(fecha.fecha), -(+this.modalservice.estados.DiasHasta));
+        if (new Date() > fechadesde && new Date() < fechahasta) {
+          if ((this.estainscripto == 'no' || this.estainscripto == 'estuvo') && this.parciales.length >= 4) { this.habilitada = true; }
+          else if (this.estainscripto == 'si') { this.habilitada = false; }
+        }
       }
+      else this.habilitada = false;
     }
-      else this.habilitada=  false;
-    } 
   }
   inscribirfinal() {
     if (this.estainscripto == 'si') {
@@ -134,19 +149,19 @@ export class ConsultanotasComponent implements OnInit {
       let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
       this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         let idestudiante = JSON.parse(localStorage.getItem("Rol")).id;
-        this.servicio.getById(idestudiante, "estudiante").subscribe((est:estudiante) =>{
-          this.servicio.enviarcorreo('Te inscribiste al final de <strong>'+this.materias.find(m => m.id == this.idmateria).nombre+'</strong>, el Horario del exámen es: '+final.fecha.toString(),'Inscripción a exámen Final', est.correo).subscribe(r=>{
+        this.servicio.getById(idestudiante, "estudiante").subscribe((est: estudiante) => {
+          this.servicio.enviarcorreo('Te inscribiste al final de <strong>' + this.materias.find(m => m.id == this.idmateria).nombre + '</strong>, el Horario del exámen es: ' + final.fecha.toString(), 'Inscripción a exámen Final', est.correo).subscribe(r => {
             let notificacion = document.getElementById("notificacion");
-              let textnotificacion = document.getElementById("textnotificacion");
-              
-                notificacion.className = "alert alert-success alert-dismissible fade show";
-                notificacion.style.display = "block";
-                textnotificacion.innerText = "Estás inscripto en el final de "+this.materias.find(m => m.id == this.idmateria).nombre+'. Verificá tu buzón de correo.';
-               
+            let textnotificacion = document.getElementById("textnotificacion");
+
+            notificacion.className = "alert alert-success alert-dismissible fade show";
+            notificacion.style.display = "block";
+            textnotificacion.innerText = "Estás inscripto en el final de " + this.materias.find(m => m.id == this.idmateria).nombre + '. Verificá tu buzón de correo.';
+
             this.seleccionarMateria();
           })
         })
-         
+
       });
     }
   }

@@ -10,6 +10,9 @@ public class notarepo
     public DateTime fecha { get; set; }
     public int idexamen { get; set; }
     public int idcalificacion { get; set; }
+    public string condicion { get; set; }
+
+    public string condiciona { get; set; }
 
     public notarepo() { }
 
@@ -22,6 +25,8 @@ public class notarepo
         fecha = Convert.ToDateTime(dr[3]);
         idexamen = Convert.ToInt32(dr[4]);
         idcalificacion = Convert.ToInt32(dr[5]);
+        condicion = dr["condicion"].ToString();
+        condiciona = dr["condiciona"].ToString();
     }
 
 

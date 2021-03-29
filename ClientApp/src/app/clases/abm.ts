@@ -205,5 +205,9 @@ export class abm<T>{
         }
       }
 
+      closealert(){
+        let notificacion = document.getElementById("notificacion");
+        notificacion.style.display = "none";
+      }
 
 }

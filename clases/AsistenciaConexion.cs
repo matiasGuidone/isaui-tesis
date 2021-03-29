@@ -39,14 +39,15 @@ using System.Collections.Generic;
             if(fechaDesde == default(DateTime)){fechaDesde = System.DateTime.Now.AddDays(-8); }
             if(fechaHasta == default(DateTime)){fechaHasta = System.DateTime.Now; }
             if(totales){estudiante = "estudiante.Id,"; 
-                        consulta += "SELECT T3.estudiante, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos from ( ";}
+                        consulta += "SELECT T3.estudiante, 'Todas' as Materia, Sum(T3.ModulosPresente) as ModulosPresente, Sum(T3.CantidadModulos) as CantidadModulos, estadoasistencias from ( ";}
 
-            consulta += $"select {estudiante} concat(estudiante.apellido,', ',estudiante.nombre) as estudiante,"+
+            consulta += $"select {estudiante} concat(estudiante.apellido,', ',estudiante.nombre) as estudiante, estudiantemateria.estadoasistencias, "+
                 $"materia.nombre as Materia, count(asistencia.Id) as ModulosPresente , "+
                 $"modulos as CantidadModulos from asistencia "+
                 $"join horasmateria on asistencia.idhoramateria = horasmateria.id "+
                 $"JOIN estudiante on asistencia.idestudiante = estudiante.id "+
                 $"join materia on horasmateria.idmateria = materia.Id "+
+                $"join estudiantemateria on estudiantemateria.idmateria = materia.Id and estudiantemateria.idestudiante = estudiante.id "+
                 $"JOIN ( SELECT idmateria, Sum(modulos) as modulos from ( SELECT horasmateria.idmateria, COUNT(horasmateria.id)*Cnt AS modulos "+
                 $"FROM horasmateria,(SELECT DAYOFWEEK(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY))-1 as DIA, " +
                 $"COUNT(DATE_ADD('{fechaDesde.ToString("yyyy-MM-dd")}', INTERVAL row DAY)) as Cnt "+

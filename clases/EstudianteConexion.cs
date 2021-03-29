@@ -35,14 +35,18 @@ using System.Data;
             
             return (List<estudiante>)Conexion.consultaList<estudiante>(consulta);
         }
-         public List<estudiante> SearchestudiantesMateria( Int32 idmateria  ,Int32 idciclolectivo = default(Int32))
+         public List<estudiante> SearchestudiantesMateria( Int32 idmateria  ,Int32 idciclolectivo = default(Int32),Int32 idestudiante = default(Int32))
         {  
+            var estudiante = "";
              if(idciclolectivo == default(Int32)){
                 idciclolectivo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
             }
-            string consulta =   $"select estudiante.* from estudiante where "+
-                                $"estudiante.id in (select idestudiante from"+
-                                $" estudiantemateria where idmateria = {idmateria} and idciclolectivo = {idciclolectivo})";
+            if(idestudiante != default(Int32)){
+                estudiante = $" and estudiante.id = {idestudiante} ";
+            }
+            string consulta =  $"select estudiante.id, estudiante.nombre, estudiante.apellido, estudiante.fechanac, estudiante.numerodoc, estudiante.correo, estudiante.Idusuario, estudiante.Iddomicilio, estudiante.legajo, estudiante.telefono, estudiantemateria.estadonotas as condicion, estudiantemateria.estadoasistencias as condiciona from estudiante JOIN estudiantemateria on estudiante.id = idestudiante where idmateria = {idmateria} and idciclolectivo = {idciclolectivo} {estudiante} ";
+                                // $"estudiante.id in (select idestudiante from"+
+                                // $" estudiantemateria where idmateria = {idmateria} and idciclolectivo = {idciclolectivo})";
             
             return (List<estudiante>)Conexion.consultaList<estudiante>(consulta);
         }

@@ -30,7 +30,8 @@
          <thead>
             <tr>
                <th scope="col"><button title="Excel de notas" (click)="excelNotas()" id="excel"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-success"><span class="fas fa-file-excel fa-md"></span></button>
-                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button>estudiantes</th>
+                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button> Estudiantes</th>
+                  <th scope="col" style="width: 20%;"> Condición de notas</th>
                <th scope="col" *ngFor="let examen of examenes"  >
                   <span class="lead" (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
                   <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
@@ -69,12 +70,15 @@
          <tbody>
             <tr *ngFor="let estudiante of estudiantes">
                <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
+               <td class="col-2"> <select (change)="guardarCondicion(estudiante.id)" class="form-control float-left" style="width:70%;" name="" value="{{estudiante.condicion}}" id="condicion-{{estudiante.id}}">
+                  <option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option></select>
+                    </td>
                <td style="width: 75px;" *ngFor="let examen of examenes" id="{{estudiante.id}}-{{examen.id}}">
                   <input style="width: 60px;" type="number" id="in-{{estudiante.id}}-{{examen.id}}"
                      (keyup)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())"
-                     (change)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())" />
-                  <a title="registrar" id="btn-{{estudiante.id}}-{{examen.id}}" (click)="guardarNota(estudiante.id,examen.id)"
-                     class="fa fa-check bg-success border m-2 p-1"></a></td>
+                     (change)="guardarNota(estudiante.id,examen.id)" />
+                  <!-- <a title="registrar" id="btn-{{estudiante.id}}-{{examen.id}}" (click)=""
+                     class="fa fa-check bg-success border m-2 p-1"></a></td> -->
                <!-- <td *ngFor="let nota of notas">{{nota.nota}}</th> -->
             </tr>
          </tbody>

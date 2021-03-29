@@ -41,11 +41,13 @@ public class CalificacionestudianteConexion<T> : ObjetoConexion<calificacionestu
                         "materia.nombre, " +
                         "examen.tipo, " +
                         "IFNULL(calificacionestudiante.nota,0), " +
-                        "examen.fecha, examen.id idexamen, IFNULL(calificacionestudiante.id,0) idcalificacion " +
+                        "examen.fecha, examen.id idexamen, IFNULL(calificacionestudiante.id,0)"+
+                        " idcalificacion, estudiantemateria.estadonotas as condicion, estudiantemateria.estadoasistencias as condiciona  " +
                         "FROM " +
                         "examen " +
                         "JOIN materia ON " +
-                        "materia.Id = examen.Idmateria " +
+                        "materia.Id = examen.Idmateria join estudiantemateria on estudiantemateria.idmateria = " + 
+                        $"materia.id and examen.idciclolectivo = estudiantemateria.idciclolectivo and estudiantemateria.idestudiante = {idestudiante} " +
                         "LEFT JOIN calificacionestudiante ON " +
                         "examen.Id = calificacionestudiante.Idexamen " +
                         $"AND calificacionestudiante.Idestudiante = {idestudiante}  " +

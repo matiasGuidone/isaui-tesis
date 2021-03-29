@@ -170,7 +170,7 @@ button {
   }
 
   #btn-abm {
-    width: auto;
-    height: 38px;
+    width: 100%;
+    height: 37px;
     margin: 0;
   }

@@ -33,6 +33,15 @@ using MySql.Data.MySqlClient;
                 parametro.Add(new MySqlParameter("idcurso", idcurso));
                 Conexion.ConsultaParametros(consulta, parametro);
         }
+
+        public void SetEstadoNotas(string idestudiante, string idmateria, string idciclo, string estadonotas){
+            string consulta = $"UPDATE estudiantemateria SET estadonotas = '{estadonotas}' WHERE idmateria = {idmateria} and idestudiante = {idestudiante} and idciclolectivo = {idciclo} ";
+            Conexion.ConsultaParametros(consulta,null);
+        }
+        public void SetEstadoAsistencias(string idestudiante, string idmateria, string idciclo, string estadoasistencias){
+            string consulta = $"UPDATE estudiantemateria SET estadoasistencias = '{estadoasistencias}' WHERE idmateria = {idmateria} and idestudiante = {idestudiante} and idciclolectivo = {idciclo} ";
+            Conexion.ConsultaParametros(consulta,null);
+        }
         
         
     }

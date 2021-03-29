@@ -121,5 +121,13 @@ export class ModalService {
       }
     }
   }
+  public getlistasugerencia(campo, cadena, tabla){
+    let token = localStorage.getItem("Access_Token");
+    if (token == undefined || token == null) { token = ''; }
+    //console.log(campo, cadena)
+    let headers = new HttpHeaders({ 'token': token ,'arrayfiltros':[campo,cadena]});
+    //const headers = new HttpHeaders({ });
+    return this.http.get<any>(this.baseUrl + 'api/' + tabla , { headers: headers });
+  }
 
 }

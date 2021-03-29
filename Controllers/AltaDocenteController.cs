@@ -26,7 +26,7 @@ public class AltadocenteController : Controller
             var roldocente = 0;
             var iddoc =0;
 
-            foreach (var item in todosroles){ if(item.Nombre == "docente"){roldocente = item.Id;} }
+            foreach (var item in todosroles){ if(item.Nombre == "Docente"){roldocente = item.Id;} }
             foreach (var item in roles)
             {   if(item.Idroles == roldocente){
                     esdocente= true;
@@ -73,7 +73,7 @@ public class AltadocenteController : Controller
             }
             else{
                 docentmateria = new docentemateria();
-                docentmateria.Idciclolectivo = 
+                docentmateria.Idciclolectivo = cicloactual;
                 docentmateria.Iddocente = iddoc;
                 docentmateria.Idmateria = Convert.ToInt32(idmateria);
                 DocenteMateriaConexion<docentemateria>.Instance.Insert(docentmateria);

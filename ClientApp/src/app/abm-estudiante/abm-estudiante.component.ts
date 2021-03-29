@@ -32,7 +32,7 @@ export class AbmestudianteComponent extends abm<estudiante> implements OnInit {
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
     this.nombre = 'estudiante';
-    this.objetoBlanco = new estudiante("0", "", "", "", "", "", "", "", "", "","");
+    this.objetoBlanco = new estudiante("0", "", "", "", "", "", "", "", "", "","","");
     this.modalService.setFiltro(this.objetoBlanco);
     if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
       if (this.modalService.listAbm.getData().name == this.nombre) {

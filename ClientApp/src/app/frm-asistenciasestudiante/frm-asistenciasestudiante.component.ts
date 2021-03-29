@@ -34,7 +34,7 @@ export class FrmAsistenciasestudianteComponent implements OnInit {
             this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
           }
           else {
-            this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log(el));
+            this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log());
 
           }
         });
@@ -68,7 +68,7 @@ export class FrmAsistenciasestudianteComponent implements OnInit {
           this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
         }
         else {
-          this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log(el));
+          this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log());
 
         }
       });
@@ -84,7 +84,7 @@ export class FrmAsistenciasestudianteComponent implements OnInit {
           this.setBackgrnd(div, this.asistencia['modulosPresente'] / this.asistencia['cantidadModulos'] * 100);
         }
         else {
-          this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log(el));
+          this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el => console.log());
         }
       });
     }

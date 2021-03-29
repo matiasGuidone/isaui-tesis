@@ -1,6 +1,6 @@
 
     {
-       "convocatoria": ["activo","anulado"],
+       "convocatoria": ["activo","anulado","finalizado"],
        "formacion": ["secundario","terciario","universitario","postgrado"],
        "examen": ["parcial","otro","final"],
        "menu": ["abm","rel","frm","static"],
@@ -13,6 +13,7 @@
        "tipoDoc": ["L.E / DNI","CARNET EXT.","RUC","PASAPORTE", "P. NAC.", "OTROS"],
        "sexo": ["Femenino", "Masculino","Otro"],
        "evento": ["materia","general","feriado"],
+       "condestudiantes": ["inscripto","regular","promocionado","libre"],
        "filtroAsistencias": {"Nombre/Apellido estudiante":"","totales":"","idcurso":"","idmateria":"","fecha desde": "","fecha hasta":""}
 
     }

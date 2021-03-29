@@ -21,9 +21,11 @@ public class estudianteController : Controller
             estudianteConexion<estudiante>.Instance.Insert(estudiante);
             estudianteConexion<estudiante>.Instance.RegistrarRol(estudiante);
             EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
+            var usuario = UsuarioConexion<usuario>.Instance.SearchId(estudiante.Idusuario);
+
             gestor.EnviarCorreo(estudiante.Correo,
                                 "Acceso concedido",
-                                "Bienvenido !!!, usted posee acceso al portal de estudiantes de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder.","Autogestión ISAUI", true);
+                                $"Bienvenido !!!, usted posee acceso al portal de Estudiantes de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder. <br> <p>Usuario: '{usuario.Nombre}' </p> <p> Contraseña: '{usuario.Codigo}' </p>","Acceso concedido", true);
             return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
@@ -75,6 +77,8 @@ public class estudianteController : Controller
                 return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1])); 
                 if (arrayfiltros.Length==4)
                 return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]));
+                if (arrayfiltros.Length==6)
+                return estudianteConexion<estudiante>.Instance.SearchestudiantesMateria(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3]),Convert.ToInt32(arrayfiltros[5]));
             }
             else
             {

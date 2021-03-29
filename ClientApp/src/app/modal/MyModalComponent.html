@@ -33,17 +33,23 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
-                 <input formControlName="{{par.tipo}}" style="width: 20px;" id="in-{{par.tipo}}" class="form-control float-left" type="{{par.tipoCampo}}"
+              <div class="col-2" style="padding-right:0px">
+                 <input formControlName="{{par.tipo}}" id="in-{{par.tipo}}" class="form-control float-left" type="{{par.tipoCampo}}"
                 (change)="buscarDescripcion(par.tipo)" value="{{par.valor}}" /> 
-                
-               <input class="form-control float-left desccampo"  disabled type="text" id="{{par.tipo}}-desc" />
-               <button title="{{par.tipo}}" id="btn-abm" class="btn btn-outline-info float-left"
+              </div>
+              <div class="col-9" style="padding:0">
+                <input autocomplete="off"  (change)="seleccionadatalist(par.tipo)" (keyup)="buscarCampo(par)" class="form-control select-option float-left" required list="sugerencia" id="{{par.tipo}}-desc" />
+                <datalist class="suggestions"  id="sugerencia"  >
+                 <option *ngFor="let s of sugerencia"  >{{s.nombre}}</option>
+               </datalist>
+              </div>
+              <div class="col-1" style="padding-left:0">
+                  <button title="Buscar {{par.tipo.substring(2)}}" id="btn-abm" class="btn btn-outline-info float-left"
                 (click)="abrirAbm(par.tipo, message)"><span class="fa fa-search"></span></button>
               </div>
-
-            </div>
-             
+              
+               
+              </div>
             <span style="margin:2px;" class="help-block"
               *ngIf="(formGroup.get(par.tipo).touched || formGroup.get(par.tipo).dirty) && formGroup.get(par.tipo).errors ">
               <span style="color:#bd1818;" *ngIf="formGroup.get(par.tipo).errors.required">

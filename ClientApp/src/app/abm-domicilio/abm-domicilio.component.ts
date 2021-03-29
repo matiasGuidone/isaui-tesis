@@ -20,9 +20,9 @@ import { AuthLoginService } from '../services/authlogin.service';
 })
 export class AbmDomicilioComponent extends abm<any> implements OnInit {
 
-  listaPais: any;
-  listaprovincia: any;
-  listalocalidad: any;
+  listaPais: pais[];
+  listaprovincia: provincia[];
+  listalocalidad: localidad[];
   @Input() id: number = 0;
   @Output() emisorId = new EventEmitter<number>();
 
@@ -47,33 +47,46 @@ export class AbmDomicilioComponent extends abm<any> implements OnInit {
       .subscribe(domic => {
         document.getElementById('direccion')['value'] = domic.direccion;
         document.getElementById('localidad')['value'] = domic.idlocalidad;
-        this.id = domic.id
-        this.servicio.getById(domic.idlocalidad.toString(), 'localidad')
-          .subscribe(local => {
-            document.getElementById('provincia')['value'] = local.idprovincia;
-            this.servicio.getById(local.idprovincia.toString(), 'provincia')
-              .subscribe(provin => {
-                document.getElementById('pais')['value'] = provin.idpais;
-              });
-          });
-      });
+        // this.id = domic.id
+        let idprov =  this.listalocalidad.find(l => l.id == domic.idlocalidad).idprovincia;
+        document.getElementById('provincia')['value'] = idprov;
+        document.getElementById('pais')['value'] = this.listaprovincia.find(l => l.id == idprov).idpais;
+      //   this.servicio.getById(domic.idlocalidad.toString(), 'localidad')
+      //     .subscribe(local => {
+      //       document.getElementById('provincia')['value'] = local.idprovincia;
+      //       this.servicio.getById(local.idprovincia.toString(), 'provincia')
+      //         .subscribe(provin => {
+      //           document.getElementById('pais')['value'] = provin.idpais;
+      //         });
+      //     });
+       });
   }
   //carga dinámica de listas
   ngOnInit() {
     this.servicio.loadGrilla('pais')
-      .subscribe(resultado => { this.listaPais = resultado; this.onChangePais(); });
+      .subscribe(resultado => { this.listaPais = resultado; 
+      this.servicio.loadGrilla('provincia').subscribe(listp => {
+        this.listaprovincia = listp;
+        this.servicio.loadGrilla('localidad').subscribe(listl => {
+          this.listalocalidad = listl;
+          this.cargarDomicilio(this.id);
+        })
+      });
+      })
+    // });
 
-      if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
-        if (this.modalService.listAbm.getData().iddomicilio != 0 && this.modalService.listAbm.getData().iddomicilio != null) {
-          this.cargarDomicilio(this.modalService.listAbm.getData().iddomicilio);
-        }
+      // if (this.modalService.listAbm != null && this.modalService.listAbm != undefined) {
+      //   if (this.modalService.listAbm.getData().iddomicilio != 0 && this.modalService.listAbm.getData().iddomicilio != null) {
+          //this.cargarDomicilio(this.id);
+      //   }
   
-      }
+      // }
   }
   onChangePais() {
     let id = document.getElementById('pais')['value'];
     this.servicio.loadGrilla('provincia', ['idpais', id.toString()])
-      .subscribe(resultado => { this.listaprovincia = resultado; this.onChangeProvincia(); });
+      .subscribe(resultado => { this.listaprovincia = resultado;
+                                this.onChangeProvincia(); });
   }
   onChangeProvincia() {
     let id = document.getElementById('provincia')['value'];
@@ -87,12 +100,10 @@ export class AbmDomicilioComponent extends abm<any> implements OnInit {
     this.servicio.addSingleAbm(domi, 'domicilio').subscribe(id => {
       
         if (this.id == 0) {
-          this.colapsar(); 
-          this.emisorId.emit(id);
-          
-          //this.modalService.listAbm.getData()['iddomicilio'] = id;
+          this.id = +id;
+          this.emisorId.emit(this.id);
         }
-        else { this.colapsar(); 
+         else { 
           this.emisorId.emit(this.id); }
       
     })
@@ -119,23 +130,23 @@ export class AbmDomicilioComponent extends abm<any> implements OnInit {
 
   addLocalidad() {
     this.nombre = 'localidad';
-    this.objetoBlanco = new localidad({ 'id': '0', 'nombre': '', 'idprovincia': document.getElementById('provincia')['value'] });
-    this.abrirModal('Nueva localidad ', 'localidad', 3, new localidad({ 'id': '0', 'nombre': '', 'idprovincia': document.getElementById('provincia')['value'] }))
+    this.objetoBlanco = new localidad({ 'id': '0', 'nombre': '', 'idprovincia': document.getElementById('provincia')['value'], 'codpostal':'' });
+    this.abrirModal('Nueva localidad ', 'localidad', 3, new localidad({ 'id': '0', 'nombre': '', 'idprovincia': document.getElementById('provincia')['value'] , 'codpostal':'' }))
       .subscribe(obj => this.guardar(obj)
         .subscribe(json => this.servicio.loadGrilla('localidad')
           .subscribe(res => { this.listalocalidad = res; })));
   }
 
-  colapsar(){
-    var editor = document.getElementById('editor');
-    if(editor.style.display == 'none'){
-      if(this.id != 0){ this.cargarDomicilio(this.id);}
-      editor.style.display = 'block';
-    }
-    else{
-      editor.style.display = 'none';
-    }
-  }
+  // colapsar(){
+  //   var editor = document.getElementById('editor');
+  //   if(editor.style.display == 'none'){
+  //     if(this.id != 0){ this.cargarDomicilio(this.id);}
+  //     editor.style.display = 'block';
+  //   }
+  //   else{
+  //     editor.style.display = 'none';
+  //   }
+  // }
 }
 
 

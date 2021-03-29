@@ -104,12 +104,12 @@ obtenerArchivo(fileDir: string) : Observable<any> {
 
       else {
         // Documentacion
-        console.log("Comenzando stringify para almacenar el objeto");
+        //console.log("Comenzando stringify para almacenar el objeto");
         // pasamos el objeto a una variable tipo paramatros que sera params
         let params = obj;
         //convertimos el objeto de angular a tipo json para que viaje con nuestra peticion al backend
         JSON.stringify(params);
-        console.log(params);
+        //console.log(params);
         // seteamos los header del http que el content type reciba un tipo application/json
         let token = localStorage.getItem("Access_Token");
         if (token == undefined || token == null) { token = ''; }

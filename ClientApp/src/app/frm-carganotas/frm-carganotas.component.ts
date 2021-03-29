@@ -16,6 +16,7 @@ import { logo64 } from '../filtro-abm/logo-base64';
 import { MyModalComponent } from '../modal/MyModalComponent';
 import { datoadjunto } from '../clases/datoadjunto';
 import { ciclolectivo } from '../clases/ciclolectivo';
+import { estudiantemateria } from '../clases/estudiantemateria';
 
 @Component({
   selector: 'app-frm-carganotas',
@@ -28,17 +29,27 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   estudiantes: estudiante[] = new Array<estudiante>();
   examenes: examen[] = new Array<examen>();
   notas: calificacionestudiante[];
+  listEstMat: estudiantemateria[];
+
   /*   @Input() esRelacion: boolean = false;
     @Output() emisorId = new EventEmitter<string[]>(); */
   iddocente = null;
   ciclos: ciclolectivo[];
   es_firefox:any;
+  condiciones: any[];
+
   constructor(protected location: Location,
     protected modalService: ModalService,
     protected servicio: PeticionesService,
     protected excelservicio: ExcelService,
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
+
+
+    this.modalService.setCaseEstado('condestudiantes');
+    this.condiciones = this.modalService.estados;
+
+
     this.modalService.setCaseEstado('examen');
     //--
     let rol = JSON.parse(localStorage.getItem("Rol"));
@@ -139,16 +150,14 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
                     //input de nota
                     let text = document.getElementById("in-" + alu.id.toString() + "-" + fin.id.toString());
                     //boton de nota
-                    let btn = document.getElementById("btn-" + alu.id.toString() + "-" + fin.id.toString());
+                    //let btn = document.getElementById("btn-" + alu.id.toString() + "-" + fin.id.toString());
                     if (text['value'] == 11) {
                       text['value'] = '';
                     }
                     else if (text['value'] == 0 || text['value'] == '') {
                       text.style.display = 'none';
-                      btn.style.display = 'none';
                     }
                     else {
-                      btn.style.display = 'none';
                     }
                   }
                 }
@@ -164,6 +173,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
 
   //evento boton de guardado de nota
   guardarNota(idestudiante, idexamen) {
+    this.Numeros('in-'+idestudiante.toString()+'-'+idexamen.toString())
     let obj = this.notas.find(nota => nota.idestudiante == idestudiante && nota.idexamen == idexamen);
     let idnota;
     if (obj == undefined || obj == null) { idnota = 0; }
@@ -185,6 +195,18 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
           this.notas = notas;
         });
       }
+    });
+
+  }
+   //evento boton de guardado de nota
+   guardarCondicion(idestudiante) {
+    // let obj = this.notas.find(nota => nota.idestudiante == idestudiante && nota.idexamen == idexamen);
+    // let idnota;
+    // if (obj == undefined || obj == null) { idnota = 0; }
+    // else { idnota = obj.id; }
+    var condicion = document.getElementById('condicion-' + idestudiante.toString())['value'];
+    this.servicio.loadGrilla('estudiantemateria', [idestudiante, document.getElementById('materia')['value'],  this.idciclo, 'estadonotas_i', condicion]).subscribe(materestudiante => {
+      this.seleccionarMateria();
     });
 
   }

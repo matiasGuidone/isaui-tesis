@@ -56,7 +56,7 @@ export class RelDocenteMateria {
             fil.push(docente[0]);
             fil.push("idciclolectivo");
             fil.push(idCiclolectivo);
-            console.log(fil);
+            //console.log(fil);
             this.servicio.loadGrilla("docentemateria", fil).subscribe(res => {
                 if (res != null && res.length > 0) {
                     let i = res.length;
