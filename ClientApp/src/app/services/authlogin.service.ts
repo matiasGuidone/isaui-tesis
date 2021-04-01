@@ -13,6 +13,7 @@ authSubject= new BehaviorSubject(false);
 private token: string;
 public componenteGuard:string =''; 
 public componentes : any[]=new Array<any>();
+  foto: any;
   constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   login( user ) : Observable<any>/* user: usuario */
@@ -31,6 +32,7 @@ public componentes : any[]=new Array<any>();
              return json;
           } 
           else{
+            console.log(json);
           this.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
           }
       }
@@ -55,6 +57,22 @@ public componentes : any[]=new Array<any>();
     localStorage.setItem("InicioSesion", "true" );
     this.token = token;
     //cargar componentes del usuario seleccionado
+  }
+
+  public getNombreUsuario(){
+    return JSON.parse(localStorage.getItem("Rol")? localStorage.getItem("Rol"): '{"nombreusuario":""}').nombreusuario; 
+  }
+
+  public getNombreTipoUsuario(){
+    return JSON.parse(localStorage.getItem("Rol")? localStorage.getItem("Rol"): '{"nombrerol":""}').nombrerol; 
+  }
+
+  public getEstilo(){
+    return JSON.parse(localStorage.getItem("Rol")? localStorage.getItem("Rol"): '{"estilo":""}').estilo; 
+  }
+
+  public getFoto(){
+    return JSON.parse(localStorage.getItem("Rol")? localStorage.getItem("Rol"): '{"foto":""}').foto; 
   }
 
   private getToken(): string

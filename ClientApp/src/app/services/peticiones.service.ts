@@ -165,5 +165,27 @@ obtenerArchivo(fileDir: string) : Observable<any> {
     let headers = new HttpHeaders({'token':token});
     return this._http.get<any>(this.baseUrl + 'api/'+entidad+'/registros', { headers: headers });
   }
+  // public upFoto(foto){
+  //   let token = localStorage.getItem("Access_Token");
+  //   let headers = new HttpHeaders({'token':token});
+  //   return this._http.post<any>(this.baseUrl + 'api/usuario/foto', {data:foto}, { headers: headers });
+  // }
+  upFoto(formData: FormData) : Observable<any> {
+    let token = localStorage.getItem("Access_Token");
+    if (token == undefined || token == null) { token = ''; }
+    const headers = new HttpHeaders({ 'token': token });
+    const uploadReq = new HttpRequest('POST', `api/usuario/foto`, formData, {
+      headers: headers,
+      reportProgress: true,
+    });
+
+    return this._http.request(uploadReq);
+  }
+  
+  public setstilo(estilo){
+    let token = localStorage.getItem("Access_Token");
+    let headers = new HttpHeaders({'token':token, 'estilo':estilo});
+    return this._http.get<any>(this.baseUrl + 'api/usuario/estilo', { headers: headers });
+  }
 
 }

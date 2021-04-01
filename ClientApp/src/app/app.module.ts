@@ -61,6 +61,7 @@ import { OrdenmeritoComponent } from './ordenmerito/ordenmerito.component';
 import { FrmConvocatoriasComponent } from './frm-convocatorias/frm-convocatorias.component';
 import { FrmVercurriculumComponent } from './frm-vercurriculum/frm-vercurriculum.component';
 import { FrmControlregularidadesComponent } from './frm-controlregularidades/frm-controlregularidades.component';
+import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configuracion-usuario.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { FrmControlregularidadesComponent } from './frm-controlregularidades/frm
     FrmConvocatoriasComponent,
     FrmVercurriculumComponent,
     AbmformulaComponent,
-    FrmControlregularidadesComponent
+    FrmControlregularidadesComponent,
+    ConfiguracionUsuarioComponent
 
   ],
   entryComponents: [MyModalComponent],
@@ -128,6 +130,7 @@ import { FrmControlregularidadesComponent } from './frm-controlregularidades/frm
 
       { path: '', component: HomeComponent, canActivate: [GuardAutogestion] },
       { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion] },
+      { path: 'configuracion-usuario', component: ConfiguracionUsuarioComponent, canActivate: [GuardAutogestion] },
       { path: 'frm-vermensajes', component: VerMensajeComponent, canActivate: [Guard] },
       { path: 'counter', component: CounterComponent, canActivate: [Guard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [Guard] },

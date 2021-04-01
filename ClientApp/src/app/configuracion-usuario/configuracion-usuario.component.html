@@ -1,0 +1,24 @@
+<div [class]="this.servicio.classtable">
+    <h3>Configuración del usuario <strong>{{usuario}}</strong></h3>
+    <hr>
+    <img [src]="foto" style = "display: block;margin: auto;width: 200px;" class="img-thumbnail" >
+    <br>
+    <div class="input-group">
+        <div class="custom-file">
+            <input #file type="file" (change)="aplicafoto($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" id="file1" (change)="cargarfoto(file.files)" accept="image/*" lang="es" >
+          <!-- <input type="file" > -->
+          <label class="custom-file-label" for="inputGroupFile04">Cambiar foto</label>
+        </div>
+        
+        <!-- <div class="input-group-append">
+          <button class=" btn-outline-secondary" (click)="aplicafoto()" type="button" id="inputGroupFileAddon04">Aplicar</button>
+        </div> -->
+      </div>
+    <hr>
+   <h4>Tema</h4>  
+   <input type="range" [value] ="num" name="" class="range" min="1" max="3" (change)="cambiarEstilo()" id="tema">
+   <hr>
+   <label class="lead" for="">{{temaestablecido}}</label>
+   <hr>
+   <button (click)="almacenarcambios()" class="btn btn-info">Aplicar cambios</button>
+</div>

@@ -22,7 +22,7 @@ using System.Net.Http.Headers;
         public ActionResult UploadFile([FromHeader]string log, [FromHeader] string token )
         {
             if (UsuarioConexion<usuario>.Instance.getUserToken(token))
-        {
+            {
                 string fullPath = "";
                 try
                 {

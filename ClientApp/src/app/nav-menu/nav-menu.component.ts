@@ -18,10 +18,17 @@ export class NavMenuComponent {
   isExpanded = false;
   menus : menu[];
  componentes:any[]; 
+ usuario: string;
+ //foto: string;
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => {this.menus = res; this.ordenar();});
-
+    this.cambiarEstilo(logservicio.getEstilo());
+    this.usuario = logservicio.getNombreUsuario();
+    this.logservicio.foto = logservicio.getFoto();
+    if (this.logservicio.foto == "" || this.logservicio.foto == "System.Byte[]"){
+      this.logservicio.foto = "/assets/user.png"
+    }
   }
 
   collapse() {
@@ -33,35 +40,37 @@ export class NavMenuComponent {
   }
 
   tr : number = 0;
-  cambiarEstilo(){
-    //let num = document.getElementById('estilorange')['value'];
-    this.num++;
-    if(this.num == 4){this.num=1;}
-    switch (this.num){
-      case 1 ://estilo negro
+  cambiarEstilo(num) {
+    //let num = document.getElementById("tema")['value'];
+    switch (+num) {
+      case 1://estilo negro
         this.servicio.classtable2 = "table table-dark table-hover";
         this.servicio.classtable = "table table-striped table-dark table-responsive";
         this.servicio.classimg = "img-logo";
-        this.servicio.classbody  = "bodyclass";
+        this.servicio.classbody = "bodyclass";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3";
+        //this.temaestablecido = 'Negro';
         break;
       case 2://estilo blanco
         this.servicio.classtable2 = "table table-hover";
         this.servicio.classtable = "table-responsive";
         this.servicio.classimg = "custom-logo-link";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
-        this.servicio.classbody  = "bodyclasswh";
+        this.servicio.classbody = "bodyclasswh";
+        //this.temaestablecido = 'Blanco';
         break;
       case 3: //estilo gey
         this.servicio.classtable2 = "table table-hover bg-secondary ";
         this.servicio.classtable = "table-responsive bg-secondary ";
         this.servicio.classimg = "custom-logo-link";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-secondary border-bottom box-shadow mb-3";
-        this.servicio.classbody  = "bodyclass bg-secondary";
+        this.servicio.classbody = "bodyclass bg-secondary";
+        //this.temaestablecido = 'Gris';
         break;
       default:
         break;
-  }
+
+    }
   }
   // esta funcion setea el componente al cual se dirige el usuario al hacer click
   setGuardComponente(componente){

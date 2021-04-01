@@ -97,5 +97,37 @@ public class UsuarioController : Controller
         }
         else return 0;
     }
+
+     [HttpPost("foto"), DisableRequestSizeLimit]
+    public ActionResult SetFotoPerfil([FromHeader] string token)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            var file = Request.Form.Files[0];
+            using (var ms = new System.IO.MemoryStream())
+                {
+                file.CopyTo(ms);
+                var fileBytes = ms.ToArray();
+                string s = "data:image/png;base64,"+Convert.ToBase64String(fileBytes);
+                // act on the Base64 data
+                UsuarioConexion<usuario>.Instance.setFoto(UsuarioConexion<usuario>.Instance.getIdUserToken(token), s);
+                }
+            
+            return Json("archivo almacenado"); 
+        }
+        else return Json("error durante el almacenamiento"); 
+    }
+      [HttpGet("estilo")]
+    public ActionResult SetEstiloPerfil([FromHeader] string token, [FromHeader] string estilo)
+    { 
+        
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            UsuarioConexion<usuario>.Instance.setEstilo(UsuarioConexion<usuario>.Instance.getIdUserToken(token), estilo);
+            return Json("estilo almacenado"); 
+        }
+        else return Json("error durante el almacenamiento"); 
+    }
 }
 

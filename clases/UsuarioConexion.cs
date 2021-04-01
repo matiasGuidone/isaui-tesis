@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Data;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 public class UsuarioConexion<T> : ObjetoConexion<usuario>
 {
 
@@ -110,10 +112,14 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
         if (token == null && roles == null)
         {
             var rol = "";
-            var Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
-            if (Tabla.Rows.Count == 1)
+            var Tabla = this.Conexion.consultaDataTable($"SELECT roles.*, usuario.estilo, usuario.foto, usuario.nombre as 'nombreusuario' FROM usuario left JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE usuario.id = {id} ").Tables[0];
+            if (Tabla.Rows.Count == 1 && Tabla.Rows[0]["nombre"].ToString() == ""){
+                rol = $" \"nombrerol\" : \"usuario\" , \"idroles\" : \"\" , \"foto\" : \"{Tabla.Rows[0]["foto"].ToString()}\" , \"estilo\" : \"{Tabla.Rows[0]["estilo"].ToString()}\" , \"nombreusuario\" : \"{Tabla.Rows[0]["nombreusuario"].ToString()}\" ";
+                return " { " + rol + " } ";
+            }
+            else if (Tabla.Rows.Count == 1)
             {
-                rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\" ";
+                rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\" , \"foto\" : \"{Tabla.Rows[0]["foto"].ToString()}\" , \"estilo\" : \"{Tabla.Rows[0]["estilo"].ToString()}\" , \"nombreusuario\" : \"{Tabla.Rows[0]["nombreusuario"].ToString()}\" ";
                 if (Tabla.Rows[0]["nombre"].ToString().ToUpper().Equals("DOCENTE"))
                 {
                     try
@@ -157,8 +163,8 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
             var rol = "";
 
             DataTable Tabla;
-            Tabla = this.Conexion.consultaDataTable($"SELECT roles.* FROM roles WHERE roles.nombre LIKE '{roles}' ").Tables[0];
-            rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\" ";
+            Tabla = this.Conexion.consultaDataTable($"SELECT roles.*, usuario.estilo, usuario.foto, usuario.nombre as 'nombreusuario' FROM usuario JOIN rolesusuario on usuario.Id = rolesusuario.Idusuario JOIN roles on roles.Id = rolesusuario.Idroles  WHERE roles.nombre LIKE '{roles}' and usuario.id = {id}  ").Tables[0];
+            rol = $" \"nombrerol\" : \"{Tabla.Rows[0]["nombre"].ToString()}\" , \"idroles\" : \"{Tabla.Rows[0]["id"].ToString()}\"  , \"foto\" : \"{Tabla.Rows[0]["foto"].ToString()}\" , \"estilo\" : \"{Tabla.Rows[0]["estilo"].ToString()}\" , \"nombreusuario\" : \"{Tabla.Rows[0]["nombreusuario"].ToString()}\" ";
             if (roles.ToUpper().Equals("DOCENTE"))
             {
                 try
@@ -187,5 +193,19 @@ public class UsuarioConexion<T> : ObjetoConexion<usuario>
             return " { " + rol + " } ";
         }
 
+    }
+    public bool setFoto(int id, string foto){
+        string consulta = " UPDATE usuario set foto = ?foto where id = ?id ";
+        var parametros = new List<MySqlParameter>();
+        parametros.Add(new MySqlParameter("id",id));
+        parametros.Add(new MySqlParameter("foto",foto));
+        return this.Conexion.ConsultaParametros(consulta, parametros);
+    }
+    public bool setEstilo(int id, string stl){
+        string consulta = " UPDATE usuario set estilo = ?estilo where id = ?id ";
+        var parametros = new List<MySqlParameter>();
+        parametros.Add(new MySqlParameter("id",id));
+        parametros.Add(new MySqlParameter("estilo",stl));
+        return this.Conexion.ConsultaParametros(consulta, parametros);
     }
 }
