@@ -8,7 +8,7 @@
 </header>
 <p>Asistencias, Calificaciones, fechas de exámenes y mensajes</p>
 </div>
-<div class="features">
+<div *ngIf="this.rol.nombrerol == 'Estudiante' ||this.rol.nombrerol == 'Docente' " class="features">
 <article (click)="ingresoAsistencias()">
 <span class="btn btn-outline-light icon fa-clock"></span>
 <div class="content">
