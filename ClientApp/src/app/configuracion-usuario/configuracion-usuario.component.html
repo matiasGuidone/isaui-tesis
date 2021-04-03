@@ -1,3 +1,9 @@
+<div id="notificacion" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
+  <div id="textnotificacion" class="lead"></div>
+  <button type="button" class="close" (click)="closealert()" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+</button>
+</div>
 <div [class]="this.servicio.classtable">
     <h3>Configuración del usuario <strong>{{usuario}}</strong></h3>
     <hr>
@@ -7,7 +13,7 @@
         <div class="custom-file">
             <input #file type="file" (change)="aplicafoto($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" id="file1" (change)="cargarfoto(file.files)" accept="image/*" lang="es" >
           <!-- <input type="file" > -->
-          <label class="custom-file-label" for="inputGroupFile04">Cambiar foto</label>
+          <label class="custom-file-label" for="inputGroupFile04">Cambiar foto <strong>* tamaño máximo 512 kb</strong></label>
         </div>
         
         <!-- <div class="input-group-append">

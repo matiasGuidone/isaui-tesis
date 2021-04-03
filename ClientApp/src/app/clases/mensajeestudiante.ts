@@ -1,16 +1,16 @@
-export class mensajeestudiante{
-    id : number;
-    idestudiante : string;
-    titulo: string;
-    nombreMateria : string;
+export class mensajeestudiante {
+    id: number;
+    idestudiante: string;
+    tituloMensaje: string;
+    nombreMateria: string;
     mensaje: string;
 
 
-    constructor(obj:any){
+    constructor(obj: any) {
         this.id = +obj.id;
         this.idestudiante = obj.idestudiante;
-        this.titulo = obj.titulo;
+        this.tituloMensaje = obj.tituloMensaje;
         this.nombreMateria = obj.nombreMateria;
         this.mensaje = obj.mensaje;
-}
+    }
 }

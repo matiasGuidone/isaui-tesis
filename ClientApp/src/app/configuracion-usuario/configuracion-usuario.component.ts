@@ -69,18 +69,27 @@ export class ConfiguracionUsuarioComponent implements OnInit {
   aplicafoto(event: any) {
     this.archivoimg = event.target.files[0];
     this.imgseleccionada = this.archivoimg.name;
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files && event.target.files[0] && event.target.files[0].size < (512 * 1024)) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.foto = e.target.result;
       };
       reader.readAsDataURL(event.target.files[0]);
-    }}
+    }
+    else{
+      let not = document.getElementById("notificacion");
+      let tnot = document.getElementById("textnotificacion");
+      not.style.display="block";
+      tnot.innerHTML = "El tamaño del archivo seleccionado excede el límite de memoria";
+
+    }
+  }
 
     almacenarcambios(){
       const formData = new FormData();
-      formData.append(this.archivoimg.name, this.archivoimg);
+      if (this.archivoimg != undefined){ formData.append(this.archivoimg.name, this.archivoimg);}
       this.servicio.setstilo(this.num).subscribe(d =>{
+        if (this.archivoimg != undefined){ 
         this.servicio.upFoto(formData).subscribe(f=>{
           console.log(f);
           let s = JSON.parse(localStorage.getItem("Rol"));
@@ -88,7 +97,13 @@ export class ConfiguracionUsuarioComponent implements OnInit {
           s.estilo = this.num;
           localStorage.setItem("Rol",JSON.stringify(s));
           this.logservicio.foto = this.foto;
-        })
+        });
+      }
+      else{
+        let s = JSON.parse(localStorage.getItem("Rol")); 
+          s.estilo = this.num;
+          localStorage.setItem("Rol",JSON.stringify(s));
+      }
       })
     }
 

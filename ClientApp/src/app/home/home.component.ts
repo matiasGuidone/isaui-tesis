@@ -15,12 +15,27 @@ export class HomeComponent {
   }
   rol: any;
   finales:number = 0;
+  mensajes:number = 0;
+  descmsjs:string="";
   inscripto:boolean =false;
+  tienemsjs:boolean =false;
 
   ngOnInit() {
     if (localStorage.getItem("Rol") != undefined && localStorage.getItem("Rol") != 'undefined') {
       this.rol = JSON.parse(localStorage.getItem("Rol"));
       if(this.rol.nombrerol == "Estudiante"){
+        this.servicio.loadGrilla("estudiantemensaje", this.rol.id.toString()).subscribe( msjs =>{
+          for (let ms of msjs){
+           
+            if (ms.estado == 0){
+              this.mensajes++;
+              if (this.descmsjs==""){ this.tienemsjs = true; this.descmsjs = "Materias con mensaje: ";}
+              this.descmsjs += "'"+ms.nombreMateria+"' , ";
+            } 
+          }
+          if(this.descmsjs.length > 0){
+            this.descmsjs = this.descmsjs.substring(0,-2);
+          }
         this.servicio.loadGrilla('calificacionestudiante',
           ['idestudiante',this.rol.id.toString()]).subscribe(calif=>{
             for(let c of calif){
@@ -30,6 +45,7 @@ export class HomeComponent {
               }
             }
         });
+      });
       }
       else if(this.rol.nombrerol == "Curriculum"){
         let home = document.getElementById('home');

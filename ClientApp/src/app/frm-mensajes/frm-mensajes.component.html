@@ -1,7 +1,15 @@
  
 <div [class]="this.servicio.classtable">
     <h3>Editor de mensajes</h3>
-     
+    <div *ngIf="this.rol.nombrerol.toString()!='Docente'" class="row my-2">
+        <h5 class="col-md-2 control-label">Cursos: </h5>
+        <div class="col-md-6">
+        <select (change)="seleccionarCurso()" class="form-control my-2 col-md-9 col-12" id="curso" >
+           <option *ngFor="let curso of cursos"  [value]="curso.id" >
+                {{curso.nombre}}
+           </option>
+        </select>
+    </div></div>
     <div class="row my-2">
         <h5 class="col-md-2 control-label">Materias: </h5>
         <div class="col-md-6">

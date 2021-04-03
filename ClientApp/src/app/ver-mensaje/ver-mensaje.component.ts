@@ -27,16 +27,21 @@ export class VerMensajeComponent implements OnInit {
       //console.log(this.estudiante)
 
     }
-    this.servicio.loadGrilla("Materiaestudiantemensaje", this.estudiante['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});
+    this.servicio.loadGrilla("estudiantemensaje", this.estudiante['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});
 
       }
-        abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
-        let mensajeHTML = mensaje;
+      abrirModal(idmsj : number , idestudiante: string, titulo: string, mensaje: string, tipo: number, menu: any) {
+         
+        let msjestudiante = new mensajeestudiante({'id':idmsj,'idestudiante':idestudiante,'tituloMensaje' :'','nombreMateria':'','mensaje':''})
+        this.servicio.addSingleAbm(msjestudiante, "estudiantemensaje").subscribe(ls =>{
+          let mensajeHTML = mensaje;
 
         const modalRef =
         this.modalService.open(MyModalComponent,
           { title: titulo, message: mensaje, tipo: 5 , parametros: {titulo: titulo} });
         return modalRef.onResult();
+        });
+        
       }
 
 

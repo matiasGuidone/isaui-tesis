@@ -15,7 +15,7 @@
         <tbody>
             <tr *ngFor = "let mensaje of mensajes">
                 <td>{{mensaje.nombreMateria}}</td>
-                <td>{{mensaje.tituloMensaje}} <a [routerLink]="" (click)="abrirModal(mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
+                <td>{{mensaje.tituloMensaje}} <a [routerLink]="" (click)="abrirModal(mensaje.id, mensaje.idestudiante, mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
             </tr>
         </tbody>
     </table>

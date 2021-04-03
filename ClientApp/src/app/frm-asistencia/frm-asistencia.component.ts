@@ -34,6 +34,8 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
   asistencias: asistencia[] = new Array<asistencia>();
   feriados: any[]= new Array<any>();
   iddocente = null;
+  rol: any;
+  cursos: any[];
 
 
   constructor(protected location: Location,
@@ -72,12 +74,14 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
         this.dias.push({ 'numero': this.formatearFecha(desde, ''), 'diasemana': desde.getUTCDay(), 'sem': semana[desde.getUTCDay()] });
         desde.setDate(desde.getDate() + 1); 
     }
-    let rol = JSON.parse(localStorage.getItem("Rol"));
-     if(rol.nombrerol.toString()=="Docente"){
-      this.servicio.loadGrilla('materia',['iddocente',rol.id.toString()]).subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
+    this.rol = JSON.parse(localStorage.getItem("Rol"));
+     if(this.rol.nombrerol.toString()=="Docente"){
+      this.servicio.loadGrilla('materia',['iddocente',this.rol.id.toString()]).subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
      }
      else{
-     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
+      this.servicio.loadGrilla('curso').subscribe(cursos => {
+        this.cursos = cursos;
+     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });});
     }
   }
 
@@ -114,6 +118,23 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
       if (estudiantem != null && estudiantem.length > 0) {
         this.estudiantes = estudiantem;
         this.cargarGrilla();
+      }
+    });
+
+  }
+  seleccionarCurso(ids = 0) {
+    //this.estudiantes = new Array<estudiante>();
+    let id = ids;
+    if (ids == 0) {
+      id = document.getElementById('curso')['value'];
+    }
+    let filtros = new Array<string>();
+    filtros.push('idcurso');
+    filtros.push(id.toString());
+    this.servicio.loadGrilla('materia', filtros).subscribe(materias => {
+      this.materias = materias;
+      if (this.materias.length > 0) {
+        this.seleccionarMateria(this.materias[0].id);
       }
     });
 
