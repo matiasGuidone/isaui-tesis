@@ -14,8 +14,10 @@
         </thead>
         <tbody>
             <tr *ngFor = "let mensaje of mensajes">
-                <td>{{mensaje.nombreMateria}}</td>
-                <td>{{mensaje.tituloMensaje}} <a [routerLink]="" (click)="abrirModal(mensaje.id, mensaje.idestudiante, mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
+                <td *ngIf="mensaje.estado == '0'" > <u>{{mensaje.nombreMateria}}</u> </td>
+                <td *ngIf="mensaje.estado == '0'" > <u>{{mensaje.tituloMensaje}}...</u> <a [routerLink]="" routerLinkActive="router-link-active"  (click)="abrirModal(mensaje.id, mensaje.idestudiante, mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
+                <td *ngIf="mensaje.estado == '1'" >{{mensaje.nombreMateria}}</td>
+                <td *ngIf="mensaje.estado == '1'" >{{mensaje.tituloMensaje}}...<a [routerLink]="" routerLinkActive="router-link-active"  (click)="abrirModal(mensaje.id, mensaje.idestudiante, mensaje.nombreMateria,mensaje.mensaje)">Ver mensaje</a></td>
             </tr>
         </tbody>
     </table>

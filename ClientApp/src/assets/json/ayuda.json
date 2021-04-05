@@ -1,0 +1,11 @@
+
+    {
+       "configuracion-usuario": {"titulo":"Configuración del Usuario","descripcion":"Modifique su tema personal, personalización de foto de perfil."},
+       "autogestion": {"titulo":"Menú principal","descripcion":"Acceda a las secciones importantes para realizar su gestión dentro del sistema"},
+       "": {"titulo":"Menú principal","descripcion":"Acceda a las secciones importantes para realizar su gestión dentro del sistema"},
+       "abm-estudiante": {"titulo":"","descripcion":""},
+       "abm-docente": {"titulo":"","descripcion":""},
+       "abm-roles": {"titulo":"","descripcion":""},
+       "rel-rolesusuario": {"titulo":"","descripcion":""} 
+    }
+

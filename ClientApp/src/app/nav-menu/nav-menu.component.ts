@@ -7,6 +7,7 @@ import { menu } from '../clases/menu';
 import { ModalService } from '../modal/modal-service.service';
 import { AuthLoginService } from '../services/authlogin.service';
 import { PeticionesService } from '../services/peticiones.service';
+import ayuda from 'src/assets/json/ayuda.json';
 
 @Component({
   selector: 'app-nav-menu',
@@ -19,6 +20,8 @@ export class NavMenuComponent {
   menus : menu[];
  componentes:any[]; 
  usuario: string;
+  ayu: any = false;
+  ayuda: any;
  //foto: string;
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
@@ -121,5 +124,22 @@ export class NavMenuComponent {
       
       return 0;
     });}
+
+    toggleayuda(){
+      if(this.ayu){
+        this.ayu = false;
+      }
+      else{
+        let comp = this.router.url.replace('/','');
+        let parame = ayuda;
+          for (let p in parame) {
+            if (p == comp) {
+              this.ayuda = parame[p];
+              this.ayu = true;
+            }
+          }
+        }
+    }
+     
     
 }

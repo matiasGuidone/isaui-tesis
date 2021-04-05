@@ -12,37 +12,56 @@ import { Observable } from 'rxjs';
 export class VerMensajeComponent implements OnInit {
 
   mensaje: mensajeestudiante;
-  mensajes: Array <mensajeestudiante>;
-  estudiante : Array<any>;
+  mensajes: Array<mensajeestudiante>;
+  estudiante: Array<any>;
 
   constructor(protected servicio: PeticionesService,
-              protected modalService: ModalService) {
+    protected modalService: ModalService) {
   }
 
   ngOnInit(): void {
 
-    if (!this.mensajes){
+    if (!this.mensajes) {
 
-      this.estudiante =  JSON.parse(localStorage.getItem("Rol"));
+      this.estudiante = JSON.parse(localStorage.getItem("Rol"));
       //console.log(this.estudiante)
 
     }
-    this.servicio.loadGrilla("estudiantemensaje", this.estudiante['id'].toString()).subscribe(res => {this.mensajes = res; console.log(this.mensajes);});
+    this.servicio.loadGrilla("estudiantemensaje", this.estudiante['id'].toString()).subscribe(res => { this.mensajes = res; });
 
-      }
-      abrirModal(idmsj : number , idestudiante: string, titulo: string, mensaje: string, tipo: number, menu: any) {
-         
-        let msjestudiante = new mensajeestudiante({'id':idmsj,'idestudiante':idestudiante,'tituloMensaje' :'','nombreMateria':'','mensaje':''})
-        this.servicio.addSingleAbm(msjestudiante, "estudiantemensaje").subscribe(ls =>{
-          let mensajeHTML = mensaje;
+  }
 
-        const modalRef =
+  abrirModal(idmsj: number, idestudiante: string, titulo: string, mensaje: string, tipo: number, menu: any) {
+
+    let msjestudiante = new mensajeestudiante({ 'id': idmsj, 'idestudiante': idestudiante, 'tituloMensaje': '', 'nombreMateria': '', 'mensaje': '' })
+    this.servicio.addSingleAbm(msjestudiante, "estudiantemensaje").subscribe(ls => {
+      let mensajeHTML = mensaje;
+
+      const modalRef =
         this.modalService.open(MyModalComponent,
-          { title: titulo, message: mensaje, tipo: 5 , parametros: {titulo: titulo} });
-        return modalRef.onResult();
-        });
-        
+          { title: titulo, message: mensaje, tipo: 5, parametros: { titulo: titulo } });
+      modalRef.onResult().subscribe(de => {
+        if (!this.mensajes) {
+
+          this.estudiante = JSON.parse(localStorage.getItem("Rol"));
+          //console.log(this.estudiante)
+
+        }
+        this.servicio.loadGrilla("estudiantemensaje", this.estudiante['id'].toString())
+            .subscribe(res => { this.mensajes = res; }
+           );
+      }, error => {   if (!this.mensajes) {
+
+        this.estudiante = JSON.parse(localStorage.getItem("Rol"));
+        //console.log(this.estudiante)
+
       }
+      this.servicio.loadGrilla("estudiantemensaje", this.estudiante['id'].toString())
+          .subscribe(res => { this.mensajes = res; }); } 
+    );
+
+  });
 
 
+}
 }

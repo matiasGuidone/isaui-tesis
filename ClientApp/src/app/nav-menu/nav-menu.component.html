@@ -17,7 +17,7 @@
         <ul class="navbar-nav flex-grow">
           <li>
             <div>
-              <!-- <button class="btn btn-info" title="Temas" style="width:30px;height:30px; padding: .1rem .4rem;border-radius: 50px;" (click)="cambiarEstilo()" ><span class="fa fa-swatchbook fa-md"></span></button> -->
+              <button class="btn rounded-circle text-info" title="Información del componente" (click)="toggleayuda()" ><span class="fa fa-info fa-md"></span></button>
             </div>
           </li>
           <li class="nav-item dropdown" *ngIf="alguncomponente('abm')" [routerLinkActive]="['link-active']">
@@ -84,3 +84,15 @@
     </div>
   </nav>
 </header>
+ 
+<div *ngIf="ayu" class="alert alert-success" role="alert">
+  <button type="button" class="close" (click)="toggleayuda()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="alert-heading">{{ayuda.titulo}}</h4>
+  <p>{{ayuda.descripcion}}</p>
+  <hr>
+  <p class="mb-0">Autogestión ISAUI</p>
+  
+  
+</div>

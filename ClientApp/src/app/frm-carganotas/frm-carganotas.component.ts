@@ -271,6 +271,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     for (let n of this.estudiantes) {
       let alu: any = new Object();
       alu['estudiantes'] = n.apellido + ", " + n.nombre;
+      alu['condicion'] = n.condicion;
       for (let i of this.examenes) {
         let no = this.notas.find(m => m.idestudiante == n.id && m.idexamen == i.id);
         if (no != undefined) {
@@ -303,6 +304,7 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
     for (let n of this.estudiantes) {
       let alu: any = new Object();
       alu['estudiantes'] = n.apellido + ", " + n.nombre;
+      alu['condicion'] = n.condicion;
       for (let i of this.examenes) {
         let no = this.notas.find(m => m.idestudiante == n.id && m.idexamen == i.id);
         if (no != undefined) {
