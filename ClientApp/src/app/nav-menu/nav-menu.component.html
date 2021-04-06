@@ -86,13 +86,19 @@
 </header>
  
 <div *ngIf="ayu" class="alert alert-success" role="alert">
+
   <button type="button" class="close" (click)="toggleayuda()" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-  <h4 class="alert-heading">{{ayuda.titulo}}</h4>
-  <p>{{ayuda.descripcion}}</p>
-  <hr>
-  <p class="mb-0">Autogestión ISAUI</p>
+  <div class="row">
+    <div class="col-md-2"><img title="info" style="width:100px; display:block ; margin:auto;"
+      [src]="'/assets/i.png'" alt="Info" ></div>
+    <div class="col-md-10"><h4 class="alert-heading">{{ayuda.titulo}}</h4>
+      <p>{{ayuda.descripcion}}</p>
+      <hr>
+      <p class="mb-0">Autogestión ISAUI</p></div>
+  </div>
+  
   
   
 </div>
