@@ -18,6 +18,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class IniciarSesionComponent implements OnInit {
   nCuenta: string;
   nClave: string;
+  loading = false;
 
   formUsuario: FormGroup = this.formbuilder.group({
     usuario: '',
@@ -41,18 +42,21 @@ export class IniciarSesionComponent implements OnInit {
             this.servicio.logueosegundo(Headers).subscribe(res => {
               let json = JSON.parse(res.toString());
               this.autS.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
-              this.autS.componenteGuard = "autogestion"; this.router.navigate(['autogestion']);
+              this.autS.componenteGuard = "autogestion"; this.loading = false; this.router.navigate(['autogestion']);
+              
             });
           });
         }
-        else { this.autS.componenteGuard = "autogestion"; this.router.navigate(['autogestion']); }
+        else { this.autS.componenteGuard = "autogestion"; this.loading = false; this.router.navigate(['autogestion']); }
       }
       else {
+        this.loading = false;
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { localStorage.setItem("InicioSesion", "false"); });
       }
     },
       er => {
         //console.log(er);
+        this.loading = false;
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { console.log(n); });
       }
     );
@@ -62,6 +66,7 @@ export class IniciarSesionComponent implements OnInit {
 
   onSignup(){
     //control de valores de input
+    this.loading = true;
     let usu = new usuario({'id':'0',
     'nombre':this.formUsuario.get('usuario').value, 
     'codigo':this.formUsuario.get('contra').value,

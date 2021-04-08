@@ -14,6 +14,7 @@
     <button (click)="onLogin()"  class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
     <br>
     <button class="btn btn-block btn-info" (click)="signupcv()">crear cuenta de curriculum</button>
+    
     <p class="mt-5 mb-3 text-muted">ISAUI</p>
   </div>
  
@@ -36,10 +37,13 @@
    
       <button (click)="onSignup()" [disabled]="validar()" class="btn btn-lg btn-primary btn-block" type="submit">Crear cuenta</button>
       <br>
+      <div *ngIf="loading" class="my-2">
+         <div style="display: block; margin: auto;" class="spinner-border text-danger" role="status">
+           <span class="visually-hidden"></span>
+         </div>
+        </div>
       <button class="btn btn-block btn-danger" (click)="volver()">volver</button>
       <p class="mt-5 mb-3 text-muted">ISAUI</p>
     </form>
   </div>
  
- 
-  

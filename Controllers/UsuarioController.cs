@@ -24,10 +24,18 @@ public class UsuarioController : Controller
             var id = UsuarioConexion<usuario>.Instance.Insert(usuario);
             RolesusuarioConexion<rolesusuario>.Instance.addRolCv(id);
             EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
-
-            gestor.EnviarCorreo(usuario.Correo,
+            try
+            {
+                gestor.EnviarCorreo(usuario.Correo,
                                 "Acceso concedido",
                                 $"Bienvenido !!!, usted posee acceso al portal de curriculums y convocatorias de autogestión de ISAUI. Ingrese <a href='.'>aquí<a> para acceder. <br> <p>Usuario: '{usuario.Nombre}' </p> <p> Contraseña: '{usuario.Codigo}' </p>","Acceso concedido", true);
+            }
+            catch (System.Exception)
+            {
+                
+                return Json("UsuarioCv");
+            }
+            
 
             return Json("UsuarioCv");
         }
