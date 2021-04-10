@@ -19,9 +19,12 @@ export class NavMenuComponent {
   isExpanded = false;
   menus : menu[];
  componentes:any[]; 
- usuario: string;
-  ayu: any = false;
-  ayuda: any;
+ usuario: string; 
+  ayuda: any ={'titulo':'','descripcion':''};
+  ayu = false;
+  // The screen starts with the maximum opacity
+public opacityChange = 0;public splashTransition;// First access the splash is visible
+public showSplash = false;readonly ANIMATION_DURATION = 1;
  //foto: string;
   constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
@@ -126,8 +129,10 @@ export class NavMenuComponent {
     });}
 
     toggleayuda(){
-      if(this.ayu){
-        this.ayu = false;
+      
+      if(this.showSplash){
+        this.animaInfo()
+        //this.ayu = false;
       }
       else{
         let comp = this.router.url.replace('/','');
@@ -135,11 +140,27 @@ export class NavMenuComponent {
           for (let p in parame) {
             if (p == comp) {
               this.ayuda = parame[p];
-              this.ayu = true;
+              this.animaInfo()
             }
           }
         }
     }
      
-    
+    private animaInfo() {
+      // Setting the transition
+      
+      if(!this.showSplash) {document.getElementById("ayuda").style.zIndex ='5000'}
+ 
+      this.splashTransition = `opacity ${this.ANIMATION_DURATION}s`;
+     
+      if(this.opacityChange == 1){this.opacityChange = 0; } 
+      else{this.opacityChange = 1; }
+      setTimeout(() => {
+         // After the transition is ended the showSplash will be hided
+         this.showSplash = !this.showSplash; 
+         
+         if(!this.showSplash){document.getElementById("ayuda").style.zIndex ='-1'}
+      }, 1000);
+      
+   }
 }
