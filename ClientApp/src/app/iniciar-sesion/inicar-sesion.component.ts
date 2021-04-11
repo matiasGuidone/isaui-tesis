@@ -76,7 +76,7 @@ export class IniciarSesionComponent implements OnInit {
     this.servicio.addSingleAbm(usu,'usuario').subscribe(res=>{
       if(res == "UsuarioExistente"){
         this.abrirModal("Usuario no válido","Ingrese un nombre de usuario alternativo",2,null)
-        .subscribe(ed=> console.log(".."));
+        .subscribe(ed=>{this.loading = false;});
       }
       else if (res == "UsuarioCv"){
       this.nCuenta = this.formUsuario.get('usuario').value;
