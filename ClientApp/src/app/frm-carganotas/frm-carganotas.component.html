@@ -81,7 +81,7 @@
          <tbody>
             <tr *ngFor="let estudiante of estudiantes">
                <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
-               <td class="col-2"> <select (change)="guardarCondicion(estudiante.id)" class="form-control float-left" style="width:70%;" name="" value="{{estudiante.condicion}}" id="condicion-{{estudiante.id}}">
+               <td class="col-2"> <select (change)="guardarCondicion(estudiante.id)" class="form-control float-left" style="min-width:130px;" name="" value="{{estudiante.condicion}}" id="condicion-{{estudiante.id}}">
                   <option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option></select>
                     </td>
                <td style="width: 75px;" *ngFor="let examen of examenes" id="{{estudiante.id}}-{{examen.id}}">
