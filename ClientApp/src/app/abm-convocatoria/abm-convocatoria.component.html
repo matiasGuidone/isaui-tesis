@@ -1,6 +1,6 @@
 
 
-<abm-filtro *ngIf="administrador.nombrerol != 'Curriculum'" (emisorFiltro)="lista = $event" ></abm-filtro>
+<abm-filtro (emisorFiltro)="lista = $event" ></abm-filtro>
 <div id="notificacion" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
   <div id="textnotificacion" class="lead"></div>
   <button type="button" class="close" (click)="closealert()" aria-label="Close">
@@ -8,7 +8,7 @@
 </button>
 </div>
  <div [class]="this.servicio.classtable">
-    <div *ngIf="administrador.nombrerol != 'Curriculum'">
+    
       <h3>Convocatorias</h3>
       <table [class]="this.servicio.classtable2" >
         <thead>
@@ -31,62 +31,6 @@
         </tbody>
       </table>
       <button class="btn btn-info" (click)="editar(0)" ><span ></span> Nuevo registro</button>
-   </div>
-</div>
-<div [class]="this.servicio.classtable2" *ngIf="administrador.nombrerol == 'Curriculum'">
-  <div class="row">
-      <div class="col-md-6">
-   <h3>Convocatorias disponibles</h3>
-    <div *ngIf="todas_postuladas" class="text-center"><p class="space"></p><h2>No tenes Convocatorias para seleccionar </h2><p></p></div>
-     
-    <table  >
-      <thead>
-          <tr>
-              <th scope="col">Días de convocatoria</th>
-              <th scope="col">Puesto a cubrir</th>
-              <th scope="col">Postularse</th>
-              <th scope="col">Horarios</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor = "let convocatoria of lista; index as i">
-              <td >{{convocatoria.fechainicio | date : 'dd/MM/yyyy'}} al {{convocatoria.fechafin | date : 'dd/MM/yyyy'}}</td>
-              <td >{{convocatoria.descripcion}}</td>
-              <td ><div *ngIf="estaconvocado(convocatoria.id)"><button class="btn btn-outline-info" title="Seleccionar" (click)="AsignarCuraConvocatoria(convocatoria.id)"><span class="fa fa-check"></span></button></div></td>
-              <td ><button class="btn btn-outline-info" title="Horarios" (click)="verHorarios(convocatoria.id)"><span class="fa fa-eye"></span></button></td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-6">
-    <h3>Convocatorias Postuladas Actualmente</h3>
-    <table [class]="this.servicio.classtable2">
-      <thead>
-          <tr>
-              <th scope="col">Puesto a cubrir</th>
-              <th scope="col">Fecha de Finalizacion</th>
-              <th scope="col">Acciones</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor = "let n of convocatorias_anotadas">
-              <td>{{n.descripcion}}</td>
-              <td>{{n.fecha | date : 'dd/MM/yyyy' }}</td>
-              <td><button class="btn btn-outline-info" title="Seleccionar"(click)="eliminar_relacion(n.idcurriculum, n.idconvocatoria)" ><span class="fa fa-times"></span></button></td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-    
- </div>
-<div *ngIf="materiaid != 0">
-  <hr>
-  <br>
-  <div class="lead">
-    {{materia.nombre}} <br>
-    </div>
-    <br>
-  <app-cmp-horarios [idMateria]="materiaid"></app-cmp-horarios>
-  </div>
+
 </div>
 

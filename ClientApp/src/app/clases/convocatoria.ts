@@ -11,7 +11,7 @@ export class convocatoria{
 
     constructor(obj:any)
     {
-        this.id =+ obj.id;
+        this.id = +obj.id;
         this.fechainicio = new Date(obj.fechainicio);
         this.fechafin = new Date(obj.fechafin);
         this.descripcion = obj.descripcion;

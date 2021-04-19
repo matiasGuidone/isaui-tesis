@@ -32,7 +32,9 @@ namespace EnviarCorreoElectronico
         }
         public void EnviarCorreo(string destinatario, string asunto, string mensaje, string titulo, bool esHtlm = false)
         {
-            if(esHtlm){
+            try
+            {
+                if(esHtlm){
                 var msj = Configuration["msjhtml"];
                 msj = msj.ToString().Replace("#mensaje",mensaje);
                 msj = msj.ToString().Replace("#titulo",titulo);
@@ -41,6 +43,13 @@ namespace EnviarCorreoElectronico
             email = new MailMessage(Configuration["user"], destinatario, asunto, mensaje);
             email.IsBodyHtml = esHtlm;
             cliente.Send(email);
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
         }
         public void EnviarCorreo(MailMessage message)
         {

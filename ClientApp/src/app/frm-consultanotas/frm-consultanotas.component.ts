@@ -101,34 +101,45 @@ export class ConsultanotasComponent implements OnInit {
       }
 
       //buscar condiciones
-      let filtros = ['idmateria',this.idmateria , 'idciclolectivo', ciclolectivo,'idestudiante',rol.id];
-       this.servicio.loadGrilla("estudiante",filtros).subscribe(r =>{
-         this.condicionasistencias = r[0].condiciona;
-         this.condicionnotas = r[0].condicion;
-       });
+      let filtros = ['idmateria', this.idmateria, 'idciclolectivo', ciclolectivo, 'idestudiante', rol.id];
+      this.servicio.loadGrilla("estudiante", filtros).subscribe(r => {
+        this.condicionasistencias = r[0].condiciona;
+        this.condicionnotas = r[0].condicion;
+      });
     })
   }
 
   habilitadaInscripcion() {
     //condicion de los días de habilitacion
+    this.habilitada = false;
     if (this.calificaciones.length > 0) {
       this.modalservice.setCaseEstado('tiempoExamen');
-      let fecha = this.calificaciones.find(exam => exam.tipoexamen == 'final' && exam.nota == 0);
-      if (fecha != undefined) {
-        let fechadesde = this.sumarDias(new Date(fecha.fecha), -(+this.modalservice.estados.DiasDesde));
-        let fechahasta = this.sumarDias(new Date(fecha.fecha), -(+this.modalservice.estados.DiasHasta));
-        if (new Date() > fechadesde && new Date() < fechahasta) {
-          if ((this.estainscripto == 'no' || this.estainscripto == 'estuvo') && this.parciales.length >= 4) { this.habilitada = true; }
-          else if (this.estainscripto == 'si') { this.habilitada = false; }
+      let fechas = this.calificaciones.filter(exam => exam.tipoexamen == 'final' && exam.nota == 0);
+      if (fechas != undefined) {
+        for (let f of fechas) {
+          let fechadesde = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasDesde));
+          let fechahasta = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasHasta));
+          if (new Date() > fechadesde && new Date() < fechahasta) {
+            if ((this.estainscripto == 'no' || this.estainscripto == 'estuvo') && this.parciales.length >= 4) { this.habilitada = true; }
+            //else if (this.estainscripto == 'si') { this.habilitada = false; }
+          }
         }
+
       }
-      else this.habilitada = false;
     }
   }
   inscribirfinal() {
     if (this.estainscripto == 'si') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
-      let final = this.calificaciones.find(final => final.nota == 11 && final.tipoexamen == 'final');
+      let finales = this.calificaciones.filter(final => final.nota == 11 && final.tipoexamen == 'final');
+      let final;
+      for (let f of finales) {
+        let fechadesde = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasDesde));
+        let fechahasta = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasHasta));
+        if (new Date() > fechadesde && new Date() < fechahasta) {
+          final = f;
+        }
+      }
       let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '0', 'idexamen': final.idexamen, 'id': final.idcalificacion })
       this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         this.seleccionarMateria();
@@ -136,7 +147,15 @@ export class ConsultanotasComponent implements OnInit {
     }
     else if (this.estainscripto == 'estuvo') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
-      let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
+      let finales = this.calificaciones.filter(final => final.nota == 0 && final.tipoexamen == 'final');
+      let final;
+      for (let f of finales) {
+        let fechadesde = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasDesde));
+        let fechahasta = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasHasta));
+        if (new Date() > fechadesde && new Date() < fechahasta) {
+          final = f;
+        }
+      }
       let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': final.idcalificacion })
       this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         this.seleccionarMateria();
@@ -145,7 +164,15 @@ export class ConsultanotasComponent implements OnInit {
     }
     else if (this.estainscripto == 'no') {
       let rol = JSON.parse(localStorage.getItem("Rol"));
-      let final = this.calificaciones.find(final => final.nota == 0 && final.tipoexamen == 'final');
+      let finales = this.calificaciones.filter(final => final.nota == 0 && final.tipoexamen == 'final');
+      let final;
+      for (let f of finales) {
+        let fechadesde = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasDesde));
+        let fechahasta = this.sumarDias(new Date(f.fecha), -(+this.modalservice.estados.DiasHasta));
+        if (new Date() > fechadesde && new Date() < fechahasta) {
+          final = f;
+        }
+      }
       let obj: calificacionestudiante = new calificacionestudiante({ 'idestudiante': rol.id, 'nota': '11', 'idexamen': final.idexamen, 'id': '0' })
       this.servicio.addSingleAbm(obj, 'calificacionestudiante').subscribe(r => {
         let idestudiante = JSON.parse(localStorage.getItem("Rol")).id;

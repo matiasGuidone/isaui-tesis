@@ -96,14 +96,14 @@ export class HomeComponent {
   }
   ingresoCv(){
     if (this.rol.nombrerol.toString() == "Curriculum"){
-      //this.logservicio.componenteGuard = "frm-curriculum";
+      this.logservicio.componenteGuard = "frm-curriculum";
       this.router.navigate(['frm-curriculum']);
     }
   }
   ingresoConvocatorias(){
     if (this.rol.nombrerol.toString() == "Curriculum"){
-      //this.logservicio.componenteGuard = "frm-curriculum";
-      this.router.navigate(['abm-convocatoria']);
+      this.logservicio.componenteGuard = "frm-convocatorias";
+      this.router.navigate(['frm-convocatorias']);
     }
   }
 

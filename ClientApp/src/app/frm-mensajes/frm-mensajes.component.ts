@@ -132,6 +132,7 @@ export class FrmMensajesComponent implements OnInit {
   this.limpiarCampos();
  }
   formatearFecha(f: any): string {
+    f = new Date(f);
     if (f instanceof Date) {
       f.setDate(f.getDate() + 1);
     }

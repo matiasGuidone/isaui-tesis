@@ -16,18 +16,36 @@ public class CorreoController : Controller
         {
             EnviarCorreoElectronico.GestorCorreo gestor = new EnviarCorreoElectronico.GestorCorreo();
             if(data.plantilla != null){
-
+                try
+                {
                     gestor.EnviarCorreo(data.destino,
                                     data.asunto,
                                     data.mensaje,data.asunto, true);
                     return Json("envío efectuado");
+                    
+                }
+                catch (System.Exception)
+                {
+                    
+                    return Json("envío no efectuado");
+                }
+                    
 
             }
             else{  
-                gestor.EnviarCorreo(data.destino,
+                try
+                {
+                    gestor.EnviarCorreo(data.destino,
                                     data.asunto,
                                     data.mensaje,data.asunto);
                                     return Json("envío efectuado");
+                }
+                catch (System.Exception)
+                {
+                    
+                    return Json("envío no efectuado");
+                }
+                
             }
 
         }

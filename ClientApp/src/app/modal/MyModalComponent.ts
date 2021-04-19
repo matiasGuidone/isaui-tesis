@@ -234,7 +234,7 @@ export class MyModalComponent extends Modal implements OnInit {
   seleccionadatalist(parametro){
     let inpt = document.getElementById("in-"+parametro)
     let vl = this.sugerencia.find( d => d[this.campo] == document.getElementById(parametro+'-desc')['value']);
-    inpt['value'] = vl.id;
+    this.formGroup.get(parametro).setValue(vl.id);
   }
 
 }

@@ -15,8 +15,8 @@
                             </div>
 
                             <div class="col-md-8">
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('nombre').valid, 'has-error': (formCurriculum.get('nombre').touched || formCurriculum.get('nombre').dirty) && !formCurriculum.get('nombre').valid }">
+                                <div class="form-group">
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('nombre').valid, 'has-error': (formCurriculum.get('nombre').touched || formCurriculum.get('nombre').dirty) && !formCurriculum.get('nombre').valid }"> -->
 
                                     <input  class="form-control" placeholder="Nombre" id="Nombre" type="text" required
                                         maxlength="45" formControlName="nombre" />
@@ -28,8 +28,8 @@
                                     </span>
 
                                 </div>
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('apellido').valid, 'has-error': (formCurriculum.get('apellido').touched || formCurriculum.get('apellido').dirty) && !formCurriculum.get('apellido').valid }">
+                                <div class="form-group"> 
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('apellido').valid, 'has-error': (formCurriculum.get('apellido').touched || formCurriculum.get('apellido').dirty) && !formCurriculum.get('apellido').valid }"> -->
 
                                     <input class="form-control" placeholder="Apellido" id="apellido" type="text"
                                         required maxlength="45" formControlName="apellido" />
@@ -51,8 +51,8 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('numerodoc').valid, 'has-error': (formCurriculum.get('numerodoc').touched || formCurriculum.get('numerodoc').dirty) && !formCurriculum.get('numerodoc').valid }">
+                                <div class="form-group">
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('numerodoc').valid, 'has-error': (formCurriculum.get('numerodoc').touched || formCurriculum.get('numerodoc').dirty) && !formCurriculum.get('numerodoc').valid }"> -->
 
                                     <input class="form-control" placeholder="Número de documento" id="Numerodoc"
                                         type="number" required maxlength="45" formControlName="numerodoc" />
@@ -64,8 +64,8 @@
                                     </span>
                                 </div>
 
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('fechanac').valid, 'has-error': (formCurriculum.get('fechanac').touched || formCurriculum.get('fechanac').dirty) && !formCurriculum.get('fechanac').valid }">
+                                <div class="form-group">
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('fechanac').valid, 'has-error': (formCurriculum.get('fechanac').touched || formCurriculum.get('fechanac').dirty) && !formCurriculum.get('fechanac').valid }"> -->
                                     <input class="form-control" placeholder="Fecha de nacimiento" id="fechanac"
                                         type="date" required maxlength="45" formControlName="fechanac" />
                                     <span class="help-block"
@@ -94,8 +94,8 @@
                             </div>
 
                             <div class="col-md-8">
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('correo').valid, 'has-error': (formCurriculum.get('correo').touched || formCurriculum.get('correo').dirty) && !formCurriculum.get('correo').valid }">
+                                <div class="form-group">
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('correo').valid, 'has-error': (formCurriculum.get('correo').touched || formCurriculum.get('correo').dirty) && !formCurriculum.get('correo').valid }"> -->
 
                                     <input class="form-control" placeholder="Correo electrónico" id="correo" type="text"
                                         required maxlength="45" formControlName="correo" />
@@ -107,8 +107,8 @@
                                     </span>
 
                                 </div>
-                                <div class="form-group"
-                                    [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }">
+                                <div class="form-group"> 
+                                    <!-- [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }"> -->
 
                                     <input class="form-control" placeholder="Número de teléfono/celular" id="telefono"
                                         type="number" required maxlength="45" formControlName="telefono" />

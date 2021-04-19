@@ -47,13 +47,14 @@ public class CalificacionestudianteConexion<T> : ObjetoConexion<calificacionestu
                         "examen " +
                         "JOIN materia ON " +
                         "materia.Id = examen.Idmateria join estudiantemateria on estudiantemateria.idmateria = " + 
-                        $"materia.id and examen.idciclolectivo = estudiantemateria.idciclolectivo and estudiantemateria.idestudiante = {idestudiante} " +
+                        $"materia.id and ( examen.idciclolectivo = estudiantemateria.idciclolectivo or examen.tipo = 'final' ) "+
+                        $"and estudiantemateria.idestudiante = {idestudiante} " +
                         "LEFT JOIN calificacionestudiante ON " +
                         "examen.Id = calificacionestudiante.Idexamen " +
                         $"AND calificacionestudiante.Idestudiante = {idestudiante}  " +
                         "WHERE " +
                         $"examen.idmateria = {idmateria} " +
-                        $"and examen.idciclolectivo = {ciclolectivo} ";
+                        $"and ( examen.idciclolectivo = {ciclolectivo} or examen.tipo = 'final' )";
 
         return (List<notarepo>)Conexion.consultaList<notarepo>(consultaSql);
     }

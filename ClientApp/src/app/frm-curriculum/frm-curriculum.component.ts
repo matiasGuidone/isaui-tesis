@@ -55,6 +55,7 @@ export class FrmCurriculumComponent implements OnInit {
   constructor(private servicio: PeticionesService, private formbuilder: FormBuilder, private modalService: ModalService) {
     
   }
+  
   teclaenter(key) {
     if (key.keyCode === 13) {
       //console.log(key);
@@ -79,89 +80,93 @@ export class FrmCurriculumComponent implements OnInit {
     });
   }
 
+  ngAfterContentInit(){
+   
+
+  }
   ngOnInit() {
     this.servicio.loadGrilla('pais')
-      .subscribe
-      (resultado => { this.paises = resultado; });
-    this.servicio.loadGrilla('provincia')
-      .subscribe(resultado => { this.provincias = resultado; });
-    this.servicio.loadGrilla('localidad')
-      .subscribe(resultado => { this.localidades = resultado; });
+    .subscribe
+    (resultado => { this.paises = resultado; });
+  this.servicio.loadGrilla('provincia')
+    .subscribe(resultado => { this.provincias = resultado; });
+  this.servicio.loadGrilla('localidad')
+    .subscribe(resultado => { this.localidades = resultado; });
 
-    this.servicio.loadGrilla('curriculum', ['idusuario']).subscribe(curr => {
-      //utiliza el json de parametro para obtener los tipos de documento
-      this.modalService.setCaseEstado('tipoDoc');
-      this.tiposDoc = this.modalService.estados;
+  this.servicio.loadGrilla('curriculum', ['idusuario']).subscribe(curr => {
+    //utiliza el json de parametro para obtener los tipos de documento
+    this.modalService.setCaseEstado('tipoDoc');
+    this.tiposDoc = this.modalService.estados;
 
-      this.modalService.setCaseEstado('sexo');
-      this.sexos = this.modalService.estados;
+    this.modalService.setCaseEstado('sexo');
+    this.sexos = this.modalService.estados;
 
-      if (curr.length == 0) {
+    if (curr.length == 0) {
 
-        this.cargarPaises();
-      }
-      else {
-
-
-        this.formCurriculum = this.formbuilder.group({
-          id: curr[0].id,
-          nombre: curr[0].nombre,
-          apellido: curr[0].apellido,
-          fechanac: curr[0].fechanac.substring(0,10),
-          sexo: curr[0].sexo,
-          numerodoc: curr[0].numerodoc,
-          telefono: curr[0].telefono,
-          telefonodos: curr[0].telefonodos,
-          correo: curr[0].correo,
-          observaciones: curr[0].observaciones,
-          tipodoc: curr[0].tipodoc,
-          iddomicilio: curr[0].iddomicilio,
-          idusuario: curr[0].idusuario,
+      this.cargarPaises();
+    }
+    else {
 
 
-        });
-        this.servicio.loadGrilla('antecedentetitulo', ['idcurriculum', curr[0].id.toString()]).subscribe((antecedetes: antecedentetitulo[]) => {
-          for (let ant of antecedetes) {
-            if (ant.relaciondocencia == '-1') {
-              this.formaciones.push({
-                'id': ant.id, Establecimiento: ant.lugar, 'Fecha inicio': ant.fechainicio,
-                'Fecha fin': ant.fechafin, 'Titulo': ant.titulo, tipo: ant.tipotitulo
-              })
-            }
-            else {
-              this.experiencias.push({
-                'id': ant.id, Establecimiento: ant.lugar, 'Fecha inicio': ant.fechainicio,
-                'Fecha fin': ant.fechafin, 'Cargo': ant.descripcion, 'Relación con docencia': ant.relaciondocencia
-              });
+      this.formCurriculum = this.formbuilder.group({
+        id: curr[0].id,
+        nombre: curr[0].nombre,
+        apellido: curr[0].apellido,
+        fechanac: curr[0].fechanac.substring(0,10),
+        sexo: curr[0].sexo,
+        numerodoc: curr[0].numerodoc,
+        telefono: curr[0].telefono,
+        telefonodos: curr[0].telefonodos,
+        correo: curr[0].correo,
+        observaciones: curr[0].observaciones,
+        tipodoc: curr[0].tipodoc,
+        iddomicilio: curr[0].iddomicilio,
+        idusuario: curr[0].idusuario,
 
-            }
-          }
-          this.servicio.loadGrilla('investigacioninformacion', ['idcurriculum', curr[0].id.toString()]).subscribe((investigaciones: investigacion[]) => {
-            for (let inv of investigaciones) {
-              this.investigaciones.push({
-                'id': inv.id, Descripcion: inv.descripcion, 'Fecha': inv.fecha,
-                'Lugar': inv.lugar, 'tipo': inv.tipo
-              });
-              this.servicio.loadGrilla('datoadjunto',['idcurriculum', curr[0].id.toString()]).subscribe(list =>{
-                this.adjuntos = list;
-              });
-            }
-
-          });
-        });
-
-
-      }
-      this.servicio.getById(curr[0].iddomicilio, 'domicilio').subscribe((result: domicilio) => {
-        this.domicilioaux= result;
-        
-
-        this.cargaInicial();
 
       });
-    }
-    );
+      this.servicio.loadGrilla('antecedentetitulo', ['idcurriculum', curr[0].id.toString()]).subscribe((antecedetes: antecedentetitulo[]) => {
+        for (let ant of antecedetes) {
+          if (ant.relaciondocencia == '-1') {
+            this.formaciones.push({
+              'id': ant.id, Establecimiento: ant.lugar, 'Fecha inicio': ant.fechainicio,
+              'Fecha fin': ant.fechafin, 'Titulo': ant.titulo, tipo: ant.tipotitulo
+            })
+          }
+          else {
+            this.experiencias.push({
+              'id': ant.id, Establecimiento: ant.lugar, 'Fecha inicio': ant.fechainicio,
+              'Fecha fin': ant.fechafin, 'Cargo': ant.descripcion, 'Relación con docencia': ant.relaciondocencia
+            });
 
+          }
+        }
+        this.servicio.loadGrilla('investigacioninformacion', ['idcurriculum', curr[0].id.toString()]).subscribe((investigaciones: investigacion[]) => {
+          for (let inv of investigaciones) {
+            this.investigaciones.push({
+              'id': inv.id, Descripcion: inv.descripcion, 'Fecha': inv.fecha,
+              'Lugar': inv.lugar, 'tipo': inv.tipo
+            });
+            
+          }
+          this.servicio.loadGrilla('datoadjunto',['idcurriculum', curr[0].id.toString()]).subscribe(list =>{
+            this.adjuntos = list;
+          });
+
+        });
+      });
+
+
+    }
+    this.servicio.getById(curr[0].iddomicilio, 'domicilio').subscribe((result: domicilio) => {
+      this.domicilioaux= result;
+      
+
+      this.cargaInicial();
+
+    });
+  }
+  );
 
   }
   cargarPaises() {

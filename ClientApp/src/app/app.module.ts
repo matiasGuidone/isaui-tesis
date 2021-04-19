@@ -170,11 +170,11 @@ import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configura
       { path: 'frm-consultanotas', component: ConsultanotasComponent, canActivate: [Guard] },
       { path: 'abm-curriculum', component: AbmCurriculumComponent, canActivate: [Guard] },
       { path: 'rel-curriculumconvocatoria', component: RelCurriculumconvocatoriaComponent, canActivate: [Guard] },
-      { path: 'frm-convocatorias', component: FrmConvocatoriasComponent },
       { path: 'frm-ordenmerito', component: OrdenmeritoComponent, canActivate: [Guard] },
       { path: 'frm-vercurriculum', component: FrmVercurriculumComponent, canActivate: [Guard] },
       { path: 'abm-formula', component: AbmformulaComponent, canActivate: [Guard] },
       { path: 'frm-controlregularidades', component: FrmControlregularidadesComponent, canActivate: [Guard] },
+      { path: 'frm-convocatorias', component: FrmConvocatoriasComponent, canActivate: [Guard] },
     ])
   ],
   providers: [PeticionesService, ExcelService, AuthLoginService, Guard, GuardAutogestion],

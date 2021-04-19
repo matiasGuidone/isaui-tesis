@@ -14,6 +14,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
   num: any;
   archivoimg: any;
   imgseleccionada: any;
+  estilonotif = "alert alert-success alert-dismissible fade show";
 
   constructor(private servicio: PeticionesService,  private logservicio: AuthLoginService) {
     this.foto = logservicio.getFoto();
@@ -81,6 +82,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       let tnot = document.getElementById("textnotificacion");
       not.style.display="block";
       tnot.innerHTML = "El tamaño del archivo seleccionado excede el límite de memoria";
+      this.estilonotif = "alert alert-danger alert-dismissible fade show";
 
     }
   }
@@ -97,6 +99,11 @@ export class ConfiguracionUsuarioComponent implements OnInit {
           s.estilo = this.num;
           localStorage.setItem("Rol",JSON.stringify(s));
           this.logservicio.foto = this.foto;
+          let not = document.getElementById("notificacion");
+          let tnot = document.getElementById("textnotificacion");
+          not.style.display="block";
+          tnot.innerHTML = "Cambios almacenados con éxito";
+          this.estilonotif = "alert alert-success alert-dismissible fade show";
         });
       }
       else{

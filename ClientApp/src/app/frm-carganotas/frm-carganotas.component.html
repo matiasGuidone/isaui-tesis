@@ -60,7 +60,7 @@
                      <a title="Almacenar" (click)="guardarexameneditado(examen.id)" class="fa fa-save bg-success border m-2 p-3"></a>
                   </div>
                </th>
-               <th><a title="nueva nota" (click)="nuevoexamen()" class="fa fa-plus bg-info border m-2 p-1"></a>
+               <th><a *ngIf="iscicloactivo" title="nueva nota" (click)="nuevoexamen()" class="fa fa-plus bg-info border m-2 p-1"></a>
                   <div id="nota" class="p-4 m-2 border bg-secondary">
                      <span class="lead my-auto">Nueva lista de notas</span>
                      <hr />

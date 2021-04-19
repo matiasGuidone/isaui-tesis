@@ -17,8 +17,27 @@ public class CalificacionestudianteController : Controller
     {
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
-        CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
-        return Json("El proceso de almacenado se realizó con éxito.");
+            //
+            var filtro = new List<string>();
+            var idciclo = CicloLectivoConexion<ciclolectivo>.Instance.getCicloLectivo().Id;
+            var idmateria = ExamenConexion<examen>.Instance.SearchId(Calificacionestudiante.Idexamen).Idmateria;
+            filtro.Add("idestudiante");
+            filtro.Add(Calificacionestudiante.Idestudiante.ToString());
+            filtro.Add("idmateria");
+            filtro.Add(idmateria.ToString());
+            filtro.Add("idciclolectivo");
+            filtro.Add(idciclo.ToString());
+            var n = estudianteMateriaConexion<estudiantemateria>.Instance.SearchAll(filtro.ToArray());
+
+            if(n.Count == 0){
+                var esmat = new estudiantemateria();
+                esmat.Idciclolectivo = idciclo;
+                esmat.Idestudiante = Calificacionestudiante.Idestudiante;
+                esmat.Idmateria = idmateria;
+                estudianteMateriaConexion<estudiantemateria>.Instance.Insert(esmat);
+            }
+            CalificacionestudianteConexion<calificacionestudiante>.Instance.Insert(Calificacionestudiante);
+            return Json("El proceso de almacenado se realizó con éxito.");
         }
         else return null;
 
