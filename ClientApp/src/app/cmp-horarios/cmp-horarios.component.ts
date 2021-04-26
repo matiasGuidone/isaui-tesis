@@ -20,7 +20,7 @@ export class CmpHorariosComponent implements OnInit {
   materias: materia[] = new Array<materia>();
   @Input() idMateria = "";
 
-  constructor(protected servicio: PeticionesService, protected modalService: ModalService) { }
+  constructor(public servicio: PeticionesService, protected modalService: ModalService) { }
 
   ngOnInit() {
     let rol = JSON.parse(localStorage.getItem("Rol"));

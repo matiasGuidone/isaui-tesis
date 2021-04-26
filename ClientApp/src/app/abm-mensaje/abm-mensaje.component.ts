@@ -16,7 +16,7 @@ export class AbmMensajeComponent extends abm<mensaje> implements OnInit {
  
   constructor( protected location: Location,
                protected modalService: ModalService,
-               protected servicio: PeticionesService,
+               public servicio: PeticionesService,
                protected logservicio: AuthLoginService){
     super(location,modalService,servicio, logservicio);
 

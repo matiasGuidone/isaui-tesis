@@ -18,7 +18,7 @@ export class FrmMensajesComponent implements OnInit {
   mensajeSeleccionado: mensaje;
   rol: any;
   cursos: any[];
-  constructor(protected servicio: PeticionesService , protected modalService: ModalService) {
+  constructor(public servicio: PeticionesService , protected modalService: ModalService) {
     //--
     this.rol = JSON.parse(localStorage.getItem("Rol"));
     if (this.rol.nombrerol.toString() == "Docente") {

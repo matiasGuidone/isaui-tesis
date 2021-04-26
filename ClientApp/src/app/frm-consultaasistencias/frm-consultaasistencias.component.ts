@@ -12,7 +12,7 @@ import { PeticionesService } from '../services/peticiones.service';
 export class FrmConsultaasistenciasComponent implements OnInit {
   arrayValores: string[] = new Array<string>();
   lista: any[];
-  constructor(private servicio:PeticionesService,private modalService: ModalService) { 
+  constructor(public servicio:PeticionesService,private modalService: ModalService) { 
 
     //let obj = new Object({ 'Nombre/Apellido estudiante': '', 'Carrera': '' ,'Curso':'','Fecha desde': new Date(),'Fecha hasta': new Date()});
     this.modalService.setCaseEstado('filtroAsistencias');

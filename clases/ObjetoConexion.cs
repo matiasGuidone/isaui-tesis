@@ -221,7 +221,7 @@ public class ObjetoConexion<T>
     public T SearchId(int Id)
     {
         // oObjeto retorna;
-        string consulta = $"SELECT * FROM {this.tipo.GetType()} Where ID = {Id}";
+        string consulta = $"SELECT * FROM {this.tipo.GetType()} Where Id = {Id}";
         var temp = new List<T>();
         temp = (List<T>)Conexion.consultaList<T>(consulta);
         try

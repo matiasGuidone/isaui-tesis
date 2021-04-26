@@ -5,7 +5,7 @@
          
         <div class="lead col-md-3">
             Materias: 
-            <select (change)="seleccionarMateria()" class="form-control" id="materia">
+            <select (change)="filtrar()" class="form-control" id="materia">
                 <option *ngFor="let materia of materias" [value]="materia.id">
                     {{materia.nombre}}
                 </option>

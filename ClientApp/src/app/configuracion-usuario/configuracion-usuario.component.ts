@@ -16,7 +16,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
   imgseleccionada: any;
   estilonotif = "alert alert-success alert-dismissible fade show";
 
-  constructor(private servicio: PeticionesService,  private logservicio: AuthLoginService) {
+  constructor(public servicio: PeticionesService,  private logservicio: AuthLoginService) {
     this.foto = logservicio.getFoto();
     this.num = logservicio.getEstilo();
     
@@ -91,6 +91,11 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       const formData = new FormData();
       if (this.archivoimg != undefined){ formData.append(this.archivoimg.name, this.archivoimg);}
       this.servicio.setstilo(this.num).subscribe(d =>{
+        let not = document.getElementById("notificacion");
+          let tnot = document.getElementById("textnotificacion");
+          not.style.display="block";
+          tnot.innerHTML = "Estilo de interfaz modificado";
+          this.estilonotif = "alert alert-success alert-dismissible fade show";
         if (this.archivoimg != undefined){ 
         this.servicio.upFoto(formData).subscribe(f=>{
           console.log(f);
@@ -102,7 +107,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
           let not = document.getElementById("notificacion");
           let tnot = document.getElementById("textnotificacion");
           not.style.display="block";
-          tnot.innerHTML = "Cambios almacenados con éxito";
+          tnot.innerHTML = "Foto de perfil modificada";
           this.estilonotif = "alert alert-success alert-dismissible fade show";
         });
       }
@@ -113,5 +118,10 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       }
       })
     }
+    closealert(){
+      let notificacion = document.getElementById("notificacion");
+      notificacion.style.display = "none";
+    }
+
 
 }

@@ -32,7 +32,7 @@ export class ConsultanotasComponent implements OnInit {
   condicionnotas: string;
   condicionasistencias: string;
 
-  constructor(private servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) {
+  constructor(public servicio: PeticionesService, protected logservicio: AuthLoginService, private modalservice: ModalService) {
     this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
       this.ciclos = ciclos;
       let rol = JSON.parse(localStorage.getItem("Rol"));

@@ -18,7 +18,7 @@ export class RelCursoestudiante {
     listaestudiantes: estudiante[] = new Array<estudiante>();
     ciclos: ciclolectivo[];
 
-    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
+    constructor(private router: Router, public servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
             this.ciclos = ciclos;});
         if (this.servicio.idsSeleccionados != null && this.servicio.idSeleccionado != null) {

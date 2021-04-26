@@ -26,7 +26,7 @@ export class IniciarSesionComponent implements OnInit {
     contra2: '', 
   });
 
-  constructor(private servicio: PeticionesService, private formbuilder: FormBuilder, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { 
+  constructor(public servicio: PeticionesService, private formbuilder: FormBuilder, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { 
    
   }
 

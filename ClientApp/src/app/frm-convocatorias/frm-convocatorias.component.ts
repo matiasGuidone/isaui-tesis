@@ -26,7 +26,7 @@ export class FrmConvocatoriasComponent implements OnInit {
 
   constructor(
     protected modalService: ModalService,
-    protected servicio: PeticionesService,
+    public servicio: PeticionesService,
     protected logservicio: AuthLoginService) { 
   //  this.administrador = JSON.parse(localStorage.getItem("Rol"));
   }

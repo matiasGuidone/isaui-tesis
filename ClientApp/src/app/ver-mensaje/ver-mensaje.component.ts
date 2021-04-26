@@ -15,7 +15,7 @@ export class VerMensajeComponent implements OnInit {
   mensajes: Array<mensajeestudiante>;
   estudiante: Array<any>;
 
-  constructor(protected servicio: PeticionesService,
+  constructor(public servicio: PeticionesService,
     protected modalService: ModalService) {
   }
 

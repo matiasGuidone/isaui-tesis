@@ -26,7 +26,7 @@ export class NavMenuComponent {
 public opacityChange = 0;public splashTransition;// First access the splash is visible
 public showSplash = false;readonly ANIMATION_DURATION = 1;
  //foto: string;
-  constructor(private modalService:ModalService , private servicio: PeticionesService, public router:Router, private logservicio: AuthLoginService){
+  constructor(public modalService:ModalService , public servicio: PeticionesService, public router:Router, protected logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => {this.menus = res; this.ordenar();});
     this.cambiarEstilo(logservicio.getEstilo());

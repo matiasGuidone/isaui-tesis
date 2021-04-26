@@ -38,6 +38,8 @@
        "rel-cursoestudiante": {"titulo":"Relación de estudiantes en cada curso","descripcion":""} ,
        "rel-estudiantemateria": {"titulo":"Relación de estudiantes en cada materia","descripcion":""} ,
        "rel-docentemateria": {"titulo":"Relación de docentes por materia","descripcion":""} ,
-       "rel-rolesusuario": {"titulo":"Relación de usuarios con roles","descripcion":""} 
+       "rel-rolesusuario": {"titulo":"Relación de usuarios con roles","descripcion":""} ,
+       "frm-convocatorias": {"titulo":"Convocatorias disponibles para cubrir cátedras de espacios curriculares dentro de la Institución","descripcion":""} ,
+       "frm-calendariocomp": {"titulo":"Calendario y horario","descripcion":"En la parte superior están tus materias cursadas en el Ciclo lectivo actual. En el lado inferior el calendario con eventos ."}
     }
 

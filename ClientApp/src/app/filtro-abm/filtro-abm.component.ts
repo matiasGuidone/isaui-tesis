@@ -22,7 +22,7 @@ export class FiltroComponent {
   private estado: any[] = new Array<string>();
   @Output() emisorFiltro = new EventEmitter<any[]>();
 
-  constructor(private router: Router, private servicio: PeticionesService, private modalService: ModalService) {
+  constructor(private router: Router, public servicio: PeticionesService, private modalService: ModalService) {
     if (this.modalService.filtro != null && this.modalService.filtro != undefined) {
       this.camposid = new Array<any[]>();
       for (var i in this.modalService.filtro) {

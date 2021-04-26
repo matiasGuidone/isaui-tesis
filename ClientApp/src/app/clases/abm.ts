@@ -17,7 +17,7 @@ export class abm<T>{
     nombre : string;
     constructor(protected location: Location,
                 protected modalService: ModalService,
-                protected servicio: PeticionesService,
+                public servicio: PeticionesService,
                 protected logservicio: AuthLoginService
                 ) {}
 
@@ -85,7 +85,7 @@ export class abm<T>{
         this.location.subscribe(r=>{ this.logservicio.componenteGuard = r.url.toString().substring(1); });
       }
 
-      editar(id: number, obj: any) {
+      editar(id: number, obj: any = null) {
         if (obj != null && obj != undefined) {
             obj.id = id;
             let doc = this.castObjeto(obj);

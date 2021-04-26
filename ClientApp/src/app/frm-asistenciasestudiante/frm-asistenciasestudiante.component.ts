@@ -14,7 +14,7 @@ export class FrmAsistenciasestudianteComponent implements OnInit {
   materias: materia[];
   asistencia: any;
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  constructor(private servicio: PeticionesService, private modalService: ModalService) {
+  constructor(public servicio: PeticionesService, private modalService: ModalService) {
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if (rol.nombrerol.toString() == "Estudiante") {
       this.servicio.loadGrilla('materia', ['idestudiante', rol.id.toString()]).subscribe(resultado => {

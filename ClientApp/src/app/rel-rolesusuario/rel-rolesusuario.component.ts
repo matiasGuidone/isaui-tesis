@@ -15,7 +15,7 @@ export class RelRolesUsuario {
     usuarioSeleccionado = "No hay usuario seleccionado";
     listaroles: roles[] = new Array<roles>();
 
-    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
+    constructor(private router: Router, public servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {
             this.servicio.idSeleccionado.toString();
             let i = this.servicio.idsSeleccionados.length;

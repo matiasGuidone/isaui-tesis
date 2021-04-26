@@ -27,7 +27,7 @@ export class OrdenmeritoComponent implements OnInit {
   convoca: convocatoria;
 
 
-  constructor(private servicio: PeticionesService, private router: Router, protected logservicio: AuthLoginService, private modalservice: ModalService) {
+  constructor(public servicio: PeticionesService, private router: Router, protected logservicio: AuthLoginService, private modalservice: ModalService) {
     let rol = JSON.parse(localStorage.getItem("Rol"));
     if (rol.nombrerol.toString() == "Administrador") {
       this.servicio.loadGrilla('convocatoria').subscribe(resultado => { this.convocatorias = resultado; if (this.convocatorias.length > 0) { this.selecionarconvocatoria(this.convocatorias[0].id); } });

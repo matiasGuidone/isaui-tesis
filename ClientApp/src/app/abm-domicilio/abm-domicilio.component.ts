@@ -28,7 +28,7 @@ export class AbmDomicilioComponent extends abm<any> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService,
+    public servicio: PeticionesService,
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
     this.nombre = 'domicilio';

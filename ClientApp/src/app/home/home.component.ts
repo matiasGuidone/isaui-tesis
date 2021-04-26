@@ -10,7 +10,7 @@ import { PeticionesService } from '../services/peticiones.service';
   styleUrls: ['./autogestion.component.css']
 })
 export class HomeComponent {
-  constructor(private router: Router, private logservicio: AuthLoginService, private servicio: PeticionesService) {
+  constructor(private router: Router, private logservicio: AuthLoginService, public servicio: PeticionesService) {
 
   }
   rol: any;

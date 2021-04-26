@@ -52,7 +52,7 @@ export class FrmCurriculumComponent implements OnInit {
 
 
 
-  constructor(private servicio: PeticionesService, private formbuilder: FormBuilder, private modalService: ModalService) {
+  constructor(public servicio: PeticionesService, private formbuilder: FormBuilder, private modalService: ModalService) {
     
   }
   
@@ -211,7 +211,7 @@ export class FrmCurriculumComponent implements OnInit {
   });
   }
 
-  nuevo(tipo, titulo, cargo, establecimiento, descripcion) {
+  nuevo(tipo, titulo=null, cargo=null, establecimiento=null, descripcion=null) {
     // 1-nueva formacion
     // 2-editar formacion
     // 3-nueva experiencia

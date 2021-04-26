@@ -8,7 +8,7 @@ import { PeticionesService } from './services/peticiones.service';
 export class AppComponent {
   title = 'app';
   //sesionIniciada: boolean = false;
-  constructor(private servicio: PeticionesService){
+  constructor(public servicio: PeticionesService){
     if(localStorage.getItem('InicioSesion')!='true'){
         localStorage.setItem("InicioSesion", "false" );}
   }

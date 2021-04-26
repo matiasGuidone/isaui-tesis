@@ -34,7 +34,7 @@ export class FrmVercurriculumComponent implements OnInit {
   investigaciones: any[]= new Array<any>();
   datosadjuntos: datoadjunto[];
 
-  constructor(protected location: Location,private servicio :PeticionesService, private modalservicio: ModalService,private logservicio:AuthLoginService) {
+  constructor(protected location: Location,public servicio :PeticionesService, private modalservicio: ModalService,private logservicio:AuthLoginService) {
      this.curriculum = servicio.selectedcurriculum;
      this.servicio.getById(this.curriculum.iddomicilio.toString(),'domicilio').subscribe((dom:domicilio)=>{
       this.dom = dom.direccion;

@@ -25,7 +25,7 @@ export class FrmControlregularidadesComponent implements OnInit {
   condiciones: any[];
 
   constructor(protected modalService: ModalService,
-    protected servicio: PeticionesService,
+    public servicio: PeticionesService,
     protected excelservicio: ExcelService,
     protected logservicio: AuthLoginService) {
     this.modalService.setCaseEstado('condestudiantes');
@@ -107,6 +107,10 @@ export class FrmControlregularidadesComponent implements OnInit {
     }
   }
 
+  seleccionarCiclo(){ 
+    this.idciclo = document.getElementById('ciclolectivo')['value']; 
+    this.seleccionarMateria();
+  }
   public generarPDF() {
     const doc = new jspdf.jsPDF();
     let descripcion: string;

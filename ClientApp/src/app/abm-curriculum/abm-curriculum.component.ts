@@ -19,7 +19,7 @@ export class AbmCurriculumComponent extends abm<curriculum> implements OnInit {
 
   constructor(protected location: Location,
     protected modalService: ModalService,
-    protected servicio: PeticionesService,
+    public servicio: PeticionesService,
     protected logservicio: AuthLoginService,
     private router:Router ) 
     { 

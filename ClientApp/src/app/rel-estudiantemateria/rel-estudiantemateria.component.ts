@@ -17,7 +17,7 @@ export class RelestudianteMateria {
     listaMaterias: materia[] = new Array<materia>();
     ciclos: ciclolectivo[];
 
-    constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) {
+    constructor(private router: Router, public servicio: PeticionesService, protected logservicio: AuthLoginService ) {
         this.servicio.loadGrilla('ciclolectivo').subscribe(ciclos => {
             this.ciclos = ciclos;});
         if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) {

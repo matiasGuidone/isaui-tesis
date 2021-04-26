@@ -36,62 +36,74 @@
       </div>
    </div>
 
-      <br />
-      <table [class]="this.servicio.classtable2">
-         <thead>
-            <tr>
-               <th scope="col"><button title="Excel de notas" (click)="excelNotas()" id="excel"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-success"><span class="fas fa-file-excel fa-md"></span></button>
-                  <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span class="fas fa-file-pdf fa-md"></span></button> Estudiantes</th>
-                  <th scope="col" style="width: 20%;"> Condición de notas</th>
-               <th scope="col" *ngFor="let examen of examenes"  >
-                  <span class="lead" (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
-                  <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
-                     <span class="lead my-auto">Editar lista de notas</span>
-                     <hr />
-                     <input *ngIf="es_firefox" class="form-control my-3" id='fecha-{{examen.id}}' [value]='examen.fecha.substring(0,10)' type="date" />
-                     <input *ngIf="!es_firefox" class="form-control my-3" id='fecha-{{examen.id}}' [value]='examen.fecha.substring(0,10)' type="datetime-local" />
-                     <select id="tipo-{{examen.id}}" class="form-control" [value]="examen.tipo" >
-                        <option *ngFor="let obj of this.modalService.estados " [value]="obj">
-                           {{obj}}
-                        </option>
-                     </select>
-                     <input class="form-control my-3" id='descripcion-{{examen.id}}' [value]="examen.observaciones" placeholder="Descripción" type="text" />
-                     <a title="Cerrar" (click)="editarexamen(examen.id,1)" class="fa fa-window-close bg-secondary border m-2 p-3"></a>
-                     <a title="Almacenar" (click)="guardarexameneditado(examen.id)" class="fa fa-save bg-success border m-2 p-3"></a>
-                  </div>
-               </th>
-               <th><a *ngIf="iscicloactivo" title="nueva nota" (click)="nuevoexamen()" class="fa fa-plus bg-info border m-2 p-1"></a>
-                  <div id="nota" class="p-4 m-2 border bg-secondary">
-                     <span class="lead my-auto">Nueva lista de notas</span>
-                     <hr />
-                     <input *ngIf="es_firefox" class="form-control my-3" id='fecha' type="date" />
-                     <input *ngIf="!es_firefox" class="form-control my-3" id='fecha' type="datetime-local" />
-                     <select id="tipo" class="form-control">
-                        <option *ngFor="let obj of this.modalService.estados " [value]="obj">
-                           {{obj}}
-                        </option>
-                     </select>
-                     <input class="form-control my-3" id='descripcion' placeholder="Descripción" type="text" />
-                     <a title="Cerrar" (click)="cerrarexamen()" class="fa fa-window-close bg-secondary border m-2 p-3"></a>
-                     <a title="Almacenar" (click)="guardarexamen()" class="fa fa-save bg-success border m-2 p-3"></a>
-                  </div>
-               </th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr *ngFor="let estudiante of estudiantes">
-               <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
-               <td class="col-2"> <select (change)="guardarCondicion(estudiante.id)" class="form-control float-left" style="min-width:130px;" name="" value="{{estudiante.condicion}}" id="condicion-{{estudiante.id}}">
-                  <option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option></select>
-                    </td>
-               <td style="width: 75px;" *ngFor="let examen of examenes" id="{{estudiante.id}}-{{examen.id}}">
-                  <input style="width: 60px;" type="number" id="in-{{estudiante.id}}-{{examen.id}}"
-                     (keyup)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())"
-                     (change)="guardarNota(estudiante.id,examen.id)" />
-                  <!-- <a title="registrar" id="btn-{{estudiante.id}}-{{examen.id}}" (click)=""
-                     class="fa fa-check bg-success border m-2 p-1"></a></td> -->
-               <!-- <td *ngFor="let nota of notas">{{nota.nota}}</th> -->
-            </tr>
-         </tbody>
-      </table>
-   </div>
+   <br />
+   <table [class]="this.servicio.classtable2">
+      <thead>
+         <tr>
+            <th scope="col"><button title="Excel de notas" (click)="excelNotas()" id="excel"
+                  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-success"><span
+                     class="fas fa-file-excel fa-md"></span></button>
+               <button title="Pdf de notas" (click)="pdfNotas()" id="pdf"
+                  style="border-radius:50px;width:30px;height:30px;padding: 0px;" class="btn btn-danger"><span
+                     class="fas fa-file-pdf fa-md"></span></button> Estudiantes</th>
+            
+            <th scope="col" *ngFor="let examen of examenes">
+               <span class="lead"
+                  (click)="editarexamen(examen.id,0)">{{examen.tipo.substring(0,3)}}-{{examen.fecha | date : 'dd/MM'}}</span>
+               <div id="editar-{{examen.id}}" class="p-4 m-2 border bg-secondary nota">
+                  <span class="lead my-auto">Editar lista de notas</span>
+                  <hr />
+                  <input *ngIf="es_firefox" class="form-control my-3" id='fecha-{{examen.id}}'
+                     [value]='examen.fecha.substring(0,10)' type="date" />
+                  <input *ngIf="!es_firefox" class="form-control my-3" id='fecha-{{examen.id}}'
+                     [value]='examen.fecha.substring(0,10)' type="datetime-local" />
+                  <select id="tipo-{{examen.id}}" class="form-control" [value]="examen.tipo">
+                     <option *ngFor="let obj of this.modalService.estados " [value]="obj">
+                        {{obj}}
+                     </option>
+                  </select>
+                  <input class="form-control my-3" id='descripcion-{{examen.id}}' [value]="examen.observaciones"
+                     placeholder="Descripción" type="text" />
+                  <a title="Cerrar" (click)="editarexamen(examen.id,1)"
+                     class="fa fa-window-close bg-secondary border m-2 p-3"></a>
+                  <a title="Almacenar" (click)="guardarexameneditado(examen.id)"
+                     class="fa fa-save bg-success border m-2 p-3"></a>
+               </div>
+            </th>
+            <th scope="col" style="width: 20%;"> Condición de notas</th>
+            <th><a *ngIf="iscicloactivo" title="nueva nota" (click)="nuevoexamen()"
+                  class="fa fa-plus bg-info border m-2 p-1"></a>
+               <div id="nota" class="p-4 m-2 border bg-secondary">
+                  <span class="lead my-auto">Nueva lista de notas</span>
+                  <hr />
+                  <input *ngIf="es_firefox" class="form-control my-3" id='fecha' type="date" />
+                  <input *ngIf="!es_firefox" class="form-control my-3" id='fecha' type="datetime-local" />
+                  <select id="tipo" class="form-control">
+                     <option *ngFor="let obj of this.modalService.estados " [value]="obj">
+                        {{obj}}
+                     </option>
+                  </select>
+                  <input class="form-control my-3" id='descripcion' placeholder="Descripción" type="text" />
+                  <a title="Cerrar" (click)="cerrarexamen()" class="fa fa-window-close bg-secondary border m-2 p-3"></a>
+                  <a title="Almacenar" (click)="guardarexamen()" class="fa fa-save bg-success border m-2 p-3"></a>
+               </div>
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let estudiante of estudiantes">
+            <td class="col-2">{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</td>
+            
+            <td style="width: 75px;" *ngFor="let examen of examenes" id="{{estudiante.id}}-{{examen.id}}">
+               <input style="width: 60px;" type="number" id="in-{{estudiante.id}}-{{examen.id}}"
+                  (keyup)="Numeros('in-'+estudiante.id.toString()+'-'+examen.id.toString())"
+                  (change)="guardarNota(estudiante.id,examen.id)" /></td>
+                  <td class="col-2"> <select (change)="guardarCondicion(estudiante.id)" class="form-control float-left"
+                  style="min-width:130px;" name="" value="{{estudiante.condicion}}" id="condicion-{{estudiante.id}}">
+                  <option *ngFor="let item of condiciones" value="{{item}}">{{item}}</option>
+               </select>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>

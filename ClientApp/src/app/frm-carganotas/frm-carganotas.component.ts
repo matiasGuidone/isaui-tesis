@@ -43,8 +43,8 @@ export class FrmCarganotasComponent extends abm<examen> implements OnInit {
   cicloactual: ciclolectivo = new ciclolectivo({'id':'0'});
 
   constructor(protected location: Location,
-    protected modalService: ModalService,
-    protected servicio: PeticionesService,
+    public modalService: ModalService,
+    public servicio: PeticionesService,
     protected excelservicio: ExcelService,
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);

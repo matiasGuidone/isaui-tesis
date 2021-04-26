@@ -17,7 +17,7 @@ export class RelCurriculumconvocatoriaComponent {
   convocatoriaselecionada="No hay convocatoria seleccionado";
   listaCV: curriculum[]= new Array<curriculum>();
 
-  constructor(private router: Router, private servicio: PeticionesService, protected logservicio: AuthLoginService ) { 
+  constructor(private router: Router, public servicio: PeticionesService, protected logservicio: AuthLoginService ) { 
     if (this.servicio.idsSeleccionados != null && this.servicio.idsSeleccionados.length > 0 && this.servicio.idSeleccionado != null) 
     {
       this.servicio.idSeleccionado.toString();

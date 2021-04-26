@@ -19,7 +19,7 @@ export class FrmCalendarioComponent implements OnInit {
   eventos: evento[];
   celdasconeventos: HTMLDivElement[] = new Array<HTMLDivElement>();
 
-  constructor(private servicio: PeticionesService) {
+  constructor(public servicio: PeticionesService) {
     for (let i = 0; i < 13; i++) {
       //console.log(i.toString() + ": " + this.diasEnUnMes(i, 2020));
     }
