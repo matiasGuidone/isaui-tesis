@@ -237,6 +237,31 @@ export class MyModalComponent extends Modal implements OnInit {
     this.formGroup.get(parametro).setValue(vl.id);
   }
 
+  //setea el campo de fecha de fin de actividad con el mismo valor que el campo de principio de actividad
+  setfechafin(){
+    var ischecked = document.getElementById("Fecha fin-chk")['checked'];
+    console.log(ischecked);
+    if(ischecked){
+      this.formGroup.get('Fecha fin').setValue(document.getElementById("in-Fecha inicio")['value']); 
+      document.getElementById("in-Fecha fin")['disabled'] = true;
+    }
+    else{ 
+      document.getElementById("in-Fecha fin")['disabled'] = false;
+      this.formGroup.get('Fecha fin').setValue(new Date());
+    }
+
+  }
+  compruebafechas(){
+    console.log('comprueba');
+    if(this.formGroup.get('Fecha fin').value != this.formGroup.get('Fecha inicio').value){ 
+      return true;
+    }
+    else{
+      document.getElementById("Fecha fin-chk")['checked'] = true;
+      document.getElementById("in-Fecha fin")['disabled'] = true; 
+      return false;}
+  }
+
 }
 
 class ObjetoValor {

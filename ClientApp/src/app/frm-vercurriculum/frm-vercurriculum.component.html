@@ -56,7 +56,8 @@
                                 </div>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
-                                    <div class="col-md-6">{{formacion['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                    <div *ngIf="formacion['Fecha inicio'] != formacion['Fecha fin'] " class="col-md-6">{{formacion['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                    <div *ngIf="formacion['Fecha inicio'] == formacion['Fecha fin'] " class="col-md-6">Sin concluír</div>
                                 </div> 
                                 
                             </div>
@@ -85,7 +86,8 @@
                                 </div>
                                 <div class="lead row m-3">
                                     <div class="col-md-5 font-weight-bold">Fecha de conclusión:</div>
-                                    <div class="col-md-6">{{experiencia['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                    <div *ngIf="experiencia['Fecha inicio'] != experiencia['Fecha fin'] " class="col-md-6">{{experiencia['Fecha fin'] | date : 'dd/MM/yyyy'}}</div>
+                                    <div *ngIf="experiencia['Fecha inicio'] == experiencia['Fecha fin'] " class="col-md-6">Sin concluír</div>
                                 </div> 
                                  
                             </div>
