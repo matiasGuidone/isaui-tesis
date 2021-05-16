@@ -40,6 +40,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
         this.servicio.classtable = "table table-striped table-dark table-responsive";
         this.servicio.classimg = "img-logo";
         this.servicio.classbody = "bodyclass";
+        this.servicio.alertrel = "alert table-dark border contrel";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3";
         this.temaestablecido = 'Negro';
         break;
@@ -48,13 +49,13 @@ export class ConfiguracionUsuarioComponent implements OnInit {
         this.servicio.classtable = "table-responsive";
         this.servicio.classimg = "custom-logo-link";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3";
-        this.servicio.classbody = "bodyclasswh";
+        this.servicio.classbody = "bodyclasswh";this.servicio.alertrel = "alert bg-white border contrel";
         this.temaestablecido = 'Blanco';
         break;
       case 3: //estilo gey
         this.servicio.classtable2 = "table table-hover bg-secondary ";
         this.servicio.classtable = "table-responsive bg-secondary ";
-        this.servicio.classimg = "custom-logo-link";
+        this.servicio.classimg = "custom-logo-link";this.servicio.alertrel = "alert bg-secondary border contrel";
         this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-secondary border-bottom box-shadow mb-3";
         this.servicio.classbody = "bodyclass bg-secondary";
         this.temaestablecido = 'Gris';

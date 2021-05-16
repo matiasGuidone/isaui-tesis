@@ -204,3 +204,22 @@ code {
    width: 100%;
     /* height:400px; */ 
 }  
+
+.contrel{
+  z-index: 3000; 
+  position: absolute;
+  font-size: small;
+  max-height: 85vh;
+  overflow-y: scroll;
+  margin-left: 20%;
+  width: 60%;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
+}
+@media only screen and (max-width: 768px) {
+
+.contrel {
+  margin-left: auto;
+  width: auto;
+}
+}

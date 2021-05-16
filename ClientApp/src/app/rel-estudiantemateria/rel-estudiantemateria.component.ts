@@ -42,10 +42,14 @@ export class RelestudianteMateria {
         });
     }
 
-    ngOnInit() {let filt = document.getElementById('filtros');
-    filt.style.marginTop = '-98px';}
+    ngOnInit() {
+        // let filt = document.getElementById('filtros');
+        // filt.style.marginTop = '-98px';
+        document.getElementById('l-materias').style.display="none";
+    }
 
     searchMaterias(estudiante) {
+        document.getElementById('l-materias').style.display="block";
         if (estudiante != null) {
             this.servicio.idSeleccionado = +estudiante[0];
             this.estudianteSeleccionado = estudiante[1];
@@ -59,17 +63,18 @@ export class RelestudianteMateria {
             this.servicio.loadGrilla("estudiantemateria", fil).subscribe(res => {
                 if (res != null && res.length > 0) {
                     let i = res.length;
-                    this.getMateriaById(res, i - 1);
+                    this.getMateriaByIds(res);
                    
                 }
             });
         }
     }
     //método recursivo para buscar campos de materia
-    getMateriaById(res, i: number) {
-        this.servicio.getById(res[i].idmateria, "materia").subscribe(re => {
-            this.listaMaterias.push(re);
-            if (i > 0) { this.getMateriaById(res, i - 1); }
+    getMateriaByIds(res) {
+        let ids = new Array();
+        for(let r of res ){ids.push(r.idmateria);}
+        this.servicio.loadGrilla("materia",["ids",ids.join("-").toString()]).subscribe(re => {
+            this.listaMaterias = re; 
         });
     }
     //evento botón modificar
@@ -83,6 +88,9 @@ export class RelestudianteMateria {
             (["idestudiante", this.servicio.idSeleccionado.toString(),"idciclolectivo",idCiclolectivo], "estudiantemateria")
             .subscribe(res => { this.logservicio.componenteGuard="abm-materia";  this.router.navigate(["abm-materia"]); })
 
+    }
+    closerel(){
+        document.getElementById('l-materias').style.display="none";
     }
 
 }

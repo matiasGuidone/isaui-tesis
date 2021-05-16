@@ -1,5 +1,5 @@
 <div [class]="this.servicio.classtable2">
-   <!-- <div class="row my-2">
+   <div class="row my-2">
       <h5 class="col-md-2 control-label">Ciclo lectivo: </h5>
       <div class="col-md-6">
          <select (change)="seleccionarCiclo()" class="form-control" id="ciclolectivo">
@@ -9,23 +9,29 @@
          </select>
 
       </div>
-   </div> -->
+   </div>
+</div>
+
+<div [class]="this.servicio.alertrel"   id="l-materias">
+   <button type="button" class="close" (click)="closerel()" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   <h4 [class]="this.servicio.classtable">{{estudianteSeleccionado}}</h4>
+   <hr> 
+   <!-- <br />
+<hr> 
+<br /> -->
+   <app-abm-materia [esRelacion]="true" [lista]="this.listaMaterias"></app-abm-materia>
+   <button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()"><span></span>Modificar
+      materias</button>
 </div>
 
 <div class="row">
-   <div class="float-left col-md-7">
+   <div class="float-left col-12">
       <app-abm-estudiante [esRelacion]="true" (emisorId)="searchMaterias($event)"></app-abm-estudiante>
       <!-- <br />
 <br /> -->
    </div>
-   <div class="float-left col-md-5">
-      <h4 [class]="this.servicio.classtable">{{estudianteSeleccionado}}</h4>
-      <hr> 
-      <!-- <br />
-<hr> 
-<br /> -->
-      <app-abm-materia [esRelacion]="true" [lista]="this.listaMaterias"></app-abm-materia>
-      <button *ngIf="this.servicio.idSeleccionado" class="btn btn-info" (click)="modificar()"><span></span>Modificar
-         materias</button>
-   </div>
+
+  
 </div>

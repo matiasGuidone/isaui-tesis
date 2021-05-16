@@ -9,7 +9,8 @@ import { ciclolectivo } from '../clases/ciclolectivo';
 
 @Component({
     selector: 'app-cursoestudiante',
-    templateUrl: './rel-cursoestudiante.component.html'
+    templateUrl: './rel-cursoestudiante.component.html',
+    styleUrls: ['./rel-cursoestudiante.component.css']
 
 })
 export class RelCursoestudiante {
@@ -49,12 +50,15 @@ export class RelCursoestudiante {
         });
     }
     
-    ngOnInit() {let filt = document.getElementById('filtros');
-    filt.style.marginTop = '-98px';
+    ngOnInit() {
+        document.getElementById('l-estudiantes').style.display="none";
+    //     let filt = document.getElementById('filtros');
+    // filt.style.marginTop = '-98px';
 
     }
 
     searchestudiantes(curso) {
+        document.getElementById('l-estudiantes').style.display="block";
         if (curso != null) {
             this.servicio.idSeleccionado = +curso[0];
             this.cursoSeleccionado = curso[1];
@@ -77,6 +81,9 @@ export class RelCursoestudiante {
         this.servicio.eliminarConFiltro
             (["idcurso", this.servicio.idSeleccionado.toString()], "estudiantemateria")
             .subscribe(res => { this.logservicio.componenteGuard="abm-estudiante";  this.router.navigate(["abm-estudiante"]); })
+    }
+    closerel(){
+        document.getElementById('l-estudiantes').style.display="none";
     }
 
 }

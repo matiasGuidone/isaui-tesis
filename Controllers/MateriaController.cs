@@ -64,6 +64,12 @@ public class MateriaController : Controller
                 return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1])); 
                 if (arrayfiltros.Length==4)
                 return MateriaConexion<materia>.Instance.SearchByDocente(Convert.ToInt32(arrayfiltros[1]),Convert.ToInt32(arrayfiltros[3])); }
+             else if (arrayfiltros.Any(p => p == "ids"))
+            {     
+                return MateriaConexion<materia>.Instance.SearchIds(arrayfiltros[1].ToString().Replace("-",",")); 
+                }
+            
+            
             return MateriaConexion<materia>.Instance.SearchAll(arrayfiltros,null,limit,offset);
 
         }

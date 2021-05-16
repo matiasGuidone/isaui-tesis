@@ -35,9 +35,12 @@ export class RelRolesUsuario {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        document.getElementById('l-usuarios').style.display="none";
+    }
 
     searchRoles(usuario) {
+        document.getElementById('l-usuarios').style.display="block";
         if (usuario != null) {
             this.servicio.idSeleccionado = +usuario[0];
             this.usuarioSeleccionado = usuario[1];
@@ -72,4 +75,7 @@ export class RelRolesUsuario {
 
     }
 
+    closerel(){
+        document.getElementById('l-usuarios').style.display="none";
+    }
 }

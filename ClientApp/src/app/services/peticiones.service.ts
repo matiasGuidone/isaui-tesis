@@ -38,6 +38,7 @@ obtenerArchivo(fileDir: string) : Observable<any> {
   public selectedcurriculum: curriculum;
   public url: string;
   public classbody: string = "bodyclasswh";
+  public alertrel: string = "alert bg-white border contrel";
   public classtable2: string = "table table-hover";
   public classtable: string = "table-responsive card-body";
   public classimg: string = "custom-logo-link";

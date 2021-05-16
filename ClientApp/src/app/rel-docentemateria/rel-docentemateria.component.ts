@@ -41,11 +41,13 @@ export class RelDocenteMateria {
     }
 
     ngOnInit() {
-        let filt = document.getElementById('filtros');
-        filt.style.marginTop = '-98px';
+        // let filt = document.getElementById('filtros');
+        // filt.style.marginTop = '-98px';
+        document.getElementById('l-materias').style.display="none";
     }
 
     searchMaterias(docente) {
+        document.getElementById('l-materias').style.display="block";
         if (docente != null) {
             this.servicio.idSeleccionado = +docente[0];
             this.docenteSeleccionado = docente[1];
@@ -60,7 +62,7 @@ export class RelDocenteMateria {
             this.servicio.loadGrilla("docentemateria", fil).subscribe(res => {
                 if (res != null && res.length > 0) {
                     let i = res.length;
-                    this.getMateriaById(res, i - 1);
+                    this.getMateriaByIds(res);
                     // for (let i = 0; i < res.length; i++) {
 
                     // }
@@ -69,10 +71,11 @@ export class RelDocenteMateria {
         }
     }
     //método recursivo para buscar campos de materia
-    getMateriaById(res, i: number) {
-        this.servicio.getById(res[i].idmateria, "materia").subscribe(re => {
-            this.listaMaterias.push(re);
-            if (i > 0) { this.getMateriaById(res, i - 1); }
+    getMateriaByIds(res) {
+        let ids = new Array();
+        for(let r of res ){ids.push(r.idmateria);}
+        this.servicio.loadGrilla("materia",["ids",ids.join("-").toString()]).subscribe(re => {
+            this.listaMaterias = re; 
         });
     }
     //evento botón modificar
@@ -87,6 +90,9 @@ export class RelDocenteMateria {
             (["iddocente", this.servicio.idSeleccionado.toString(), "idciclolectivo", idCiclolectivo.toString() ], "docentemateria")
             .subscribe(res => {  this.logservicio.componenteGuard="abm-materia"; this.router.navigate(["abm-materia"]); })
 
+    }
+    closerel(){
+        document.getElementById('l-materias').style.display="none";
     }
 
 }

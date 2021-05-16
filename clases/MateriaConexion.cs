@@ -41,4 +41,12 @@ using System.Collections.Generic;
             
             return (List<materia>)Conexion.consultaList<materia>(consulta);
         }
+        
+         public List<materia> SearchIds( string ids)
+        {  
+            string consulta =   $"select materia.* from materia where "+
+                                $"materia.id in ("+ids+")"; 
+            
+            return (List<materia>)Conexion.consultaList<materia>(consulta);
+        }
     }
