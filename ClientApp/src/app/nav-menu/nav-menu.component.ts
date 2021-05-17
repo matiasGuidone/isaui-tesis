@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -14,7 +14,7 @@ import ayuda from 'src/assets/json/ayuda.json';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
  num = 0;
   isExpanded = false;
   menus : menu[];
@@ -29,6 +29,7 @@ public showSplash = false;readonly ANIMATION_DURATION = 1;
   constructor(public modalService:ModalService , public servicio: PeticionesService, public router:Router, protected logservicio: AuthLoginService){
     servicio.loadGrilla("menu")
     .subscribe( res => {this.menus = res; this.ordenar();});
+   
     this.cambiarEstilo(logservicio.getEstilo());
     this.usuario = logservicio.getNombreUsuario();
     this.logservicio.foto = logservicio.getFoto();
@@ -80,6 +81,9 @@ public showSplash = false;readonly ANIMATION_DURATION = 1;
         break;
 
     }
+  }
+  ngOnInit(){
+    document.getElementById("ayuda").style.zIndex ='-1';
   }
   // esta funcion setea el componente al cual se dirige el usuario al hacer click
   setGuardComponente(componente){
