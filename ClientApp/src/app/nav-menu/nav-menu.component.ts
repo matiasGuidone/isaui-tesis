@@ -68,13 +68,12 @@ public showSplash = false;readonly ANIMATION_DURATION = 1;
         this.servicio.classbody = "bodyclasswh";
         //this.temaestablecido = 'Blanco';
         break;
-      case 3: //estilo gey
-        this.servicio.classtable2 = "table table-hover bg-secondary ";
-        this.servicio.classtable = "table-responsive bg-secondary ";
-        this.servicio.classimg = "custom-logo-link";
-        this.servicio.alertrel = "alert bg-secondary border contrel";
-        this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-secondary border-bottom box-shadow mb-3";
-        this.servicio.classbody = "bodyclass bg-secondary";
+      case 3: //estilo grey
+      this.servicio.classtable2 = "table table-hover bg-light text-light";
+      this.servicio.classtable = "table-responsive bg-light text-light ";
+      this.servicio.classimg = "img-logo";this.servicio.alertrel = "alert bg-light border contrel";
+      this.servicio.classnav = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3";
+      this.servicio.classbody = "bodyclass bg-light";
         //this.temaestablecido = 'Gris';
         break;
       default:

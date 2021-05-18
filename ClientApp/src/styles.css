@@ -223,3 +223,26 @@ code {
   width: auto;
 }
 }
+.bg-primary {
+  background-color: rgba(28, 52, 68, 0.938) !important;
+}
+.bg-light {
+  background-color: rgb(6, 56, 68) !important;
+  color: #eff6ff !important;
+}
+.bg-light .dropdown-item{
+  color : #F2F2F2 !important;
+}
+.bg-light .dropdown-menu{
+  border: 1px solid #F2F2F2 !important;
+  background: rgb(121,121,121)!important;
+background: linear-gradient(90deg, rgb(13, 26, 56) 0%, rgb(4, 40, 73) 100%)!important;
+}
+
+.bg-light .dropdown-item:hover {
+  color : #242933 !important;
+}
+.bg-light tr:hover{
+  color: #eff6ff !important;
+  background-color: rgb(3, 36, 44) !important;
+}
