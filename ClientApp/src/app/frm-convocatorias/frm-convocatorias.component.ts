@@ -72,7 +72,7 @@ export class FrmConvocatoriasComponent implements OnInit {
   AsignarCuraConvocatoria(ids) {
     this.abrirModaldos('Confirmar', ' Confirmar postularse en esta convocatoria ', 1, null).subscribe(r => {
 
-      this.curcom = new curriculumconvocatoria({ 'idcurriculum': this.curriculum, 'idconvocatoria': ids, 'puntaje': 0, 'prioridad': 0 });
+      this.curcom = new curriculumconvocatoria({ 'idcurriculum': this.curriculum[0].id , 'idconvocatoria': ids, 'puntaje': 0, 'prioridad': 0 });
       //console.log(this.curcom)
       this.servicio.addSingleAbm(this.curcom, 'Curriculumconvocatoria').subscribe(x => {
         this.abrirModaldos(x, 'Muchas gracias por tu Postulacion', 2, 3).subscribe(n => {
