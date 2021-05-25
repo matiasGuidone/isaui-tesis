@@ -72,5 +72,16 @@ public class ProvinciaController : Controller
         }
         else return null;
     }
+     [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    {
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return ProvinciaConexion<provincia>.Instance.cantidadRegistros;
+        }
+        else return 0;
+    }
+
 }
 

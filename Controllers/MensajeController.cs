@@ -68,5 +68,16 @@ public class MensajeController : Controller
         }
         else return null;
     }
+
+    [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    {
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return  MensajeConexion<mensaje>.Instance.cantidadRegistros;
+        }
+        else return 0;
+    }
 }
 

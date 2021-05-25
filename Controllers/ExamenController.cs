@@ -71,5 +71,16 @@ public class ExamenController : Controller
         }
         else return null;
     }
+    [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    {
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return  ExamenConexion<examen>.Instance.cantidadRegistros;
+        }
+        else return 0;
+    }
+
 }
 

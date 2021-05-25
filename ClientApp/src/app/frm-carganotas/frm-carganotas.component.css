@@ -10,11 +10,13 @@ th{
     width: 300px;
     position: absolute;
     display: none;
+    z-index: 2000;
 }
 .nota{
     width: 300px;
     position: absolute;
     display: none;
+    z-index: 2000;
 }
 a{
     border-radius: 50px;

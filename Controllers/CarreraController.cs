@@ -75,5 +75,16 @@ public class CarreraController : Controller
         else return null;
 
     }
+
+     [HttpGet("registros")]
+    public int Getcantidad([FromHeader] string token)
+    {
+
+        if (UsuarioConexion<usuario>.Instance.getUserToken(token))
+        {
+            return CarreraConexion<carrera>.Instance.cantidadRegistros;
+        }
+        else return 0;
+    }
 }
 
