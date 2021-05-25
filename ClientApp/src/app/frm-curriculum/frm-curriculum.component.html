@@ -17,7 +17,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('nombre').valid, 'has-error': (formCurriculum.get('nombre').touched || formCurriculum.get('nombre').dirty) && !formCurriculum.get('nombre').valid }"> -->
-
+                                    <label for="Nombre" >Nombre</label>
                                     <input  class="form-control" placeholder="Nombre" id="Nombre" type="text" required
                                         maxlength="45" formControlName="nombre" />
                                     <span class="help-block"
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="form-group"> 
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('apellido').valid, 'has-error': (formCurriculum.get('apellido').touched || formCurriculum.get('apellido').dirty) && !formCurriculum.get('apellido').valid }"> -->
-
+                                    <label for="Apellido" >Apellido</label>
                                     <input class="form-control" placeholder="Apellido" id="apellido" type="text"
                                         required maxlength="45" formControlName="apellido" />
                                     <span class="help-block"
@@ -43,6 +43,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="tipoDoc" >Tipo de documento</label>
                                     <select formControlName="tipodoc" id="tipoDoc" class="form-control custom-select">
                                         <option value="">Tipo de documento...</option>
                                         <option *ngFor="let tip of tiposDoc let i = index;" [value]="i">
@@ -53,7 +54,7 @@
 
                                 <div class="form-group">
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('numerodoc').valid, 'has-error': (formCurriculum.get('numerodoc').touched || formCurriculum.get('numerodoc').dirty) && !formCurriculum.get('numerodoc').valid }"> -->
-
+                                    <label for="Numerodoc" >Número de documento</label>
                                     <input class="form-control" placeholder="Número de documento" id="Numerodoc"
                                         type="number" required maxlength="45" formControlName="numerodoc" />
                                     <span class="help-block"
@@ -66,6 +67,7 @@
 
                                 <div class="form-group">
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('fechanac').valid, 'has-error': (formCurriculum.get('fechanac').touched || formCurriculum.get('fechanac').dirty) && !formCurriculum.get('fechanac').valid }"> -->
+                                    <label for="fechanac" >Fecha de nacimiento</label>
                                     <input class="form-control" placeholder="Fecha de nacimiento" id="fechanac"
                                         type="date" required maxlength="45" formControlName="fechanac" />
                                     <span class="help-block"
@@ -77,6 +79,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="sexo" >Género</label>
                                     <select formControlName="sexo" id="sexo" class="form-control custom-select">
                                         <option value="">Género...</option>
                                         <option *ngFor="let sex of sexos let i = index;" [value]="i">
@@ -96,7 +99,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('correo').valid, 'has-error': (formCurriculum.get('correo').touched || formCurriculum.get('correo').dirty) && !formCurriculum.get('correo').valid }"> -->
-
+                                    <label for="correo" >Correo electrónico</label>
                                     <input class="form-control" placeholder="Correo electrónico" id="correo" type="text"
                                         required maxlength="45" formControlName="correo" />
                                     <span class="help-block"
@@ -109,7 +112,7 @@
                                 </div>
                                 <div class="form-group"> 
                                     <!-- [ngClass]="{ 'has-success': formCurriculum.get('telefono').valid, 'has-error': (formCurriculum.get('telefono').touched || formCurriculum.get('telefono').dirty) && !formCurriculum.get('telefono').valid }"> -->
-
+                                    <label for="telefono" >Número de teléfono/celular</label>
                                     <input class="form-control" placeholder="Número de teléfono/celular" id="telefono"
                                         type="number" required maxlength="45" formControlName="telefono" />
                                     <span class="help-block"
@@ -121,6 +124,7 @@
 
                                 </div>
                                 <div class="form-group">
+                                    <label for="telefonodos" >Número de teléfono/celular alternativo</label>
                                     <input class="form-control" placeholder="Número de teléfono/celular alternativo"
                                         id="telefonodos" type="number" maxlength="45" formControlName="telefonodos" />
                                 </div>
@@ -138,6 +142,7 @@
 
                             <div class="col-md-8">
                                 <div class="form-group">
+                                    <label for="pais" >Pais</label>
                                     <select (change)="onChangePais()"  id="pais" [value]="idpais"
                                         class="form-control custom-select">
                                         <option value="0">Pais...</option>
@@ -147,6 +152,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="provincia" >Provincia</label>
                                     <select (change)="onChangeProvincia()"  id="provincia"
                                         class="form-control custom-select">
                                         <option value="0">Provincia...</option>
@@ -155,9 +161,13 @@
                                         </option>
                                     </select>
                                 </div>
-                                
-                                <div class="input-group mb-3">
+                               
+                                <label for="aux" >Localidad</label>
+                                <div id="aux" class="input-group mb-3">
+                                    
+                                    
                                     <div class="form-group">
+                                       
                                         <select (change)="onChangeLocalidad()" id="localidad"
                                             class="form-control custom-select">
                                             <option value="">Localidad...</option>
@@ -169,11 +179,11 @@
                                     </div>
                                      
                                     <input id="inputlocalidad" disabled placeholder="Otra localidad..." type="text" class="form-control" >
-                                  </div>
+                                </div>
                                 
 
                                 <div class="form-group">
-
+                                    <label for="domicilio" >Domicilio</label>
                                     <input class="form-control" placeholder="Domicilio" id="domicilio" type="text" required
                                         maxlength="45"  />
                                     
