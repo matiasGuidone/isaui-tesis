@@ -117,7 +117,6 @@ import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configura
     AbmformulaComponent,
     FrmControlregularidadesComponent,
     ConfiguracionUsuarioComponent
-
   ],
   entryComponents: [MyModalComponent],
   imports: [
@@ -127,7 +126,6 @@ import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configura
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-
       { path: '', component: HomeComponent, canActivate: [GuardAutogestion] },
       { path: 'autogestion', component: HomeComponent, canActivate: [GuardAutogestion] },
       { path: 'configuracion-usuario', component: ConfiguracionUsuarioComponent, canActivate: [GuardAutogestion] },

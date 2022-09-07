@@ -12,7 +12,7 @@ import { PeticionesService } from '../services/peticiones.service';
 export class FrmConsultaasistenciasComponent implements OnInit {
   arrayValores: string[] = new Array<string>();
   lista: any[];
-  constructor(public servicio:PeticionesService,private modalService: ModalService) { 
+  constructor(public servicio:PeticionesService,private modalService: ModalService) {
 
     //let obj = new Object({ 'Nombre/Apellido estudiante': '', 'Carrera': '' ,'Curso':'','Fecha desde': new Date(),'Fecha hasta': new Date()});
     this.modalService.setCaseEstado('filtroAsistencias');
@@ -26,12 +26,18 @@ export class FrmConsultaasistenciasComponent implements OnInit {
     if(list.length == 0){
         this.abrirModal("Datos filtrados", "No se encontraron datos con los criterios de búsqueda empleados", 2, null).subscribe(el=> console.log(el));
     }
+    for (let index = 0; index < list.length; index++) {
+      if(list[index].cantidadModulos < list[index].modulosPresente){
+        list[index].modulosPresente = list[index].cantidadModulos;
+      }
+
+    }
     this.lista = list;
   }
 
   abrirModal(titulo: string, mensaje: string, tipo: number, menu: any): Observable<any> {
-    const modalRef = 
-    this.modalService.open(MyModalComponent, 
+    const modalRef =
+    this.modalService.open(MyModalComponent,
       { title: titulo, message: mensaje, tipo: tipo, parametros: menu });
     return modalRef.onResult();
   }

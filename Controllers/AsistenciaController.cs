@@ -58,8 +58,13 @@ public class AsistenciaController : Controller
         if (UsuarioConexion<usuario>.Instance.getUserToken(token))
         {
         if(arrayfiltros.Any(p => p == "idmateria")){
+
+            if(arrayfiltros.Any(p => p == "fecha")){
+                return AsistenciaConexion<asistencia>.Instance.SearchPorMateria(Convert.ToInt32(arrayfiltros[1]), arrayfiltros[3]);
+            }
             return AsistenciaConexion<asistencia>.Instance.SearchPorMateria(Convert.ToInt32(arrayfiltros[1]));
         }
+        
         else{
         return AsistenciaConexion<asistencia>.Instance.SearchAll(arrayfiltros);
         }

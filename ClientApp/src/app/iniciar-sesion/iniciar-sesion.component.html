@@ -1,8 +1,8 @@
 
 <div style="min-block-size:-webkit-fill-available;" class="row align-items-center justifi-content-center vh-100">
-    
+
 <div   style="justify-items: center;" class="col form-signin border align-self-center" id="formjs">
-    
+
     <h1 style="text-align: center;" class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
     <label for="nCuenta"  class="sr-only">Usuario</label>
     <input type="text" (keydown)="enterLogin($event)" [(ngModel)]="nCuenta"  id="name" name="nCuenta" id="inputLegajo" class="form-control mb-3" placeholder="Usuario" required autofocus>
@@ -10,17 +10,17 @@
     <input type="password"  (keydown)="enterLogin($event)" [(ngModel)]="nClave" name="nClave"  id="inputPassword" class="form-control" placeholder="Contraseña" >
     <div class="checkbox mb-3">
     </div>
- 
+
     <button (click)="onLogin()"  class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
     <br>
     <button class="btn btn-block btn-info" (click)="signupcv()">crear cuenta de curriculum</button>
-    
-    <p class="mt-5 mb-3 text-muted">ISAUI</p>
+
+    <p class="mt-5 mb-3 text-muted">ISAUI - Sistema Autogestión - {{version}}</p>
   </div>
- 
-    
+
+
   <form novalate [formGroup]="formUsuario" style="display: none; justify-items: center;" class="col form-signin border align-self-center" id="formjs2">
-      
+
       <h1 style="text-align: center;" class="h3 mb-3 font-weight-normal">Crear usuario</h1>
       <label for="inputLegajo"  class="sr-only">Usuario</label>
       <input required [ngClass]="{ 'has-success': formUsuario.get('usuario').value.length >= 8 }"
@@ -34,7 +34,7 @@
       <input required [ngClass]="{ 'has-success': formUsuario.get('contra').value == formUsuario.get('contra2').value }" type="password"  formControlName="contra2" class="form-control" placeholder="Repetir contraseña">
       <div class="checkbox mb-3">
       </div>
-   
+
       <button (click)="onSignup()" [disabled]="validar()" class="btn btn-lg btn-primary btn-block" type="submit">Crear cuenta</button>
       <br>
       <div *ngIf="loading" class="my-2">
@@ -43,7 +43,6 @@
          </div>
         </div>
       <button class="btn btn-block btn-danger" (click)="volver()">volver</button>
-      <p class="mt-5 mb-3 text-muted">ISAUI</p>
+      <p class="mt-5 mb-3 text-muted">ISAUI - Sistema Autogestión - {{version}}</p>
     </form>
   </div>
- 

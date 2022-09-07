@@ -2,45 +2,47 @@
         <h3>Asistencias</h3>
              <hr>
              <div *ngIf="this.rol.nombrerol.toString()!='Docente'" class="form-group my-2">
-                <h5 class="col-md-2 control-label">Cursos: </h5> 
+                <h5 class="col-md-2 control-label">Cursos: </h5>
              <div class="col-md-6">
              <select (change)="seleccionarCurso()" class="form-control" id="curso" >
                 <option *ngFor="let curso of cursos"  [value]="curso.id" >
                      {{curso.nombre}}
                 </option>
              </select>
-             
-            </div> 
+
+            </div>
         </div>
              <div class="form-group">
-                <h5 class="col-md-2 control-label">Materias: </h5> 
+                <h5 class="col-md-2 control-label">Materias: </h5>
              <div class="col-md-6">
              <select (change)="seleccionarMateria()" class="form-control" id="materia" >
                 <option *ngFor="let materia of materias"  [value]="materia.id" >
                      {{materia.nombre}}
                 </option>
              </select>
-             
+
             </div>
              </div>
 <hr>
+<div class="float-right"><button (click)="prevsemana()" class="btn btn-primary">Prev</button>
+<button (click)="segusemana()" class="btn btn-primary">Sigu</button></div>
 <table [class]="this.servicio.classtable2" >
     <thead>
-        <th scope="col">estudiantes</th> 
-        <th scope="col" *ngFor="let dia of dias" id="d{{dia.numero}}" ><a *ngIf="dia.diasemana != 0 && dia.diasemana!=6" class="lead">{{dia.numero}}</a></th>
+        <th scope="col" style="padding: .1rem;"  ><small>Estudiantes</small> </th>
+        <th scope="col" style="padding: .1rem;" *ngFor="let dia of dias" id="d{{dia.numero}}" ><small *ngIf="dia.diasemana != 0 && dia.diasemana!=6">{{dia.numero}}-{{year}}</small></th>
     </thead>
     <tbody>
         <tr *ngFor="let estudiante of estudiantes let i = index;">
-            <td>{{estudiante.apellido}},&nbsp;{{estudiante.nombre}} </td>
-            
-        <th scope="col" *ngFor="let dia of dias"  id="celda{{dia.numero}}-{{i}}" >
-            <small *ngIf="dia.diasemana != 0 && dia.diasemana!=6"  (click)="cambiarCheck(dia,i)" style="margin-left:0px;padding:7px;">{{dia.sem}}</small>
+            <td style="padding: .1rem;"  ><small>{{estudiante.apellido}},&nbsp;{{estudiante.nombre}}</small> </td>
+
+        <th style="padding: .1rem;" scope="col" *ngFor="let dia of dias"  id="celda{{dia.numero}}-{{i}}" >
+            <small (click)="cambiarCheck(dia,i)" *ngIf="dia.diasemana != 0 && dia.diasemana!=6"  style="margin-left:0px;padding:7px;">{{dia.sem}}</small>
             <br />
         </th>
-         
-        
+
+
         </tr>
     </tbody>
 </table>
-<button id="aceptar" style="display: none;" (click)="registrarAsistencias()" class="btn btn-info">Aceptar selección</button>
+<button id="aceptar" style="display: none;" title="Tomar asistencias" (click)="registrarAsistencias()" class="btn btn-success float-right btn-float"><span class="fa fa-check"></span></button>
 </div>

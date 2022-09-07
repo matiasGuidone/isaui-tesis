@@ -1,4 +1,4 @@
 <cfg>
-<mariadb>datasource=localhost;port=3306;username=root;password=;database=test_isaui;Allow User Variables=true;</mariadb>
+<mariadb>datasource=localhost;port=3306;username=root;password=matias;database=isaui;Allow User Variables=true;</mariadb>
 <limiteregistros>100</limiteregistros>
 </cfg>

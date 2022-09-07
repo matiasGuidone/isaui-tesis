@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
+            "command": "/home/matias/dotnet/dotnet",
             "type": "process",
             "args": [
                 "build",

@@ -1,7 +1,7 @@
 <header>
   <nav [class]="this.servicio.classnav">
     <div class="container">
-      <a class="navbar-brand"><img [class]="this.servicio.classimg" style="width:160px;"
+      <a class="navbar-brand">Autogestión - <img [class]="this.servicio.classimg" style="width:80px;"
           [src]="'/assets/Logo.png'" alt="ISAUI" (click)="IrHome()"></a>
       <nav *ngIf="this.modalService.lista && this.modalService.lista.length > 0" aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -64,29 +64,29 @@
           </li>
           <li></li>
            <li class="nav-item dropdown"  [routerLinkActive]="['link-active']" *ngIf="estaEnSesion()">
-             
+
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"> 
-              <img [src]="logservicio.foto" alt="{{usuario}}" class="d-inline-block align-left mx-2"   height="25" >
-              {{usuario}} 
+              aria-haspopup="true" aria-expanded="false">
+              <!-- <img [src]="logservicio.foto" alt="{{usuario}}" class="d-inline-block align-left mx-2"   height="25" > -->
+              Usuario
             </a>
            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              
+
             <a class="dropdown-item" (click)="cerrarSesion()">Cerrar sesión</a>
-              
+
                 <a class="dropdown-item" [routerLink]="['/configuracion-usuario']">Configuración</a>
-              
-              
+
+
 
             </div>
-          </li> 
-          
+          </li>
+
         </ul>
       </div>
     </div>
   </nav>
 </header>
- 
+
 <div id="ayuda" [ngStyle]="{'opacity': opacityChange, 'transition': splashTransition }"  class="alert alert-success" role="alert">
 
   <button type="button" class="close" (click)="toggleayuda()" aria-label="Close">
@@ -100,7 +100,7 @@
       <hr>
       <p class="mb-0">Autogestión ISAUI</p></div>
   </div>
-  
-  
-  
+
+
+
 </div>

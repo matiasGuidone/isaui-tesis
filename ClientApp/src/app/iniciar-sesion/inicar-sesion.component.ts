@@ -19,15 +19,16 @@ export class IniciarSesionComponent implements OnInit {
   nCuenta: string;
   nClave: string;
   loading = false;
+  version = 'ver. 1.1'
 
   formUsuario: FormGroup = this.formbuilder.group({
     usuario: '',
     contra: '',
-    contra2: '', 
+    contra2: '',
   });
 
-  constructor(public servicio: PeticionesService, private formbuilder: FormBuilder, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) { 
-   
+  constructor(public servicio: PeticionesService, private formbuilder: FormBuilder, private autS: AuthLoginService, protected modalService: ModalService, private router: Router) {
+
   }
 
   onLogin() {
@@ -43,7 +44,7 @@ export class IniciarSesionComponent implements OnInit {
               let json = JSON.parse(res.toString());
               this.autS.saveToken(json.accessToken, json.expiresIn, JSON.stringify(json.componentes), JSON.stringify(json.rol));
               this.autS.componenteGuard = "autogestion"; this.loading = false; this.router.navigate(['autogestion']);
-              
+
             });
           });
         }
@@ -60,7 +61,7 @@ export class IniciarSesionComponent implements OnInit {
         this.abrirModal("Inicio de sesión", "El usuario y contraseña ingresados no son válidos", 2, null).subscribe(n => { console.log(n); });
       }
     );
-     
+
     this.LimpiarCampos();
   }
 
@@ -68,7 +69,7 @@ export class IniciarSesionComponent implements OnInit {
     //control de valores de input
     this.loading = true;
     let usu = new usuario({'id':'0',
-    'nombre':this.formUsuario.get('usuario').value, 
+    'nombre':this.formUsuario.get('usuario').value,
     'codigo':this.formUsuario.get('contra').value,
     'codigoayuda':'',
     'correo': document.getElementById("correo")['value'],
@@ -124,7 +125,7 @@ export class IniciarSesionComponent implements OnInit {
   }
 
   validar(){
-    if(this.formUsuario.get('usuario').value.length >= 8 
+    if(this.formUsuario.get('usuario').value.length >= 8
     && this.formUsuario.get('contra').value.length >= 8
     && this.formUsuario.get('contra').value == this.formUsuario.get('contra2').value
     && this.formUsuario.valid )

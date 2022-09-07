@@ -17,12 +17,19 @@ using System.Collections.Generic;
         private AsistenciaConexion(asistencia aux): base(aux){ 
             
         }
-        public List<asistencia> SearchPorMateria( Int32 idmateria )
+        public List<asistencia> SearchPorMateria( Int32 idmateria , string fecha = null )
         {  
+            string fechstr = "CURDATE()";
+            if(fecha != null){
+                string year = fecha.Split('/')[2];
+                string month = fecha.Split('/')[1];
+                string day = fecha.Split('/')[0];
+                fechstr = $" '{year}-{month}-{day}' ";
+            }
             string consulta =   $"select asistencia.* from asistencia where "+
                                 $"asistencia.idhoramateria in (select id from"+
                                 $" horasmateria where idmateria = {idmateria})"+
-                                $" and asistencia.fecha > CURDATE() - INTERVAL 7 DAY";
+                                $" and asistencia.fecha > {fechstr} - INTERVAL 7 DAY";
             
             return (List<asistencia>)Conexion.consultaList<asistencia>(consulta);
         }

@@ -36,7 +36,9 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
   iddocente = null;
   rol: any;
   cursos: any[];
-
+  year: string;
+  semanaEnMiliseg = 1000 * 60 * 60 * 24 * 6;
+  semanaactual = 1;
 
   constructor(protected location: Location,
     protected modalService: ModalService,
@@ -44,9 +46,25 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
     protected logservicio: AuthLoginService) {
     super(location, modalService, servicio, logservicio);
     //**array de dias */
-    let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 6;
-    //let dia = 1000 * 60 * 60 * 12; 
+    this.recalcularinicio(this.semanaactual);
+    //let dia = 1000 * 60 * 60 * 12;
+
+  }
+
+  prevsemana(){
+    this.semanaactual = this.semanaactual+(1.5);
+    this.recalcularinicio(this.semanaactual, false);
+  }
+  segusemana(){
+    this.semanaactual = this.semanaactual-(1.5);
+    this.recalcularinicio(this.semanaactual, false);
+  }
+
+  recalcularinicio(arg0: number, reloaded = true) {
+    this.dias = new Array<any>();
+    let semanaEnMilisegundos = this.semanaEnMiliseg*arg0;
     let desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
+    this.year = desde.getFullYear().toString();
     this.servicio.loadGrilla('evento',['tipo','feriado','ano',this.hoy.getFullYear().toString()]).subscribe(resul=>{
       desde = new Date(this.hoy.getTime() - semanaEnMilisegundos);
       for(let f of resul){
@@ -57,32 +75,38 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
           if(this.formatearFecha(eve.fechainicio,'')!= this.formatearFecha(eve.fechafin,'')){
             let daux = new Date();
             daux.setDate(eve.fechainicio.getDate() + 1);
-            for(let n of this.dias){ 
+            for(let n of this.dias){
               this.feriados.push(this.formatearFecha(daux,''));
               if(this.formatearFecha(daux,'') == this.formatearFecha(eve.fechafin,'')){
                 break;
-              } 
+              }
               else{daux.setDate(daux.getDate() + 1);}
             }
           }
         }
       }
     });
-    
+
     let semana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-    for (var i = 0; i < 13; i++) {
+    for (var i = 0; i < 17; i++) {
         this.dias.push({ 'numero': this.formatearFecha(desde, ''), 'diasemana': desde.getUTCDay(), 'sem': semana[desde.getUTCDay()] });
-        desde.setDate(desde.getDate() + 1); 
+        desde.setDate(desde.getDate() + 1);
     }
     this.rol = JSON.parse(localStorage.getItem("Rol"));
-     if(this.rol.nombrerol.toString()=="Docente"){
-      this.servicio.loadGrilla('materia',['iddocente',this.rol.id.toString()]).subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
-     }
-     else{
-      this.servicio.loadGrilla('curso').subscribe(cursos => {
-        this.cursos = cursos;
-     this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });});
+    if(reloaded){
+      if(this.rol.nombrerol.toString()=="Docente"){
+            this.servicio.loadGrilla('materia',['iddocente',this.rol.id.toString()]).subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });
+          }
+          else{
+            this.servicio.loadGrilla('curso').subscribe(cursos => {
+              this.cursos = cursos;
+          this.servicio.loadGrilla('materia').subscribe(resultado => { this.materias = resultado; this.seleccionarMateria(this.materias[0].id); });});
+          }
     }
+    else{
+      this.seleccionarMateria(document.getElementById('materia')['value']);
+    }
+
   }
 
   ngOnInit(): void {
@@ -109,7 +133,7 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
   seleccionarMateria(idin = null) {
     document.getElementById('aceptar').style.display='none';
     this.estudiantes = new Array<estudiante>();
-    
+
     let id = document.getElementById('materia')['value'];
     if(id==""||id==null){
       id=idin;
@@ -140,15 +164,21 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
 
   }
 
- 
+
   cargarGrilla(){
         this.servicio.loadGrilla('horasmateria', ['idmateria', document.getElementById('materia')['value']])
           .subscribe(hor => {
             this.horamateria = hor;
-            this.servicio.loadGrilla('asistencia',['idmateria',document.getElementById('materia')['value']])
+            let filter = ['idmateria',document.getElementById('materia')['value']]
+            if(this.semanaactual != 1){
+              let fecha = new Date();
+              fecha.setDate(fecha.getDate() + (this.semanaactual - 1) * 7 *(-1));
+              filter = ['idmateria',document.getElementById('materia')['value'], 'fecha' , fecha.toLocaleString() ]
+            }
+            this.servicio.loadGrilla('asistencia',filter)
               .subscribe(res =>{
                 this.asistencias= res;
-              
+
             //carga de materias en la grilla
             for (let n of this.horamateria) {
               let dias = new Array<any>();
@@ -171,9 +201,9 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
               for (let m of dias) {
                 for (var i = 0; i < this.estudiantes.length; i++) {
                   let celda = document.getElementById('celda' + m.numero.toString() + '-' + i.toString());
-                  
-                  let f = new Date("2020-"+m.numero.toString().substring(3,5)+"-"+m.numero.toString().substring(0,2));
-                  let f2 = new Date("2020-"+this.hoyr.substring(3,5)+"-"+this.hoyr.substring(0,2));
+                  let year = new Date().getFullYear();
+                  let f = new Date(year.toString()+'-'+m.numero.toString().substring(3,5)+"-"+m.numero.toString().substring(0,2));
+                  let f2 = new Date(year.toString()+'-'+this.hoyr.substring(3,5)+"-"+this.hoyr.substring(0,2));
                   if ( f > f2 ){
                   celda.style.backgroundColor = "#22587c93";
                   celda.style.border = "1px solid #308bc8";}
@@ -185,13 +215,14 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
                     const ass = document.createElement('input');
                     ass.type = "checkbox";
                     ass.style.width = "15px"
+                    //ass.onclick = function(){return false;}
                     ass.className = "btn-info";
                     ass.checked = true;
                     ass.id = this.estudiantes[i].id.toString() + '-' + n.id.toString();
                     celda.appendChild(ass);
                     // si existen registros para aprobar se habilita el botón aceptar
                     document.getElementById('aceptar').style.display='block';
-                
+
                   }
                   else if(filtro.find(c =>c == m.numero.toString())){
                     celda.style.backgroundColor = "#22587c93";
@@ -239,17 +270,49 @@ export class FrmAsistenciaComponent extends abm<asistencia> implements OnInit {
       for (var i = 0; i < this.estudiantes.length; i++) {
 
         let ass = document.getElementById(this.estudiantes[i].id.toString() + '-' + m.id.toString());
+
         if(ass!= null){
-        if (ass['checked'] == true) {
+          let nodesii = document.querySelectorAll(`[id='${this.estudiantes[i].id.toString() + '-' + m.id.toString()}']`);
+          if (nodesii.length > 1){
+            nodesii.forEach(element => {
+              let d = this.dias.filter(dia => dia.diasemana == m.numsemana);
+              for (let dater of d){
+
+                if(element['checked'] == true){
+                  let date = new Date().getFullYear()+'-'+dater.numero.substring(3,5)+'-'+dater.numero.substring(0,2);
+                  let dda = new Date(date);
+                  let ifexist = asistencias.find(val => ( val.fecha.toLocaleDateString() == dda.toLocaleDateString() && val.idhoramateria == m.id && val.idestudiante == this.estudiantes[i].id ) );
+                  if(!ifexist){
+                    asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idestudiante': this.estudiantes[i].id.toString() }));
+                  }
+
+                }
+                else{
+                  let date = new Date().getFullYear()+'-'+dater.numero.substring(3,5)+'-'+dater.numero.substring(0,2);
+                  let dda = new Date(date)
+                  let ifexist = asistencias.findIndex(val => ( val.fecha.toLocaleDateString() == dda.toLocaleDateString() && val.idhoramateria == m.id && val.idestudiante == this.estudiantes[i].id ) );
+                  if(ifexist >= 0){
+                    asistencias.splice(ifexist,1);
+                  }
+                }
+
+              }
+
+            });
+          }
+          else{
+             if (ass['checked'] == true) {
               let d = this.dias.find(dia => dia.diasemana == m.numsemana);
               let date = new Date().getFullYear()+'-'+d.numero.substring(3,5)+'-'+d.numero.substring(0,2);
               asistencias.push(new asistencia({ 'id': '0', 'fecha': date, 'idhoramateria': m.id.toString(), 'idestudiante': this.estudiantes[i].id.toString() }));
-            
+            }
           }
+
 
         }
       }
       }
+      console.log(asistencias);
     this.servicio.addSingleAbm(asistencias,'asistencia').subscribe(res =>{
       this.abrirModal('Almacenado exitoso','El registro de asistencias se concretó con éxito', 2, i).subscribe(r =>{
         this.seleccionarMateria();
